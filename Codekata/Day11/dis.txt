@@ -36,3 +36,100 @@ function toh(n,a,c,b):
     toh(n-1,a,b,c)
     move n a->c  
     toh(n-1,b,c,a)
+
+
+
+Backtracking n queen 
+n=4 
+
+empty 
+    +(0,0) Qx 
+        +(1,0) Cx 
+        +(1,1) MDx 
+        +(1,2) Qx
+            +(2,0) Cx 
+            +(2,1) ADx 
+            +(2,2) MDx Cx 
+            +(2,3) MDx
+        (back) 
+        +(1,3) Qx
+            +(2,0) Cx 
+            +(2,1) Qx 
+                +(3,0) Cx ADx 
+                +(3,1) Cx ADx 
+                +(3,2) MDx 
+                +(3,3) MDx Cx 
+            (back)
+            +(2,2) ADx MDx
+            +(2,3) Cx 
+            (back)
+            (back)
+    +(0,1) Q
+        +
+
+
+boolean col[n]      true/false 
+boolean d1[n*2]     1..7 true/false 
+boolean d2[n*2]     0..6 true/false 
+
+
+5
+Q....
+..Q..
+....Q
+.Q...
+...Q.
+
+Q....
+...Q.
+.Q...
+....Q
+..Q..
+
+.Q...
+...Q.
+Q....
+..Q..
+....Q
+
+.Q...
+....Q
+..Q..
+Q....
+...Q.
+
+..Q..
+Q....
+...Q.
+.Q...
+....Q
+
+..Q..
+....Q
+.Q...
+...Q.
+Q....
+
+...Q.
+Q....
+..Q..
+....Q
+.Q...
+
+...Q.
+.Q...
+....Q
+..Q..
+Q....
+
+....Q
+.Q...
+...Q.
+Q....
+..Q..
+
+....Q
+..Q..
+Q....
+...Q.
+.Q...

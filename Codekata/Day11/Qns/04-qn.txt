@@ -1,0 +1,113 @@
+04
+"N-Queens Problem", 
+"Given an integer N, 
+ place N queens on an N×N chessboard 
+ so that no two queens threaten each other. 
+ Print all possible solutions.", 
+ "Medium", 
+ "LeetCode, Facebook"
+ ----------------------------------
+Problem Title:
+    N-Queens Problem
+
+Problem Description:
+    Given an integer N, 
+    place N queens on an N×N chessboard 
+    so that no two queens threaten each other. 
+    
+    A queen can attack another queen 
+    if they are on the same row, column, or diagonal. 
+    
+    Your task is to print all possible distinct solutions 
+    to the N-Queens problem. 
+    Each solution should be represented as a list of strings, 
+    where each string represents a row of the chessboard, 
+    and 'Q' indicates a queen 
+    and '.' indicates an empty space.
+
+Input Format:
+- A single integer N (1 ≤ N ≤ 9), 
+  the size of the chessboard and the number of queens to place.
+
+Output Format:
+- Print all possible solutions. 
+  For each solution, print N lines representing the chessboard configuration. 
+  Separate different solutions by a blank line. 
+  If there are no solutions, print "No solution".
+
+Constraints:
+- 1 ≤ N ≤ 9
+
+Sample Input:
+4
+
+Sample Output:
+.Q..
+...Q
+Q...
+..Q.
+
+..Q.
+Q...
+...Q
+.Q..
+
+Explanation:
+There are two possible ways to place 4 queens on a 4x4 chessboard 
+so that no two queens threaten each other. 
+Each solution is printed as N lines, 
+with 'Q' for a queen and '.' 
+for an empty cell. 
+Solutions are separated by a blank line.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+    Input:
+    1
+    Output:
+    Q
+
+Test Case 2:
+    Input:
+    2
+    Output:
+    No solution
+
+Test Case 3:
+    Input:
+    3
+    Output:
+    No solution
+
+Test Case 4:
+    Input:
+    4
+    Output:
+    .Q..
+    ...Q
+    Q...
+    ..Q.
+
+    ..Q.
+    Q...
+    ...Q
+    .Q..
+
+Test Case 5:
+    Input:
+    5
+    Output:
+    Q.... 
+    ..Q..
+    ....Q
+    .Q...
+    ...Q.
+
+    Q....
+    ...Q.
+    .Q...
+    ....Q
+    ..Q..

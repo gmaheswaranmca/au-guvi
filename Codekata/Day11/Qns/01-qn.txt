@@ -29,7 +29,8 @@ Output Format:
     "Move disk X from rod A to rod B", 
     where X is the disk number, 
     A is the source rod, and 
-    B is the destination rod.
+    C is the destination rod.
+    B is auxiliary rod. 
 
 Constraints:
     - 1 ≤ N ≤ 15
@@ -137,3 +138,4 @@ Test Case 5:
         Move disk 1 from rod B to rod A
         Move disk 2 from rod B to rod C
         Move disk 1 from rod A to rod C
+
