@@ -1,0 +1,24 @@
+-  A graph is a non-linear data structure 
+   made up of vertices (nodes) and edges (connections). 
+   It is used to represent networks 
+   like social connections, maps, the internet, 
+   dependency structures, and more.
+    🔹 Types of Graphs:
+        * Directed vs Undirected: Edges have direction or not.
+        * Weighted vs Unweighted: Edges may carry weights (e.g., distances, costs).
+        * Cyclic vs Acyclic: May or may not contain cycles.
+        * Connected vs Disconnected: Whether all nodes are reachable from each other.
+        * Simple vs Multigraph: No multiple edges between the same pair vs allowing them.
+
+    🔹 Representation:
+        * Adjacency Matrix: 2D array showing connections.
+        * Adjacency List: List of nodes with their neighbors (space-efficient).
+
+    🔹 Applications:
+        * Shortest path finding (Dijkstra, Bellman-Ford)
+        * Topological sort (DAG)
+        * Network routing
+        * Cycle detection
+        * Social network analysis
+        * Game AI and puzzles
+    

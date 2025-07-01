@@ -1,0 +1,92 @@
+01 "Find Path in Undirected Graph", 
+"Given an undirected graph and two nodes, determine if there is a path between them using DFS or BFS.", 
+"Easy", 
+"LeetCode, HackerRank, Google"
+----------------------------------
+Problem Title:
+Find Path in Undirected Graph
+
+Problem Description:
+Given an undirected graph represented as a list of edges and two distinct nodes, determine if there exists a path between the two nodes. You may use either Depth-First Search (DFS) or Breadth-First Search (BFS) to solve this problem.
+
+Input Format:
+- The first line contains two integers n and m, where n is the number of nodes (numbered from 0 to n-1), and m is the number of edges.
+- The next m lines each contain two integers u and v, representing an undirected edge between nodes u and v.
+- The last line contains two integers start and end, representing the nodes between which you need to determine if a path exists.
+
+Output Format:
+- Print "Yes" if there is a path between start and end, otherwise print "No".
+
+Constraints:
+- 2 ≤ n ≤ 10^5
+- 1 ≤ m ≤ 2×10^5
+- 0 ≤ u, v, start, end < n
+- u ≠ v
+- The graph may contain self-loops and multiple edges.
+
+Sample Input:
+5 4
+0 1
+1 2
+2 3
+3 4
+0 4
+
+Sample Output:
+Yes
+
+Explanation:
+There is a path from node 0 to node 4: 0-1-2-3-4.
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input:
+4 2
+0 1
+2 3
+0 3
+Output:
+No
+
+Test Case 2:
+Input:
+3 3
+0 1
+1 2
+2 0
+0 2
+Output:
+Yes
+
+Test Case 3:
+Input:
+6 5
+0 1
+1 2
+2 3
+3 4
+4 5
+0 5
+Output:
+Yes
+
+Test Case 4:
+Input:
+5 2
+0 1
+3 4
+0 4
+Output:
+No
+
+Test Case 5:
+Input:
+2 1
+0 1
+0 1
+Output:
+Yes
+----------------------------------
