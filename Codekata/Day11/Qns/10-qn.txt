@@ -1,0 +1,94 @@
+10
+"Subset Sum Problem", 
+"Given a set of integers, 
+ determine if there is a subset 
+ whose sum equals a given target using recursion.", 
+"Medium", 
+"GeeksforGeeks, Amazon"
+----------------------------------
+Problem Title: Subset Sum Problem
+
+Problem Description:
+    Given a set of integers and a target sum, 
+    determine whether there exists a subset of the given set 
+    whose sum is exactly equal to the target sum. 
+    
+    If such a subset exists, 
+    print "Yes", 
+    otherwise print "No".
+
+Input Format:
+    - The first line contains two integers N and S, 
+      where N is the number of elements in the set and 
+      S is the target sum.
+    - The second line contains N space-separated integers 
+      representing the elements of the set.
+
+Output Format:
+    - Print "Yes" if there exists a subset 
+      whose sum is equal to S, 
+      otherwise print "No".
+
+Constraints:
+    - 1 ≤ N ≤ 20
+    - -10^4 ≤ Each element of the set ≤ 10^4
+    - -10^5 ≤ S ≤ 10^5
+
+Sample Input 1:
+5 9
+3 34 4 12 5
+
+Sample Output 1:
+Yes
+
+Explanation 1:
+There exists a subset {4, 5} whose sum is 9.
+
+Sample Input 2:
+4 11
+1 2 3 4
+
+Sample Output 2:
+No
+
+Explanation 2:
+No subset sums up to 11.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+    Input:
+    3 0
+    1 2 3
+    Output:
+    Yes
+
+Test Case 2:
+    Input:
+    6 10
+    2 3 7 8 10 13
+    Output:
+    Yes
+
+Test Case 3:
+    Input:
+    4 7
+    2 4 6 8
+    Output:
+    No
+
+Test Case 4:
+    Input:
+    5 -2
+    -1 -2 -3 4 5
+    Output:
+    Yes
+
+Test Case 5:
+    Input:
+    1 5
+    5
+    Output:
+    Yes

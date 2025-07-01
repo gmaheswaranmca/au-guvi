@@ -1,0 +1,85 @@
+12
+"Palindrome Partitioning", 
+"Partition a string such that every substring is a palindrome. 
+ Return all possible palindrome partitioning 
+ using recursion and backtracking.", 
+"Medium", 
+"LeetCode, Facebook"
+----------------------------------
+Problem Title: Palindrome Partitioning
+
+Problem Description:
+    Given a string s, 
+    partition s such that every substring of the partition is 
+    a palindrome. 
+    
+    Return all possible palindrome partitioning of s 
+    using recursion and backtracking.
+
+Input Format:
+    - A single line containing the string s.
+
+Output Format:
+    - Print each possible palindrome partitioning 
+      on a separate line.
+    - Each partitioning should be represented as 
+      a list of strings (substrings), separated by spaces.
+
+Constraints:
+    - 1 ≤ length of s ≤ 16
+    - s consists of lowercase English letters only.
+
+Sample Input:
+aab
+
+Sample Output:
+a a b
+aa b
+
+Explanation:
+There are two palindrome partitionings for "aab":
+1. ["a", "a", "b"]
+2. ["aa", "b"]
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+aab
+Output:
+a a b
+aa b
+
+Test Case 2:
+Input:
+racecar
+Output:
+r a c e c a r
+r a c ec a r
+r aceca r
+racecar
+
+Test Case 3:
+Input:
+aaa
+Output:
+a a a
+a aa
+aa a
+aaa
+
+Test Case 4:
+Input:
+abc
+Output:
+a b c
+
+Test Case 5:
+Input:
+level
+Output:
+l e v e l
+l eve l
+level

@@ -1,0 +1,104 @@
+11
+"Combination Sum", 
+"Find all unique combinations in an array 
+ where the numbers sum to a target. 
+ Each number may be used unlimited times. 
+ 
+ Use recursion and backtracking.", 
+
+"Medium", 
+"LeetCode, Microsoft"
+
+----------------------------------
+
+Problem Title: Combination Sum
+
+Problem Description:
+    Given an array of distinct integers and a target integer, 
+    find all unique combinations in the array 
+    where the numbers sum to the target. 
+    
+    Each number in the array may be used 
+    an unlimited number of times in the combination. 
+    
+    The solution set must not contain duplicate combinations.
+
+Input Format:
+    - The first line contains two integers N and T, 
+    where N is the number of elements in the array and 
+    T is the target sum.
+    - The second line contains N distinct integers 
+    representing the array.
+
+Output Format:
+    - Print all unique combinations, 
+    one per line. Each combination should be printed as 
+    space-separated integers in non-decreasing order.
+    - If there are no valid combinations, 
+    print "No combination found".
+
+Constraints:
+    - 1 ≤ N ≤ 20
+    - 1 ≤ array[i] ≤ 100
+    - 1 ≤ T ≤ 500
+
+Sample Input:
+4 7
+2 3 6 7
+
+Sample Output:
+2 2 3
+7
+
+Explanation:
+There are two unique combinations that sum to 7: [2,2,3] and [7].
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3 8
+2 3 5
+Output:
+2 2 2 2
+2 3 3
+3 5
+
+Test Case 2:
+Input:
+2 3
+2 4
+Output:
+No combination found
+
+Test Case 3:
+Input:
+5 10
+2 3 5 7 8
+Output:
+2 2 2 2 2
+2 2 3 3
+2 3 5
+2 8
+3 7
+5 5
+
+Test Case 4:
+Input:
+1 5
+5
+Output:
+5
+
+Test Case 5:
+Input:
+4 9
+2 4 6 8
+Output:
+2 2 2 3
+2 2 5
+2 7
+3 3 3
+5 4

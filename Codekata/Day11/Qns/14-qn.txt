@@ -1,0 +1,64 @@
+14
+"Generate Parentheses", 
+"Given n pairs of parentheses, 
+ write a function to generate all combinations of 
+ well-formed parentheses using recursion.", 
+"Medium", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title:
+    Generate Parentheses
+
+Problem Description:
+    Given n pairs of parentheses, 
+    write a function 
+    to generate all possible combinations of 
+    well-formed parentheses using recursion.
+
+Input Format:
+    - A single integer n, 
+      representing the number of pairs of parentheses.
+
+Output Format:
+    - A list of strings, 
+      where each string represents 
+      a valid combination of well-formed parentheses.
+
+Constraints:
+    - 1 <= n <= 8
+
+Sample Input:
+3
+
+Sample Output:
+["((()))", "(()())", "(())()", "()(())", "()()()"]
+
+Explanation:
+For n = 3, there are 5 valid combinations of 
+well-formed parentheses as shown above.
+
+Difficulty:
+    Medium
+
+Test Cases:
+1.
+Input: 1
+Output: ["()"]
+
+2.
+Input: 2
+Output: ["(())", "()()"]
+
+3.
+Input: 3
+Output: ["((()))", "(()())", "(())()", "()(())", "()()()"]
+
+4.
+Input: 4
+Output: ["(((())))","((()()))","((())())","((()))()","(()(()))","(()()())","(()())()","(())(())","(())()()","()((()))","()(()())","()(())()","()()(())","()()()()"]
+
+5.
+Input: 5
+Output: ["((((()))))","(((()())))","(((())()))","(((()))())","(((())))()","((()(())))","((()()()))","((()())())","((()()))()","((())(()))","((())()())","((())())()","((()))(())","((()))()()","(()((())))","(()(()()))","(()(())())","(()(()))()","(()()(()))","(()()()())","(()()())()","(()())(())","(()())()()","(())((()))","(())(()())","(())(())()","(())()(())","(())()()()","()(((())))","()((()()))","()((())())","()((()))()","()(()(()))","()(()()())","()(()())()","()(())(())","()(())()()","()()((()))","()()(()())","()()(())()","()()()(())","()()()()()"]
