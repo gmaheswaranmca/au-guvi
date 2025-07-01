@@ -1,0 +1,225 @@
+09
+"Permutations of a String", 
+"Generate all possible permutations of a given string 
+ using recursion and backtracking.", 
+"Easy", 
+"HackerRank, Google"
+----------------------------------
+
+Problem Title: Permutations of a String
+
+Problem Description:
+    Given a string S, 
+    generate all possible permutations of the characters 
+    in the string using recursion and backtracking. 
+    
+    Each permutation should be unique. 
+    
+    Print the permutations in lexicographical order.
+
+Input Format:
+    - A single line containing the string S.
+
+Output Format:
+    - Each line contains one permutation of the string S.
+
+Constraints:
+    - 1 ≤ length of S ≤ 8
+    - S consists of lowercase English letters only.
+
+Sample Input:
+abc
+
+Sample Output:
+abc
+acb
+bac
+bca
+cab
+cba
+
+Explanation:
+All possible unique permutations of the string "abc" are printed 
+in lexicographical order.
+
+Difficulty:
+Easy
+
+Test Cases:
+1.
+Input:
+aab
+
+Output:
+aab
+aba
+baa
+
+2.
+Input:
+xyz
+
+Output:
+xyz
+xzy
+yxz
+yzx
+zxy
+zyx
+
+3.
+Input:
+a
+
+Output:
+a
+
+4.
+Input:
+abb
+
+Output:
+abb
+bab
+bba
+
+5.
+Input:
+abcd
+
+Output:
+abcd
+abdc
+acbd
+acdb
+adbc
+adcb
+bacd
+badc
+bcad
+bcda
+bdac
+bdca
+cabd
+cadb
+cbad
+cbda
+cdab
+cdba
+dabc
+dacb
+dbac
+dbca
+dcab
+dcba
+
+----------------------------------
+
+import java.util.*;
+
+public class PermutationsOfString {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        List<String> result = new ArrayList<>();
+        boolean[] used = new boolean[s.length()];
+        char[] chars = s.toCharArray();
+        Arrays.sort(chars);
+        backtrack(chars, new StringBuilder(), used, result);
+        for (String perm : result) {
+            System.out.println(perm);
+        }
+    }
+
+    private static void backtrack(char[] chars, StringBuilder path, boolean[] used, List<String> result) {
+        if (path.length() == chars.length) {
+            result.add(path.toString());
+            return;
+        }
+        for (int i = 0; i < chars.length; i++) {
+            if (used[i]) continue;
+            if (i > 0 && chars[i] == chars[i - 1] && !used[i - 1]) continue;
+            used[i] = true;
+            path.append(chars[i]);
+            backtrack(chars, path, used, result);
+            path.deleteCharAt(path.length() - 1);
+            used[i] = false;
+        }
+    }
+}
+
+----------------------------------
+
+Detailed step-by-step explanation of your code:
+    1. Imports and Class Declaration
+        - `import java.util.*;` 
+          imports utility classes 
+          (like `Scanner`, `List`, `ArrayList`, `Arrays`).
+        - `public class PermutationsOfString` defines the class.
+
+    2. Main Method
+        - Reads a string from the user.
+        - Converts the string to a character array and sorts it. 
+          Sorting is crucial for handling duplicates.
+        - Initializes:
+        - `result`: a list to store all unique permutations.
+        - `used`: a boolean array to track 
+           which characters are used in the current permutation.
+        - Calls the `backtrack` method to generate permutations.
+        - Prints each permutation.
+
+    3. Backtracking Function
+        ```java
+        private static void backtrack(char[] chars, StringBuilder path, 
+            boolean[] used, List<String> result)
+        ```
+        - Base Case:  
+            If `path.length() == chars.length`, 
+            a complete permutation is formed. Add it to `result`.
+
+        - Loop Through Characters:
+        - For each character at index `i`:
+            - Skip if Already Used:  
+            `if (used[i]) continue;`
+            
+            - Skip Duplicates:  
+            `if (i > 0 && chars[i] == chars[i - 1] && !used[i - 1]) continue;`  
+            This avoids generating duplicate permutations 
+            when the same character appears more than once.
+            
+            - Choose Character:  
+            Mark `used[i] = true`, 
+            append `chars[i]` to `path`.
+            
+            - Recurse:  
+            Call `backtrack` recursively to build the next character.
+            
+            - Backtrack:  
+            Remove the last character from `path` and 
+            mark `used[i] = false` to try other possibilities.
+
+    4. Key Concepts
+        - Backtracking:  
+        Systematically builds permutations by exploring all choices, 
+        then undoes the last choice to try others.
+        - Handling Duplicates:  
+        Sorting and the duplicate check 
+        ensure each unique permutation is generated only once.
+        - Mutable Path:  
+        `StringBuilder` is used for efficient character addition/removal.
+
+    5. Example
+        For input `"aab"`:
+        - Sorted: `['a', 'a', 'b']`
+        - Output:  
+        ```
+        aab
+        aba
+        baa
+        ```
+
+    6. Potential Gotchas
+        - Forgetting to sort `chars` or skipping the duplicate 
+          check will lead to duplicate permutations.
+        - Not backtracking (`used[i] = false` and 
+          `path.deleteCharAt(...)`) will cause incorrect results.
