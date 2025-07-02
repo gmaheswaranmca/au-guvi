@@ -1,0 +1,180 @@
+import java.util.*;
+
+public class ShortestPathUnweightedGraph {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int q = sc.nextInt();
+
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());
+
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+
+        for (int i = 0; i < q; i++) {
+            int s = sc.nextInt();
+            int d = sc.nextInt();
+            System.out.println(bfs(adj, n, s, d));
+        }
+    }
+
+    private static int bfs(List<List<Integer>> adj, int n, int s, int d) {
+        if (s == d) return 0;
+        boolean[] visited = new boolean[n + 1];
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(new int[]{s, 0});
+        visited[s] = true;
+
+        while (!queue.isEmpty()) {
+            int[] curr = queue.poll();
+            int node = curr[0], dist = curr[1];
+            for (int neighbor : adj.get(node)) {
+                if (!visited[neighbor]) {
+                    if (neighbor == d) return dist + 1;
+                    visited[neighbor] = true;
+                    queue.offer(new int[]{neighbor, dist + 1});
+                }
+            }
+        }
+        return -1;
+    }
+}
+----------------------------------
+Step-by-step explanation of the code:
+    1. Importing Libraries
+        ```java
+        import java.util.*;
+        ```
+        - Imports all classes from `java.util`, including `Scanner`, 
+          `ArrayList`, `Queue`, and `LinkedList`.
+
+    2. Class Declaration
+        ```java
+        public class ShortestPathUnweightedGraph {
+        ```
+        - Defines a public class named `ShortestPathUnweightedGraph`.
+
+    3. Main Method
+        ```java
+        public static void main(String[] args) {
+        ```
+        - Entry point of the program.
+
+    a. Input Reading
+        ```java
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(); // Number of nodes
+        int m = sc.nextInt(); // Number of edges
+        int q = sc.nextInt(); // Number of queries
+        ```
+        - Reads the number of nodes (`n`), 
+          edges (`m`), and queries (`q`).
+
+    b. Adjacency List Initialization
+        ```java
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());
+        ```
+        - Initializes an adjacency list for the graph.
+        - Uses `n+1` lists to allow 1-based indexing 
+          (nodes numbered from 1 to n).
+
+    c. Reading Edges
+        ```java
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adj.get(u).add(v);
+            adj.get(v).add(u);
+        }
+        ```
+        - Reads `m` edges.
+        - For each edge, adds both directions (undirected graph).
+
+    d. Processing Queries
+        ```java
+        for (int i = 0; i < q; i++) {
+            int s = sc.nextInt();
+            int d = sc.nextInt();
+            System.out.println(bfs(adj, n, s, d));
+        }
+        ```
+        - For each query, reads source (`s`) and destination (`d`).
+        - Calls `bfs` to compute the shortest path and 
+          prints the result.
+
+    4. BFS Method
+        ```java
+        private static int bfs(List<List<Integer>> adj, int n, int s, int d) {
+        ```
+        - Finds the shortest path from node `s` to node `d` 
+          using Breadth-First Search (BFS).
+
+        a. Edge Case: Source Equals Destination
+            ```java
+            if (s == d) return 0;
+            ```
+            - If source and destination are the same, 
+              distance is 0.
+
+        b. Initialization
+            ```java
+            boolean[] visited = new boolean[n + 1];
+            Queue<int[]> queue = new LinkedList<>();
+            queue.offer(new int[]{s, 0});
+            visited[s] = true;
+            ```
+            - `visited` array tracks visited nodes.
+            - `queue` stores pairs: 
+              `[node, distance_from_source]`.
+            - Starts BFS from `s` with distance 0.
+
+        c. BFS Loop
+            ```java
+            while (!queue.isEmpty()) {
+                int[] curr = queue.poll();
+                int node = curr[0], dist = curr[1];
+                for (int neighbor : adj.get(node)) {
+                    if (!visited[neighbor]) {
+                        if (neighbor == d) return dist + 1;
+                        visited[neighbor] = true;
+                        queue.offer(new int[]{neighbor, dist + 1});
+                    }
+                }
+            }
+            ```
+            - While the queue is not empty:
+            - Dequeue the current node and its distance.
+            - For each unvisited neighbor:
+                - If neighbor is the destination, return distance + 1.
+                - Otherwise, mark as visited and 
+                  enqueue with incremented distance.
+
+        d. No Path Found
+            ```java
+            return -1;
+            ```
+            - If destination is unreachable, returns -1.
+
+    Summary
+        - The code reads a graph and 
+          answers shortest path queries using BFS.
+        - It uses an adjacency list 
+          for efficient neighbor lookup.
+        - BFS ensures the shortest path 
+          in an unweighted graph.
+        - Returns `-1` if no path exists.
+
+    Gotcha:  
+        - The adjacency list uses 1-based indexing, 
+          so node 0 is unused if nodes are numbered from 1.  
+        - The BFS queue stores both the node and 
+          its current distance from the source.  
+        - The code assumes valid input 
+          (nodes in the range 1 to n).
