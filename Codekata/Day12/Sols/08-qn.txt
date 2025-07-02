@@ -1,0 +1,147 @@
+import java.util.*;
+
+public class NumberOfIslands {
+    static int m, n;
+    static char[][] grid;
+    static boolean[][] visited;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        m = sc.nextInt();
+        n = sc.nextInt();
+        sc.nextLine();
+        grid = new char[m][n];
+        visited = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            String line = sc.nextLine();
+            grid[i] = line.toCharArray();
+        }
+        System.out.println(numIslands());
+    }
+
+    static int numIslands() {
+        int count = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1' && !visited[i][j]) {
+                    dfs(i, j);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    static void dfs(int i, int j) {
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] != '1' || visited[i][j]) {
+            return;
+        }
+        visited[i][j] = true;
+        dfs(i + 1, j);
+        dfs(i - 1, j);
+        dfs(i, j + 1);
+        dfs(i, j - 1);
+    }
+}
+----------------------------------
+Detailed step-by-step explanation of the code:
+    1. Imports and Class Declaration
+        ```java
+        import java.util.*;
+
+        public class NumberOfIslands {
+        ```
+        - Imports the Java utility package (for `Scanner`).
+        - Declares the class `NumberOfIslands`.
+
+
+    2. Static Variables
+        ```java
+        static int m, n;
+        static char[][] grid;
+        static boolean[][] visited;
+        ```
+        - `m`, `n`: Dimensions of the grid 
+          (rows and columns).
+        - `grid`: 2D array to store the map 
+          (each cell is '1' for land, '0' for water).
+        - `visited`: 2D boolean array 
+          to track which cells have been visited.
+
+    3. Main Method
+        ```java
+        public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+            m = sc.nextInt();
+            n = sc.nextInt();
+            sc.nextLine();
+            grid = new char[m][n];
+            visited = new boolean[m][n];
+            for (int i = 0; i < m; i++) {
+                String line = sc.nextLine();
+                grid[i] = line.toCharArray();
+            }
+            System.out.println(numIslands());
+        }
+        ```
+        - Reads grid dimensions from input.
+        - Initializes `grid` and `visited` arrays.
+        - Reads `m` lines, 
+          each representing a row of the grid, and 
+          fills the `grid` array.
+        - Calls `numIslands()` and prints the result.
+
+    4. Counting Islands
+        ```java
+        static int numIslands() {
+            int count = 0;
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (grid[i][j] == '1' && !visited[i][j]) {
+                        dfs(i, j);
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
+        ```
+        - Loops through every cell in the grid.
+        - If a cell is land ('1') and not visited, 
+          it starts a DFS from there 
+          (exploring the whole island).
+        - Increments `count` for each new island found.
+
+    5. Depth-First Search (DFS)
+        ```java
+        static void dfs(int i, int j) {
+            if (i < 0 || i >= m || j < 0 || j >= n || 
+               grid[i][j] != '1' || visited[i][j]) {
+                return;
+            }
+            visited[i][j] = true;
+            dfs(i + 1, j);
+            dfs(i - 1, j);
+            dfs(i, j + 1);
+            dfs(i, j - 1);
+        }
+        ```
+        - Checks for out-of-bounds, water, or 
+          already visited cells (base case).
+        - Marks the current cell as visited.
+        - Recursively explores all 4 adjacent cells 
+          (up, down, left, right).
+
+    Summary
+        - The code reads a grid of '1's (land) and '0's (water).
+        - It counts the number of islands 
+          (connected groups of '1's) using DFS.
+        - Each time a new unvisited land cell is found, 
+          it triggers a DFS to mark the whole island as visited.
+
+    Gotchas
+        - Make sure the input matches the expected format 
+          (dimensions first, then each row).
+        - DFS only checks 4 directions (no diagonals).
+        - The `visited` array prevents 
+          counting the same island multiple times.
