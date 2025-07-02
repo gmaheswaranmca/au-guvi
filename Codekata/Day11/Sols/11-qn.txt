@@ -1,0 +1,279 @@
+11
+"Combination Sum", 
+"Find all unique combinations in an array 
+ where the numbers sum to a target. 
+ Each number may be used unlimited times. 
+ 
+ Use recursion and backtracking.", 
+
+"Medium", 
+"LeetCode, Microsoft"
+
+----------------------------------
+
+Problem Title: Combination Sum
+
+Problem Description:
+    Given an array of distinct integers and a target integer, 
+    find all unique combinations in the array 
+    where the numbers sum to the target. 
+    
+    Each number in the array may be used 
+    an unlimited number of times in the combination. 
+    
+    The solution set must not contain duplicate combinations.
+
+Input Format:
+    - The first line contains two integers N and T, 
+    where N is the number of elements in the array and 
+    T is the target sum.
+    - The second line contains N distinct integers 
+    representing the array.
+
+Output Format:
+    - Print all unique combinations, 
+    one per line. Each combination should be printed as 
+    space-separated integers in non-decreasing order.
+    - If there are no valid combinations, 
+    print "No combination found".
+
+Constraints:
+    - 1 ≤ N ≤ 20
+    - 1 ≤ array[i] ≤ 100
+    - 1 ≤ T ≤ 500
+
+Sample Input:
+4 7
+2 3 6 7
+
+Sample Output:
+2 2 3
+7
+
+Explanation:
+There are two unique combinations that sum to 7: [2,2,3] and [7].
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3 8
+2 3 5
+Output:
+2 2 2 2
+2 3 3
+3 5
+
+Test Case 2:
+Input:
+2 3
+2 4
+Output:
+No combination found
+
+Test Case 3:
+Input:
+5 10
+2 3 5 7 8
+Output:
+2 2 2 2 2
+2 2 3 3
+2 3 5
+2 8
+3 7
+5 5
+
+Test Case 4:
+Input:
+1 5
+5
+Output:
+5
+
+Test Case 5:
+Input:
+4 9
+2 4 6 8
+Output:
+2 2 2 3
+2 2 5
+2 7
+3 3 3
+5 4
+
+----------------------------------
+
+import java.util.*;
+
+public class CombinationSum {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int target = sc.nextInt();
+        int[] arr = new int[n];
+        for(int i=0; i<n; i++) arr[i] = sc.nextInt();
+        Arrays.sort(arr);
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(arr, target, 0, new ArrayList<>(), result);
+        if(result.isEmpty()) {
+            System.out.println("No combination found");
+        } else {
+            for(List<Integer> comb : result) {
+                for(int i=0; i<comb.size(); i++) {
+                    System.out.print(comb.get(i));
+                    if(i != comb.size()-1) System.out.print(" ");
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    private static void backtrack(int[] arr, int target, int start, 
+        List<Integer> curr, List<List<Integer>> result) {
+        if(target == 0) {
+            result.add(new ArrayList<>(curr));
+            return;
+        }
+        for(int i=start; i<arr.length; i++) {
+            if(arr[i] > target) break;
+            curr.add(arr[i]);
+            backtrack(arr, target - arr[i], i, curr, result);
+            curr.remove(curr.size()-1);
+        }
+    }
+}
+
+----------------------------------
+
+A Detailed step-by-step explanation of the code:
+    1. Imports
+        ```java
+        import java.util.*;
+        ```
+        - Imports all classes from the `java.util` package 
+          (like `Scanner`, `List`, `ArrayList`, `Arrays`).
+
+    2. Class Declaration
+        ```java
+        public class CombinationSum {
+        ```
+        - Defines a public class named `CombinationSum`.
+
+    3. Main Method
+        ```java
+        public static void main(String[] args) {
+        ```
+        - Entry point of the program.
+
+        a. Input Handling
+            ```java
+            Scanner sc = new Scanner(System.in);
+            int n = sc.nextInt();
+            int target = sc.nextInt();
+            int[] arr = new int[n];
+            for(int i=0; i<n; i++) arr[i] = sc.nextInt();
+            ```
+            - Reads the number of elements `n`, the target sum, and 
+              the array elements from user input.
+
+        b. Sorting
+            ```java
+            Arrays.sort(arr);
+            ```
+            - Sorts the array to help with pruning (early stopping) 
+              in the backtracking step.
+
+        c. Result List Initialization
+            ```java
+            List<List<Integer>> result = new ArrayList<>();
+            ```
+            - Prepares a list to store all valid combinations.
+
+        d. Backtracking Call
+            ```java
+            backtrack(arr, target, 0, new ArrayList<>(), result);
+            ```
+            - Calls the recursive backtracking function 
+              to find all combinations.
+
+        e. Output
+            ```java
+            if(result.isEmpty()) {
+                System.out.println("No combination found");
+            } else {
+                for(List<Integer> comb : result) {
+                    for(int i=0; i<comb.size(); i++) {
+                        System.out.print(comb.get(i));
+                        if(i != comb.size()-1) System.out.print(" ");
+                    }
+                    System.out.println();
+                }
+            }
+            ```
+            - If no combinations are found, prints a message.
+            - Otherwise, prints each combination on a new line, 
+              numbers separated by spaces.
+
+    4. Backtracking Function
+        ```java
+        private static void backtrack(int[] arr, int target, int start, 
+            List<Integer> curr, List<List<Integer>> result) {
+        ```
+        - Recursive function to build combinations.
+
+    a. Base Case
+        ```java
+        if(target == 0) {
+            result.add(new ArrayList<>(curr));
+            return;
+        }
+        ```
+        - If the target is zero, a valid combination is found. 
+        Add a copy of `curr` to `result`.
+
+    b. Recursive Case
+        ```java
+        for(int i=start; i<arr.length; i++) {
+            if(arr[i] > target) break;
+            curr.add(arr[i]);
+            backtrack(arr, target - arr[i], i, curr, result);
+            curr.remove(curr.size()-1);
+        }
+        ```
+        - Loops through the array starting from `start` index.
+        - If the current number is greater than the remaining target, 
+          break (since the array is sorted, no further numbers can be used).
+        - Adds the current number to the current combination (`curr`).
+        - Recursively calls `backtrack` with the reduced target and 
+          the same index `i` (allows repeated use of the same number).
+        - After recursion, removes the last number 
+          to backtrack and try other possibilities.
+
+    Key Concepts
+        - Backtracking: Systematically searches 
+          for all combinations that sum to the target.
+        - Pruning: Stops exploring further 
+          if the current number exceeds the target.
+        - Combination Reuse: Allows the same number 
+          to be used multiple times 
+          by not incrementing the index in the recursive call.
+
+    Example
+        Suppose input is:
+        ```
+        3 7
+        2 3 6
+        ```
+        - Finds all combinations of `[2, 3, 6]` 
+          that sum to `7` (e.g., `[2, 2, 3]` and 
+          `[7]` if 7 was in the array).
+
+    Potential Gotchas
+        - The array must be sorted for pruning to work.
+        - The same number can be used multiple times 
+          in a combination.
+        - If no combination is found, 
+          a specific message is printed.
+

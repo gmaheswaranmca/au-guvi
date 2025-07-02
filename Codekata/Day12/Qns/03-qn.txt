@@ -1,0 +1,101 @@
+03 
+"Cycle Detection in Directed Graph", 
+"Detect if a directed graph contains a cycle using DFS.", 
+"Medium", 
+"HackerRank, Microsoft"
+----------------------------------
+Problem Title: Cycle Detection in Directed Graph
+
+Problem Description:
+Given a directed graph with N nodes and M edges, determine whether the graph contains at least one cycle. A cycle is a path that starts and ends at the same node, following the direction of the edges. Your task is to detect if such a cycle exists in the given graph.
+
+Input Format:
+- The first line contains two integers N and M, the number of nodes and the number of edges in the graph.
+- The next M lines each contain two integers u and v, representing a directed edge from node u to node v.
+
+Output Format:
+- Print "Yes" if the graph contains a cycle, otherwise print "No".
+
+Constraints:
+- 1 ≤ N ≤ 10^5
+- 0 ≤ M ≤ 2×10^5
+- 1 ≤ u, v ≤ N
+
+Sample Input 1:
+4 4
+1 2
+2 3
+3 4
+4 2
+
+Sample Output 1:
+Yes
+
+Explanation 1:
+There is a cycle: 2 → 3 → 4 → 2.
+
+Sample Input 2:
+3 2
+1 2
+2 3
+
+Sample Output 2:
+No
+
+Explanation 2:
+There is no cycle in the graph.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+5 5
+1 2
+2 3
+3 4
+4 5
+5 1
+Output:
+Yes
+
+Test Case 2:
+Input:
+6 4
+1 2
+2 3
+3 4
+5 6
+Output:
+No
+
+Test Case 3:
+Input:
+3 3
+1 2
+2 3
+3 1
+Output:
+Yes
+
+Test Case 4:
+Input:
+4 0
+Output:
+No
+
+Test Case 5:
+Input:
+7 8
+1 2
+2 3
+3 4
+4 2
+5 6
+6 7
+7 5
+1 5
+Output:
+Yes
+----------------------------------

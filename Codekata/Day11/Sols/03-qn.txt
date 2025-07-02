@@ -1,0 +1,75 @@
+03
+"Factorial Calculation", 
+"Write a recursive function 
+to compute the factorial of a given number N.", 
+"Easy", 
+"CodeSignal, Microsoft"
+----------------------------------
+Problem Title:
+    Factorial Calculation
+
+Problem Description:
+    Given a positive integer N, 
+    write a recursive function to compute the factorial of N. 
+    The factorial of a number N is defined 
+    as the product of all positive integers 
+    less than or equal to N. 
+    By definition, factorial of 0 is 1.
+
+Input Format:
+    A single integer N.
+
+Output Format:
+    A single integer representing the factorial of N.
+
+Constraints:
+    0 ≤ N ≤ 20
+
+Sample Input:
+    5
+
+Sample Output:
+    120
+
+Explanation:
+    5! = 5 × 4 × 3 × 2 × 1 = 120
+
+Difficulty:
+    Easy
+
+Test Cases:
+Test Case 1:
+    Input: 0
+    Output: 1
+
+Test Case 2:
+    Input: 1
+    Output: 1
+
+Test Case 3:
+    Input: 6
+    Output: 720
+
+Test Case 4:
+    Input: 10
+    Output: 3628800
+
+Test Case 5:
+    Input: 20
+    Output: 2432902008176640000
+
+----------------------------------
+Java Solution:
+public class FactorialCalculation {
+    public static long factorial(int n) {
+        if (n == 0) return 1;
+        return n * factorial(n - 1);
+    }
+
+    public static void main(String[] args) {
+        java.util.Scanner sc = new java.util.Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.println(factorial(n));
+    }
+}
+

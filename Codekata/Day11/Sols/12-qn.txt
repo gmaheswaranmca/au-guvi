@@ -1,0 +1,236 @@
+12
+"Palindrome Partitioning", 
+"Partition a string such that every substring is a palindrome. 
+ Return all possible palindrome partitioning 
+ using recursion and backtracking.", 
+"Medium", 
+"LeetCode, Facebook"
+----------------------------------
+Problem Title: Palindrome Partitioning
+
+Problem Description:
+    Given a string s, 
+    partition s such that every substring of the partition is 
+    a palindrome. 
+    
+    Return all possible palindrome partitioning of s 
+    using recursion and backtracking.
+
+Input Format:
+    - A single line containing the string s.
+
+Output Format:
+    - Print each possible palindrome partitioning 
+      on a separate line.
+    - Each partitioning should be represented as 
+      a list of strings (substrings), separated by spaces.
+
+Constraints:
+    - 1 ≤ length of s ≤ 16
+    - s consists of lowercase English letters only.
+
+Sample Input:
+aab
+
+Sample Output:
+a a b
+aa b
+
+Explanation:
+There are two palindrome partitionings for "aab":
+1. ["a", "a", "b"]
+2. ["aa", "b"]
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+aab
+Output:
+a a b
+aa b
+
+Test Case 2:
+Input:
+racecar
+Output:
+r a c e c a r
+r a c ec a r
+r aceca r
+racecar
+
+Test Case 3:
+Input:
+aaa
+Output:
+a a a
+a aa
+aa a
+aaa
+
+Test Case 4:
+Input:
+abc
+Output:
+a b c
+
+Test Case 5:
+Input:
+level
+Output:
+l e v e l
+l eve l
+level
+
+---------------------------------------------
+
+import java.util.*;
+
+public class PalindromePartitioning {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        List<List<String>> result = new ArrayList<>();
+        backtrack(s, 0, new ArrayList<>(), result);
+        for (List<String> partition : result) {
+            System.out.println(String.join(" ", partition));
+        }
+    }
+
+    private static void backtrack(String s, int start, 
+        List<String> current, List<List<String>> result) {
+        if (start == s.length()) {
+            result.add(new ArrayList<>(current));
+            return;
+        }
+        for (int end = start + 1; end <= s.length(); end++) {
+            String substr = s.substring(start, end);
+            if (isPalindrome(substr)) {
+                current.add(substr);
+                backtrack(s, end, current, result);
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+
+    private static boolean isPalindrome(String s) {
+        int l = 0, r = s.length() - 1;
+        while (l < r) {
+            if (s.charAt(l++) != s.charAt(r--)) return false;
+        }
+        return true;
+    }
+}
+
+---------------------------------------------
+
+A detailed step-by-step explanation of your code:
+    1. Imports
+        ```java
+        import java.util.*;
+        ```
+        - Imports all classes from the `java.util` package, 
+          mainly for `Scanner`, `List`, and `ArrayList`.
+
+    2. Class Declaration
+        ```java
+        public class PalindromePartitioning {
+            // ...
+        }
+        ```
+        - Defines a public class named `PalindromePartitioning`.
+
+    3. Main Method
+        ```java
+        public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+            String s = sc.nextLine();
+            List<List<String>> result = new ArrayList<>();
+            backtrack(s, 0, new ArrayList<>(), result);
+            for (List<String> partition : result) {
+                System.out.println(String.join(" ", partition));
+            }
+        }
+        ```
+        Step-by-step:
+        - Creates a `Scanner` to read user input.
+        - Reads a line of input as the string `s`.
+        - Initializes `result`, 
+          a list to store all possible palindrome partitions.
+        - Calls `backtrack` to fill `result` 
+          with all valid partitions.
+        - Prints each partition, joining substrings with spaces.
+
+    4. Backtracking Method
+        ```java
+        private static void backtrack(String s, int start, 
+            List<String> current, List<List<String>> result) {
+            if (start == s.length()) {
+                result.add(new ArrayList<>(current));
+                return;
+            }
+            for (int end = start + 1; end <= s.length(); end++) {
+                String substr = s.substring(start, end);
+                if (isPalindrome(substr)) {
+                    current.add(substr);
+                    backtrack(s, end, current, result);
+                    current.remove(current.size() - 1);
+                }
+            }
+        }
+        ```
+        Step-by-step:
+            - Base Case:  
+                If `start` equals the string’s length, 
+                the current partition is complete. 
+                Add a copy of `current` to `result`.
+            - Recursive Case:  
+                For every possible substring starting at `start`:
+                - Get substring `s.substring(start, end)`.
+                - If it’s a palindrome (`isPalindrome(substr)`):
+                    - Add substring to `current`.
+                    - Recursively call `backtrack` 
+                      with the next start index (`end`).
+                    - Remove the last substring (backtrack) 
+                      to try other possibilities.
+
+    5. Palindrome Check
+        ```java
+        private static boolean isPalindrome(String s) {
+            int l = 0, r = s.length() - 1;
+            while (l < r) {
+                if (s.charAt(l++) != s.charAt(r--)) return false;
+            }
+            return true;
+        }
+        ```
+        Step-by-step:
+        - Uses two pointers (`l` and `r`) 
+          to compare characters from both ends.
+        - If any mismatch, returns `false`.
+        - If all pairs match, returns `true`.
+
+    Summary
+        - The code finds all possible ways 
+          to split a string into substrings 
+          such that every substring is a palindrome.
+        - It uses backtracking to explore all partitions.
+        - Each partition is printed as a space-separated list.
+
+    Gotchas:
+        - The code checks all possible substrings, 
+          so it can be slow for long strings.
+        - It uses backtracking, 
+          so understanding the recursive call and 
+          backtrack (removal) step is key.
+
+    Example:  
+        Input: `aab`  
+        Output:
+        ```
+        a a b
+        aa b
+        ```
+        Each line is a valid palindrome partition.

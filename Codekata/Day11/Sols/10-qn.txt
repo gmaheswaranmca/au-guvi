@@ -1,0 +1,188 @@
+10
+"Subset Sum Problem", 
+"Given a set of integers, 
+ determine if there is a subset 
+ whose sum equals a given target using recursion.", 
+"Medium", 
+"GeeksforGeeks, Amazon"
+----------------------------------
+Problem Title: Subset Sum Problem
+
+Problem Description:
+    Given a set of integers and a target sum, 
+    determine whether there exists a subset of the given set 
+    whose sum is exactly equal to the target sum. 
+    
+    If such a subset exists, 
+    print "Yes", 
+    otherwise print "No".
+
+Input Format:
+    - The first line contains two integers N and S, 
+      where N is the number of elements in the set and 
+      S is the target sum.
+    - The second line contains N space-separated integers 
+      representing the elements of the set.
+
+Output Format:
+    - Print "Yes" if there exists a subset 
+      whose sum is equal to S, 
+      otherwise print "No".
+
+Constraints:
+    - 1 ≤ N ≤ 20
+    - -10^4 ≤ Each element of the set ≤ 10^4
+    - -10^5 ≤ S ≤ 10^5
+
+Sample Input 1:
+5 9
+3 34 4 12 5
+
+Sample Output 1:
+Yes
+
+Explanation 1:
+There exists a subset {4, 5} whose sum is 9.
+
+Sample Input 2:
+4 11
+1 2 3 4
+
+Sample Output 2:
+No
+
+Explanation 2:
+No subset sums up to 11.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+    Input:
+    3 0
+    1 2 3
+    Output:
+    Yes
+
+Test Case 2:
+    Input:
+    6 10
+    2 3 7 8 10 13
+    Output:
+    Yes
+
+Test Case 3:
+    Input:
+    4 7
+    2 4 6 8
+    Output:
+    No
+
+Test Case 4:
+    Input:
+    5 -2
+    -1 -2 -3 4 5
+    Output:
+    Yes
+
+Test Case 5:
+    Input:
+    1 5
+    5
+    Output:
+    Yes
+
+----------------------------------
+
+import java.util.Scanner;
+
+public class SubsetSumProblem {
+    public static boolean isSubsetSum(int[] arr, int n, int sum) {
+        if (sum == 0) return true;
+        if (n == 0) return false;
+        // Exclude current element
+        boolean exclude = isSubsetSum(arr, n - 1, sum);
+        // Include current element
+        boolean include = isSubsetSum(arr, n - 1, sum - arr[n - 1]);
+        return exclude || include;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int S = sc.nextInt();
+        int[] arr = new int[N];
+        for (int i = 0; i < N; i++) {
+            arr[i] = sc.nextInt();
+        }
+        if (isSubsetSum(arr, N, S)) {
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
+    }
+}
+
+----------------------------------
+
+
+A step-by-step explanation of your code:
+    1. Imports and Class Definition
+        - `import java.util.Scanner;`  
+        Imports the Scanner class for reading user input.
+        - `public class SubsetSumProblem { ... }`  
+        Defines the main class.
+
+    2. isSubsetSum Method
+        This is a recursive function to solve the Subset Sum Problem.
+
+        - Parameters:  
+            - `arr`: The array of integers.
+            - `n`: Number of elements to consider.
+            - `sum`: Target sum to check.
+
+        - Base Cases:  
+            - `if (sum == 0) return true;`  
+                If the sum is 0, a subset has been found.
+            - `if (n == 0) return false;`  
+                If no elements left and sum isn't 0, no subset found.
+
+        - Recursive Cases:  
+            - `exclude`: Calls itself excluding 
+              the current element (`n-1`).
+            - `include`: Calls itself including 
+               the current element (`sum - arr[n-1]`).
+            - Returns `true` if either including or 
+              excluding the current element leads to a solution.
+    3. main Method
+        - Input Reading:  
+            - Reads `N` (number of elements) and `S` (target sum).
+            - Reads `N` integers into the array `arr`.
+
+        - Subset Sum Check:  
+            - Calls `isSubsetSum(arr, N, S)`.
+            - Prints `"Yes"` if a subset exists, otherwise `"No"`.
+
+    4. How It Works (Example)
+        Suppose input is:
+        ```
+        5 9
+        3 34 4 12 5
+        ```
+        - Checks if any subset of `{3, 34, 4, 12, 5}` sums to `9`.
+        - The subset `{4, 5}` sums to `9`, so output is `"Yes"`.
+
+    5. Key Points & Gotchas
+        - Recursive Approach:  
+            This method checks all possible subsets 
+            (exponential time).
+        - Base Cases:  
+            Crucial for stopping recursion and 
+            avoiding stack overflow.
+        - Inefficiency:  
+            For large arrays, this approach is slow. 
+            Dynamic programming is more efficient 
+            for big inputs.
+
+

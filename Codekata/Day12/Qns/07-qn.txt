@@ -1,0 +1,117 @@
+07
+"Word Ladder", 
+"Given two words and a dictionary, find the shortest transformation sequence from start to end word using BFS.", 
+"Hard", 
+"LeetCode, Facebook" 
+----------------------------------
+Problem Title:
+Word Ladder
+
+Problem Description:
+Given two words, beginWord and endWord, and a dictionary's word list, find the length of the shortest transformation sequence from beginWord to endWord, such that:
+1. Only one letter can be changed at a time.
+2. Each transformed word must exist in the word list.
+3. Return 0 if no such sequence exists.
+
+Input Format:
+- The first line contains the beginWord.
+- The second line contains the endWord.
+- The third line contains an integer n, the number of words in the word list.
+- The next n lines each contain a word from the word list.
+
+Output Format:
+- Print a single integer: the length of the shortest transformation sequence, or 0 if no such sequence exists.
+
+Constraints:
+- 1 <= beginWord.length == endWord.length <= 10
+- 1 <= n <= 5000
+- All words consist of lowercase English letters.
+- beginWord, endWord, and each word in the word list are of the same length.
+
+Sample Input:
+hit
+cog
+6
+hot
+dot
+dog
+lot
+log
+cog
+
+Sample Output:
+5
+
+Explanation:
+The shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog", which has 5 words.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+
+Test Case 1:
+Input:
+hit
+cog
+6
+hot
+dot
+dog
+lot
+log
+cog
+Output:
+5
+
+Test Case 2:
+Input:
+hit
+cog
+5
+hot
+dot
+dog
+lot
+log
+Output:
+0
+
+Test Case 3:
+Input:
+a
+c
+3
+a
+b
+c
+Output:
+2
+
+Test Case 4:
+Input:
+game
+thee
+7
+fame
+fane
+faze
+gaze
+gave
+tame
+thee
+Output:
+0
+
+Test Case 5:
+Input:
+lost
+cost
+4
+cost
+most
+host
+lost
+Output:
+2
+----------------------------------

@@ -1,0 +1,179 @@
+14
+"Generate Parentheses", 
+"Given n pairs of parentheses, 
+ write a function to generate all combinations of 
+ well-formed parentheses using recursion.", 
+"Medium", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title:
+    Generate Parentheses
+
+Problem Description:
+    Given n pairs of parentheses, 
+    write a function 
+    to generate all possible combinations of 
+    well-formed parentheses using recursion.
+
+Input Format:
+    - A single integer n, 
+      representing the number of pairs of parentheses.
+
+Output Format:
+    - A list of strings, 
+      where each string represents 
+      a valid combination of well-formed parentheses.
+
+Constraints:
+    - 1 <= n <= 8
+
+Sample Input:
+3
+
+Sample Output:
+["((()))", "(()())", "(())()", "()(())", "()()()"]
+
+Explanation:
+For n = 3, there are 5 valid combinations of 
+well-formed parentheses as shown above.
+
+Difficulty:
+    Medium
+
+Test Cases:
+1.
+Input: 1
+Output: ["()"]
+
+2.
+Input: 2
+Output: ["(())", "()()"]
+
+3.
+Input: 3
+Output: ["((()))", "(()())", "(())()", "()(())", "()()()"]
+
+4.
+Input: 4
+Output: ["(((())))","((()()))","((())())","((()))()","(()(()))","(()()())","(()())()","(())(())","(())()()","()((()))","()(()())","()(())()","()()(())","()()()()"]
+
+5.
+Input: 5
+Output: ["((((()))))","(((()())))","(((())()))","(((()))())","(((())))()","((()(())))","((()()()))","((()())())","((()()))()","((())(()))","((())()())","((())())()","((()))(())","((()))()()","(()((())))","(()(()()))","(()(())())","(()(()))()","(()()(()))","(()()()())","(()()())()","(()())(())","(()())()()","(())((()))","(())(()())","(())(())()","(())()(())","(())()()()","()(((())))","()((()()))","()((())())","()((()))()","()(()(()))","()(()()())","()(()())()","()(())(())","()(())()()","()()((()))","()()(()())","()()(())()","()()()(())","()()()()()"]
+
+----------------------------------
+
+import java.util.*;
+
+public class GenerateParentheses {
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        backtrack(result, "", 0, 0, n);
+        return result;
+    }
+
+    private void backtrack(List<String> result, String current, int open, int close, int max) {
+        if (current.length() == max * 2) {
+            result.add(current);
+            return;
+        }
+        if (open < max) {
+            backtrack(result, current + "(", open + 1, close, max);
+        }
+        if (close < open) {
+            backtrack(result, current + ")", open, close + 1, max);
+        }
+    }
+
+    // For testing
+    public static void main(String[] args) {
+        GenerateParentheses gp = new GenerateParentheses();
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<String> res = gp.generateParenthesis(n);
+        System.out.println(res);
+    }
+}
+
+----------------------------------
+
+A detailed step-by-step explanation of your code:
+    1. Class and Method Overview
+        - Class: `GenerateParentheses`
+        - Purpose: Generate all valid combinations of 
+          `n` pairs of parentheses.
+
+    2. `generateParenthesis(int n)`
+        - Input: `n` (number of pairs of parentheses)
+        - Output: List of all valid parentheses combinations.
+
+        How it works:
+            - Creates an empty list `result` 
+              to store valid combinations.
+            - Calls the helper method `backtrack` 
+              to build combinations recursively.
+            - Returns the filled `result` list.
+
+    3. `backtrack(List<String> result, String current, 
+                int open, int close, int max)`
+        - Parameters:
+            - `result`: List to store valid combinations.
+            - `current`: Current string being built.
+            - `open`: Number of `'('` used so far.
+            - `close`: Number of `')'` used so far.
+            - `max`: Total pairs allowed (`n`).
+
+        How it works:
+            - Base Case:  
+                If `current.length() == max * 2`, 
+                a valid combination is formed (since each pair has 2 characters). 
+                Add `current` to `result` and return.
+            - Add `'('`:  
+                If `open < max`, you can add another `'('`. 
+                Call `backtrack` with `open + 1`.
+            - Add `')'`:  
+                If `close < open`, you can add a `')'` 
+                (but only if there are unmatched `'('`). 
+                Call `backtrack` with `close + 1`.
+
+        This ensures only valid sequences are built.
+
+    4. `main` Method
+        - Reads an integer `n` from the user.
+        - Calls `generateParenthesis(n)` 
+          to get all valid combinations.
+        - Prints the result.
+
+    Example (n = 3)
+        - The function will generate:  
+        `["((()))", "(()())", "(())()", "()(())", "()()()"]`
+
+    Key Concepts
+        - Backtracking:  
+            Systematically builds all possible strings, 
+            but only continues down paths 
+            that can lead to valid answers.
+        - Constraints:  
+            - Never add more `'('` than `n`.
+            - Never add more `')'` than `'('` (to keep it valid).
+
+    Gotchas
+        - If you forget the `close < open` check, 
+          you might generate invalid strings like `())(`.
+        - The recursion stops only 
+          when the string is of length `2 * n`.
+
+    Suggestion
+        - Always close the `Scanner` object to avoid resource leaks.
+
+        ```java
+        // ...existing code...
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        List<String> res = gp.generateParenthesis(n);
+        System.out.println(res);
+        sc.close();
+        // ...existing code...
+        ```
