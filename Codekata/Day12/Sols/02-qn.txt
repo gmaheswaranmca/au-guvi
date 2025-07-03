@@ -1,0 +1,273 @@
+import java.util.*;
+
+public class ConnectedComponentsCount {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        boolean[] visited = new boolean[n];
+        int components = 0;
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                dfs(i, graph, visited);
+                components++;
+            }
+        }
+        System.out.println(components);
+    }
+
+    private static void dfs(int node, List<List<Integer>> graph, 
+        boolean[] visited) {
+        visited[node] = true;
+        for (int neighbor : graph.get(node)) {
+            if (!visited[neighbor]) {
+                dfs(neighbor, graph, visited);
+            }
+        }
+    }
+}
+----------------------------------
+Detailed step-by-step explanation of the code:
+    1. Importing Required Classes
+        ```java
+        import java.util.*;
+        ```
+        - Imports all classes from the `java.util` package, 
+          mainly for `Scanner`, `List`, and `ArrayList`.
+
+    2. Class Declaration
+        ```java
+        public class ConnectedComponentsCount {
+            // ...
+        }
+        ```
+        - Defines a public class named `ConnectedComponentsCount`.
+
+    3. Main Method
+        ```java
+        public static void main(String[] args) {
+            // ...
+        }
+        ```
+        - Entry point of the program.
+
+    4. Reading Input
+        ```java
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        ```
+        - Creates a `Scanner` to read input.
+        - Reads two integers:  
+        - `n`: number of nodes (vertices) in the graph.
+        - `m`: number of edges.
+
+    5. Building the Graph
+        ```java
+        List<List<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            graph.add(new ArrayList<>());
+        }
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+        ```
+        - Initializes an adjacency list `graph` 
+          with `n` empty lists (one for each node).
+        - For each edge, reads two integers `u` and `v` (the endpoints).
+        - Adds `v` to `u`'s adjacency list and `u` to `v`'s 
+          (since the graph is undirected).
+
+    6. Counting Connected Components
+        ```java
+        boolean[] visited = new boolean[n];
+        int components = 0;
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                dfs(i, graph, visited);
+                components++;
+            }
+        }
+        System.out.println(components);
+        ```
+        - Creates a `visited` array to track which nodes have been visited.
+        - Initializes `components` to 0.
+        - For each node:
+        - If it hasn't been visited, starts a DFS from that node.
+        - After DFS, increments `components` 
+          (each DFS marks all nodes in one connected component).
+
+    7. Depth-First Search (DFS) Helper
+        ```java
+        private static void dfs(int node, List<List<Integer>> graph, 
+            boolean[] visited) {
+            visited[node] = true;
+            for (int neighbor : graph.get(node)) {
+                if (!visited[neighbor]) {
+                    dfs(neighbor, graph, visited);
+                }
+            }
+        }
+        ```
+        - Marks the current `node` as visited.
+        - Recursively visits all unvisited neighbors.
+
+    Summary
+        - The code reads a graph, builds its adjacency list, and 
+          counts the number of connected components using DFS.
+        - Connected component: A set of nodes where each node is reachable 
+          from any other node in the set.
+        - Gotcha: Node indices are assumed to be 0-based. 
+          Input must match this.
+
+    Example Input:
+        ```
+        5 3
+        0 1
+        1 2
+        3 4
+        ```
+        - Output: `2` (nodes 0-1-2 are connected, 
+          3-4 are connected, node 5 is isolated if present).
+
+----------------------------------
+Prompt: 
+    "The Union-Find (Disjoint Set Union) data structure 
+    can also be used for efficient component counting, 
+    especially for large graphs."
+
+    Give me detailed notes on 'Union-Find (Disjoint Set Union) data structure'.
+----------------------------------
+Union-Find (Disjoint Set Union) Data Structure: Detailed Notes
+    Overview:
+    - Union-Find, also known as Disjoint Set Union (DSU), is 
+      a data structure 
+      that efficiently manages a collection of disjoint (non-overlapping) sets.
+    - It supports two primary operations:
+        1. Find: Determine which set a particular element belongs to.
+        2. Union: Merge two sets into a single set.
+    - Commonly used in graph algorithms to detect cycles, 
+      find connected components, and 
+      solve dynamic connectivity problems.
+
+    Key Concepts:
+    1. Representation:
+        - Each element has a parent pointer.
+        - Initially, each element is its own parent 
+          (each element is in its own set).
+        - Sets are typically represented as trees, 
+          with the root as the representative of the set.
+
+    2. Find Operation:
+        - To find the representative (root) of 
+          the set containing an element.
+        - Path Compression optimization: 
+          During find, make each node on the path point directly to the root, 
+          flattening the structure and speeding up future operations.
+
+    3. Union Operation:
+        - To merge two sets, 
+          connect the root of one set to the root of the other.
+        - Union by Rank/Size optimization: 
+          Always attach the smaller tree to the root of the larger tree 
+          to keep the trees shallow.
+
+    4. Time Complexity:
+        - With both path compression and union by rank/size, 
+          each operation runs in nearly constant time, 
+          specifically O(α(n)), 
+          where α is the inverse Ackermann function (very slow-growing).
+
+    Applications:
+        - Counting connected components in undirected graphs.
+        - Kruskal’s algorithm for Minimum Spanning Tree.
+        - Dynamic connectivity queries.
+        - Network connectivity, image processing, clustering.
+
+    Example (Basic Implementation):
+----------------------------------
+Prompt: 
+    Give me Example (Basic Implementation) Of Union-Find (Disjoint Set Union) data structure.
+----------------------------------
+    class UnionFind {
+        private int[] parent;
+        private int[] rank;
+
+        // Initialize n elements, each in its own set
+        public UnionFind(int n) {
+            parent = new int[n];
+            rank = new int[n];
+            for (int i = 0; i < n; i++) {
+                parent[i] = i;
+                rank[i] = 1;
+            }
+        }
+
+        // Find the root of x with path compression
+        public int find(int x) {
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]);
+            }
+            return parent[x];
+        }
+
+        // Union two sets by rank
+        public void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+            if (rootX == rootY) return;
+            if (rank[rootX] < rank[rootY]) {
+                parent[rootX] = rootY;
+            } else if (rank[rootX] > rank[rootY]) {
+                parent[rootY] = rootX;
+            } else {
+                parent[rootY] = rootX;
+                rank[rootX]++;
+            }
+        }
+
+        // Check if two elements are in the same set
+        public boolean connected(int x, int y) {
+            return find(x) == find(y);
+        }
+    }
+
+----------------------------------
+Prompt:
+    Give me example use for above implementation:
+----------------------------------
+    public class Main {
+        public static void main(String[] args) {
+            UnionFind uf = new UnionFind(5); // 5 elements: 0,1,2,3,4
+
+            uf.union(0, 1);
+            uf.union(1, 2);
+            uf.union(3, 4);
+
+            System.out.println(uf.connected(0, 2)); // true (0-1-2 are connected)
+            System.out.println(uf.connected(0, 3)); // false (different components)
+            System.out.println(uf.connected(3, 4)); // true
+
+            // Count number of connected components
+            int count = 0;
+            for (int i = 0; i < 5; i++) {
+                if (uf.find(i) == i) count++;
+            }
+            System.out.println("Number of connected components: " + count); // 2
+        }
+    }
+
+----------------------------------

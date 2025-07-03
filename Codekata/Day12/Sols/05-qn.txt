@@ -1,0 +1,107 @@
+import java.util.*;
+// Definition for a Node.
+class Node {
+    public int val;
+    public List<Node> neighbors;
+    public Node() {
+        val = 0;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int val) {
+        this.val = val;
+        neighbors = new ArrayList<Node>();
+    }
+    public Node(int val, ArrayList<Node> neighbors) {
+        this.val = val;
+        this.neighbors = neighbors;
+    }
+}
+
+class Solution {
+    public Node cloneGraph(Node node) {
+        if (node == null) return null;
+        Map<Node, Node> map = new HashMap<>();
+        return dfs(node, map);
+    }
+
+    private Node dfs(Node node, Map<Node, Node> map) {
+        if (map.containsKey(node)) {
+            return map.get(node);
+        }
+        Node clone = new Node(node.val);
+        map.put(node, clone);
+        for (Node neighbor : node.neighbors) {
+            clone.neighbors.add(dfs(neighbor, map));
+        }
+        return clone;
+    }
+}
+----------------------------------
+Step-by-step explanation of the code:
+    1. Node Class Definition
+        - Purpose: Represents a node 
+          in an undirected graph.
+        - Fields:
+        - `val`: The value of the node.
+        - `neighbors`: A list of neighboring nodes (edges).
+        - Constructors:
+        - `Node()`: Initializes `val` to 0 and 
+          `neighbors` to an empty list.
+        - `Node(int val)`: Initializes `val` to the given value and 
+          `neighbors` to an empty list.
+        - `Node(int val, ArrayList<Node> neighbors)`: Initializes both `val` and 
+          `neighbors` with provided values.
+
+    2. Solution Class
+        cloneGraph Method
+            - Purpose: Deep-copies (clones) the entire graph 
+              starting from the given node.
+            - Steps:
+            1. Null Check: If the input node is `null`, 
+               return `null` (empty graph).
+            2. Map Creation: Create a `HashMap<Node, Node>` 
+               to keep track of already-cloned nodes. 
+               This prevents infinite loops in cyclic graphs and 
+               ensures each node is cloned only once.
+            3. DFS Call: Calls the helper method `dfs` 
+               to perform a depth-first traversal and 
+               clone the graph.
+
+        dfs Method
+            - Purpose: Recursively clones nodes and 
+              their neighbors using depth-first search.
+            - Parameters:
+            - `node`: The current node to clone.
+            - `map`: The mapping from original nodes to their clones.
+            - Steps:
+            1. Already Cloned Check: If `node` is already in `map`, 
+              return its clone (avoids cycles and duplicate work).
+            2. Clone Node: Create a new `Node` 
+               with the same value as the original.
+            3. Map Update: Add the original node and its clone to `map`.
+            4. Clone Neighbors: For each neighbor of the original node, 
+               recursively clone it and add to the clone’s `neighbors` list.
+            5. Return Clone: Return the cloned node.
+
+    Key Concepts
+        - Deep Copy: Each node and its neighbors are cloned, 
+          so changes to the clone do not affect the original.
+        - Cycle Handling: The `map` prevents infinite recursion in cyclic graphs.
+        - DFS Traversal: The graph is traversed using depth-first search, 
+          but BFS could also be used.
+
+    Example
+        Suppose you have a graph:  
+        `1 -- 2`  
+        `|    |`  
+        `4 -- 3`
+
+        Calling `cloneGraph(node1)` will return a new graph with the same structure, 
+        but all nodes and edges are new objects.
+
+    Gotchas
+        - HashMap Key: The original `Node` objects are used as keys, 
+        so their `equals` and `hashCode` methods should be correct 
+        (default is fine if not overridden).
+        - Null Input: Always check for `null` to avoid `NullPointerException`.
+----------------------------------

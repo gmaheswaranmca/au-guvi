@@ -123,3 +123,98 @@ public class HeapSortSolution {
     }
 }
 
+------------------------------------------------------
+
+Detailed step-by-step explanation of the code:
+
+---
+
+1. Imports
+```java
+import java.util.*;
+```
+- Imports all classes from `java.util`, including `Scanner` and `ArrayList`.
+
+---
+
+2. HeapSorting Class
+
+a. swap Method
+```java
+private void swap(List<Integer> arr, int I, int J)
+```
+- Swaps elements at indices `I` and `J` in the list `arr`.
+- Uses a temporary variable to hold one value during the swap.
+
+b. heapify Method
+```java
+private void heapify(List<Integer> arr, int N, int nodeIndex)
+```
+- Ensures the subtree rooted at `nodeIndex` is a max-heap (parent is larger than children).
+- `N` is the size of the heap (may be less than the array size during sorting).
+- Calculates left and right child indices.
+- Compares parent with children, finds the largest, and swaps if needed.
+- Recursively heapifies the affected subtree if a swap occurs.
+
+c. buildHeap Method
+```java
+private void buildHeap(List<Integer> arr)
+```
+- Converts the entire list into a max-heap.
+- Starts from the last non-leaf node and calls `heapify` for each node up to the root.
+- This ensures all parent nodes are larger than their children.
+
+d. sort Method
+```java
+public void sort(List<Integer> arr)
+```
+- Step 1: Calls `buildHeap` to create a max-heap.
+- Step 2: Swaps the root (largest element) with the last element.
+- Step 3: Reduces the heap size (`N`) by 1.
+- Step 4: Repeatedly heapifies the root and swaps the new root with the last unsorted element, shrinking the heap each time.
+- Step 5: Continues until the heap size is 1, resulting in a sorted array.
+
+---
+
+3. HeapSortMain Class
+
+a. main Method
+```java
+public static void main(String[] args)
+```
+- Reads input from the user:
+  - First line: number of elements (`n`).
+  - Second line: space-separated integers.
+- Parses the integers into a `List<Integer>`.
+- Creates a `HeapSorting` object and calls its `sort` method.
+- Prints the sorted list.
+- Closes the scanner.
+
+---
+
+4. Key Concepts
+
+- Heap Sort: An efficient, comparison-based sorting algorithm using a binary heap data structure.
+- Max-Heap: Each parent node is greater than or equal to its children.
+- In-place: The sorting is done within the original list, using swaps.
+
+---
+
+5. Potential Gotchas
+
+- The initial swap in `sort` (before the loop) is non-standard and may cause the first element to be out of order. Normally, the swap and heapify are both inside the loop.
+- The code expects the user to enter the correct number of integers as specified by `n`.
+
+---
+
+6. Example Input/Output
+
+Input:
+```
+5
+4 1 3 9 7
+```
+Output:
+```
+1 3 4 7 9 
+```

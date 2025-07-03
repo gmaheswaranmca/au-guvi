@@ -1,0 +1,169 @@
+import java.util.*;
+
+public class WordLadder {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String beginWord = sc.nextLine().trim();
+        String endWord = sc.nextLine().trim();
+        int n = Integer.parseInt(sc.nextLine().trim());
+        Set<String> wordList = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            wordList.add(sc.nextLine().trim());
+        }
+        System.out.println(ladderLength(beginWord, endWord, wordList));
+    }
+
+    public static int ladderLength(String beginWord, String endWord, Set<String> wordList) {
+        if (!wordList.contains(endWord)) return 0;
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(beginWord);
+        Set<String> visited = new HashSet<>();
+        visited.add(beginWord);
+        int level = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String word = queue.poll();
+                if (word.equals(endWord)) return level;
+                for (String next : getNextWords(word, wordList)) {
+                    if (!visited.contains(next)) {
+                        visited.add(next);
+                        queue.offer(next);
+                    }
+                }
+            }
+            level++;
+        }
+        return 0;
+    }
+
+    private static List<String> getNextWords(String word, Set<String> wordList) {
+        List<String> res = new ArrayList<>();
+        char[] arr = word.toCharArray();
+        for (int i = 0; i < arr.length; i++) {
+            char old = arr[i];
+            for (char c = 'a'; c <= 'z'; c++) {
+                if (c == old) continue;
+                arr[i] = c;
+                String next = new String(arr);
+                if (wordList.contains(next)) {
+                    res.add(next);
+                }
+            }
+            arr[i] = old;
+        }
+        return res;
+    }
+}
+
+----------------------------------
+
+Detailed step-by-step explanation of your `WordLadder` Java code:
+    1. Imports
+        ```java
+        import java.util.*;
+        ```
+        - Imports utility classes for data structures 
+          like `Scanner`, `Set`, `Queue`, `List`, etc.
+
+    2. Main Method
+        ```java
+        public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+            String beginWord = sc.nextLine().trim();
+            String endWord = sc.nextLine().trim();
+            int n = Integer.parseInt(sc.nextLine().trim());
+            Set<String> wordList = new HashSet<>();
+            for (int i = 0; i < n; i++) {
+                wordList.add(sc.nextLine().trim());
+            }
+            System.out.println(ladderLength(beginWord, endWord, wordList));
+        }
+        ```
+        - Reads input: 
+        - `beginWord`: The starting word.
+        - `endWord`: The target word.
+        - `n`: Number of words in the dictionary.
+        - `wordList`: The set of valid words.
+        - Calls `ladderLength` 
+          to compute the shortest transformation sequence length and 
+          prints the result.
+
+    3. ladderLength Method
+        ```java
+        public static int ladderLength(String beginWord, 
+            String endWord, Set<String> wordList) {
+            if (!wordList.contains(endWord)) return 0;
+            Queue<String> queue = new LinkedList<>();
+            queue.offer(beginWord);
+            Set<String> visited = new HashSet<>();
+            visited.add(beginWord);
+            int level = 1;
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    String word = queue.poll();
+                    if (word.equals(endWord)) return level;
+                    for (String next : getNextWords(word, wordList)) {
+                        if (!visited.contains(next)) {
+                            visited.add(next);
+                            queue.offer(next);
+                        }
+                    }
+                }
+                level++;
+            }
+            return 0;
+        }
+        ```
+        - Checks if `endWord` is in the dictionary. 
+          If not, returns 0 (no solution).
+        - Breadth-First Search (BFS):
+        - Uses a queue to explore words level by level.
+        - Each level represents a transformation step.
+        - For each word at the current level, 
+          generates all valid next words 
+          (one letter different and in the dictionary).
+        - If `endWord` is found, returns the current level (number of steps).
+        - Uses a `visited` set to avoid revisiting words.
+        - Returns 0 if no transformation sequence is found.
+
+
+    4. getNextWords Method
+        ```java
+        private static List<String> getNextWords(String word, Set<String> wordList) {
+            List<String> res = new ArrayList<>();
+            char[] arr = word.toCharArray();
+            for (int i = 0; i < arr.length; i++) {
+                char old = arr[i];
+                for (char c = 'a'; c <= 'z'; c++) {
+                    if (c == old) continue;
+                    arr[i] = c;
+                    String next = new String(arr);
+                    if (wordList.contains(next)) {
+                        res.add(next);
+                    }
+                }
+                arr[i] = old;
+            }
+            return res;
+        }
+        ```
+        - Generates all possible words 
+          by changing each letter of the input word 
+          to every other letter from 'a' to 'z'.
+        - Checks if the new word is in the dictionary (`wordList`).
+        - Returns a list of valid next words.
+
+
+    Key Concepts
+        - BFS is used to find the shortest path (minimum transformations).
+        - Visited set prevents cycles and redundant work.
+        - Word transformation is done by changing one letter at a time.
+
+    Potential Gotchas
+        - If `endWord` is not in `wordList`, the function immediately returns 0.
+        - The code assumes all words are the same length.
+        - The BFS ensures the shortest path is found, 
+          but if the dictionary is large, 
+          performance can be an issue.

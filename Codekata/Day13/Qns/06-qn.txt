@@ -1,0 +1,125 @@
+06
+"Implement Priority Queue", 
+"Write a class to implement a priority queue with enqueue, dequeue, and peek operations.", 
+"Easy", 
+"LeetCode, HackerRank, Amazon"
+
+----------------------------------
+Problem Title:
+Implement a Priority Queue
+
+Problem Description:
+Design and implement a Priority Queue data structure. A priority queue is a special type of queue in which each element is associated with a priority and elements are served according to their priority (higher priority elements are served before lower priority ones). If two elements have the same priority, they are served according to their order in the queue (FIFO for same priority).
+
+Implement the following operations:
+- enqueue(value, priority): Insert an element with the given value and priority into the queue.
+- dequeue(): Remove and return the value of the element with the highest priority.
+- peek(): Return the value of the element with the highest priority without removing it.
+
+Input Format:
+The first line contains an integer n, the number of operations.
+Each of the next n lines contains an operation in one of the following formats:
+- "ENQUEUE value priority"
+- "DEQUEUE"
+- "PEEK"
+
+Output Format:
+For each "DEQUEUE" and "PEEK" operation, output the value returned by the operation on a new line.
+
+Constraints:
+- 1 <= n <= 1000
+- 1 <= value <= 10^6
+- 1 <= priority <= 100
+- It is guaranteed that "DEQUEUE" and "PEEK" operations will not be called on an empty queue.
+
+Sample Input:
+7
+ENQUEUE 10 2
+ENQUEUE 20 5
+ENQUEUE 30 3
+PEEK
+DEQUEUE
+PEEK
+DEQUEUE
+
+Sample Output:
+20
+20
+30
+
+Explanation:
+- ENQUEUE 10 2: Insert 10 with priority 2.
+- ENQUEUE 20 5: Insert 20 with priority 5.
+- ENQUEUE 30 3: Insert 30 with priority 3.
+- PEEK: The highest priority is 5, so output 20.
+- DEQUEUE: Remove and output 20.
+- PEEK: Now the highest priority is 3, so output 30.
+- DEQUEUE: Remove and output 30.
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+ENQUEUE 5 1
+PEEK
+DEQUEUE
+Output:
+5
+5
+
+Test Case 2:
+Input:
+5
+ENQUEUE 7 2
+ENQUEUE 8 2
+PEEK
+DEQUEUE
+PEEK
+Output:
+7
+7
+8
+
+Test Case 3:
+Input:
+6
+ENQUEUE 1 10
+ENQUEUE 2 20
+ENQUEUE 3 15
+DEQUEUE
+PEEK
+DEQUEUE
+Output:
+2
+3
+3
+
+Test Case 4:
+Input:
+4
+ENQUEUE 100 50
+ENQUEUE 200 50
+DEQUEUE
+DEQUEUE
+Output:
+100
+200
+
+Test Case 5:
+Input:
+7
+ENQUEUE 9 1
+ENQUEUE 8 2
+ENQUEUE 7 3
+PEEK
+DEQUEUE
+PEEK
+DEQUEUE
+Output:
+7
+7
+8
+

@@ -1,0 +1,163 @@
+import java.util.*;
+
+public class EvaluateDivision {
+    static class Pair {
+        String var;
+        double val;
+        Pair(String var, double val) {
+            this.var = var;
+            this.val = val;
+        }
+    }
+
+    private static Map<String, List<Pair>> buildGraph(int n, Scanner sc) {
+        Map<String, List<Pair>> graph = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            String a = sc.next();
+            String b = sc.next();
+            double val = sc.nextDouble();
+            graph.computeIfAbsent(a, k -> new ArrayList<>()).add(new Pair(b, val));
+            graph.computeIfAbsent(b, k -> new ArrayList<>()).add(new Pair(a, 1.0 / val));
+        }
+        return graph;
+    }
+
+    private static double dfs(String src, String dest, Set<String> visited, 
+        Map<String, List<Pair>> graph, double acc) {
+        if (!graph.containsKey(src) || !graph.containsKey(dest)) return -1.0;
+        if (src.equals(dest)) return acc;
+        visited.add(src);
+        for (Pair neighbor : graph.get(src)) {
+            if (!visited.contains(neighbor.var)) {
+                double res = dfs(neighbor.var, dest, visited, graph, acc * neighbor.val);
+                if (res != -1.0) return res;
+            }
+        }
+        return -1.0;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Map<String, List<Pair>> graph = buildGraph(n, sc);
+        int q = sc.nextInt();
+        for (int i = 0; i < q; i++) {
+            String src = sc.next();
+            String dest = sc.next();
+            Set<String> visited = new HashSet<>();
+            double result = dfs(src, dest, visited, graph, 1.0);
+            System.out.println(result);
+        }
+    }
+}
+----------------------------------
+Detailed step-by-step explanation of the code:
+    1. Imports
+        ```java
+        import java.util.*;
+        ```
+        - Imports utility classes like `Scanner`, `Map`, 
+          `HashMap`, `List`, `ArrayList`, and `Set`.
+
+    2. Class and Helper Class
+        ```java
+        public class EvaluateDivision {
+            static class Pair {
+                String var;
+                double val;
+                Pair(String var, double val) {
+                    this.var = var;
+                    this.val = val;
+                }
+            }
+        ```
+        - `EvaluateDivision` is the main class.
+        - `Pair` is a static inner class to store a variable (`var`) and 
+           its associated value (`val`). 
+           Used to represent edges in a graph.
+
+    3. Building the Graph
+        ```java
+        private static Map<String, List<Pair>> buildGraph(int n, Scanner sc) {
+            Map<String, List<Pair>> graph = new HashMap<>();
+            for (int i = 0; i < n; i++) {
+                String a = sc.next();
+                String b = sc.next();
+                double val = sc.nextDouble();
+                graph.computeIfAbsent(a, k -> new ArrayList<>()).add(new Pair(b, val));
+                graph.computeIfAbsent(b, k -> new ArrayList<>()).add(new Pair(a, 1.0 / val));
+            }
+            return graph;
+        }
+        ```
+        - Builds a bidirectional weighted graph from `n` equations.
+        - For each equation `a / b = val`:
+        - Adds an edge from `a` to `b` with weight `val`.
+        - Adds an edge from `b` to `a` with weight `1/val` (the reciprocal).
+        - Uses `computeIfAbsent` 
+          to initialize adjacency lists if not present.
+
+    4. Depth-First Search (DFS) for Evaluation
+        ```java
+        private static double dfs(String src, String dest, 
+            Set<String> visited, Map<String, List<Pair>> graph, double acc) {
+            if (!graph.containsKey(src) || !graph.containsKey(dest)) return -1.0;
+            if (src.equals(dest)) return acc;
+            visited.add(src);
+            for (Pair neighbor : graph.get(src)) {
+                if (!visited.contains(neighbor.var)) {
+                    double res = dfs(neighbor.var, dest, visited, graph, acc * neighbor.val);
+                    if (res != -1.0) return res;
+                }
+            }
+            return -1.0;
+        }
+        ```
+        - Recursively searches for a path from `src` to `dest`.
+        - If either variable is missing, returns `-1.0`.
+        - If `src == dest`, returns the accumulated product (`acc`).
+        - Marks `src` as visited to avoid cycles.
+        - For each neighbor, recursively calls `dfs`, 
+          multiplying the accumulated value by the edge weight.
+        - Returns the result if a valid path is found; 
+          otherwise, returns `-1.0`.
+
+    5. Main Method
+        ```java
+        public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+            int n = sc.nextInt();
+            Map<String, List<Pair>> graph = buildGraph(n, sc);
+            int q = sc.nextInt();
+            for (int i = 0; i < q; i++) {
+                String src = sc.next();
+                String dest = sc.next();
+                Set<String> visited = new HashSet<>();
+                double result = dfs(src, dest, visited, graph, 1.0);
+                System.out.println(result);
+            }
+        }
+        ```
+        - Reads number of equations `n`.
+        - Builds the graph using `buildGraph`.
+        - Reads number of queries `q`.
+        - For each query:
+        - Reads `src` and `dest` variables.
+        - Initializes a new `visited` set.
+        - Calls `dfs` to compute the result, 
+          starting with an accumulated value of `1.0`.
+        - Prints the result.
+
+    Summary
+        - The code models equations as a weighted graph.
+        - Each query is answered by searching 
+          for a path between variables and 
+          multiplying edge weights.
+        - If no path exists, returns `-1.0`.
+
+    Gotchas
+        - If a variable is not present in the graph, 
+          the result is `-1.0`.
+        - Cycles are avoided using the `visited` set.
+        - The graph is undirected 
+          (edges in both directions with reciprocal weights).

@@ -1,0 +1,104 @@
+07
+"Task Scheduler", 
+"Given a list of tasks with priorities, schedule them such that the highest priority task is executed first.", 
+"Medium", 
+"LeetCode, Google, Microsoft"
+----------------------------------
+Problem Title:
+Task Scheduler
+
+Problem Description:
+You are given a list of tasks, where each task has a unique identifier and an associated priority (an integer, where a higher number means higher priority). Your job is to schedule the tasks so that the highest priority task is executed first. If two tasks have the same priority, execute the one that appears earlier in the input list. Output the order in which the tasks should be executed.
+
+Input Format:
+- The first line contains an integer n, the number of tasks.
+- The next n lines each contain a string task_id and an integer priority, separated by a space.
+
+Output Format:
+- Output n lines, each containing the task_id of the next task to execute, in order.
+
+Constraints:
+- 1 <= n <= 10^5
+- 1 <= length of task_id <= 20
+- -10^9 <= priority <= 10^9
+- task_id consists of lowercase English letters and/or digits
+
+Sample Input:
+5
+a1 3
+b2 5
+c3 2
+d4 5
+e5 1
+
+Sample Output:
+b2
+d4
+a1
+c3
+e5
+
+Explanation:
+Tasks b2 and d4 have the highest priority (5). Since b2 appears before d4, it is scheduled first. Then comes a1 (priority 3), c3 (priority 2), and e5 (priority 1).
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3
+task1 10
+task2 20
+task3 15
+Output:
+task2
+task3
+task1
+
+Test Case 2:
+Input:
+4
+alpha 5
+beta 5
+gamma 5
+delta 5
+Output:
+alpha
+beta
+gamma
+delta
+
+Test Case 3:
+Input:
+2
+x 100
+y 100
+Output:
+x
+y
+
+Test Case 4:
+Input:
+6
+t1 -1
+t2 0
+t3 1
+t4 2
+t5 3
+t6 4
+Output:
+t6
+t5
+t4
+t3
+t2
+t1
+
+Test Case 5:
+Input:
+1
+single 42
+Output:
+single
+

@@ -1,0 +1,124 @@
+05 
+"Find Median from Data Stream", 
+"Design a data structure that supports adding numbers and finding the median efficiently using heaps.", 
+"Hard", 
+"LeetCode, Uber, Twitter"
+----------------------------------
+Problem Title:
+Find Median from Data Stream
+
+Problem Description:
+Design a data structure that efficiently supports two operations:
+1. Adding a number from a data stream to the data structure.
+2. Finding the median of all elements added so far.
+
+The median is the middle value in an ordered list of numbers. If the list has an even number of elements, the median is the average of the two middle values.
+
+Implement the following methods:
+- addNum(int num): Adds the integer num from the data stream to the data structure.
+- findMedian(): Returns the median of all elements so far.
+
+Input Format:
+- The first line contains an integer n, the number of operations.
+- Each of the next n lines contains an operation in one of the following formats:
+    - "addNum x" where x is an integer to add.
+    - "findMedian" to query the current median.
+
+Output Format:
+- For each "findMedian" operation, output the median on a new line. If the median is not an integer, output it as a decimal with one digit after the decimal point.
+
+Constraints:
+- 1 <= n <= 10^5
+- For "addNum x", -10^6 <= x <= 10^6
+- There will be at least one "findMedian" operation.
+- The number of "addNum" operations will be at least as many as "findMedian" operations.
+
+Sample Input:
+7
+addNum 1
+addNum 2
+findMedian
+addNum 3
+findMedian
+addNum 4
+findMedian
+
+Sample Output:
+1.5
+2
+2.5
+
+Explanation:
+- After adding 1 and 2, the numbers are [1, 2]. Median is (1+2)/2 = 1.5.
+- After adding 3, the numbers are [1, 2, 3]. Median is 2.
+- After adding 4, the numbers are [1, 2, 3, 4]. Median is (2+3)/2 = 2.5.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+5
+addNum 5
+addNum 3
+findMedian
+addNum 8
+findMedian
+
+Output:
+4.0
+5.0
+
+Test Case 2:
+Input:
+6
+addNum 10
+addNum 20
+addNum 30
+findMedian
+addNum 40
+findMedian
+
+Output:
+20.0
+25.0
+
+Test Case 3:
+Input:
+4
+addNum -1
+addNum -2
+findMedian
+findMedian
+
+Output:
+-1.5
+-1.5
+
+Test Case 4:
+Input:
+8
+addNum 1
+addNum 2
+addNum 3
+addNum 4
+addNum 5
+findMedian
+addNum 6
+findMedian
+
+Output:
+3.0
+3.5
+
+Test Case 5:
+Input:
+3
+addNum 1000000
+findMedian
+addNum -1000000
+
+Output:
+1000000.0
+

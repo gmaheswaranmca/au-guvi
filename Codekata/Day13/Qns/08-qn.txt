@@ -1,0 +1,73 @@
+08
+"Top K Frequent Elements", 
+"Given an array of elements, return the k most frequent elements using a priority queue.", 
+"Medium", 
+"LeetCode, Facebook, Amazon"
+----------------------------------
+Problem Title:
+Top K Frequent Elements
+
+Problem Description:
+Given an array of integers, return the k most frequent elements. If there are multiple answers, return any of them in any order. You must solve this problem using a priority queue (heap).
+
+Input Format:
+- The first line contains two integers n and k, where n is the number of elements in the array and k is the number of most frequent elements to return.
+- The second line contains n space-separated integers representing the elements of the array.
+
+Output Format:
+- Print k space-separated integers representing the k most frequent elements in any order.
+
+Constraints:
+- 1 <= n <= 10^5
+- 1 <= k <= n
+- -10^9 <= array[i] <= 10^9
+
+Sample Input:
+6 2
+1 1 1 2 2 3
+
+Sample Output:
+1 2
+
+Explanation:
+The number 1 appears 3 times, and the number 2 appears 2 times. These are the two most frequent elements.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+6 2
+1 1 1 2 2 3
+Output:
+1 2
+
+Test Case 2:
+Input:
+8 3
+4 4 4 5 5 6 6 7
+Output:
+4 5 6
+
+Test Case 3:
+Input:
+5 1
+10 10 20 30 40
+Output:
+10
+
+Test Case 4:
+Input:
+7 2
+1 2 3 4 5 6 7
+Output:
+Any two numbers (since all have frequency 1)
+
+Test Case 5:
+Input:
+10 4
+2 2 3 3 4 4 5 5 6 6
+Output:
+2 3 4 5
+

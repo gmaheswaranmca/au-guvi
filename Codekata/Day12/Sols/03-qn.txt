@@ -1,0 +1,170 @@
+import java.util.*;
+
+public class CycleDetectionDirectedGraph {
+    static List<List<Integer>> adj;
+    static boolean[] visited;
+    static boolean[] recStack;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        adj = new ArrayList<>();
+        for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adj.get(u).add(v);
+        }
+        visited = new boolean[n + 1];
+        recStack = new boolean[n + 1];
+        boolean hasCycle = false;
+        for (int i = 1; i <= n; i++) {
+            if (!visited[i]) {
+                if (dfs(i)) {
+                    hasCycle = true;
+                    break;
+                }
+            }
+        }
+        System.out.println(hasCycle ? "Yes" : "No");
+    }
+
+    static boolean dfs(int node) {
+        visited[node] = true;
+        recStack[node] = true;
+        for (int neighbor : adj.get(node)) {
+            if (!visited[neighbor]) {
+                if (dfs(neighbor)) return true;
+            } else if (recStack[neighbor]) {
+                return true;
+            }
+        }
+        recStack[node] = false;
+        return false;
+    }
+}
+----------------------------------
+Step-by-step explanation of the code:
+    1. Imports and Class Declaration
+        - `import java.util.*;`  
+        Imports all classes from the `java.util` package (like `Scanner`, `List`, `ArrayList`).
+
+        - `public class CycleDetectionDirectedGraph`  
+        Declares a public class for detecting cycles in a directed graph.
+
+    2. Static Variables
+        - `static List<List<Integer>> adj;`  
+        Adjacency list to represent the graph. 
+        Each index holds a list of neighbors for that node.
+
+        - `static boolean[] visited;`  
+        Tracks if a node has been visited during DFS.
+
+        - `static boolean[] recStack;`  
+        Tracks nodes in the current recursion stack 
+        (used to detect cycles).
+
+    3. Main Method
+        - `Scanner sc = new Scanner(System.in);`  
+        Reads input from the user.
+
+        - `int n = sc.nextInt();`  
+        Number of nodes in the graph.
+
+        - `int m = sc.nextInt();`  
+        Number of edges.
+
+        - `adj = new ArrayList<>();`  
+        Initializes the adjacency list.
+
+        - `for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());`  
+        Creates an empty list for each node 
+        (1-based indexing, so index 0 is unused).
+
+        - Reading Edges:  
+        ```
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adj.get(u).add(v);
+        }
+        ```
+        Reads `m` edges. For each edge from `u` to `v`, 
+        adds `v` to `u`'s adjacency list.
+
+        - `visited = new boolean[n + 1];`  
+        Initializes the visited array.
+
+        - `recStack = new boolean[n + 1];`  
+        Initializes the recursion stack array.
+
+        - `boolean hasCycle = false;`  
+        Flag to indicate if a cycle is found.
+
+        - Cycle Detection Loop:  
+        ```
+        for (int i = 1; i <= n; i++) {
+            if (!visited[i]) {
+                if (dfs(i)) {
+                    hasCycle = true;
+                    break;
+                }
+            }
+        }
+        ```
+        For each node, if not visited, calls `dfs(i)`. 
+        If a cycle is found, 
+        sets `hasCycle` to true and breaks.
+
+        - `System.out.println(hasCycle ? "Yes" : "No");`  
+        Prints "Yes" if a cycle exists, 
+        otherwise "No".
+
+    4. DFS Method
+        - `static boolean dfs(int node)`  
+        Performs depth-first search from `node`.
+
+        - `visited[node] = true;`  
+        Marks the node as visited.
+
+        - `recStack[node] = true;`  
+        Adds the node to the recursion stack.
+
+        - Iterate Over Neighbors:  
+        ```
+        for (int neighbor : adj.get(node)) {
+            if (!visited[neighbor]) {
+                if (dfs(neighbor)) return true;
+            } else if (recStack[neighbor]) {
+                return true;
+            }
+        }
+        ```
+        For each neighbor:
+        - If not visited, recursively DFS.
+        - If already in the recursion stack, 
+          a cycle is detected (returns true).
+
+        - `recStack[node] = false;`  
+        Removes the node from the recursion stack 
+        after exploring all neighbors.
+
+        - `return false;`  
+        Returns false 
+        if no cycle is found from this path.
+
+    Key Concepts
+        - Adjacency List: Efficient way to represent sparse graphs.
+        - DFS with Recursion Stack: Standard method 
+          for detecting cycles in directed graphs.
+        - Cycle Detection: If you revisit a node that’s already 
+          in the current recursion stack, a cycle exists.
+
+    Potential Gotchas
+        - 1-based Indexing: 
+          The code assumes nodes are numbered from 1 to n.
+        - Input Format: Expects edges as pairs of integers.
+        - Disconnected Graphs: The outer loop ensures 
+          all components are checked.
+----------------------------------
