@@ -1,0 +1,150 @@
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+public class KthLargestElement {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        System.out.println(findKthLargest(nums, k));
+    }
+
+    public static int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(k);
+        for (int num : nums) {
+            if (minHeap.size() < k) {
+                minHeap.offer(num);
+            } else if (num > minHeap.peek()) {
+                minHeap.poll();
+                minHeap.offer(num);
+            }
+        }
+        return minHeap.peek();
+    }
+}
+
+------------------------------------------------------------------
+
+Detailed step-by-step explanation of the code:
+
+---
+
+1. Imports
+
+```java
+import java.util.PriorityQueue;
+import java.util.Scanner;
+```
+- PriorityQueue: Used to efficiently keep track of the k largest elements.
+- Scanner: Used for reading user input from the console.
+
+---
+
+2. Class Declaration
+
+```java
+public class KthLargestElement {
+```
+Defines a public class named `KthLargestElement`.
+
+---
+
+3. Main Method
+
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int k = sc.nextInt();
+    int[] nums = new int[n];
+    for (int i = 0; i < n; i++) {
+        nums[i] = sc.nextInt();
+    }
+    System.out.println(findKthLargest(nums, k));
+}
+```
+
+Step-by-step:
+- Scanner sc = new Scanner(System.in);
+  - Creates a `Scanner` object to read input from the user.
+- int n = sc.nextInt();
+  - Reads the number of elements in the array.
+- int k = sc.nextInt();
+  - Reads the value of `k` (which kth largest element to find).
+- int[] nums = new int[n];
+  - Creates an integer array of size `n`.
+- for (int i = 0; i < n; i++) { nums[i] = sc.nextInt(); }
+  - Reads `n` integers from the user and stores them in the array.
+- System.out.println(findKthLargest(nums, k));
+  - Calls the `findKthLargest` method and prints the result.
+
+---
+
+4. findKthLargest Method
+
+```java
+public static int findKthLargest(int[] nums, int k) {
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>(k);
+    for (int num : nums) {
+        if (minHeap.size() < k) {
+            minHeap.offer(num);
+        } else if (num > minHeap.peek()) {
+            minHeap.poll();
+            minHeap.offer(num);
+        }
+    }
+    return minHeap.peek();
+}
+```
+
+Step-by-step:
+- PriorityQueue<Integer> minHeap = new PriorityQueue<>(k);
+  - Initializes a min-heap (priority queue) with capacity `k`.
+  - In a min-heap, the smallest element is always at the top (`peek()`).
+
+- for (int num : nums) { ... }
+  - Iterates through each number in the input array.
+
+- if (minHeap.size() < k) { minHeap.offer(num); }
+  - If the heap has fewer than `k` elements, add the current number.
+  - This fills the heap with the first `k` numbers.
+
+- else if (num > minHeap.peek()) { ... }
+  - If the heap already has `k` elements:
+    - Compare the current number with the smallest in the heap (`minHeap.peek()`).
+    - If the current number is larger:
+      - Remove the smallest (`minHeap.poll()`).
+      - Add the current number (`minHeap.offer(num)`).
+    - This ensures the heap always contains the `k` largest numbers seen so far.
+
+- return minHeap.peek();
+  - After processing all numbers, the smallest in the heap is the kth largest in the array.
+
+---
+
+5. How It Works (Example)
+
+Suppose `nums = [3, 2, 1, 5, 6, 4]` and `k = 2` (find the 2nd largest):
+
+- Heap after processing: `[5, 6]`
+- `minHeap.peek()` returns `5`, which is the 2nd largest element.
+
+---
+
+6. Key Concepts
+
+- Min-Heap of Size k: Efficiently keeps track of the k largest elements.
+- Time Complexity: O(n log k), since each insertion/removal in the heap takes O(log k) time.
+- Space Complexity: O(k), as the heap never stores more than k elements.
+
+---
+
+7. Potential Gotchas
+
+- If `k` is larger than the array size, the code will not behave as expected.
+- The input must contain at least `k` elements.
+

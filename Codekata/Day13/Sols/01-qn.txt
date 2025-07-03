@@ -1,0 +1,282 @@
+Java Solution:
+
+import java.util.*;
+
+class MinHeap {
+    private List<Integer> heap;
+
+    public MinHeap() {
+        heap = new ArrayList<>();
+    }
+
+    // Insert value into heap
+    public void insert(int val) {
+        heap.add(val);
+        percolateUp(heap.size() - 1);
+    }
+
+    // Extract and return the minimum element
+    public int extractMin() {
+        if (heap.isEmpty()) throw new NoSuchElementException("Heap is empty");
+        int min = heap.get(0);
+        int last = heap.remove(heap.size() - 1);
+        if (!heap.isEmpty()) {
+            heap.set(0, last);
+            percolateDown(0);
+        }
+        return min;
+    }
+
+    // Build heap from array
+    public void heapify(int[] arr) {
+        heap = new ArrayList<>();
+        for (int val : arr) heap.add(val);
+        for (int i = heap.size() / 2 - 1; i >= 0; i--) {
+            percolateDown(i);
+        }
+    }
+
+    private void percolateUp(int idx) {
+        while (idx > 0) {
+            int parent = (idx - 1) / 2;
+            if (heap.get(idx) < heap.get(parent)) {
+                swap(idx, parent);
+                idx = parent;
+            } else break;
+        }
+    }
+
+    private void percolateDown(int idx) {
+        int n = heap.size();
+        while (true) {
+            int left = 2 * idx + 1, right = 2 * idx + 2, smallest = idx;
+            if (left < n && heap.get(left) < heap.get(smallest)) smallest = left;
+            if (right < n && heap.get(right) < heap.get(smallest)) smallest = right;
+            if (smallest != idx) {
+                swap(idx, smallest);
+                idx = smallest;
+            } else break;
+        }
+    }
+
+    private void swap(int i, int j) {
+        int tmp = heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, tmp);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        MinHeap heap = new MinHeap();
+        for (int i = 0; i < n; i++) {
+            String line = sc.nextLine();
+            if (line.startsWith("insert")) {
+                int val = Integer.parseInt(line.split(" ")[1]);
+                heap.insert(val);
+            } else if (line.startsWith("extractMin")) {
+                try {
+                    System.out.println(heap.extractMin());
+                } catch (NoSuchElementException e) {
+                    // Optionally handle empty heap
+                }
+            } else if (line.startsWith("heapify")) {
+                String[] parts = line.split(" ");
+                int k = Integer.parseInt(parts[1]);
+                int[] arr = new int[k];
+                for (int j = 0; j < k; j++) {
+                    arr[j] = Integer.parseInt(parts[2 + j]);
+                }
+                heap.heapify(arr);
+            }
+        }
+    }
+}
+
+-------------------------------------------------------------------
+
+Detailed, step-by-step explanation of the code:
+
+---
+
+1. Imports
+
+```java
+import java.util.*;
+```
+- Imports all classes from the `java.util` package, including `ArrayList`, `List`, `Scanner`, and `NoSuchElementException`.
+
+---
+
+2. MinHeap Class
+
+a. Data Structure
+
+```java
+private List<Integer> heap;
+```
+- Uses a dynamic array (`ArrayList`) to store heap elements.
+- The heap is a min-heap: the smallest element is always at the root (index 0).
+
+b. Constructor
+
+```java
+public MinHeap() {
+    heap = new ArrayList<>();
+}
+```
+- Initializes the heap as an empty list.
+
+---
+
+c. Insert Operation
+
+```java
+public void insert(int val) {
+    heap.add(val);
+    percolateUp(heap.size() - 1);
+}
+```
+- Adds the new value at the end of the list.
+- Calls `percolateUp` to restore the min-heap property by moving the new value up as needed.
+
+---
+
+d. Extract Minimum Operation
+
+```java
+public int extractMin() {
+    if (heap.isEmpty()) throw new NoSuchElementException("Heap is empty");
+    int min = heap.get(0);
+    int last = heap.remove(heap.size() - 1);
+    if (!heap.isEmpty()) {
+        heap.set(0, last);
+        percolateDown(0);
+    }
+    return min;
+}
+```
+- Throws an exception if the heap is empty.
+- Saves the minimum value (root).
+- Removes the last element from the heap.
+- If the heap is not empty after removal, moves the last element to the root and calls `percolateDown` to restore the heap property.
+- Returns the minimum value.
+
+---
+
+e. Heapify Operation
+
+```java
+public void heapify(int[] arr) {
+    heap = new ArrayList<>();
+    for (int val : arr) heap.add(val);
+    for (int i = heap.size() / 2 - 1; i >= 0; i--) {
+        percolateDown(i);
+    }
+}
+```
+- Builds a heap from an array.
+- Copies all elements from the array into the heap.
+- Calls `percolateDown` on all non-leaf nodes (from the middle to the root) to ensure the min-heap property.
+
+---
+
+f. Percolate Up
+
+```java
+private void percolateUp(int idx) {
+    while (idx > 0) {
+        int parent = (idx - 1) / 2;
+        if (heap.get(idx) < heap.get(parent)) {
+            swap(idx, parent);
+            idx = parent;
+        } else break;
+    }
+}
+```
+- Moves the element at `idx` up the tree until the min-heap property is restored.
+- Swaps with its parent if it is smaller.
+
+---
+
+g. Percolate Down
+
+```java
+private void percolateDown(int idx) {
+    int n = heap.size();
+    while (true) {
+        int left = 2 * idx + 1, right = 2 * idx + 2, smallest = idx;
+        if (left < n && heap.get(left) < heap.get(smallest)) smallest = left;
+        if (right < n && heap.get(right) < heap.get(smallest)) smallest = right;
+        if (smallest != idx) {
+            swap(idx, smallest);
+            idx = smallest;
+        } else break;
+    }
+}
+```
+- Moves the element at `idx` down the tree, swapping with the smaller child if needed, until the min-heap property is restored.
+
+---
+
+h. Swap Helper
+
+```java
+private void swap(int i, int j) {
+    int tmp = heap.get(i);
+    heap.set(i, heap.get(j));
+    heap.set(j, tmp);
+}
+```
+- Swaps two elements in the heap.
+
+---
+
+3. Main Class
+
+a. Input Handling
+
+```java
+Scanner sc = new Scanner(System.in);
+int n = Integer.parseInt(sc.nextLine());
+MinHeap heap = new MinHeap();
+for (int i = 0; i < n; i++) {
+    String line = sc.nextLine();
+    ...
+}
+```
+- Reads the number of commands.
+- Initializes a new `MinHeap`.
+
+b. Command Processing
+
+- Insert:  
+  Parses the value and inserts it into the heap.
+- ExtractMin:  
+  Extracts and prints the minimum value. If the heap is empty, it catches the exception.
+- Heapify:  
+  Parses the array from the input and builds the heap from it.
+
+---
+
+Key Concepts & Gotchas
+
+- Min-Heap Property:  
+  Every parent node is less than or equal to its children.
+- Array Representation:  
+  For node at index `i`, left child is at `2*i+1`, right child at `2*i+2`.
+- Percolate Up/Down:  
+  Used to restore heap property after insertions and deletions.
+- Heapify Efficiency:  
+  Heapify runs in O(n) time, not O(n log n), because it only percolates down from non-leaf nodes.
+
+---
+
+Summary
+
+- Implements a min-heap with insert, extract-min, and heapify operations.
+- Uses an array-based structure for efficiency.
+- Handles user commands to manipulate the heap interactively.
+
