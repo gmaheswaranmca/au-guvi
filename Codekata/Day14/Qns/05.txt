@@ -1,0 +1,74 @@
+"First Unique Character in a String", 
+"Given a string, find the first non-repeating character in it and return its index.", 
+"Easy", 
+"LeetCode, Amazon"
+
+----------------------------------
+
+Problem Title:
+First Unique Character in a String
+
+Problem Description:
+Given a string, find the first non-repeating character in it and return its index. If it does not exist, return -1.
+
+Input Format:
+- A single line containing a string s consisting of lowercase English letters.
+
+Output Format:
+- An integer representing the index of the first non-repeating character in the string. If there is no such character, output -1.
+
+Constraints:
+- 1 <= s.length <= 10^5
+- s consists only of lowercase English letters.
+
+Sample Input 1:
+leetcode
+
+Sample Output 1:
+0
+
+Explanation 1:
+The first non-repeating character is 'l' at index 0.
+
+Sample Input 2:
+loveleetcode
+
+Sample Output 2:
+2
+
+Explanation 2:
+The first non-repeating character is 'v' at index 2.
+
+Sample Input 3:
+aabb
+
+Sample Output 3:
+-1
+
+Explanation 3:
+There are no non-repeating characters.
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input: abacabad
+Output: 4
+
+Test Case 2:
+Input: aabbcc
+Output: -1
+
+Test Case 3:
+Input: z
+Output: 0
+
+Test Case 4:
+Input: abcabcde
+Output: 6
+
+Test Case 5:
+Input: xxyyzz
+Output: -1
+z
