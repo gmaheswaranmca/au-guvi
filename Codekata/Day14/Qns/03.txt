@@ -1,0 +1,93 @@
+"Group Anagrams", 
+"Given an array of strings, group the anagrams together.", 
+"Medium", 
+"LeetCode, Amazon, Apple"
+----------------------------------
+
+Problem Title:
+Group Anagrams
+
+Problem Description:
+Given an array of strings, group the strings that are anagrams of each other. An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once. Return a list of groups of anagrams.
+
+Input Format:
+- The first line contains an integer n, the number of strings.
+- The next n lines each contain a string.
+
+Output Format:
+- Print the groups of anagrams, each group on a separate line. The strings in each group should be space-separated and in any order. The groups themselves can be in any order.
+
+Constraints:
+- 1 <= n <= 10^4
+- 0 <= length of each string <= 100
+- All strings consist of lowercase English letters.
+
+Sample Input:
+6
+eat
+tea
+tan
+ate
+nat
+bat
+
+Sample Output:
+eat tea ate
+tan nat
+bat
+
+Explanation:
+"eat", "tea", and "ate" are anagrams of each other. "tan" and "nat" are anagrams. "bat" has no anagrams in the list.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+abc
+bca
+cab
+Output:
+abc bca cab
+
+Test Case 2:
+Input:
+4
+listen
+silent
+enlist
+google
+Output:
+listen silent enlist
+google
+
+Test Case 3:
+Input:
+5
+a
+b
+c
+a
+b
+Output:
+a a
+b b
+c
+
+Test Case 4:
+Input:
+2
+abcd
+dcba
+Output:
+abcd dcba
+
+Test Case 5:
+Input:
+1
+z
+Output:
+z
+
