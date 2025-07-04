@@ -1,0 +1,165 @@
+import java.util.*;
+
+class MedianFinder {
+    private PriorityQueue<Integer> maxHeap; // lower half
+    private PriorityQueue<Integer> minHeap; // upper half
+
+    public MedianFinder() {
+        maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        minHeap = new PriorityQueue<>();
+    }
+
+    public void addNum(int num) {
+        if (maxHeap.isEmpty() || num <= maxHeap.peek())
+            maxHeap.offer(num);
+        else
+            minHeap.offer(num);
+
+        // Balance the heaps
+        if (maxHeap.size() > minHeap.size() + 1)
+            minHeap.offer(maxHeap.poll());
+        else if (minHeap.size() > maxHeap.size())
+            maxHeap.offer(minHeap.poll());
+    }
+
+    public double findMedian() {
+        if (maxHeap.size() == minHeap.size())
+            return (maxHeap.peek() + minHeap.peek()) / 2.0;
+        else
+            return maxHeap.peek();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        MedianFinder mf = new MedianFinder();
+        for (int i = 0; i < n; i++) {
+            String line = sc.nextLine();
+            if (line.startsWith("addNum")) {
+                int num = Integer.parseInt(line.split(" ")[1]);
+                mf.addNum(num);
+            } else if (line.equals("findMedian")) {
+                double median = mf.findMedian();
+                if (median == (int) median)
+                    System.out.printf("%.1f\n", median);
+                else
+                    System.out.printf("%.1f\n", median);
+            }
+        }
+        sc.close();
+    }
+}
+-----------------------------------------------------------
+Step-by-step explanation of the code:
+
+1. Imports
+```java
+import java.util.*;
+```
+- Imports all classes from the `java.util` package, including `PriorityQueue`, `Collections`, and `Scanner`.
+
+---
+
+2. MedianFinder Class
+
+Fields
+```java
+private PriorityQueue<Integer> maxHeap; // lower half
+private PriorityQueue<Integer> minHeap; // upper half
+```
+- `maxHeap`: A max-heap (largest element at the top) to store the lower half of numbers.
+- `minHeap`: A min-heap (smallest element at the top) to store the upper half.
+
+Constructor
+```java
+public MedianFinder() {
+    maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+    minHeap = new PriorityQueue<>();
+}
+```
+- Initializes `maxHeap` as a max-heap using `Collections.reverseOrder()`.
+- Initializes `minHeap` as a normal min-heap.
+
+addNum Method
+```java
+public void addNum(int num) {
+    if (maxHeap.isEmpty() || num <= maxHeap.peek())
+        maxHeap.offer(num);
+    else
+        minHeap.offer(num);
+
+    // Balance the heaps
+    if (maxHeap.size() > minHeap.size() + 1)
+        minHeap.offer(maxHeap.poll());
+    else if (minHeap.size() > maxHeap.size())
+        maxHeap.offer(minHeap.poll());
+}
+```
+- Step 1: If `maxHeap` is empty or `num` is less than or equal to the largest in `maxHeap`, add to `maxHeap`. Otherwise, add to `minHeap`.
+- Step 2: Balance the heaps so their sizes differ by at most 1:
+  - If `maxHeap` has more than one extra element, move the largest from `maxHeap` to `minHeap`.
+  - If `minHeap` has more elements, move the smallest from `minHeap` to `maxHeap`.
+
+findMedian Method
+```java
+public double findMedian() {
+    if (maxHeap.size() == minHeap.size())
+        return (maxHeap.peek() + minHeap.peek()) / 2.0;
+    else
+        return maxHeap.peek();
+}
+```
+- If both heaps have the same size, the median is the average of their top elements.
+- If not, the median is the top of `maxHeap` (since it will have one more element).
+
+---
+
+3. Main Class
+
+main Method
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = Integer.parseInt(sc.nextLine());
+    MedianFinder mf = new MedianFinder();
+    for (int i = 0; i < n; i++) {
+        String line = sc.nextLine();
+        if (line.startsWith("addNum")) {
+            int num = Integer.parseInt(line.split(" ")[1]);
+            mf.addNum(num);
+        } else if (line.equals("findMedian")) {
+            double median = mf.findMedian();
+            if (median == (int) median)
+                System.out.printf("%.1f\n", median);
+            else
+                System.out.printf("%.1f\n", median);
+        }
+    }
+    sc.close();
+}
+```
+- Reads the number of commands (`n`).
+- For each command:
+  - If it starts with `addNum`, extracts the number and adds it to `MedianFinder`.
+  - If it is `findMedian`, computes and prints the median with one decimal place.
+- Closes the scanner.
+
+---
+
+Key Concepts
+- Heaps: Efficiently keep track of the median by splitting numbers into two heaps.
+- Balancing: Ensures the heaps are always balanced in size.
+- Median Calculation: Depends on whether the total count is odd or even.
+
+---
+
+Gotchas
+- Using integer division would lose precision; dividing by `2.0` ensures a double result.
+- Always balance the heaps after every insertion to maintain the median property.
+
+---
+
+Summary:  
+This code efficiently maintains a running median of a stream of numbers using two heaps, supporting fast insertion and median retrieval.

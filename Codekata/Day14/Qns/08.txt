@@ -1,0 +1,119 @@
+"Valid Sudoku", 
+"Determine if a 9x9 Sudoku board is valid. Only the filled cells need to be validated.", 
+"Medium", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title:
+Valid Sudoku
+
+Problem Description:
+Given a 9x9 Sudoku board, determine if it is valid. Only the filled cells need to be validated according to the following rules:
+1. Each row must contain the digits 1-9 without repetition.
+2. Each column must contain the digits 1-9 without repetition.
+3. Each of the nine 3x3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+
+Empty cells are indicated by the character '.'.
+
+Input Format:
+A 9x9 grid of characters, where each character is either a digit '1'-'9' or '.'.
+
+Output Format:
+Print "true" if the board is valid, otherwise print "false".
+
+Constraints:
+- The board is always 9 rows by 9 columns.
+- The board may be partially filled.
+- Only the filled cells need to be validated.
+
+Sample Input:
+5 3 . . 7 . . . .
+6 . . 1 9 5 . . .
+. 9 8 . . . . 6 .
+8 . . . 6 . . . 3
+4 . . 8 . 3 . . 1
+7 . . . 2 . . . 6
+. 6 . . . . 2 8 .
+. . . 4 1 9 . . 5
+. . . . 8 . . 7 9
+
+Sample Output:
+true
+
+Explanation:
+No row, column, or 3x3 sub-box contains duplicate digits among the filled cells.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+5 3 . . 7 . . . .
+6 . . 1 9 5 . . .
+. 9 8 . . . . 6 .
+8 . . . 6 . . . 3
+4 . . 8 . 3 . . 1
+7 . . . 2 . . . 6
+. 6 . . . . 2 8 .
+. . . 4 1 9 . . 5
+. . . . 8 . . 7 9
+Output:
+true
+
+Test Case 2:
+Input:
+8 3 . . 7 . . . .
+6 . . 1 9 5 . . .
+. 9 8 . . . . 6 .
+8 . . . 6 . . . 3
+4 . . 8 . 3 . . 1
+7 . . . 2 . . . 6
+. 6 . . . . 2 8 .
+. . . 4 1 9 . . 5
+. . . . 8 . . 7 9
+Output:
+false
+
+Test Case 3:
+Input:
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+. . . . . . . . .
+Output:
+true
+
+Test Case 4:
+Input:
+5 3 . . 7 . . . .
+6 . . 1 9 5 . . .
+. 9 8 . . . . 6 .
+8 . . . 6 . . . 3
+4 . . 8 . 3 . . 1
+7 . . . 2 . . . 6
+. 6 . . . . 2 8 .
+. . . 4 1 9 . . 5
+. . . . 8 . . 7 8
+Output:
+false
+
+Test Case 5:
+Input:
+5 3 . . 7 . . . .
+6 . . 1 9 5 . . .
+. 9 8 . . . . 6 .
+8 . . . 6 . . . 3
+4 . . 8 . 3 . . 1
+7 . . . 2 . . . 6
+. 6 . . . . 2 8 .
+. . . 4 1 9 . . 5
+. . . . 8 . . 7 9
+Output:
+true

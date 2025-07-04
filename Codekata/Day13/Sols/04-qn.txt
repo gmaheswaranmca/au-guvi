@@ -1,0 +1,217 @@
+import java.util.*;
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class MergeKSortedLists {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int k = Integer.parseInt(sc.nextLine().trim());
+        List<ListNode> lists = new ArrayList<>();
+        for (int i = 0; i < k; i++) {
+            String line = sc.nextLine().trim();
+            if (line.isEmpty()) {
+                lists.add(null);
+                continue;
+            }
+            String[] nums = line.split("\\s+");
+            ListNode dummy = new ListNode(0), curr = dummy;
+            for (String num : nums) {
+                curr.next = new ListNode(Integer.parseInt(num));
+                curr = curr.next;
+            }
+            lists.add(dummy.next);
+        }
+        ListNode merged = mergeKLists(lists.toArray(new ListNode[0]));
+        printList(merged);
+    }
+
+    public static ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue<ListNode> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a.val));
+        for (ListNode node : lists) {
+            if (node != null) heap.offer(node);
+        }
+        ListNode dummy = new ListNode(0), curr = dummy;
+        while (!heap.isEmpty()) {
+            ListNode node = heap.poll();
+            curr.next = node;
+            curr = curr.next;
+            if (node.next != null) heap.offer(node.next);
+        }
+        return dummy.next;
+    }
+
+    private static void printList(ListNode head) {
+        List<Integer> vals = new ArrayList<>();
+        while (head != null) {
+            vals.add(head.val);
+            head = head.next;
+        }
+        for (int i = 0; i < vals.size(); i++) {
+            if (i > 0) System.out.print(" ");
+            System.out.print(vals.get(i));
+        }
+        System.out.println();
+    }
+}
+
+-----------------------------------------------------
+
+Detailed step-by-step explanation of the code:
+
+---
+
+1. Imports
+
+```java
+import java.util.*;
+```
+- Imports all classes from the `java.util` package, including `Scanner`, `ArrayList`, `List`, and `PriorityQueue`.
+
+---
+
+2. ListNode Class
+
+```java
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+```
+- Defines a singly linked list node.
+- `val`: stores the integer value.
+- `next`: reference to the next node.
+- Constructor initializes the node’s value.
+
+---
+
+3. MergeKSortedLists Class
+
+main Method
+
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int k = Integer.parseInt(sc.nextLine().trim());
+    List<ListNode> lists = new ArrayList<>();
+    for (int i = 0; i < k; i++) {
+        String line = sc.nextLine().trim();
+        if (line.isEmpty()) {
+            lists.add(null);
+            continue;
+        }
+        String[] nums = line.split("\\s+");
+        ListNode dummy = new ListNode(0), curr = dummy;
+        for (String num : nums) {
+            curr.next = new ListNode(Integer.parseInt(num));
+            curr = curr.next;
+        }
+        lists.add(dummy.next);
+    }
+    ListNode merged = mergeKLists(lists.toArray(new ListNode[0]));
+    printList(merged);
+}
+```
+
+Step-by-step:
+1. Input Reading
+   - Uses `Scanner` to read input from the user.
+   - Reads the first line as `k`, the number of linked lists.
+
+2. Building Input Lists
+   - For each list (loop runs `k` times):
+     - Reads a line, trims whitespace.
+     - If the line is empty, adds `null` (empty list) to `lists`.
+     - Otherwise, splits the line into numbers.
+     - Uses a dummy node to build the linked list:
+       - For each number, creates a new `ListNode` and links it.
+     - Adds the head of the new list (`dummy.next`) to `lists`.
+
+3. Merging Lists
+   - Converts `lists` to an array and calls `mergeKLists`.
+
+4. Printing Result
+   - Calls `printList` to print the merged linked list.
+
+---
+
+mergeKLists Method
+
+```java
+public static ListNode mergeKLists(ListNode[] lists) {
+    PriorityQueue<ListNode> heap = new PriorityQueue<>(Comparator.comparingInt(a -> a.val));
+    for (ListNode node : lists) {
+        if (node != null) heap.offer(node);
+    }
+    ListNode dummy = new ListNode(0), curr = dummy;
+    while (!heap.isEmpty()) {
+        ListNode node = heap.poll();
+        curr.next = node;
+        curr = curr.next;
+        if (node.next != null) heap.offer(node.next);
+    }
+    return dummy.next;
+}
+```
+
+Step-by-step:
+1. Priority Queue Setup
+   - Uses a min-heap (`PriorityQueue`) to always get the node with the smallest value.
+   - Comparator sorts nodes by their `val`.
+
+2. Heap Initialization
+   - Adds the head of each non-null list to the heap.
+
+3. Merging Process
+   - Uses a dummy node to build the merged list.
+   - While the heap is not empty:
+     - Removes the smallest node from the heap.
+     - Adds it to the merged list.
+     - If the removed node has a next node, adds that to the heap.
+
+4. Return
+   - Returns the merged list, skipping the dummy node.
+
+---
+
+printList Method
+
+```java
+private static void printList(ListNode head) {
+    List<Integer> vals = new ArrayList<>();
+    while (head != null) {
+        vals.add(head.val);
+        head = head.next;
+    }
+    for (int i = 0; i < vals.size(); i++) {
+        if (i > 0) System.out.print(" ");
+        System.out.print(vals.get(i));
+    }
+    System.out.println();
+}
+```
+
+Step-by-step:
+1. Collect Values
+   - Traverses the linked list, adding each value to a list.
+
+2. Print Values
+   - Prints the values, separated by spaces.
+
+---
+
+Key Concepts & Gotchas
+
+- Dummy Node Pattern: Used to simplify list construction and avoid special cases for the head.
+- Priority Queue: Efficiently merges k sorted lists by always picking the smallest current node.
+- Null Handling: Handles empty input lines as empty lists.
+- Input Format: Expects the first line as the number of lists, followed by each list on a new line (space-separated).
+
+---
+
+Summary:  
+This code reads k sorted linked lists from input, merges them into a single sorted list using a min-heap, and prints the result. It demonstrates efficient merging using a priority queue and careful handling of linked list construction and traversal.

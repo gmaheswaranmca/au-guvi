@@ -1,0 +1,114 @@
+import java.util.*;
+public class TopKFrequentElements {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int[] nums = new int[n];
+        for(int i=0; i<n; i++) nums[i] = sc.nextInt();
+
+        Map<Integer, Integer> freq = new HashMap<>();
+        for(int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
+
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+        for(Map.Entry<Integer, Integer> entry : freq.entrySet()) {
+            minHeap.offer(new int[]{entry.getKey(), entry.getValue()});
+            if(minHeap.size() > k) minHeap.poll();
+        }
+
+        List<Integer> res = new ArrayList<>();
+        while(!minHeap.isEmpty()) res.add(minHeap.poll()[0]);
+        for(int i=0; i<res.size(); i++) {
+            System.out.print(res.get(i));
+            if(i != res.size()-1) System.out.print(" ");
+        }
+    }
+}
+--------------------------------------------------------------
+Detailed step-by-step explanation of the code:
+
+1. Import Statements
+```java
+import java.util.*;
+```
+- Imports all classes from the `java.util` package (like `Scanner`, `HashMap`, `PriorityQueue`, etc.).
+
+2. Class and Main Method
+```java
+public class TopKFrequentElements {
+    public static void main(String[] args) {
+        // ...
+    }
+}
+```
+- Defines a public class `TopKFrequentElements` with a `main` method (entry point).
+
+3. Input Reading
+```java
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt();
+int k = sc.nextInt();
+int[] nums = new int[n];
+for(int i=0; i<n; i++) nums[i] = sc.nextInt();
+```
+- Reads two integers: `n` (number of elements) and `k` (number of top frequent elements to find).
+- Reads `n` integers into the array `nums`.
+
+4. Frequency Counting
+```java
+Map<Integer, Integer> freq = new HashMap<>();
+for(int num : nums) freq.put(num, freq.getOrDefault(num, 0) + 1);
+```
+- Creates a `HashMap` called `freq` to store the frequency of each number.
+- For each number in `nums`, increments its count in the map.
+- `getOrDefault(num, 0)` returns the current count or 0 if not present.
+
+5. Maintaining Top K Elements with Min-Heap
+```java
+PriorityQueue<int[]> minHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+for(Map.Entry<Integer, Integer> entry : freq.entrySet()) {
+    minHeap.offer(new int[]{entry.getKey(), entry.getValue()});
+    if(minHeap.size() > k) minHeap.poll();
+}
+```
+- Creates a min-heap (`PriorityQueue`) that sorts by frequency (the second element of the array).
+- For each entry in the frequency map:
+  - Adds an array `[number, frequency]` to the heap.
+  - If the heap size exceeds `k`, removes the element with the lowest frequency.
+- This ensures the heap always contains the `k` most frequent elements.
+
+6. Extracting Results
+```java
+List<Integer> res = new ArrayList<>();
+while(!minHeap.isEmpty()) res.add(minHeap.poll()[0]);
+```
+- Removes elements from the heap and adds their numbers to the result list.
+- The heap pops the least frequent first, so the result list will be in ascending order of frequency.
+
+7. Output
+```java
+for(int i=0; i<res.size(); i++) {
+    System.out.print(res.get(i));
+    if(i != res.size()-1) System.out.print(" ");
+}
+```
+- Prints the numbers in the result list, separated by spaces.
+
+---
+
+Key Concepts & Gotchas
+- Min-Heap Usage: Keeps only the top `k` frequent elements efficiently.
+- Order: The output order is not guaranteed to be by frequency or value; it depends on heap removal order.
+- Efficiency: This approach is more efficient than sorting all frequencies, especially for large `n` and small `k`.
+
+Example
+Input:
+```
+6 2
+1 1 1 2 2 3
+```
+Output:
+```
+2 1
+```
+(Top 2 frequent elements: 1 appears 3 times, 2 appears 2 times.)

@@ -1,0 +1,32 @@
+Adj Matrix 
+      a b c d e 
+    a 0 1 1 0 0
+    b 1 0 0 1 1 
+    c 1 0 0 1 0
+    d 0 1 1 0 1
+    e 0 1 0 1 0
+
+Adj List 
+    a: [b, c]
+    b: [a, d, e]
+    c: [a, d]
+    d: [b, c, e ]
+    e: [b, d]
+
+3 3
+0 1
+1 2
+2 0
+0 2
+
+adj [[1,2],[0,2],[0,1]]
+visited: ttf 
+if(dfs(adj,visited,0,2)) print "Yes" else "No"
+curr=0
+target=2 
+0:1?,2
+dfs(adj,visited,1,2)
+curr=1
+1:0,2?
+dfs(adj,visited,2,2)
+

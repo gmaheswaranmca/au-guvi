@@ -1,0 +1,85 @@
+Heap:
+    - A heap is a specialized tree-based data structure that satisfies the heap property.
+    - In a heap, for any given node, 
+      the value of the node is either 
+      greater than or equal to (in max-heap) or 
+      less than or equal to (in min-heap) 
+      the values of its children.
+    - Heaps are commonly implemented as binary heaps, 
+      where each parent has at most two children.
+    - Heaps are complete binary trees, 
+      meaning all levels are fully filled except possibly the last, 
+      which is filled from left to right.
+
+Min-Heap:
+    - In a min-heap, 
+      the value of each parent node is 
+      less than or equal to the values of its children.
+    - The smallest element is always at the root.
+    - Common operations: 
+        insert, extract-min (remove the smallest element), decrease-key.
+    - Used in algorithms like Dijkstra's shortest path and Prim's minimum spanning tree.
+
+Max-Heap:
+    - In a max-heap, 
+      the value of each parent node is 
+      greater than or equal to the values of its children.
+    - The largest element is always at the root.
+    - Common operations: 
+        insert, extract-max (remove the largest element), increase-key.
+    - Used in algorithms like heap sort and for implementing priority queues.
+
+Priority Queue:
+    - A priority queue is an abstract data type where each element has a priority.
+    - Elements are served based on priority (highest or lowest), not just the order they arrive.
+    - Heaps (min-heap or max-heap) are commonly used to implement priority queues efficiently.
+    - Operations: insert (add an element), 
+      peek (view the highest/lowest priority element), 
+      extract (remove the highest/lowest priority element), 
+      change priority.
+
+Summary:
+    - Heap is a tree-based structure with heap property.
+    - Min-heap: root is the minimum; max-heap: root is the maximum.
+    - Priority queue uses heaps to manage elements by priority.
+
+Examples:
+.
+    Min-Heap Example:
+        Consider the following numbers inserted into a min-heap: 5, 3, 8, 1, 2
+        The resulting min-heap (as a binary tree) would look like:
+                1
+              /   \
+             2     8
+            / \
+           5   3
+        - The smallest element (1) is at the root.
+
+    Max-Heap Example:
+        Insert the numbers 5, 3, 8, 1, 2 into a max-heap:
+                8
+              /   \
+             5     3
+            / \
+           1   2
+        - The largest element (8) is at the root.
+
+    Priority Queue Example (using min-heap):
+        Suppose we have tasks with priorities: (Task A, 4), (Task B, 2), (Task C, 5)
+        After inserting into a min-heap-based priority queue:
+            - The task with the lowest priority value (Task B, 2) will be served first.
+        Operations:
+            - Insert (Task D, 1): Task D becomes the new root.
+            - Extract-min: Removes Task D (priority 1).
+
+    Heap as Array Representation:
+        For a heap:        10
+                         /    \
+                        15     30
+                       /  \
+                      40  50
+        Array: [10, 15, 30, 40, 50]
+        - For node at index i:
+            - Left child: 2i + 1
+            - Right child: 2i + 2
+            - Parent: floor((i - 1) / 2)

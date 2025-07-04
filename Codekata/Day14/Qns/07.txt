@@ -1,0 +1,87 @@
+"Copy List with Random Pointer", 
+"Given a linked list with next and random pointers, create a deep copy of the list.", 
+"Medium", 
+"LeetCode, Amazon, Google"
+
+----------------------------------
+Problem Title:
+Copy List with Random Pointer
+
+Problem Description:
+You are given a linked list where each node contains an additional random pointer, which could point to any node in the list or null. Your task is to create a deep copy of the list. The deep copy should consist of exactly n brand new nodes, where each new node has its value set to the value of its corresponding original node. Both the next and random pointer of the new nodes should point to new nodes in the copied list such that the structure of the original list is preserved. None of the pointers in the new list should point to nodes in the original list.
+
+Input Format:
+- The first line contains an integer n, the number of nodes in the linked list.
+- The second line contains n integers, the values of the nodes in order.
+- The third line contains n integers, where the i-th integer is the index (0-based) of the node that the random pointer of the i-th node points to, or -1 if it points to null.
+
+Output Format:
+- Output the values of the deep-copied list in order, followed by the indices of the random pointers for each node in the copied list, in the same format as the input.
+
+Constraints:
+- 0 <= n <= 1000
+- -10^4 <= Node.val <= 10^4
+- random pointer indices are in the range [-1, n-1]
+
+Sample Input:
+3
+7 13 11
+-1 0 2
+
+Sample Output:
+7 13 11
+-1 0 2
+
+Explanation:
+The original list has three nodes with values 7, 13, and 11. The random pointer of the first node is null, the second node's random pointer points to the first node, and the third node's random pointer points to the third node itself. The deep copy should have the same structure and values, but all nodes should be new instances.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+0
+
+Output:
+
+
+Test Case 2:
+Input:
+1
+5
+-1
+
+Output:
+5
+-1
+
+Test Case 3:
+Input:
+2
+1 2
+1 0
+
+Output:
+1 2
+1 0
+
+Test Case 4:
+Input:
+3
+10 20 30
+2 -1 0
+
+Output:
+10 20 30
+2 -1 0
+
+Test Case 5:
+Input:
+4
+4 3 2 1
+-1 2 1 0
+
+Output:
+4 3 2 1
+-1 2 1 0

@@ -1,0 +1,311 @@
+import java.util.*;
+
+class PriorityQueueNode {
+    int value;
+    int priority;
+    int order;
+
+    public PriorityQueueNode(int value, int priority, int order) {
+        this.value = value;
+        this.priority = priority;
+        this.order = order;
+    }
+}
+
+class PriorityQueueImpl {
+    private PriorityQueue<PriorityQueueNode> pq;
+    private int orderCounter = 0;
+
+    public PriorityQueueImpl() {
+        pq = new PriorityQueue<>((a, b) -> {
+            if (b.priority != a.priority) {
+                return b.priority - a.priority; // higher priority first
+            }
+            return a.order - b.order; // FIFO for same priority
+        });
+    }
+
+    public void enqueue(int value, int priority) {
+        pq.add(new PriorityQueueNode(value, priority, orderCounter++));
+    }
+
+    public int dequeue() {
+        return pq.poll().value;
+    }
+
+    public int peek() {
+        return pq.peek().value;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        PriorityQueueImpl pq = new PriorityQueueImpl();
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().split(" ");
+            if (parts[0].equals("ENQUEUE")) {
+                int value = Integer.parseInt(parts[1]);
+                int priority = Integer.parseInt(parts[2]);
+                pq.enqueue(value, priority);
+            } else if (parts[0].equals("DEQUEUE")) {
+                System.out.println(pq.dequeue());
+            } else if (parts[0].equals("PEEK")) {
+                System.out.println(pq.peek());
+            }
+        }
+        sc.close();
+    }
+}
+----------------------------------
+import java.util.*;
+
+class MaxHeapPriorityQueue {
+    private static class Node {
+        int value;
+        int priority;
+        int order;
+
+        Node(int value, int priority, int order) {
+            this.value = value;
+            this.priority = priority;
+            this.order = order;
+        }
+    }
+
+    private List<Node> heap;
+    private int orderCounter;
+
+    public MaxHeapPriorityQueue() {
+        heap = new ArrayList<>();
+        orderCounter = 0;
+    }
+
+    public void enqueue(int value, int priority) {
+        Node node = new Node(value, priority, orderCounter++);
+        heap.add(node);
+        siftUp(heap.size() - 1);
+    }
+
+    public int dequeue() {
+        Node top = heap.get(0);
+        Node last = heap.remove(heap.size() - 1);
+        if (!heap.isEmpty()) {
+            heap.set(0, last);
+            siftDown(0);
+        }
+        return top.value;
+    }
+
+    public int peek() {
+        return heap.get(0).value;
+    }
+
+    private void siftUp(int idx) {
+        while (idx > 0) {
+            int parent = (idx - 1) / 2;
+            if (compare(heap.get(idx), heap.get(parent)) > 0) {
+                swap(idx, parent);
+                idx = parent;
+            } else {
+                break;
+            }
+        }
+    }
+
+    private void siftDown(int idx) {
+        int n = heap.size();
+        while (true) {
+            int left = 2 * idx + 1;
+            int right = 2 * idx + 2;
+            int largest = idx;
+            if (left < n && compare(heap.get(left), heap.get(largest)) > 0) {
+                largest = left;
+            }
+            if (right < n && compare(heap.get(right), heap.get(largest)) > 0) {
+                largest = right;
+            }
+            if (largest != idx) {
+                swap(idx, largest);
+                idx = largest;
+            } else {
+                break;
+            }
+        }
+    }
+
+    private int compare(Node a, Node b) {
+        if (a.priority != b.priority) {
+            return a.priority - b.priority;
+        }
+        return b.order - a.order;
+    }
+
+    private void swap(int i, int j) {
+        Node tmp = heap.get(i);
+        heap.set(i, heap.get(j));
+        heap.set(j, tmp);
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        MaxHeapPriorityQueue pq = new MaxHeapPriorityQueue();
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().split(" ");
+            if (parts[0].equals("ENQUEUE")) {
+                int value = Integer.parseInt(parts[1]);
+                int priority = Integer.parseInt(parts[2]);
+                pq.enqueue(value, priority);
+            } else if (parts[0].equals("DEQUEUE")) {
+                System.out.println(pq.dequeue());
+            } else if (parts[0].equals("PEEK")) {
+                System.out.println(pq.peek());
+            }
+        }
+        sc.close();
+    }
+}
+
+--------------------------------------------
+Detailed step-by-step explanation of the code:
+
+---
+
+1. Import Statement
+
+```java
+import java.util.*;
+```
+- Imports all classes from the `java.util` package.
+- Needed for `PriorityQueue` and `Scanner`.
+
+---
+
+2. `PriorityQueueNode` Class
+
+```java
+class PriorityQueueNode {
+    int value;
+    int priority;
+    int order;
+
+    public PriorityQueueNode(int value, int priority, int order) {
+        this.value = value;
+        this.priority = priority;
+        this.order = order;
+    }
+}
+```
+- Represents an item in the priority queue.
+- Fields:
+  - `value`: The data stored.
+  - `priority`: Determines the order of removal (higher value = higher priority).
+  - `order`: Tracks insertion order for FIFO behavior when priorities are equal.
+- Constructor: Initializes all fields.
+
+---
+
+3. `PriorityQueueImpl` Class
+
+```java
+class PriorityQueueImpl {
+    private PriorityQueue<PriorityQueueNode> pq;
+    private int orderCounter = 0;
+```
+- `pq`: The actual priority queue, storing `PriorityQueueNode` objects.
+- `orderCounter`: Used to assign a unique order to each node as it's enqueued.
+
+Constructor
+
+```java
+public PriorityQueueImpl() {
+    pq = new PriorityQueue<>((a, b) -> {
+        if (b.priority != a.priority) {
+            return b.priority - a.priority; // higher priority first
+        }
+        return a.order - b.order; // FIFO for same priority
+    });
+}
+```
+- Initializes `pq` with a custom comparator:
+  - First: Compares by `priority` (higher priority comes first).
+  - Second: If priorities are equal, compares by `order` (lower order means earlier insertion, so FIFO).
+
+Enqueue
+
+```java
+public void enqueue(int value, int priority) {
+    pq.add(new PriorityQueueNode(value, priority, orderCounter++));
+}
+```
+- Adds a new node with the given value and priority.
+- Assigns a unique order using `orderCounter`, then increments it.
+
+Dequeue
+
+```java
+public int dequeue() {
+    return pq.poll().value;
+}
+```
+- Removes and returns the value of the highest-priority node.
+- `poll()` returns and removes the head of the queue.
+
+Peek
+
+```java
+public int peek() {
+    return pq.peek().value;
+}
+```
+- Returns the value of the highest-priority node without removing it.
+
+---
+
+4. `Main` Class
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        PriorityQueueImpl pq = new PriorityQueueImpl();
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().split(" ");
+            if (parts[0].equals("ENQUEUE")) {
+                int value = Integer.parseInt(parts[1]);
+                int priority = Integer.parseInt(parts[2]);
+                pq.enqueue(value, priority);
+            } else if (parts[0].equals("DEQUEUE")) {
+                System.out.println(pq.dequeue());
+            } else if (parts[0].equals("PEEK")) {
+                System.out.println(pq.peek());
+            }
+        }
+        sc.close();
+    }
+}
+```
+- Reads input: First line is the number of commands.
+- Processes commands: For each command:
+  - `"ENQUEUE value priority"`: Adds a value with a given priority.
+  - `"DEQUEUE"`: Removes and prints the value with the highest priority.
+  - `"PEEK"`: Prints the value with the highest priority without removing it.
+- Closes scanner at the end.
+
+---
+
+Key Points & Gotchas
+
+- Custom Comparator: Ensures both priority and FIFO order for equal priorities.
+- No error handling: If `dequeue` or `peek` is called on an empty queue, a `NullPointerException` will occur.
+- Order Counter: Guarantees FIFO for same-priority items.
+
+---
+
+Summary:  
+This code implements a priority queue that supports enqueue, dequeue, and peek operations, with FIFO behavior for items of equal priority. Input is processed via standard input, making it suitable for command-based testing.

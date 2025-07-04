@@ -1,0 +1,245 @@
+import java.util.*;
+
+class Task {
+    String id;
+    int priority;
+    int index; // to preserve input order
+
+    Task(String id, int priority, int index) {
+        this.id = id;
+        this.priority = priority;
+        this.index = index;
+    }
+}
+
+class MaxHeap {
+    private List<Task> heap;
+
+    public MaxHeap() {
+        heap = new ArrayList<>();
+    }
+
+    private boolean higher(Task a, Task b) {
+        if (a.priority != b.priority)
+            return a.priority > b.priority;
+        return a.index < b.index;
+    }
+
+    public void add(Task task) {
+        heap.add(task);
+        siftUp(heap.size() - 1);
+    }
+
+    public Task poll() {
+        if (heap.isEmpty()) return null;
+        Task top = heap.get(0);
+        Task last = heap.remove(heap.size() - 1);
+        if (!heap.isEmpty()) {
+            heap.set(0, last);
+            siftDown(0);
+        }
+        return top;
+    }
+
+    public boolean isEmpty() {
+        return heap.isEmpty();
+    }
+
+    private void siftUp(int i) {
+        while (i > 0) {
+            int parent = (i - 1) / 2;
+            if (higher(heap.get(i), heap.get(parent))) {
+                Collections.swap(heap, i, parent);
+                i = parent;
+            } else break;
+        }
+    }
+
+    private void siftDown(int i) {
+        int n = heap.size();
+        while (true) {
+            int left = 2 * i + 1, right = 2 * i + 2, largest = i;
+            if (left < n && higher(heap.get(left), heap.get(largest))) largest = left;
+            if (right < n && higher(heap.get(right), heap.get(largest))) largest = right;
+            if (largest != i) {
+                Collections.swap(heap, i, largest);
+                i = largest;
+            } else break;
+        }
+    }
+}
+
+public class TaskScheduler {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine().trim());
+        MaxHeap heap = new MaxHeap();
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().trim().split("\\s+");
+            String id = parts[0];
+            int priority = Integer.parseInt(parts[1]);
+            heap.add(new Task(id, priority, i));
+        }
+        while (!heap.isEmpty()) {
+            System.out.println(heap.poll().id);
+        }
+    }
+}
+
+----------------------------------
+
+/*
+Java Solution using Java PriorityQueue
+*/
+
+import java.util.*;
+
+class TaskPQ {
+    String id;
+    int priority;
+    int index;
+
+    TaskPQ(String id, int priority, int index) {
+        this.id = id;
+        this.priority = priority;
+        this.index = index;
+    }
+}
+
+public class TaskSchedulerPQ {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine().trim());
+        PriorityQueue<TaskPQ> pq = new PriorityQueue<>(
+            (a, b) -> {
+                if (b.priority != a.priority)
+                    return Integer.compare(b.priority, a.priority);
+                return Integer.compare(a.index, b.index);
+            }
+        );
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().trim().split("\\s+");
+            String id = parts[0];
+            int priority = Integer.parseInt(parts[1]);
+            pq.offer(new TaskPQ(id, priority, i));
+        }
+        while (!pq.isEmpty()) {
+            System.out.println(pq.poll().id);
+        }
+    }
+}
+
+-----------------------------------------------------
+
+Detailed step-by-step explanation of the code:
+
+1. Import Statement
+```java
+import java.util.*;
+```
+- Imports all classes from the `java.util` package, including `Scanner` and `PriorityQueue`.
+
+---
+
+2. TaskPQ Class
+```java
+class TaskPQ {
+    String id;
+    int priority;
+    int index;
+
+    TaskPQ(String id, int priority, int index) {
+        this.id = id;
+        this.priority = priority;
+        this.index = index;
+    }
+}
+```
+- Purpose: Represents a task with an identifier (`id`), a `priority`, and an `index` (order of input).
+- Constructor: Initializes the fields when a new `TaskPQ` object is created.
+
+---
+
+3. TaskSchedulerPQ Class & main Method
+```java
+public class TaskSchedulerPQ {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine().trim());
+```
+- Reads Input: Uses `Scanner` to read from standard input.
+- Reads n: The first line is parsed as an integer `n`, representing the number of tasks.
+
+---
+
+4. Priority Queue Initialization
+```java
+        PriorityQueue<TaskPQ> pq = new PriorityQueue<>(
+            (a, b) -> {
+                if (b.priority != a.priority)
+                    return Integer.compare(b.priority, a.priority);
+                return Integer.compare(a.index, b.index);
+            }
+        );
+```
+- Creates a PriorityQueue for `TaskPQ` objects.
+- Custom Comparator:
+  - First: Higher `priority` comes first (`b.priority - a.priority`).
+  - Second (Tie-breaker): Lower `index` comes first (earlier input order).
+
+---
+
+5. Reading Tasks and Adding to Queue
+```java
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().trim().split("\\s+");
+            String id = parts[0];
+            int priority = Integer.parseInt(parts[1]);
+            pq.offer(new TaskPQ(id, priority, i));
+        }
+```
+- Loop: Runs `n` times to read each task.
+- Splits Input: Each line is split into `id` and `priority`.
+- Creates Task: Constructs a `TaskPQ` object with the current index.
+- Adds to Queue: Offers the task to the priority queue.
+
+---
+
+6. Processing Tasks by Priority
+```java
+        while (!pq.isEmpty()) {
+            System.out.println(pq.poll().id);
+        }
+    }
+}
+```
+- While Queue Not Empty: Continues until all tasks are processed.
+- Polls Task: Removes and returns the highest-priority task.
+- Prints ID: Outputs the `id` of each task in order.
+
+---
+
+Key Concepts & Gotchas
+- PriorityQueue: By default, Java’s `PriorityQueue` is a min-heap. The custom comparator inverts this to act as a max-heap for `priority`.
+- Stable Ordering: The `index` ensures that tasks with the same priority are processed in input order.
+- Input Parsing: Assumes each task line has two parts: an identifier and an integer priority.
+
+---
+
+Example Input/Output
+
+Input:
+```
+3
+A 2
+B 5
+C 2
+```
+Output:
+```
+B
+A
+C
+```
+- `B` has the highest priority (5).
+- `A` and `C` have the same priority (2), but `A` comes before `C` because it was input first.
