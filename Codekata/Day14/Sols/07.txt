@@ -1,0 +1,83 @@
+import java.util.*;
+
+class Node {
+    int val;
+    Node next;
+    Node random;
+    Node(int val) {
+        this.val = val;
+    }
+}
+
+public class CopyListWithRandomPointer {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.hasNextInt() ? sc.nextInt() : 0;
+        if (n == 0) {
+            System.out.println();
+            System.out.println();
+            return;
+        }
+        int[] vals = new int[n];
+        for (int i = 0; i < n; i++) vals[i] = sc.nextInt();
+        int[] randomIdx = new int[n];
+        for (int i = 0; i < n; i++) randomIdx[i] = sc.nextInt();
+
+        // Build original list
+        Node[] nodes = new Node[n];
+        for (int i = 0; i < n; i++) nodes[i] = new Node(vals[i]);
+        for (int i = 0; i < n - 1; i++) nodes[i].next = nodes[i + 1];
+        for (int i = 0; i < n; i++) {
+            if (randomIdx[i] == -1) nodes[i].random = null;
+            else nodes[i].random = nodes[randomIdx[i]];
+        }
+        Node copiedHead = copyRandomList(nodes[0]);
+
+        // Output copied list values
+        List<Integer> outVals = new ArrayList<>();
+        List<Integer> outRandom = new ArrayList<>();
+        Map<Node, Integer> nodeToIdx = new HashMap<>();
+        Node curr = copiedHead;
+        int idx = 0;
+        while (curr != null) {
+            outVals.add(curr.val);
+            nodeToIdx.put(curr, idx++);
+            curr = curr.next;
+        }
+        curr = copiedHead;
+        while (curr != null) {
+            if (curr.random == null) outRandom.add(-1);
+            else outRandom.add(nodeToIdx.get(curr.random));
+            curr = curr.next;
+        }
+        for (int i = 0; i < outVals.size(); i++) {
+            System.out.print(outVals.get(i));
+            if (i < outVals.size() - 1) System.out.print(" ");
+        }
+        System.out.println();
+        for (int i = 0; i < outRandom.size(); i++) {
+            System.out.print(outRandom.get(i));
+            if (i < outRandom.size() - 1) System.out.print(" ");
+        }
+        System.out.println();
+    }
+
+    public static Node copyRandomList(Node head) {
+        if (head == null) return null;
+        Map<Node, Node> map = new HashMap<>();
+        Node curr = head;
+        // First pass: copy nodes
+        while (curr != null) {
+            map.put(curr, new Node(curr.val));
+            curr = curr.next;
+        }
+        // Second pass: assign next and random
+        curr = head;
+        while (curr != null) {
+            map.get(curr).next = map.get(curr.next);
+            map.get(curr).random = map.get(curr.random);
+            curr = curr.next;
+        }
+        return map.get(head);
+    }
+}

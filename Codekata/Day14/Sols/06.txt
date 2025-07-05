@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class IntersectionOfTwoArrays {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = Integer.parseInt(sc.nextLine().trim());
+        int[] nums1 = Arrays.stream(sc.nextLine().trim().split(" "))
+                            .mapToInt(Integer::parseInt).toArray();
+
+        int m = Integer.parseInt(sc.nextLine().trim());
+        int[] nums2 = Arrays.stream(sc.nextLine().trim().split(" "))
+                            .mapToInt(Integer::parseInt).toArray();
+
+        Set<Integer> set1 = new HashSet<>();
+        for (int num : nums1) set1.add(num);
+
+        Set<Integer> result = new HashSet<>();
+        for (int num : nums2) {
+            if (set1.contains(num)) result.add(num);
+        }
+
+        if (result.isEmpty()) {
+            System.out.println();
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (int num : result) {
+                sb.append(num).append(" ");
+            }
+            System.out.println(sb.toString().trim());
+        }
+    }
+}

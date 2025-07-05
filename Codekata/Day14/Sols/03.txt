@@ -1,0 +1,69 @@
+java implementation using Brute Force Approach.
+
+import java.util.*;
+
+public class GroupAnagramsBruteForce {
+    // Helper function to check if two strings are anagrams
+    private static boolean isAnagram(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+        int[] count = new int[26];
+        for (char c : s1.toCharArray()) count[c - 'a']++;
+        for (char c : s2.toCharArray()) count[c - 'a']--;
+        for (int i : count) if (i != 0) return false;
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        String[] strs = new String[n];
+        for (int i = 0; i < n; i++) {
+            strs[i] = sc.nextLine();
+        }
+        boolean[] visited = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            if (visited[i]) continue;
+            List<String> group = new ArrayList<>();
+            group.add(strs[i]);
+            visited[i] = true;
+            for (int j = i + 1; j < n; j++) {
+                if (!visited[j] && isAnagram(strs[i], strs[j])) {
+                    group.add(strs[j]);
+                    visited[j] = true;
+                }
+            }
+            System.out.println(String.join(" ", group));
+        }
+    }
+}
+
+---------------------------------------
+
+Java implementation using 'Hash Map with Sorted String as Key'.
+
+import java.util.*;
+
+public class GroupAnagramsHashMapSortedKey {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        String[] strs = new String[n];
+        for (int i = 0; i < n; i++) {
+            strs[i] = sc.nextLine();
+        }
+
+        Map<String, List<String>> map = new HashMap<>();
+        for (String s : strs) {
+            char[] arr = s.toCharArray();
+            Arrays.sort(arr);
+            String key = new String(arr);
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
+        }
+
+        for (List<String> group : map.values()) {
+            System.out.println(String.join(" ", group));
+        }
+    }
+}
+
+---------------------------------------

@@ -1,0 +1,75 @@
+java implementation using Brute Force Approach.
+
+import java.util.Scanner;
+
+public class LongestConsecutiveSequenceBruteForce {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        System.out.println(longestConsecutive(nums));
+    }
+
+    public static int longestConsecutive(int[] nums) {
+        int maxLen = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int currentNum = nums[i];
+            int currentLen = 1;
+            boolean found = true;
+            while (found) {
+                found = false;
+                for (int j = 0; j < nums.length; j++) {
+                    if (nums[j] == currentNum + 1) {
+                        currentNum++;
+                        currentLen++;
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            maxLen = Math.max(maxLen, currentLen);
+        }
+        return maxLen;
+    }
+}
+
+----------------------------------
+
+More efficient approach using a `HashSet`:
+
+import java.util.*;
+
+public class LongestConsecutiveSequenceBruteForce {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        System.out.println(longestConsecutive(nums));
+    }
+
+    public static int longestConsecutive(int[] nums) {
+        Set<Integer> numSet = new HashSet<>();
+        for (int num : nums) {
+            numSet.add(num);
+        }
+        int maxLen = 0;
+        for (int num : numSet) {
+            if (!numSet.contains(num - 1)) { // start of a sequence
+                int currentNum = num;
+                int currentLen = 1;
+                while (numSet.contains(currentNum + 1)) {
+                    currentNum++;
+                    currentLen++;
+                }
+                maxLen = Math.max(maxLen, currentLen);
+            }
+        }
+        return maxLen;
+    }
+}

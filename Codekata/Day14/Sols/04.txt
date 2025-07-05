@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class SubarraySumEqualsK {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        System.out.println(subarraySum(nums, k));
+    }
+
+    public static int subarraySum(int[] nums, int k) {
+        Map<Integer, Integer> prefixSumCount = new HashMap<>();
+        prefixSumCount.put(0, 1);
+        int count = 0, sum = 0;
+        for (int num : nums) {
+            sum += num;
+            count += prefixSumCount.getOrDefault(sum - k, 0);
+            prefixSumCount.put(sum, prefixSumCount.getOrDefault(sum, 0) + 1);
+        }
+        return count;
+    }
+}
