@@ -1,0 +1,65 @@
+"Unique Paths", 
+"Given a grid, count the number of unique paths from the top-left to the bottom-right corner, moving only right or down.", 
+"Medium", 
+"LeetCode, Google, Uber"
+
+----------------------------------
+
+Problem Title:
+Unique Paths
+
+Problem Description:
+You are given an m x n grid. Your task is to find the number of unique paths from the top-left corner (cell (1,1)) to the bottom-right corner (cell (m,n)). At any point, you can only move either right or down.
+
+Input Format:
+The first line contains two integers m and n, representing the number of rows and columns in the grid.
+
+Output Format:
+Print a single integer, the number of unique paths from the top-left to the bottom-right corner.
+
+Constraints:
+1 <= m, n <= 100
+
+Sample Input:
+3 7
+
+Sample Output:
+28
+
+Explanation:
+There are 28 unique paths from the top-left to the bottom-right corner in a 3x7 grid, moving only right or down.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3 2
+Output:
+3
+
+Test Case 2:
+Input:
+7 3
+Output:
+28
+
+Test Case 3:
+Input:
+3 3
+Output:
+6
+
+Test Case 4:
+Input:
+1 10
+Output:
+1
+
+Test Case 5:
+Input:
+10 10
+Output:
+48620
+

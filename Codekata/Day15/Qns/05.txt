@@ -1,0 +1,81 @@
+"Coin Change", 
+"Given a set of coin denominations and a total amount, find the minimum number of coins needed to make up that amount.", 
+"Medium",
+"LeetCode, Google, Facebook"
+
+----------------------------------
+
+Problem Title:
+Coin Change
+
+Problem Description:
+You are given an integer array coins representing different denominations of coins and an integer amount representing a total amount of money. Return the minimum number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1. You may assume that you have an infinite number of each kind of coin.
+
+Input Format:
+- The first line contains an integer n, the number of coin denominations.
+- The second line contains n space-separated integers, the values of the coin denominations.
+- The third line contains an integer amount, the total amount to make.
+
+Output Format:
+- Output a single integer: the minimum number of coins needed to make up the amount, or -1 if it is not possible.
+
+Constraints:
+- 1 <= n <= 12
+- 1 <= coins[i] <= 10^4
+- 0 <= amount <= 10^4
+
+Sample Input:
+3
+1 2 5
+11
+
+Sample Output:
+3
+
+Sample Explanation:
+You can make up the amount 11 with coins 5, 5, and 1, so the minimum number of coins is 3.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+1 2 5
+11
+Output:
+3
+
+Test Case 2:
+Input:
+2
+2 4
+7
+Output:
+-1
+
+Test Case 3:
+Input:
+4
+1 3 4 5
+7
+Output:
+2
+
+Test Case 4:
+Input:
+1
+2
+0
+Output:
+0
+
+Test Case 5:
+Input:
+5
+1 2 5 10 20
+27
+Output:
+4
+
