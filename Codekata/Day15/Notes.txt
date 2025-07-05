@@ -1,0 +1,135 @@
+Dynamic Programming (DP) is a problem-solving technique 
+used in computer science to efficiently solve problems 
+with overlapping subproblems and optimal substructure.
+
+Key Concepts
+    1. Overlapping Subproblems  
+        The problem can be broken down into smaller subproblems, 
+        which are solved multiple times. 
+        Instead of recalculating, DP stores the results and reuses them.
+
+    2. Optimal Substructure  
+        The optimal solution to the problem can be constructed 
+        from optimal solutions to its subproblems.
+
+How Dynamic Programming Works
+    - Memoization (Top-Down Approach):  
+        Store the results of expensive function calls and 
+        return the cached result when the same inputs occur again. 
+        Usually implemented with recursion and a cache (like a dictionary).
+
+    - Tabulation (Bottom-Up Approach):  
+        Solve all subproblems first, typically using iteration, and 
+        store their results in a table (like an array). 
+        Build up the solution from the smallest subproblems.
+
+Example: Fibonacci Sequence
+    #Naive Recursive Approach (Inefficient)
+        ```python
+        def fib(n):
+            if n <= 1:
+                return n
+            return fib(n-1) + fib(n-2)
+        ```
+        This recalculates the same values many times.
+
+    #DP with Memoization
+        ```python
+        def fib(n, memo={}):
+            if n in memo:
+                return memo[n]
+            if n <= 1:
+                return n
+            memo[n] = fib(n-1, memo) + fib(n-2, memo)
+            return memo[n]
+        ```
+
+    #DP with Tabulation
+        ```python
+        def fib(n):
+            if n <= 1:
+                return n
+            dp = [0, 1]
+            for i in range(2, n+1):
+                dp.append(dp[i-1] + dp[i-2])
+            return dp[n]
+        ```
+
+When to Use Dynamic Programming
+    - When a problem can be broken into overlapping subproblems.
+    - When the problem has optimal substructure.
+    - Common in optimization problems (e.g., shortest path, knapsack, coin change).
+
+Gotchas
+    - Not all recursive problems benefit from DP—only those with overlapping subproblems.
+    - Space complexity can be high if you store all subproblem results; 
+    sometimes you can optimize by only keeping necessary states.
+
+Summary
+    Dynamic Programming is a powerful technique 
+    for optimizing recursive algorithms 
+    by storing and reusing subproblem solutions, 
+    making it possible to solve complex problems efficiently.
+	
+	
+
+
+====
+
+
+Greedy Technique
+
+Greedy algorithms are a class of algorithms that make the locally optimal choice at each step with the hope of finding a global optimum. They are generally easier to design and implement compared to dynamic programming, but they do not always guarantee an optimal solution for all problems.
+
+Key Concepts
+    1. Greedy Choice Property  
+        At every step, make the choice that looks best at the moment. This choice is never reconsidered.
+    
+    2. Optimal Substructure  
+        A problem exhibits optimal substructure if an optimal solution to the problem contains optimal solutions to its subproblems.
+
+How Greedy Algorithms Work
+    - Start from the initial state of the problem.
+    - At each step, choose the best option available according to a certain criterion.
+    - Repeat until the problem is solved or no more choices are possible.
+    - The sequence of choices forms the solution.
+
+Example: Coin Change Problem (Greedy Approach)
+    Given coins of certain denominations and a total amount, find the minimum number of coins needed to make up that amount (assuming unlimited supply of each coin).
+
+    ```python
+    def min_coins_greedy(coins, amount):
+        coins.sort(reverse=True)
+        count = 0
+        for coin in coins:
+            while amount >= coin:
+                amount -= coin
+                count += 1
+        if amount != 0:
+            return -1  # Not possible with given denominations
+        return count
+    ```
+    Note: The greedy approach works optimally only for certain coin systems (like US coins), but may fail for others.
+
+Common Applications
+    - Activity selection (interval scheduling)
+    - Fractional knapsack problem
+    - Huffman coding
+    - Minimum spanning tree (Kruskal’s and Prim’s algorithms)
+    - Dijkstra’s shortest path algorithm
+
+Advantages
+    - Simple and intuitive to implement.
+    - Usually faster and uses less memory than DP.
+
+Limitations
+    - Greedy algorithms do not always yield optimal solutions for all problems.
+    - Need to prove that the greedy choice property and optimal substructure hold for the problem.
+
+How to Identify Greedy Problems
+    - Try to prove that making a local optimum at each step leads to a global optimum.
+    - If counterexamples exist, consider other techniques like dynamic programming.
+
+Summary
+    Greedy algorithms are efficient and easy to implement for problems where local choices lead to a global optimum. Always verify that the greedy approach is correct for the specific problem before using it.
+
