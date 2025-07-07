@@ -1,0 +1,112 @@
+"Bitmask DP for Subset Sum", 
+"Given an array, count the number of subsets with sum equal to K using bitmask DP.", 
+"Medium", 
+"AtCoder, Facebook"
+
+----------------------------------
+
+Problem Title: Count Subsets with Given Sum using Bitmask DP
+
+Problem Description:
+Given an array of N positive integers and an integer K, count the number of subsets whose sum is exactly equal to K. You are required to use a bitmask dynamic programming approach to solve this problem efficiently.
+
+Input Format:
+- The first line contains two integers N and K, where N is the number of elements in the array and K is the target sum.
+- The second line contains N space-separated positive integers representing the elements of the array.
+
+Output Format:
+- Print a single integer: the number of subsets whose sum is exactly K.
+
+Constraints:
+- 1 ≤ N ≤ 20
+- 1 ≤ K ≤ 10^6
+- 1 ≤ array[i] ≤ 10^6
+
+Sample Input 1:
+4 5
+1 2 3 4
+
+Sample Output 1:
+2
+
+Sample Explanation 1:
+The subsets whose sum is 5 are: [1,4] and [2,3].
+
+Sample Input 2:
+3 6
+2 2 2
+
+Sample Output 2:
+1
+
+Sample Explanation 2:
+Only one subset [2,2,2] sums to 6.
+
+Sample Input 3:
+5 0
+1 2 3 4 5
+
+Sample Output 3:
+1
+
+Sample Explanation 3:
+Only the empty subset sums to 0.
+
+Sample Input 4:
+6 7
+1 2 3 4 5 6
+
+Sample Output 4:
+4
+
+Sample Explanation 4:
+The subsets are [1,6], [2,5], and [3,4].
+
+Sample Input 5:
+2 10
+5 5
+
+Sample Output 5:
+1
+
+Sample Explanation 5:
+Only the subset [5,5] sums to 10.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+4 5
+1 2 3 4
+Output:
+2
+
+Test Case 2:
+Input:
+3 6
+2 2 2
+Output:
+1
+
+Test Case 3:
+Input:
+5 0
+1 2 3 4 5
+Output:
+1
+
+Test Case 4:
+Input:
+6 7
+1 2 3 4 5 6
+Output:
+4
+
+Test Case 5:
+Input:
+2 10
+5 5
+Output:
+1

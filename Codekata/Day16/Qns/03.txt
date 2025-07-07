@@ -1,0 +1,95 @@
+"Maximum Path Sum in Tree", 
+"Given a tree with values on nodes, find the maximum sum of values along any path.", 
+"Medium", 
+"LeetCode, Amazon"
+
+----------------------------------
+
+Problem Title: Maximum Path Sum in a Tree
+
+Problem Description:
+Given a tree where each node contains an integer value, find the maximum sum of values along any path in the tree. A path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to pass through the root.
+
+Input Format:
+- The first line contains an integer N, the number of nodes in the tree.
+- The second line contains N integers, the values of the nodes (1-indexed).
+- The next N-1 lines each contain two integers u and v, denoting an edge between node u and node v.
+
+Output Format:
+- Print a single integer, the maximum path sum in the tree.
+
+Constraints:
+- 1 ≤ N ≤ 10^5
+- -10^4 ≤ Node value ≤ 10^4
+
+Sample Input:
+5
+1 2 3 4 5
+1 2
+1 3
+3 4
+3 5
+
+Sample Output:
+15
+
+Explanation:
+The path 2 -> 1 -> 3 -> 4 -> 5 has a sum of 2 + 1 + 3 + 4 + 5 = 15, which is the maximum.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3
+-2 1 3
+1 2
+2 3
+Output:
+4
+
+Test Case 2:
+Input:
+4
+-10 -20 -30 -40
+1 2
+2 3
+3 4
+Output:
+-10
+
+Test Case 3:
+Input:
+6
+5 4 -2 1 2 3
+1 2
+1 3
+2 4
+2 5
+3 6
+Output:
+12
+
+Test Case 4:
+Input:
+1
+7
+Output:
+7
+
+Test Case 5:
+Input:
+7
+1 2 3 4 5 6 7
+1 2
+1 3
+2 4
+2 5
+3 6
+3 7
+Output:
+28
+
+----------------------------------
+
