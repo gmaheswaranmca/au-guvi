@@ -1,0 +1,143 @@
+import java.util.*;
+
+public class CoinChange {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] coins = new int[n];
+        for (int i = 0; i < n; i++) {
+            coins[i] = sc.nextInt();
+        }
+        int amount = sc.nextInt();
+        int result = coinChange(coins, amount);
+        System.out.println(result);
+    }
+
+    public static int coinChange(int[] coins, int amount) {
+        int max = amount + 1;
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, max);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) {
+            for (int coin : coins) {
+                if (i - coin >= 0) {
+                    dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+                }
+            }
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+}
+
+----------------------------------
+
+Detailed step-by-step explanation of your code:
+
+1. Import Statement
+```java
+import java.util.*;
+```
+- Imports all classes from the `java.util` package. Here, only `Scanner` is used for input.
+
+---
+
+2. Class Definition
+```java
+public class CoinChange {
+    // ...
+}
+```
+- Defines a public class named `CoinChange`.
+
+---
+
+3. Main Method
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int[] coins = new int[n];
+    for (int i = 0; i < n; i++) {
+        coins[i] = sc.nextInt();
+    }
+    int amount = sc.nextInt();
+    int result = coinChange(coins, amount);
+    System.out.println(result);
+}
+```
+- Reads input:
+  - `n`: Number of coin denominations.
+  - `coins`: Array of coin denominations, filled by reading `n` integers.
+  - `amount`: The target amount to make change for.
+- Calls `coinChange(coins, amount)` to compute the minimum number of coins needed.
+- Prints the result.
+
+---
+
+4. coinChange Method
+```java
+public static int coinChange(int[] coins, int amount) {
+    int max = amount + 1;
+    int[] dp = new int[amount + 1];
+    Arrays.fill(dp, max);
+    dp[0] = 0;
+    for (int i = 1; i <= amount; i++) {
+        for (int coin : coins) {
+            if (i - coin >= 0) {
+                dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+            }
+        }
+    }
+    return dp[amount] > amount ? -1 : dp[amount];
+}
+```
+Step-by-step:
+1. Initialization:
+   - `max = amount + 1`: A value greater than any possible answer (used as "infinity").
+   - `dp = new int[amount + 1]`: Dynamic programming array, where `dp[i]` is the minimum coins needed for amount `i`.
+   - `Arrays.fill(dp, max)`: Fill `dp` with "infinity" to start.
+   - `dp[0] = 0`: Base case—0 coins needed to make amount 0.
+
+2. Dynamic Programming Loop:
+   - Outer loop: For each amount `i` from 1 to `amount`.
+   - Inner loop: For each coin denomination.
+     - If `i - coin >= 0`, update `dp[i]` to the minimum of its current value and `dp[i - coin] + 1`.
+     - This means: If you can make amount `i - coin`, then you can make amount `i` by adding one more coin.
+
+3. Result:
+   - If `dp[amount] > amount`, it means it's impossible to make the amount with given coins, so return `-1`.
+   - Otherwise, return `dp[amount]`.
+
+---
+
+Key Concepts
+- Dynamic Programming: Breaks the problem into subproblems (minimum coins for smaller amounts).
+- Bottom-Up Approach: Builds up the solution from 0 to the target amount.
+- Edge Case Handling: If no combination can make the amount, returns `-1`.
+
+---
+
+Gotchas
+- The `max` value must be greater than any possible answer to avoid false positives.
+- If `coins` contains duplicates or `0`, the code still works, but `0` as a coin would cause an infinite loop (not handled here).
+
+---
+
+Example
+Input:
+```
+3
+1 2 5
+11
+```
+- Coins: [1, 2, 5]
+- Amount: 11
+
+Output:
+```
+3
+```
+- Explanation: 11 = 5 + 5 + 1 (3 coins).
+
+----------------------------------
+

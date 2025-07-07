@@ -1,0 +1,132 @@
+import java.util.Scanner;
+
+public class MinCostClimbingStairs {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] cost = new int[n];
+        for (int i = 0; i < n; i++) {
+            cost[i] = sc.nextInt();
+        }
+        System.out.println(minCostClimbingStairs(cost));
+    }
+
+    public static int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 0;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+        }
+        return dp[n];
+    }
+}
+
+----------------------------------
+
+Detailed step-by-step explanation of the code:
+
+1. Import Statement
+```java
+import java.util.Scanner;
+```
+- Purpose: Imports the `Scanner` class, which is used for reading user input from the console.
+
+---
+
+2. Class Declaration
+```java
+public class MinCostClimbingStairs {
+```
+- Purpose: Defines a public class named `MinCostClimbingStairs`.
+
+---
+
+3. Main Method
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int[] cost = new int[n];
+    for (int i = 0; i < n; i++) {
+        cost[i] = sc.nextInt();
+    }
+    System.out.println(minCostClimbingStairs(cost));
+}
+```
+- Purpose: Entry point of the program.
+- Step-by-step:
+  1. Create Scanner: `Scanner sc = new Scanner(System.in);`  
+     - Prepares to read input from the user.
+  2. Read Number of Steps: `int n = sc.nextInt();`  
+     - Reads the number of stairs (or steps).
+  3. Read Cost Array:  
+     - `int[] cost = new int[n];` creates an array to store the cost for each step.
+     - The `for` loop reads `n` integers from input, storing each in the `cost` array.
+  4. Compute and Print Result:  
+     - Calls `minCostClimbingStairs(cost)` and prints the result.
+
+---
+
+4. minCostClimbingStairs Method
+```java
+public static int minCostClimbingStairs(int[] cost) {
+    int n = cost.length;
+    int[] dp = new int[n + 1];
+    dp[0] = 0;
+    dp[1] = 0;
+    for (int i = 2; i <= n; i++) {
+        dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+    }
+    return dp[n];
+}
+```
+- Purpose: Calculates the minimum cost to reach the top of the stairs.
+- Step-by-step:
+  1. Get Number of Steps: `int n = cost.length;`
+  2. Create DP Array: `int[] dp = new int[n + 1];`  
+     - `dp[i]` will store the minimum cost to reach step `i`.
+     - `dp[0]` and `dp[1]` are set to 0 because you can start at step 0 or 1 without cost.
+  3. Dynamic Programming Loop:  
+     - For each step from 2 to `n` (inclusive), calculate the minimum cost to reach that step:
+       - `dp[i - 1] + cost[i - 1]`: Cost to reach `i` from `i-1`.
+       - `dp[i - 2] + cost[i - 2]`: Cost to reach `i` from `i-2`.
+       - Take the minimum of these two options.
+  4. Return Result: `return dp[n];`  
+     - The minimum cost to reach the "top" (just after the last step).
+
+---
+
+Key Concepts
+- Dynamic Programming:  
+  - The problem is solved by breaking it into subproblems (minimum cost to reach each step) and building up the solution.
+- Zero-based Indexing:  
+  - The cost array is zero-based, so `cost[i-1]` and `cost[i-2]` are used.
+- Initialization:  
+  - `dp[0]` and `dp[1]` are set to 0 because you can start at either step without paying a cost.
+
+---
+
+Example
+Suppose input is:
+```
+3
+10 15 20
+```
+- `n = 3`, `cost = [10, 15, 20]`
+- `dp[0] = 0`, `dp[1] = 0`
+- `dp[2] = min(0 + 15, 0 + 10) = 10`
+- `dp[3] = min(10 + 20, 0 + 15) = 15`
+- Output: `15`
+
+---
+
+Gotchas
+- Off-by-one errors:  
+  - Be careful with array indices, especially since `dp` is of length `n+1` and `cost` is of length `n`.
+- Input Handling:  
+  - The program expects the number of steps first, then the cost for each step.
+
+----------------------------------
+

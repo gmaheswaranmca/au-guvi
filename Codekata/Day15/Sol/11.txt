@@ -1,0 +1,159 @@
+import java.util.*;
+
+public class CoinChangeGreedy {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int amount = sc.nextInt();
+        int[] coins = new int[n];
+        for (int i = 0; i < n; i++) {
+            coins[i] = sc.nextInt();
+        }
+        Arrays.sort(coins);
+        int count = 0;
+        int idx = n - 1;
+        while (amount > 0 && idx >= 0) {
+            if (coins[idx] <= amount) {
+                int num = amount / coins[idx];
+                count += num;
+                amount -= num * coins[idx];
+            }
+            idx--;
+        }
+        if (amount == 0) {
+            System.out.println(count);
+        } else {
+            System.out.println(-1);
+        }
+    }
+}
+
+----------------------------------
+
+Detailed step-by-step explanation of the code:
+
+1. Import Statement
+```java
+import java.util.*;
+```
+- Imports all classes from the `java.util` package. Here, only `Scanner` and `Arrays` are used.
+
+---
+
+2. Class Definition
+```java
+public class CoinChangeGreedy {
+    // ...
+}
+```
+- Defines a public class named `CoinChangeGreedy`.
+
+---
+
+3. Main Method
+```java
+public static void main(String[] args) {
+    // ...
+}
+```
+- The entry point of the program.
+
+---
+
+4. Input Handling
+```java
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt();
+int amount = sc.nextInt();
+int[] coins = new int[n];
+for (int i = 0; i < n; i++) {
+    coins[i] = sc.nextInt();
+}
+```
+- Creates a `Scanner` to read input.
+- Reads `n` (number of coin denominations).
+- Reads `amount` (the target amount to make).
+- Initializes an array `coins` of size `n`.
+- Reads `n` coin denominations into the `coins` array.
+
+---
+
+5. Sorting Coins
+```java
+Arrays.sort(coins);
+```
+- Sorts the `coins` array in ascending order.
+- This is important for the greedy approach, which tries to use the largest coins first.
+
+---
+
+6. Greedy Coin Selection
+```java
+int count = 0;
+int idx = n - 1;
+while (amount > 0 && idx >= 0) {
+    if (coins[idx] <= amount) {
+        int num = amount / coins[idx];
+        count += num;
+        amount -= num * coins[idx];
+    }
+    idx--;
+}
+```
+- `count` tracks the total number of coins used.
+- `idx` starts at the largest coin (last index).
+- The loop continues while there is still some `amount` left and coins remain.
+- If the current coin can fit into the remaining `amount`:
+    - Calculates how many times the coin fits: `num = amount / coins[idx]`.
+    - Adds `num` to `count`.
+    - Reduces `amount` by `num * coins[idx]`.
+- Moves to the next smaller coin (`idx--`).
+
+---
+
+7. Output Result
+```java
+if (amount == 0) {
+    System.out.println(count);
+} else {
+    System.out.println(-1);
+}
+```
+- If the `amount` is reduced to zero, prints the minimum number of coins used.
+- If not, prints `-1` (meaning it’s not possible to make the amount with the given coins).
+
+---
+
+Key Points & Gotchas
+- Greedy Algorithm: Always picks the largest possible coin first. 
+This works optimally only for certain coin systems (like US coins), but not all.
+- Sorting: Sorting ensures the algorithm starts with the largest coin.
+- Edge Case: If the amount cannot be made with the given coins, the code outputs `-1`.
+- Input Assumptions: Assumes all inputs are valid integers and coins are positive.
+
+---
+
+Example
+Input:
+```
+3 11
+1 5 7
+```
+- 3 coins: 1, 5, 7
+- Amount: 11
+
+Process:
+- Sorted coins: [1, 5, 7]
+- Start with 7: 11/7 = 1 → use one 7, amount = 4
+- Next, 5: 4/5 = 0 → skip
+- Next, 1: 4/1 = 4 → use four 1s, amount = 0
+- Total coins used: 1 + 4 = 5
+
+Output:  
+```
+5
+```
+
+
+----------------------------------
+

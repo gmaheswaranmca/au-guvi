@@ -1,0 +1,114 @@
+import java.util.Scanner;
+
+public class ClimbingStairs {
+    public static int climbStairs(int n) {
+        if (n <= 2) return n;
+        int[] dp = new int[n + 1];
+        dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.println(climbStairs(n));
+    }
+}
+    
+----------------------------------
+
+Step-by-step explanation of the code:
+
+1. Import Statement
+```java
+import java.util.Scanner;
+```
+- This imports the `Scanner` class, which is used for reading user input from the console.
+
+---
+
+2. Class Definition
+```java
+public class ClimbingStairs {
+```
+- Defines a public class named `ClimbingStairs`. All code is inside this class.
+
+---
+
+3. climbStairs Method
+```java
+public static int climbStairs(int n) {
+    if (n <= 2) return n;
+    int[] dp = new int[n + 1];
+    dp[1] = 1;
+    dp[2] = 2;
+    for (int i = 3; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
+```
+Step-by-step:
+- Purpose: Calculates the number of distinct ways to climb a staircase with `n` steps, where you can take either 1 or 2 steps at a time.
+- if (n <= 2) return n;
+  - If there are 1 or 2 steps, the answer is `n` (1 way for 1 step, 2 ways for 2 steps).
+- int[] dp = new int[n + 1];
+  - Creates an array `dp` to store the number of ways to reach each step. Size is `n+1` to use 1-based indexing.
+- dp[1] = 1; dp[2] = 2;
+  - Base cases: 1 way to climb 1 step, 2 ways to climb 2 steps.
+- for (int i = 3; i <= n; i++) { ... }
+  - For each step from 3 to `n`, calculate the number of ways to reach that step.
+  - dp[i] = dp[i - 1] + dp[i - 2];
+    - The number of ways to reach step `i` is the sum of ways to reach steps `i-1` and `i-2`.
+    - This is because you can get to step `i` by taking 1 step from `i-1` or 2 steps from `i-2`.
+- return dp[n];
+  - Returns the total number of ways to reach the top.
+
+---
+
+4. main Method
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    System.out.println(climbStairs(n));
+}
+```
+Step-by-step:
+- Scanner sc = new Scanner(System.in);
+  - Creates a `Scanner` object to read input from the user.
+- int n = sc.nextInt();
+  - Reads an integer `n` from the user, representing the number of steps.
+- System.out.println(climbStairs(n));
+  - Calls the `climbStairs` method with `n` and prints the result.
+
+---
+
+Key Concepts
+- Dynamic Programming: The `dp` array stores solutions to subproblems to avoid redundant calculations.
+- Base Cases: Essential for recursion or DP to prevent errors and infinite loops.
+- User Input: Uses `Scanner` for interactive input.
+
+---
+
+Gotchas
+- Array Indexing: The array is sized `n+1` to allow for 1-based indexing, which matches the problem's logic.
+- Input Validation: No checks for negative or zero input; could add error handling for robustness.
+
+---
+
+Example
+If the user enters `4`, the output will be `5` (ways: 1+1+1+1, 1+2+1, 2+1+1, 1+1+2, 2+2).
+
+For n=4, step by step:
+dp[1] = 1 (1 way)                           1
+dp[2] = 2 (2 ways)                          1+1, 2
+dp[3] = dp[2] + dp[1] = 2 + 1 = 3 (3 ways)  1+2, 1+1+1, 2+1
+dp[4] = dp[3] + dp[2] = 3 + 2 = 5 (5 ways)  1+1+2, 2+2, 1+2+1, 1+1+1+1, 2+1+1
+
+----------------------------------
+

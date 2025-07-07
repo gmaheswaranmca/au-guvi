@@ -1,0 +1,113 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for(int i=0; i<n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int maxSum = arr[0];
+        int currSum = arr[0];
+        for(int i=1; i<n; i++) {
+            currSum = Math.max(arr[i], currSum + arr[i]);
+            maxSum = Math.max(maxSum, currSum);
+        }
+        System.out.println(maxSum);
+    }
+}
+
+----------------------------------
+
+Detailed step-by-step explanation of the code:
+
+1. Importing Scanner
+```java
+import java.util.Scanner;
+```
+- This imports the `Scanner` class, which allows you to read input from the user.
+
+2. Class and Main Method
+```java
+public class Main {
+    public static void main(String[] args) {
+        // ...
+    }
+}
+```
+- Defines a class named `Main` with a `main` method, which is the entry point for the program.
+
+3. Reading Input
+```java
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt();
+int[] arr = new int[n];
+for(int i=0; i<n; i++) {
+    arr[i] = sc.nextInt();
+}
+```
+- Creates a `Scanner` object to read from standard input.
+- Reads an integer `n`, which represents the number of elements in the array.
+- Declares an integer array `arr` of size `n`.
+- Fills the array by reading `n` integers from input.
+
+4. Initializing Variables for Kadane’s Algorithm
+```java
+int maxSum = arr[0];
+int currSum = arr[0];
+```
+- Initializes `maxSum` and `currSum` to the first element of the array.
+- `maxSum` will keep track of the maximum subarray sum found so far.
+- `currSum` will keep track of the current subarray sum as you iterate.
+
+5. Iterating Through the Array
+```java
+for(int i=1; i<n; i++) {
+    currSum = Math.max(arr[i], currSum + arr[i]);
+    maxSum = Math.max(maxSum, currSum);
+}
+```
+- Starts from the second element (`i=1`) and iterates to the end.
+- For each element:
+  - Updates `currSum` to be the maximum of the current element or the sum of `currSum` and the current element. This decides whether to start a new subarray at the current element or to continue the existing subarray.
+  - Updates `maxSum` if `currSum` is greater than the current `maxSum`.
+
+6. Output the Result
+```java
+System.out.println(maxSum);
+```
+- Prints the maximum subarray sum found.
+
+---
+
+Summary
+
+- Purpose: Finds the maximum sum of a contiguous subarray (Kadane’s Algorithm).
+- Input: First line is `n` (number of elements), followed by `n` integers.
+- Output: The largest sum of any contiguous subarray.
+
+---
+
+Example
+
+Input:
+```
+5
+-2 1 -3 4 -1
+```
+Output:
+```
+4
+```
+- The subarray `[4]` has the maximum sum.
+
+---
+
+Gotchas
+
+- If all numbers are negative, the largest (least negative) number will be the answer.
+- The algorithm runs in O(n) time, making it efficient for large arrays.
+
+----------------------------------
+

@@ -1,0 +1,124 @@
+import java.util.Scanner;
+
+public class FibonacciDP {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.println(fib(n));
+    }
+
+    public static int fib(int n) {
+        if (n == 0) return 0;
+        if (n == 1) return 1;
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = 1;
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
+}
+
+----------------------------------
+
+Detailed step-by-step explanation of the code:
+
+---
+
+1. Import Statement
+
+```java
+import java.util.Scanner;
+```
+- Purpose: Imports the `Scanner` class, which allows you to read user input from the console.
+
+---
+
+2. Class Declaration
+
+```java
+public class FibonacciDP {
+    // ...
+}
+```
+- Purpose: Defines a public class named `FibonacciDP`. All code runs inside this class.
+
+---
+
+3. Main Method
+
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    System.out.println(fib(n));
+}
+```
+- Purpose: This is the entry point of the program.
+- Step-by-step:
+  1. Create Scanner: `Scanner sc = new Scanner(System.in);`  
+     - Sets up a scanner to read input from the user.
+  2. Read Input: `int n = sc.nextInt();`  
+     - Reads an integer from the user and stores it in variable `n`.
+  3. Print Fibonacci: `System.out.println(fib(n));`  
+     - Calls the `fib` method with `n` and prints the result.
+
+---
+
+4. Fibonacci Method
+
+```java
+public static int fib(int n) {
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    int[] dp = new int[n + 1];
+    dp[0] = 0;
+    dp[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
+```
+- Purpose: Computes the nth Fibonacci number using dynamic programming.
+- Step-by-step:
+  1. Base Cases:  
+     - If `n` is 0, return 0.  
+     - If `n` is 1, return 1.  
+     - These are the first two Fibonacci numbers.
+  2. Create DP Array:  
+     - `int[] dp = new int[n + 1];`  
+     - Creates an array to store Fibonacci numbers up to `n`.
+  3. Initialize Base Cases:  
+     - `dp[0] = 0; dp[1] = 1;`  
+     - Sets the first two Fibonacci numbers in the array.
+  4. Fill DP Array:  
+     - `for (int i = 2; i <= n; i++) { dp[i] = dp[i - 1] + dp[i - 2]; }`  
+     - For each index from 2 to `n`, calculate the Fibonacci number by summing the previous two numbers.
+  5. Return Result:  
+     - `return dp[n];`  
+     - Returns the nth Fibonacci number.
+
+---
+
+Key Concepts
+
+- Dynamic Programming:  
+  - The method uses an array to store previously computed Fibonacci numbers, avoiding redundant calculations.
+- Time Complexity:  
+  - O(n), since each Fibonacci number up to `n` is computed once.
+- Space Complexity:  
+  - O(n), due to the array storing all Fibonacci numbers up to `n`.
+
+---
+
+Gotchas
+
+- Input Validation:  
+  - The code assumes the user enters a non-negative integer. Negative input will cause an error.
+- Efficiency:  
+  - For very large `n`, this approach uses a lot of memory. For just the nth Fibonacci number, you can optimize space to O(1) by only keeping the last two numbers.
+
+----------------------------------
+

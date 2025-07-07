@@ -1,0 +1,150 @@
+
+import java.util.Scanner;
+
+public class LongestIncreasingSubsequence {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        System.out.println(lengthOfLIS(nums));
+    }
+
+    public static int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return 0;
+        int[] dp = new int[n];
+        int maxLen = 1;
+        for(int i = 0; i < n; i++) {
+            dp[i] = 1;
+            for(int j = 0; j < i; j++) {
+                if(nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            maxLen = Math.max(maxLen, dp[i]);
+        }
+        return maxLen;
+    }
+}
+
+----------------------------------
+
+Step-by-step explanation of the code:
+
+1. Import Statement
+```java
+import java.util.Scanner;
+```
+- Imports the `Scanner` class, which is used for reading user input from the console.
+
+---
+
+2. Class Declaration
+```java
+public class LongestIncreasingSubsequence {
+```
+- Defines a public class named `LongestIncreasingSubsequence`.
+
+---
+
+3. Main Method
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int[] nums = new int[n];
+    for(int i = 0; i < n; i++) {
+        nums[i] = sc.nextInt();
+    }
+    System.out.println(lengthOfLIS(nums));
+}
+```
+- `Scanner sc = new Scanner(System.in);`  
+  Creates a `Scanner` object to read input from the user.
+- `int n = sc.nextInt();`  
+  Reads an integer `n` from the user, representing the number of elements in the sequence.
+- `int[] nums = new int[n];`  
+  Creates an integer array `nums` of size `n`.
+- `for(int i = 0; i < n; i++) { nums[i] = sc.nextInt(); }`  
+  Reads `n` integers from the user and stores them in the `nums` array.
+- `System.out.println(lengthOfLIS(nums));`  
+  Calls the `lengthOfLIS` method with the input array and prints the result.
+
+---
+
+4. lengthOfLIS Method
+```java
+public static int lengthOfLIS(int[] nums) {
+    int n = nums.length;
+    if (n == 0) return 0;
+    int[] dp = new int[n];
+    int maxLen = 1;
+    for(int i = 0; i < n; i++) {
+        dp[i] = 1;
+        for(int j = 0; j < i; j++) {
+            if(nums[i] > nums[j]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1);
+            }
+        }
+        maxLen = Math.max(maxLen, dp[i]);
+    }
+    return maxLen;
+}
+```
+Step-by-step:
+- `int n = nums.length;`  
+  Gets the length of the input array.
+- `if (n == 0) return 0;`  
+  If the array is empty, returns 0 (no subsequence).
+- `int[] dp = new int[n];`  
+  Creates a DP array where `dp[i]` will store the length of the longest increasing subsequence ending at index `i`.
+- `int maxLen = 1;`  
+  Initializes the maximum length found so far to 1 (minimum possible for a non-empty array).
+- Outer loop (`for(int i = 0; i < n; i++)`)  
+  Iterates through each element in `nums`.
+    - `dp[i] = 1;`  
+      Every element is at least a subsequence of length 1 (itself).
+    - Inner loop (`for(int j = 0; j < i; j++)`)  
+      Checks all previous elements to see if `nums[i]` can extend an increasing subsequence ending at `nums[j]`.
+        - `if(nums[i] > nums[j])`  
+          If the current number is greater than a previous number, it can extend the subsequence.
+        - `dp[i] = Math.max(dp[i], dp[j] + 1);`  
+          Updates `dp[i]` to the maximum length found so far.
+    - `maxLen = Math.max(maxLen, dp[i]);`  
+      Updates the overall maximum length if needed.
+- `return maxLen;`  
+  Returns the length of the longest increasing subsequence.
+
+---
+
+Key Concepts
+- Dynamic Programming:  
+  The `dp` array stores solutions to subproblems 
+  (longest subsequence ending at each index).
+- Time Complexity:  
+  O(n²) due to the nested loops.
+- Edge Case:  
+  Handles empty input arrays.
+
+---
+
+Example
+Input:  
+```
+6
+10 9 2 5 3 7
+```
+- The longest increasing subsequence is `[2, 3, 7]`, so the output is `3`.
+
+---
+
+Gotchas
+- The code only finds the length, not the actual subsequence.
+- For large arrays, this approach may be slow (O(n²)). 
+  There are faster O(n log n) solutions, 
+  but this is easier to understand for beginners.
+
+

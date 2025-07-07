@@ -1,0 +1,126 @@
+import java.util.Scanner;
+
+public class Knapsack01 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int W = sc.nextInt();
+        int[] values = new int[N];
+        int[] weights = new int[N];
+        for (int i = 0; i < N; i++) values[i] = sc.nextInt();
+        for (int i = 0; i < N; i++) weights[i] = sc.nextInt();
+
+        int[][] dp = new int[N + 1][W + 1];
+
+        for (int i = 1; i <= N; i++) {
+            for (int w = 0; w <= W; w++) {
+                if (weights[i - 1] <= w) {
+                    dp[i][w] = Math.max(
+                        dp[i - 1][w],
+                        values[i - 1] + dp[i - 1][w - weights[i - 1]]
+                    );
+                } else {
+                    dp[i][w] = dp[i - 1][w];
+                }
+            }
+        }
+
+        System.out.println(dp[N][W]);
+    }
+}
+
+----------------------------------
+
+Detailed step-by-step explanation of the code:
+
+1. Import and Class Declaration
+```java
+import java.util.Scanner;
+
+public class Knapsack01 {
+```
+- Imports the `Scanner` class for reading input.
+- Defines a public class `Knapsack01`.
+
+---
+
+2. Main Method and Input Reading
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int N = sc.nextInt();
+    int W = sc.nextInt();
+    int[] values = new int[N];
+    int[] weights = new int[N];
+    for (int i = 0; i < N; i++) values[i] = sc.nextInt();
+    for (int i = 0; i < N; i++) weights[i] = sc.nextInt();
+```
+- Reads two integers:  
+  - `N`: number of items  
+  - `W`: maximum weight capacity of the knapsack
+- Initializes two arrays:  
+  - `values`: stores the value of each item  
+  - `weights`: stores the weight of each item
+- Reads `N` values into `values` and `N` weights into `weights`.
+
+---
+
+3. Dynamic Programming Table Setup
+```java
+    int[][] dp = new int[N + 1][W + 1];
+```
+- Creates a 2D array `dp` where `dp[i][w]` represents the maximum value achievable using the first `i` items with a knapsack capacity of `w`.
+- Size: `(N+1)` rows and `(W+1)` columns to handle the base case (0 items or 0 capacity).
+
+---
+
+4. DP Table Filling (Core Logic)
+```java
+    for (int i = 1; i <= N; i++) {
+        for (int w = 0; w <= W; w++) {
+            if (weights[i - 1] <= w) {
+                dp[i][w] = Math.max(
+                    dp[i - 1][w],
+                    values[i - 1] + dp[i - 1][w - weights[i - 1]]
+                );
+            } else {
+                dp[i][w] = dp[i - 1][w];
+            }
+        }
+    }
+```
+- Outer loop: Iterates over items (`i` from 1 to `N`).
+- Inner loop: Iterates over possible knapsack capacities (`w` from 0 to `W`).
+- Decision:
+  - If the current item's weight (`weights[i-1]`) is less than or equal to the current capacity (`w`):
+    - Option 1: Don't take the item (`dp[i-1][w]`).
+    - Option 2: Take the item (`values[i-1] + dp[i-1][w - weights[i-1]]`).
+    - Choose the maximum of the two.
+  - If the item can't fit, just carry forward the previous value (`dp[i-1][w]`).
+
+Gotcha:  
+- Indices are offset by 1 because `dp` includes the base case (0 items).
+
+---
+
+5. Output the Result
+```java
+    System.out.println(dp[N][W]);
+}
+```
+- Prints the maximum value that can be achieved with all `N` items and knapsack capacity `W`.
+
+---
+
+Summary
+- This is a classic 0/1 Knapsack dynamic programming solution.
+- Time Complexity: O(N*W)
+- Space Complexity: O(N*W)
+- Key Principle: For each item and capacity, decide to include or exclude the item for optimal value.
+
+---
+
+Tip:  
+If you want to reconstruct the list of items chosen, you would need to trace back through the `dp` table after filling it.
+
+----------------------------------
