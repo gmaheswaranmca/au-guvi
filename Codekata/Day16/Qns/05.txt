@@ -1,0 +1,92 @@
+"Travelling Salesman Problem", 
+"Given N cities and distances, find the shortest possible route that visits each city exactly once and returns to the origin using DP with bitmasking.", 
+"Hard", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title: Travelling Salesman Problem (TSP) using Dynamic Programming and Bitmasking
+
+Problem Description:
+You are given N cities, numbered from 0 to N-1, and a 2D array `dist` where `dist[i][j]` represents the distance between city i and city j. Your task is to find the minimum possible total distance to start from city 0, visit every other city exactly once, and return to city 0. You must use dynamic programming with bitmasking to solve this problem efficiently.
+
+Input Format:
+- The first line contains an integer N, the number of cities.
+- The next N lines each contain N integers, where the j-th integer in the i-th line is `dist[i][j]`.
+
+Output Format:
+- Print a single integer, the minimum possible total distance to complete the tour.
+
+Constraints:
+- 2 ≤ N ≤ 16
+- 0 ≤ dist[i][j] ≤ 10^6
+- dist[i][i] = 0 for all 0 ≤ i < N
+
+Sample Input:
+4
+0 10 15 20
+10 0 35 25
+15 35 0 30
+20 25 30 0
+
+Sample Output:
+80
+
+Explanation:
+The shortest route is 0 → 1 → 3 → 2 → 0 with a total distance of 10 + 25 + 30 + 15 = 80.
+
+Difficulty:
+Hard
+
+Test Cases:
+Test Case 1:
+Input:
+3
+0 1 15
+1 0 10
+15 10 0
+Output:
+26
+
+Test Case 2:
+Input:
+4
+0 10 15 20
+10 0 35 25
+15 35 0 30
+20 25 30 0
+Output:
+80
+
+Test Case 3:
+Input:
+2
+0 5
+5 0
+Output:
+10
+
+Test Case 4:
+Input:
+5
+0 2 9 10 1
+2 0 6 4 3
+9 6 0 8 7
+10 4 8 0 5
+1 3 7 5 0
+Output:
+21
+
+Test Case 5:
+Input:
+3
+0 100 1
+100 0 2
+1 2 0
+Output:
+4
+
+----------------------------------
+
+
+
