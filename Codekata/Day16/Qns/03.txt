@@ -31,10 +31,10 @@ Sample Input:
 3 5
 
 Sample Output:
-15
+11
 
 Explanation:
-The path 2 -> 1 -> 3 -> 4 -> 5 has a sum of 2 + 1 + 3 + 4 + 5 = 15, which is the maximum.
+The path 2 -> 1 -> 3 -> 5 has a sum of 2 + 1 + 3 + 5 = 11, which is the maximum possible path sum in this tree.
 
 Difficulty:
 Medium
@@ -89,7 +89,7 @@ Input:
 3 6
 3 7
 Output:
-28
+18
 
 ----------------------------------
 
