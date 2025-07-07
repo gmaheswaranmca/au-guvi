@@ -1,0 +1,24 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int K = sc.nextInt();
+        int[] arr = new int[N];
+        for (int i = 0; i < N; i++) arr[i] = sc.nextInt();
+
+        int count = 0;
+        int totalMasks = 1 << N;
+        for (int mask = 0; mask < totalMasks; mask++) { //10:0110 
+            int sum = 0;
+            for (int bit = 0; bit < N; bit++) { // 0 1 2 3
+                if ((mask & (1 << bit)) != 0) { // 1 << bit: 1 2 4 8 & mask 
+                    sum += arr[bit]; 2 + 3  = 5
+                }
+            }
+            if (sum == K) count++; 
+        }
+        System.out.println(count);
+    }
+}
