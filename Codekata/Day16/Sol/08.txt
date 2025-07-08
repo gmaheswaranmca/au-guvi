@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class AssignmentProblemBitmaskDP {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int[][] cost = new int[N][N];
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++)
+                cost[i][j] = sc.nextInt();
+
+        int size = 1 << N;
+        int[] dp = new int[size];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+
+        for (int mask = 0; mask < size; mask++) {
+            int task = Integer.bitCount(mask);
+            if (task >= N) continue;
+            for (int person = 0; person < N; person++) {
+                if ((mask & (1 << person)) == 0) {
+                    int nextMask = mask | (1 << person);
+                    dp[nextMask] = Math.min(dp[nextMask], dp[mask] + cost[task][person]);
+                }
+            }
+        }
+        System.out.println(dp[size - 1]);
+    }
+}

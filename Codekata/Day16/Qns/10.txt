@@ -1,0 +1,110 @@
+"Hamiltonian Path with Bitmask DP", 
+"Given a graph, determine if there exists a path visiting every vertex exactly once using bitmask DP.", 
+"Hard", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title:
+Hamiltonian Path with Bitmask DP
+
+Problem Description:
+Given an undirected graph with N vertices (numbered from 0 to N-1) and M edges, determine if there exists a Hamiltonian Path in the graph. A Hamiltonian Path is a path that visits each vertex exactly once. Use Bitmask Dynamic Programming to solve this problem.
+
+Input Format:
+- The first line contains two integers N and M, the number of vertices and edges.
+- The next M lines each contain two integers u and v, denoting an undirected edge between vertices u and v.
+
+Output Format:
+- Output "YES" if there exists a Hamiltonian Path, otherwise output "NO".
+
+Constraints:
+- 1 ≤ N ≤ 20
+- 0 ≤ M ≤ N*(N-1)/2
+- 0 ≤ u, v < N
+- u ≠ v
+- There are no multiple edges or self-loops.
+
+Sample Input 1:
+4 4
+0 1
+1 2
+2 3
+3 0
+
+Sample Output 1:
+YES
+
+Explanation 1:
+One possible Hamiltonian Path is 0 -> 1 -> 2 -> 3.
+
+Sample Input 2:
+3 2
+0 1
+1 2
+
+Sample Output 2:
+YES
+
+Explanation 2:
+One possible Hamiltonian Path is 0 -> 1 -> 2.
+
+Sample Input 3:
+3 1
+0 1
+
+Sample Output 3:
+NO
+
+Explanation 3:
+There is no path that visits all vertices exactly once.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+4 4
+0 1
+1 2
+2 3
+3 0
+Output:
+YES
+
+Test Case 2:
+Input:
+3 2
+0 1
+1 2
+Output:
+YES
+
+Test Case 3:
+Input:
+3 1
+0 1
+Output:
+NO
+
+Test Case 4:
+Input:
+5 7
+0 1
+0 2
+0 3
+1 2
+1 4
+2 3
+3 4
+Output:
+YES
+
+Test Case 5:
+Input:
+4 2
+0 1
+2 3
+Output:
+NO

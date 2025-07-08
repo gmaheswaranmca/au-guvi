@@ -1,0 +1,73 @@
+"Find Minimum in BST", 
+"Find the node with the minimum value in a BST.", 
+"Easy", 
+"GeeksforGeeks, Google"
+ 
+----------------------------------
+
+Problem Title:
+Find Minimum in BST
+
+Problem Description:
+Given a Binary Search Tree (BST), write a function to find the node with the minimum value. The minimum value node is the leftmost leaf node in the BST. Return the value of this node.
+
+Input Format:
+- The first line contains an integer N, the number of nodes in the BST.
+- The second line contains N space-separated integers representing the values to be inserted into the BST in the given order.
+
+Output Format:
+- Print a single integer, the minimum value in the BST.
+
+Constraints:
+- 1 ≤ N ≤ 10^4
+- -10^5 ≤ Node Value ≤ 10^5
+
+Sample Input:
+7
+20 8 22 4 12 10 14
+
+Sample Output:
+4
+
+Explanation:
+The BST constructed from the input will have 4 as the leftmost node, which is the minimum value.
+
+Difficulty:
+Easy
+
+Test Cases:
+Test Case 1:
+Input:
+5
+15 10 20 8 12
+Output:
+8
+
+Test Case 2:
+Input:
+3
+5 3 7
+Output:
+3
+
+Test Case 3:
+Input:
+6
+50 30 70 20 40 60
+Output:
+20
+
+Test Case 4:
+Input:
+1
+42
+Output:
+42
+
+Test Case 5:
+Input:
+8
+100 50 150 25 75 125 175 10
+Output:
+10
+

@@ -1,0 +1,123 @@
+"Path Queries on Trees", 
+"Given a tree and multiple queries asking for the sum of values along the path between two nodes, answer each efficiently.", 
+"Medium", 
+"Codeforces, Amazon"
+
+----------------------------------
+
+Problem Title: Path Queries on Trees
+
+Problem Description:
+You are given a tree with N nodes, where each node has an integer value assigned to it. The tree is rooted at node 1. You are also given Q queries. Each query consists of two nodes u and v, and asks for the sum of the values of all nodes on the path from u to v (including u and v themselves). Your task is to answer all queries efficiently.
+
+Input Format:
+- The first line contains an integer N, the number of nodes in the tree.
+- The second line contains N integers, where the i-th integer is the value assigned to node i.
+- The next N-1 lines each contain two integers a and b, denoting an undirected edge between nodes a and b.
+- The next line contains an integer Q, the number of queries.
+- The next Q lines each contain two integers u and v, representing a query for the sum of values along the path from u to v.
+
+Output Format:
+- For each query, output a single integer: the sum of values along the path from u to v.
+
+Constraints:
+- 1 ≤ N ≤ 10^5
+- 1 ≤ value of each node ≤ 10^4
+- 1 ≤ Q ≤ 10^5
+- 1 ≤ a, b, u, v ≤ N
+
+Sample Input:
+5
+1 2 3 4 5
+1 2
+1 3
+2 4
+2 5
+3
+4 5
+3 4
+2 3
+
+Sample Output:
+11
+8
+5
+
+Explanation:
+- Path from 4 to 5: 4 -> 2 -> 5, sum = 4 + 2 + 5 = 11
+- Path from 3 to 4: 3 -> 1 -> 2 -> 4, sum = 3 + 1 + 2 + 4 = 10
+- Path from 2 to 3: 2 -> 1 -> 3, sum = 2 + 1 + 3 = 6
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+10 20 30
+1 2
+1 3
+2
+2 3
+1 1
+Output:
+60
+10
+
+Test Case 2:
+Input:
+4
+1 1 1 1
+1 2
+2 3
+3 4
+1
+1 4
+Output:
+4
+
+Test Case 3:
+Input:
+6
+5 3 2 6 1 4
+1 2
+1 3
+2 4
+2 5
+3 6
+2
+4 6
+5 6
+Output:
+20
+13
+
+Test Case 4:
+Input:
+2
+100 200
+1 2
+1
+1 2
+Output:
+300
+
+Test Case 5:
+Input:
+7
+2 4 6 8 10 12 14
+1 2
+1 3
+2 4
+2 5
+3 6
+3 7
+2
+4 7
+5 6
+Output:
+34
+28
+
+----------------------------------

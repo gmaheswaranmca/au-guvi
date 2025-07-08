@@ -1,0 +1,37 @@
+import java.util.*;
+
+public class HamiltonianPathBitmaskDP {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt(), M = sc.nextInt();
+        boolean[][] graph = new boolean[N][N];
+        for (int i = 0; i < M; i++) {
+            int u = sc.nextInt(), v = sc.nextInt();
+            graph[u][v] = true;
+            graph[v][u] = true;
+        }
+        // dp[mask][u]: is it possible to reach u with visited mask
+        boolean[][] dp = new boolean[1 << N][N];
+        for (int i = 0; i < N; i++) dp[1 << i][i] = true;
+
+        for (int mask = 1; mask < (1 << N); mask++) {
+            for (int u = 0; u < N; u++) {
+                if ((mask & (1 << u)) == 0 || !dp[mask][u]) continue;
+                for (int v = 0; v < N; v++) {
+                    if (graph[u][v] && (mask & (1 << v)) == 0) {
+                        dp[mask | (1 << v)][v] = true;
+                    }
+                }
+            }
+        }
+        boolean found = false;
+        int fullMask = (1 << N) - 1;
+        for (int u = 0; u < N; u++) {
+            if (dp[fullMask][u]) {
+                found = true;
+                break;
+            }
+        }
+        System.out.println(found ? "YES" : "NO");
+    }
+}

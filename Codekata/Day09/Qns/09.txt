@@ -1,0 +1,95 @@
+"Validate BST", 
+"Check if a given binary tree is a valid BST.", 
+"Medium", 
+"LeetCode, Amazon"
+
+----------------------------------
+
+Problem Title:
+Validate Binary Search Tree
+
+Problem Description:
+Given the root of a binary tree, determine if it is a valid binary search tree (BST). A valid BST is defined as follows:
+- The left subtree of a node contains only nodes with keys less than the node's key.
+- The right subtree of a node contains only nodes with keys greater than the node's key.
+- Both the left and right subtrees must also be binary search trees.
+
+Input Format:
+- The first line contains an integer n, the number of nodes in the tree.
+- The next n lines each contain three values: node value, left child index, right child index.
+    - If a child does not exist, its index is -1.
+    - The root node is always at index 0.
+
+Output Format:
+- Print "true" if the binary tree is a valid BST, otherwise print "false".
+
+Constraints:
+- 1 <= n <= 10^4
+- -10^9 <= Node value <= 10^9
+
+Sample Input:
+3
+2 1 2
+1 -1 -1
+3 -1 -1
+
+Sample Output:
+true
+
+Explanation:
+The tree is:
+        2
+     / \
+    1   3
+Both left and right subtrees satisfy BST properties.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3
+2 1 2
+1 -1 -1
+3 -1 -1
+Output:
+true
+
+Test Case 2:
+Input:
+3
+5 1 2
+1 -1 -1
+4 -1 -1
+Output:
+false
+
+Test Case 3:
+Input:
+1
+10 -1 -1
+Output:
+true
+
+Test Case 4:
+Input:
+5
+10 1 2
+5 3 4
+15 -1 -1
+2 -1 -1
+7 -1 -1
+Output:
+true
+
+Test Case 5:
+Input:
+4
+10 1 2
+5 -1 -1
+15 3 -1
+6 -1 -1
+Output:
+false
+

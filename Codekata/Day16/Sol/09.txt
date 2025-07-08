@@ -1,0 +1,84 @@
+import java.util.*;
+import java.io.*;
+
+public class PathQueriesOnTrees {
+    static int N, LOG;
+    static ArrayList<Integer>[] tree;
+    static int[] values, depth;
+    static int[][] parent;
+    static long[] sumToRoot;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        N = Integer.parseInt(br.readLine());
+        values = new int[N + 1];
+        String[] vals = br.readLine().split(" ");
+        for (int i = 1; i <= N; i++) {
+            values[i] = Integer.parseInt(vals[i - 1]);
+        }
+        tree = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) tree[i] = new ArrayList<>();
+        for (int i = 0; i < N - 1; i++) {
+            String[] ab = br.readLine().split(" ");
+            int a = Integer.parseInt(ab[0]);
+            int b = Integer.parseInt(ab[1]);
+            tree[a].add(b);
+            tree[b].add(a);
+        }
+        LOG = 1;
+        while ((1 << LOG) <= N) LOG++;
+        parent = new int[N + 1][LOG];
+        depth = new int[N + 1];
+        sumToRoot = new long[N + 1];
+        dfs(1, 0);
+
+        for (int j = 1; j < LOG; j++) {
+            for (int i = 1; i <= N; i++) {
+                if (parent[i][j - 1] != 0)
+                    parent[i][j] = parent[parent[i][j - 1]][j - 1];
+            }
+        }
+
+        int Q = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
+        for (int q = 0; q < Q; q++) {
+            String[] uv = br.readLine().split(" ");
+            int u = Integer.parseInt(uv[0]);
+            int v = Integer.parseInt(uv[1]);
+            int lca = lca(u, v);
+            long ans = sumToRoot[u] + sumToRoot[v] - 2 * sumToRoot[lca] + values[lca];
+            sb.append(ans).append("\n");
+        }
+        System.out.print(sb);
+    }
+
+    static void dfs(int u, int p) {
+        parent[u][0] = p;
+        sumToRoot[u] = sumToRoot[p] + values[u];
+        for (int v : tree[u]) {
+            if (v != p) {
+                depth[v] = depth[u] + 1;
+                dfs(v, u);
+            }
+        }
+    }
+
+    static int lca(int u, int v) {
+        if (depth[u] < depth[v]) {
+            int tmp = u; u = v; v = tmp;
+        }
+        for (int i = LOG - 1; i >= 0; i--) {
+            if (depth[u] - (1 << i) >= depth[v]) {
+                u = parent[u][i];
+            }
+        }
+        if (u == v) return u;
+        for (int i = LOG - 1; i >= 0; i--) {
+            if (parent[u][i] != 0 && parent[u][i] != parent[v][i]) {
+                u = parent[u][i];
+                v = parent[v][i];
+            }
+        }
+        return parent[u][0];
+    }
+}

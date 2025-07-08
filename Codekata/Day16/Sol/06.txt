@@ -1,0 +1,64 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    static int N, K;
+    static long[] a, prefix;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] nk = br.readLine().split(" ");
+        N = Integer.parseInt(nk[0]);
+        K = Integer.parseInt(nk[1]);
+        a = new long[N + 1];
+        prefix = new long[N + 1];
+        String[] arr = br.readLine().split(" ");
+        for (int i = 1; i <= N; i++) {
+            a[i] = Long.parseLong(arr[i - 1]);
+            prefix[i] = prefix[i - 1] + a[i];
+        }
+
+        long[] dpPrev = new long[N + 1];
+        long[] dpCur = new long[N + 1];
+
+        // Base case: 1 segment
+        for (int i = 1; i <= N; i++) {
+            dpPrev[i] = cost(1, i);
+        }
+
+        for (int k = 2; k <= K; k++) {
+            compute(dpPrev, dpCur, k, 1, N, 0, N - 1);
+            long[] tmp = dpPrev;
+            dpPrev = dpCur;
+            dpCur = tmp;
+        }
+
+        System.out.println(dpPrev[N]);
+    }
+
+    // Cost of segment [l, r]
+    static long cost(int l, int r) {
+        long sum = prefix[r] - prefix[l - 1];
+        return sum * (r - l + 1);
+    }
+
+    // Divide and conquer DP optimization
+    static void compute(long[] dpPrev, long[] dpCur, int k, int l, int r, int optL, int optR) {
+        if (l > r) return;
+        int m = (l + r) >> 1;
+        long best = Long.MAX_VALUE;
+        int opt = -1;
+        for (int j = optL; j <= Math.min(m - 1, optR); j++) {
+            long val = dpPrev[j] + cost(j + 1, m);
+            if (val < best) {
+                best = val;
+                opt = j;
+            }
+        }
+        dpCur[m] = best;
+        compute(dpPrev, dpCur, k, l, m - 1, optL, opt);
+        compute(dpPrev, dpCur, k, m + 1, r, opt, optR);
+    }
+}
+
+----------------------------------

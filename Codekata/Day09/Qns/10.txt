@@ -1,0 +1,120 @@
+"Inorder Successor in BST", 
+"Find the inorder successor of a given node in a BST.", 
+"Medium", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title:
+Inorder Successor in Binary Search Tree
+
+Problem Description:
+Given a Binary Search Tree (BST) and a node in it, find the inorder successor of that node in the BST. The inorder successor of a node is the node with the smallest key greater than the given node's key. If the given node has no inorder successor in the tree, return null.
+
+Input Format:
+- The first line contains an integer N, the number of nodes in the BST.
+- The second line contains N space-separated integers representing the values of the nodes inserted into the BST in the given order.
+- The third line contains an integer K, the value of the node whose inorder successor is to be found.
+
+Output Format:
+- Print the value of the inorder successor node. If there is no inorder successor, print "null".
+
+Constraints:
+- 1 <= N <= 10^4
+- -10^5 <= Node values <= 10^5
+- All node values are unique.
+- K is guaranteed to be present in the BST.
+
+Sample Input 1:
+7
+20 8 22 4 12 10 14
+8
+
+Sample Output 1:
+10
+
+Explanation:
+The inorder traversal of the BST is: 4 8 10 12 14 20 22. The inorder successor of 8 is 10.
+
+Sample Input 2:
+7
+20 8 22 4 12 10 14
+14
+
+Sample Output 2:
+20
+
+Explanation:
+The inorder successor of 14 is 20.
+
+Sample Input 3:
+7
+20 8 22 4 12 10 14
+22
+
+Sample Output 3:
+null
+
+Explanation:
+22 is the largest node, so it has no inorder successor.
+
+Sample Input 4:
+5
+15 10 20 8 12
+10
+
+Sample Output 4:
+12
+
+Sample Input 5:
+6
+30 20 40 10 25 35
+25
+
+Sample Output 5:
+30
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+7
+20 8 22 4 12 10 14
+8
+Output:
+10
+
+Test Case 2:
+Input:
+7
+20 8 22 4 12 10 14
+14
+Output:
+20
+
+Test Case 3:
+Input:
+7
+20 8 22 4 12 10 14
+22
+Output:
+null
+
+Test Case 4:
+Input:
+5
+15 10 20 8 12
+10
+Output:
+12
+
+Test Case 5:
+Input:
+6
+30 20 40 10 25 35
+25
+Output:
+30
+

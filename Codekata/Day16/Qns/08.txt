@@ -1,0 +1,83 @@
+"Bitmask DP for Assignment Problem", 
+"Assign N tasks to N people with minimum cost using DP with bitmasking.", 
+"Hard", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title: Assignment Problem using Bitmask DP
+
+Problem Description:
+You are given an N x N matrix `cost` where `cost[i][j]` represents the cost of assigning the i-th task to the j-th person. Each person can be assigned to at most one task, and each task must be assigned to exactly one person. Your goal is to assign all tasks to people such that the total cost is minimized.
+
+Input Format:
+- The first line contains a single integer N (1 ≤ N ≤ 20), the number of tasks and people.
+- The next N lines each contain N integers, where the j-th integer in the i-th line is `cost[i][j]` (0 ≤ cost[i][j] ≤ 10^6).
+
+Output Format:
+- Print a single integer: the minimum total cost to assign all tasks to people.
+
+Constraints:
+- 1 ≤ N ≤ 20
+- 0 ≤ cost[i][j] ≤ 10^6
+
+Sample Input:
+3
+9 2 7
+6 4 3
+5 8 1
+
+Sample Output:
+13
+
+Explanation:
+Assign task 0 to person 1 (cost 2), task 1 to person 2 (cost 3), and task 2 to person 0 (cost 5). Total cost = 2 + 3 + 8 = 13.
+
+Difficulty:
+Hard
+
+Test Cases:
+Test Case 1:
+Input:
+2
+1 2
+2 1
+Output:
+2
+
+Test Case 2:
+Input:
+3
+1 2 3
+3 2 1
+2 1 3
+Output:
+3
+
+Test Case 3:
+Input:
+4
+10 2 6 5
+1 15 12 8
+7 8 9 3
+15 13 4 10
+Output:
+13
+
+Test Case 4:
+Input:
+1
+42
+Output:
+42
+
+Test Case 5:
+Input:
+5
+1 2 3 4 5
+5 4 3 2 1
+2 3 4 5 1
+5 1 2 3 4
+4 5 1 2 3
+Output:
+5

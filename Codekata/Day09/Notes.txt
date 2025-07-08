@@ -1,0 +1,210 @@
+General Tree - Detailed Notes
+    Definition:
+    - A general tree is a hierarchical data structure in which each node can have zero or more child nodes.
+    - Unlike binary trees, there is no restriction on the number of children a node can have.
+
+    Basic Terminology:
+    - Node: Fundamental part of the tree containing data.
+    - Root: The topmost node in the tree.
+    - Parent: A node that has one or more child nodes.
+    - Child: A node that descends from another node (its parent).
+    - Leaf: A node with no children.
+    - Sibling: Nodes that share the same parent.
+    - Subtree: A tree formed by a node and its descendants.
+    - Level: The distance from the root node (root is at level 0).
+    - Height: The length of the longest path from the root to a leaf.
+
+    Properties:
+    - There is exactly one root node.
+    - Every node (except the root) has exactly one parent.
+    - Nodes can have any number of children.
+    - The tree is connected and acyclic.
+
+    Representation:
+    1. Parent-Child List:
+        - Each node stores a list of its children.
+    2. First Child/Next Sibling (Left-Child Right-Sibling):
+        - Each node has two pointers: one to its first child and one to its next sibling.
+    3. Adjacency List:
+        - Useful for representing trees as graphs.
+
+    Operations:
+    - Traversal:
+    - Preorder: Visit node, then recursively visit children.
+    - Postorder: Recursively visit children, then visit node.
+    - Level-order: Visit nodes level by level.
+    - Insertion: Add a child to a node.
+    - Deletion: Remove a node and its subtree.
+    - Searching: Find a node with a specific value.
+
+    Applications:
+    - File system hierarchies (folders and files)
+    - Organization charts
+    - XML/HTML document object models (DOM)
+    - Game trees (AI decision making)
+    - Expression trees in compilers
+
+    Advantages:
+    - Flexible structure for representing hierarchical relationships.
+    - No restriction on the number of children per node.
+
+    Disadvantages:
+    - More complex to implement than binary trees.
+    - Traversal and manipulation can be less efficient due to variable number of children.
+
+    Example (Parent-Child List):
+
+    Root
+    ├── Child1
+    │   ├── Grandchild1
+    │   └── Grandchild2
+    └── Child2
+        └── Grandchild3
+
+    References:
+    - Data Structures and Algorithms textbooks
+    - Wikipedia: https://en.wikipedia.org/wiki/Tree_(data_structure)
+
+Binary Tree - Detailed Notes
+    Definition:
+    - A binary tree is a hierarchical data structure in which each node has at most two children, referred to as the left child and the right child.
+
+    Basic Terminology:
+    - Node: Fundamental part of the tree containing data.
+    - Root: The topmost node in the tree.
+    - Parent: A node that has one or more child nodes.
+    - Child: A node that descends from another node (its parent).
+    - Leaf: A node with no children.
+    - Sibling: Nodes that share the same parent.
+    - Subtree: A tree formed by a node and its descendants.
+    - Level: The distance from the root node (root is at level 0).
+    - Height: The length of the longest path from the root to a leaf.
+    - Depth: The length of the path from the root to a node.
+
+    Properties:
+    - Each node has at most two children (left and right).
+    - There is exactly one root node.
+    - Every node (except the root) has exactly one parent.
+    - The maximum number of nodes at level l is 2^l.
+    - The maximum number of nodes in a binary tree of height h is 2^(h+1) - 1.
+
+    Types of Binary Trees:
+    - Full Binary Tree: Every node has 0 or 2 children.
+    - Complete Binary Tree: All levels are completely filled except possibly the last, which is filled from left to right.
+    - Perfect Binary Tree: All internal nodes have two children and all leaves are at the same level.
+    - Skewed Binary Tree: All nodes have only left or only right child (left-skewed or right-skewed).
+    - Balanced Binary Tree: The height of the left and right subtrees of every node differ by at most one.
+
+    Representation:
+    1. Linked Representation:
+        - Each node contains data, a pointer to the left child, and a pointer to the right child.
+    2. Array Representation:
+        - Useful for complete binary trees; for node at index i:
+            - Left child at 2i + 1
+            - Right child at 2i + 2
+            - Parent at floor((i - 1) / 2)
+
+    Operations:
+    - Traversal:
+        - Preorder: Visit node, then left subtree, then right subtree.
+        - Inorder: Visit left subtree, then node, then right subtree.
+        - Postorder: Visit left subtree, then right subtree, then node.
+        - Level-order: Visit nodes level by level.
+    - Insertion: Add a node at the appropriate position.
+    - Deletion: Remove a node and restructure the tree if necessary.
+    - Searching: Find a node with a specific value.
+
+    Applications:
+    - Expression trees (arithmetic expressions)
+    - Binary search trees (efficient searching and sorting)
+    - Heaps (priority queues)
+    - Huffman coding trees (data compression)
+    - Syntax trees in compilers
+
+    Advantages:
+    - Efficient searching, insertion, and deletion (especially in balanced trees).
+    - Simple recursive algorithms for traversal and manipulation.
+
+    Disadvantages:
+    - Can become unbalanced, leading to degraded performance (O(n) time complexity).
+    - Requires careful implementation to maintain balance.
+
+    Example (Linked Representation):
+
+    Root
+    ├── LeftChild
+    │   ├── LeftLeftGrandchild
+    │   └── LeftRightGrandchild
+    └── RightChild
+        └── RightRightGrandchild
+
+    References:
+    - Data Structures and Algorithms textbooks
+    - Wikipedia: https://en.wikipedia.org/wiki/Binary_tree
+
+Binary Search Tree (BST) - Detailed Notes
+    Definition:
+    - A binary search tree is a type of binary tree in which each node contains a key, and satisfies the following properties:
+        - The key in each node is greater than all keys in its left subtree.
+        - The key in each node is less than all keys in its right subtree.
+
+    Properties:
+    - Each node has at most two children (left and right).
+    - All keys are unique (no duplicates).
+    - Inorder traversal of a BST yields keys in sorted (ascending) order.
+    - The left subtree contains only nodes with keys less than the node’s key.
+    - The right subtree contains only nodes with keys greater than the node’s key.
+
+    Representation:
+    - Typically implemented using linked nodes, where each node contains:
+        - Data (key)
+        - Pointer to left child
+        - Pointer to right child
+
+    Operations:
+    - Search:
+        - Start at the root and recursively or iteratively move left or right depending on the key.
+        - Time complexity: O(h), where h is the height of the tree.
+    - Insertion:
+        - Insert a new key by traversing the tree and placing it in the correct position to maintain BST property.
+        - Time complexity: O(h).
+    - Deletion:
+        - Remove a node and restructure the tree to maintain BST property.
+        - Three cases:
+            1. Node is a leaf: Remove it directly.
+            2. Node has one child: Replace node with its child.
+            3. Node has two children: Replace node with its inorder successor or predecessor.
+        - Time complexity: O(h).
+    - Traversal:
+        - Inorder: Yields sorted order.
+        - Preorder, Postorder, Level-order: As in binary trees.
+
+    Applications:
+    - Efficient searching, insertion, and deletion of data.
+    - Implementing dynamic sets and lookup tables.
+    - Used in databases and file systems for indexing.
+    - Building associative arrays and symbol tables.
+
+    Advantages:
+    - Average-case time complexity for search, insert, and delete is O(log n) if the tree is balanced.
+    - Simple implementation and easy to understand.
+
+    Disadvantages:
+    - Can become unbalanced (degenerate to a linked list), leading to O(n) time complexity.
+    - Requires additional logic or self-balancing variants (e.g., AVL tree, Red-Black tree) to maintain efficiency.
+
+    Example (BST Structure):
+
+    8
+    ├── 3
+    │   ├── 1
+    │   └── 6
+    │       ├── 4
+    │       └── 7
+    └── 10
+        └── 14
+            └── 13
+
+    References:
+    - Data Structures and Algorithms textbooks
+    - Wikipedia: https://en.wikipedia.org/wiki/Binary_search_tree

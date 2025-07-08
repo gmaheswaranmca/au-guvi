@@ -1,0 +1,112 @@
+"Binary Tree Traversal",
+"Implement inorder, preorder, and postorder traversal of a binary tree.", 
+"Easy", 
+"LeetCode, HackerRank"
+
+----------------------------------
+
+Problem Title: Binary Tree Traversal
+
+Problem Description:
+Given a binary tree, implement the three standard tree traversal algorithms: inorder, preorder, and postorder. For each traversal, return the sequence of node values as a list.
+
+Input Format:
+- The first line contains an integer N, the number of nodes in the binary tree.
+- The next N lines each contain three values: node_value, left_child_value, right_child_value.
+    - If a child does not exist, its value will be -1.
+
+Output Format:
+- Three lines:
+    - The first line contains the inorder traversal as space-separated values.
+    - The second line contains the preorder traversal as space-separated values.
+    - The third line contains the postorder traversal as space-separated values.
+
+Constraints:
+- 1 ≤ N ≤ 1000
+- All node values are unique integers in the range [-10^5, 10^5].
+- The tree is rooted at the first node given in the input.
+
+Sample Input:
+5
+1 2 3
+2 4 -1
+3 -1 5
+4 -1 -1
+5 -1 -1
+
+Sample Output:
+4 2 1 3 5
+1 2 4 3 5
+4 2 5 3 1
+
+Explanation:
+The binary tree is:
+            1
+         / \
+        2   3
+     /     \
+    4       5
+- Inorder: Left, Root, Right → 4 2 1 3 5
+- Preorder: Root, Left, Right → 1 2 4 3 5
+- Postorder: Left, Right, Root → 4 2 5 3 1
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+10 20 30
+20 -1 -1
+30 -1 -1
+Output:
+20 10 30
+10 20 30
+20 30 10
+
+Test Case 2:
+Input:
+4
+5 3 -1
+3 2 -1
+2 1 -1
+1 -1 -1
+Output:
+1 2 3 5
+5 3 2 1
+1 2 3 5
+
+Test Case 3:
+Input:
+1
+42 -1 -1
+Output:
+42
+42
+42
+
+Test Case 4:
+Input:
+6
+7 3 9
+3 1 5
+9 8 10
+1 -1 -1
+5 -1 -1
+8 -1 -1
+10 -1 -1
+Output:
+1 3 5 7 8 9 10
+7 3 1 5 9 8 10
+1 5 3 8 10 9 7
+
+Test Case 5:
+Input:
+2
+100 -1 200
+200 -1 -1
+Output:
+100 200
+100 200
+200 100
