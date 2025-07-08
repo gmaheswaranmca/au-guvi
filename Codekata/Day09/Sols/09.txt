@@ -1,0 +1,42 @@
+----------------------------------
+import java.util.*;
+
+public class Main {
+    static class TreeNode {
+        int val;
+        TreeNode left, right;
+        TreeNode(int v) { val = v; }
+    }
+
+    static TreeNode buildTree(int[][] nodes, int idx) {
+        if (idx == -1) return null;
+        TreeNode node = new TreeNode(nodes[idx][0]);
+        node.left = buildTree(nodes, nodes[idx][1]);
+        node.right = buildTree(nodes, nodes[idx][2]);
+        return node;
+    }
+
+    static boolean isValidBST(TreeNode root) {
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    static boolean isValidBST(TreeNode node, long min, long max) {
+        if (node == null) return true;
+        if (node.val <= min || node.val >= max) return false;
+        return isValidBST(node.left, min, node.val) && isValidBST(node.right, node.val, max);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        int[][] nodes = new int[n][3];
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().split(" ");
+            nodes[i][0] = Integer.parseInt(parts[0]);
+            nodes[i][1] = Integer.parseInt(parts[1]);
+            nodes[i][2] = Integer.parseInt(parts[2]);
+        }
+        TreeNode root = buildTree(nodes, 0);
+        System.out.println(isValidBST(root) ? "true" : "false");
+    }
+}

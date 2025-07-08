@@ -1,0 +1,37 @@
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left, right;
+    TreeNode(int x) { val = x; }
+}
+
+public class SearchInBST {
+    // Insert value into BST
+    static TreeNode insert(TreeNode root, int val) {
+        if (root == null) return new TreeNode(val);
+        if (val < root.val) root.left = insert(root.left, val);
+        else root.right = insert(root.right, val);
+        return root;
+    }
+
+    // Search for value in BST
+    static boolean searchBST(TreeNode root, int val) {
+        if (root == null) return false;
+        if (root.val == val) return true;
+        if (val < root.val) return searchBST(root.left, val);
+        else return searchBST(root.right, val);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        TreeNode root = null;
+        for (int i = 0; i < n; i++) {
+            int v = sc.nextInt();
+            root = insert(root, v);
+        }
+        int val = sc.nextInt();
+        System.out.println(searchBST(root, val) ? "true" : "false");
+    }
+}

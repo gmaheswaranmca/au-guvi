@@ -1,0 +1,59 @@
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left, right;
+    TreeNode(int v) { val = v; }
+}
+
+public class Main {
+    static Map<Integer, TreeNode> map = new HashMap<>();
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int[][] nodes = new int[N][3];
+        for (int i = 0; i < N; i++) {
+            nodes[i][0] = sc.nextInt();
+            nodes[i][1] = sc.nextInt();
+            nodes[i][2] = sc.nextInt();
+        }
+        for (int[] node : nodes) {
+            map.putIfAbsent(node[0], new TreeNode(node[0]));
+            if (node[1] != -1) map.putIfAbsent(node[1], new TreeNode(node[1]));
+            if (node[2] != -1) map.putIfAbsent(node[2], new TreeNode(node[2]));
+        }
+        for (int[] node : nodes) {
+            TreeNode curr = map.get(node[0]);
+            curr.left = node[1] == -1 ? null : map.get(node[1]);
+            curr.right = node[2] == -1 ? null : map.get(node[2]);
+        }
+        Set<Integer> children = new HashSet<>();
+        for (int[] node : nodes) {
+            if (node[1] != -1) children.add(node[1]);
+            if (node[2] != -1) children.add(node[2]);
+        }
+        int rootVal = -1;
+        for (int[] node : nodes) {
+            if (!children.contains(node[0])) {
+                rootVal = node[0];
+                break;
+            }
+        }
+        TreeNode root = map.get(rootVal);
+        System.out.println(isBalanced(root));
+    }
+
+    static boolean isBalanced(TreeNode root) {
+        return check(root) != -1;
+    }
+
+    static int check(TreeNode node) {
+        if (node == null) return 0;
+        int lh = check(node.left);
+        if (lh == -1) return -1;
+        int rh = check(node.right);
+        if (rh == -1) return -1;
+        if (Math.abs(lh - rh) > 1) return -1;
+        return Math.max(lh, rh) + 1;
+    }
+}

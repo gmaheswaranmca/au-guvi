@@ -1,0 +1,57 @@
+----------------------------------
+import java.util.*;
+
+class Node {
+    int val;
+    Node left, right;
+    Node(int v) { val = v; }
+}
+
+public class Main {
+    // Insert node into BST
+    static Node insert(Node root, int val) {
+        if (root == null) return new Node(val);
+        if (val < root.val) root.left = insert(root.left, val);
+        else root.right = insert(root.right, val);
+        return root;
+    }
+
+    // Find node with value K
+    static Node find(Node root, int k) {
+        while (root != null && root.val != k) {
+            if (k < root.val) root = root.left;
+            else root = root.right;
+        }
+        return root;
+    }
+
+    // Find inorder successor
+    static Node inorderSuccessor(Node root, Node target) {
+        Node succ = null;
+        while (root != null) {
+            if (target.val < root.val) {
+                succ = root;
+                root = root.left;
+            } else {
+                root = root.right;
+            }
+        }
+        return succ;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = Integer.parseInt(sc.nextLine().trim());
+        int[] vals = Arrays.stream(sc.nextLine().trim().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int K = Integer.parseInt(sc.nextLine().trim());
+
+        Node root = null;
+        for (int v : vals) root = insert(root, v);
+
+        Node target = find(root, K);
+        Node succ = inorderSuccessor(root, target);
+
+        if (succ == null) System.out.println("null");
+        else System.out.println(succ.val);
+    }
+}

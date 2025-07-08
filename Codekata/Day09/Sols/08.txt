@@ -1,0 +1,50 @@
+import java.util.*;
+
+class Node {
+    int data;
+    Node left, right;
+    Node(int val) {
+        data = val;
+        left = right = null;
+    }
+}
+
+class BST {
+    Node root;
+
+    void insert(int val) {
+        root = insertRec(root, val);
+    }
+
+    Node insertRec(Node root, int val) {
+        if (root == null) {
+            root = new Node(val);
+            return root;
+        }
+        if (val < root.data)
+            root.left = insertRec(root.left, val);
+        else
+            root.right = insertRec(root.right, val);
+        return root;
+    }
+
+    int findMin() {
+        Node curr = root;
+        while (curr.left != null) {
+            curr = curr.left;
+        }
+        return curr.data;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        BST tree = new BST();
+        for (int i = 0; i < n; i++) {
+            tree.insert(sc.nextInt());
+        }
+        System.out.println(tree.findMin());
+    }
+}
