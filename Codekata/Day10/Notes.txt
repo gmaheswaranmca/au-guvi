@@ -1,0 +1,973 @@
+AVL Tree Notes (Detailed)
+    1. Definition:
+        - An AVL tree is a self-balancing binary search tree (BST).
+        - Named after inventors Adelson-Velsky and Landis.
+        - For every node, the heights of the left and right subtrees differ by at most 1.
+
+    2. Properties:
+        - Balance Factor (BF) = height(left subtree) - height(right subtree)
+        - For every node: BF ∈ {-1, 0, 1}
+        - Ensures O(log n) time complexity for search, insert, and delete.
+
+    3. Rotations:
+        - Used to restore balance after insertions or deletions.
+        - Four types:
+        a) Left Rotation (LL)
+        b) Right Rotation (RR)
+        c) Left-Right Rotation (LR)
+        d) Right-Left Rotation (RL)
+
+    4. Insertion:
+        - Insert as in BST.
+        - Update heights and balance factors.
+        - If imbalance occurs, perform appropriate rotation(s).
+
+    5. Deletion:
+        - Delete as in BST.
+        - Update heights and balance factors.
+        - If imbalance occurs, perform appropriate rotation(s).
+
+    6. Rotations Explained:
+        - LL Rotation: Right rotation on unbalanced node.
+        - RR Rotation: Left rotation on unbalanced node.
+        - LR Rotation: Left rotation on left child, then right rotation on unbalanced node.
+        - RL Rotation: Right rotation on right child, then left rotation on unbalanced node.
+
+    7. Complexity:
+        - Search: O(log n)
+        - Insert: O(log n)
+        - Delete: O(log n)
+
+    8. Applications:
+        - Databases, file systems, memory management, and any application requiring ordered data with fast lookups.
+
+    9. Advantages:
+        - Maintains strict balance, guaranteeing logarithmic height.
+        - Faster lookups compared to unbalanced BSTs.
+
+    10. Disadvantages:
+        - More rotations and bookkeeping compared to other BSTs (e.g., Red-Black Trees).
+        - Slightly more complex implementation.
+
+    References:
+    - "Introduction to Algorithms" by Cormen et al.
+    - Wikipedia: https://en.wikipedia.org/wiki/AVL_tree
+
+AVL Tree - Operations
+    AVL - Left Rotate Steps:
+        1. Identify the node (x) to perform left rotation on.
+        2. Let y = x.right (the right child of x).
+        3. Set x.right = y.left.
+        4. Set y.left = x.
+        5. Update heights of x and y.
+        6. Return y (the new root of the rotated subtree).
+
+        Example (Pseudocode):
+
+        leftRotate(x):
+            y = x.right
+            x.right = y.left
+            y.left = x
+            // Update heights
+            x.height = 1 + max(height(x.left), height(x.right))
+            y.height = 1 + max(height(y.left), height(y.right))
+            return y
+
+    AVL - Right Rotate Steps:
+        1. Identify the node (y) to perform right rotation on.
+        2. Let x = y.left (the left child of y).
+        3. Set y.left = x.right.
+        4. Set x.right = y.
+        5. Update heights of y and x.
+        6. Return x (the new root of the rotated subtree).
+
+        Example (Pseudocode):
+
+        rightRotate(y):
+            x = y.left
+            y.left = x.right
+            x.right = y
+            // Update heights
+            y.height = 1 + max(height(y.left), height(y.right))
+            x.height = 1 + max(height(x.left), height(x.right))
+            return x
+
+        
+    AVL Tree - Insert Steps:
+        1. Start at the root node.
+        2. Insert the new key as in a standard BST.
+        3. Update the height of each ancestor node.
+        4. Calculate the balance factor for each ancestor node.
+        5. If the balance factor becomes unbalanced (not in {-1, 0, 1}):
+            a) Identify the case (LL, RR, LR, RL) based on the structure.
+            b) Perform the appropriate rotation(s) to restore balance.
+        6. Repeat the process up to the root if necessary.
+
+
+        Step 5: Handling Unbalanced Nodes in AVL Tree Insertion
+
+        When the balance factor of a node is not in {-1, 0, 1}, the tree is unbalanced. You need to:
+
+        1. Identify the imbalance type:  
+        - LL (Left-Left): Insertion happened 
+        in the left subtree of the left child.
+        - RR (Right-Right): Insertion happened 
+        in the right subtree of the right child.
+        - LR (Left-Right): Insertion happened 
+        in the right subtree of the left child.
+        - RL (Right-Left): Insertion happened 
+        in the left subtree of the right child.
+
+        2. Apply the appropriate rotation(s):
+        - LL Case: Perform a single right rotation.
+        - RR Case: Perform a single left rotation.
+        - LR Case: Perform a left rotation on the left child, 
+        then a right rotation on the unbalanced node.
+        - RL Case: Perform a right rotation on the right child, 
+        then a left rotation on the unbalanced node.
+
+            Example (Pseudocode):
+
+            ````plaintext
+            if balance > 1 and key < node.left.key:
+                // LL Case
+                rightRotate(node)
+            elif balance < -1 and key > node.right.key:
+                // RR Case
+                leftRotate(node)
+            elif balance > 1 and key > node.left.key:
+                // LR Case
+                leftRotate(node.left)
+                rightRotate(node)
+            elif balance < -1 and key < node.right.key:
+                // RL Case
+                rightRotate(node.right)
+                leftRotate(node)
+            ````
+
+            Summary:  
+            - Detect the imbalance type by comparing the inserted key and the structure.
+            - Apply the correct rotation(s) to restore AVL balance.
+
+    Additional Explanation: LR Case (Left Triangle)
+        The LR case is a left triangle that needs to be straightened:
+            1. Left Triangle Pattern:
+            ```
+                A (BF = +2)
+               /
+              B (BF = -1)  
+               \
+                C
+            ```
+            - This creates a "zigzag" or triangle pattern going left-right
+            
+            2. Step 1: Left Rotate B (Straighten the triangle)
+            ```
+                    A
+                   /
+                  C
+                 /
+                B
+            ```
+            - Now we have a straight line going left-left
+        
+        3. Step 2: Right Rotate A (Balance the line)
+            ```
+                  C
+                 / \
+                B   A
+            ```
+            - Final balanced tree with C as new root
+
+        Key Insight: LR = Left Triangle → Straighten → Balance
+            - Triangle: Must be straightened first (left rotate the left child)
+            - Line: Then balanced (right rotate the unbalanced node)
+
+    AVL Tree - Delete Steps:
+        1. Start at the root node.
+        2. Delete the target key as in a standard BST:
+            - If the node has no children, simply remove it.
+            - If the node has one child, replace it with its child.
+            - If the node has two children, 
+            replace it with its in-order successor or predecessor, 
+            then delete that node.
+        3. Update the height of each ancestor node.
+        4. Calculate the balance factor for each ancestor node.
+        5. If the balance factor becomes unbalanced (not in {-1, 0, 1}):
+            a) Identify the case (LL, RR, LR, RL) based on the structure.
+            b) Perform the appropriate rotation(s) to restore balance.
+        6. Repeat the process up to the root if necessary.
+
+        Step 5: Handling Unbalanced Nodes in AVL Tree Deletion
+
+        When the balance factor of a node is not in {-1, 0, 1}, 
+        the tree is unbalanced. You need to:
+
+        1. Identify the imbalance type:
+            - LL (Left-Left): Left child’s left subtree is taller.
+            - LR (Left-Right): Left child’s right subtree is taller.
+            - RR (Right-Right): Right child’s right subtree is taller.
+            - RL (Right-Left): Right child’s left subtree is taller.
+
+        2. Apply the appropriate rotation(s):
+            - LL Case: Perform a single right rotation.
+            - LR Case: Perform a left rotation on the left child, then a right rotation on the unbalanced node.
+            - RR Case: Perform a single left rotation.
+            - RL Case: Perform a right rotation on the right child, then a left rotation on the unbalanced node.
+
+            Example (Pseudocode):
+
+            ````plaintext
+            if balance > 1 and getBalance(node.left) >= 0:
+                // LL Case
+                rightRotate(node)
+            elif balance > 1 and getBalance(node.left) < 0:
+                // LR Case
+                leftRotate(node.left)
+                rightRotate(node)
+            elif balance < -1 and getBalance(node.right) <= 0:
+                // RR Case
+                leftRotate(node)
+            elif balance < -1 and getBalance(node.right) > 0:
+                // RL Case
+                rightRotate(node.right)
+                leftRotate(node)
+            ````
+
+            Summary:
+            - After deletion, update heights and balance factors up the tree.
+            - Detect the imbalance type by checking the balance factor of the node and its children.
+            - Apply the correct rotation(s) to restore AVL balance.
+            
+Red-Black Tree Notes (Detailed)
+    1. Definition:
+        - A Red-Black Tree (RBT) is a self-balancing binary search tree (BST).
+        - Each node contains an extra bit for color (red or black).
+        - Ensures the tree remains approximately balanced.
+
+    2. Properties (Red-Black Properties):
+        - Every node is either red or black.
+        - The root is always black.
+        - All leaves (NIL nodes) are black.
+        - If a node is red, then both its children are black (no two reds in a row).
+        - Every path from a node to its descendant NIL nodes contains the same number of black nodes (black-height).
+
+    3. Rotations:
+        - Used to maintain balance after insertions and deletions.
+        - Two types:
+            a) Left Rotation
+            b) Right Rotation
+
+    4. Insertion:
+        - Insert as in BST, color the new node red.
+        - Fix any violations of red-black properties using recoloring and rotations.
+        - May require multiple adjustments up the tree.
+
+    5. Deletion:
+        - Delete as in BST.
+        - If deleting a black node, fix violations using recoloring and rotations.
+        - May require multiple adjustments up the tree.
+
+    6. Balancing Explained:
+        - Balancing is achieved by enforcing red-black properties after every insert and delete.
+        - Rotations and recoloring are used to restore properties.
+
+    7. Complexity:
+        - Search: O(log n)
+        - Insert: O(log n)
+        - Delete: O(log n)
+
+    8. Applications:
+        - Used in many libraries and systems (e.g., C++ STL map/set, Java TreeMap/TreeSet).
+        - Databases, memory management, and associative containers.
+
+    9. Advantages:
+        - Guarantees logarithmic height.
+        - Fewer rotations on average compared to AVL trees.
+        - Efficient for insertion and deletion-heavy workloads.
+
+    10. Disadvantages:
+        - Slightly slower lookups compared to AVL trees due to less strict balancing.
+        - More complex than simple BSTs.
+
+    References:
+    - "Introduction to Algorithms" by Cormen et al.
+    - Wikipedia: https://en.wikipedia.org/wiki/Red%E2%80%93black_tree
+
+Red-Black Tree - Operations
+    RBT - Left Rotate Steps:
+        1. Identify the node (x) to perform left rotation on.
+        2. Let y = x.right (the right child of x).
+        3. Set x.right = y.left.
+        4. If y.left is not null, set y.left.parent = x.
+        5. Set y.parent = x.parent.
+        6. If x is the root, set root = y.
+        Else if x is a left child, set x.parent.left = y.
+        Else set x.parent.right = y.
+        7. Set y.left = x.
+        8. Set x.parent = y.
+
+        Example (Pseudocode):
+
+        ````plaintext
+        leftRotate(x):
+            y = x.right
+            x.right = y.left
+            if y.left != null:
+                y.left.parent = x
+            y.parent = x.parent
+            if x.parent == null:
+                root = y
+            elif x == x.parent.left:
+                x.parent.left = y
+            else:
+                x.parent.right = y
+            y.left = x
+            x.parent = y
+        ````
+
+    RBT - Right Rotate Steps: 
+        1. Identify the node (y) to perform right rotation on.
+        2. Let x = y.left (the left child of y).
+        3. Set y.left = x.right.
+        4. If x.right is not null, set x.right.parent = y.
+        5. Set x.parent = y.parent.
+        6. If y is the root, set root = x.
+        Else if y is a right child, set y.parent.right = x.
+        Else set y.parent.left = x.
+        7. Set x.right = y.
+        8. Set y.parent = x.
+
+        Example (Pseudocode):
+
+        ````plaintext
+        rightRotate(y):
+            x = y.left
+            y.left = x.right
+            if x.right != null:
+                x.right.parent = y
+            x.parent = y.parent
+            if y.parent == null:
+                root = x
+            elif y == y.parent.right:
+                y.parent.right = x
+            else:
+                y.parent.left = x
+            x.right = y
+            y.parent = x
+        ````
+
+    RBT - Insert Steps
+        1. Start at the root node.
+        2. Insert the new key as in a standard BST.
+        3. Color the new node red.
+        4. Fix any violations of Red-Black properties:
+            a) If the parent is black, insertion is done.
+            b) If the parent is red, there is a violation:
+                i. If the uncle is red:
+                    - Recolor parent and uncle to black.
+                    - Recolor grandparent to red.
+                    - Move up to the grandparent and repeat.
+                ii. If the uncle is black or null:
+                    - If the new node is on the "inside" 
+                    (left-right or right-left), 
+                    rotate to convert to "outside" 
+                    (left-left or right-right).
+                    - Perform a rotation on the grandparent (right or left, as appropriate).
+                    - Swap colors of parent and grandparent.
+        5. Ensure the root is always black.
+
+        Example (Pseudocode):
+
+        ````plaintext
+        insert(node):
+            standard BST insert, color new node red
+            while node != root and node.parent.color == RED:
+                if node.parent is left child of grandparent:
+                    uncle = grandparent.right
+                    if uncle and uncle.color == RED:
+                        // Case 1: recolor
+                        node.parent.color = BLACK
+                        uncle.color = BLACK
+                        grandparent.color = RED
+                        node = grandparent
+                    else:
+                        if node == node.parent.right:
+                            // Case 2: left-rotate parent
+                            node = node.parent
+                            leftRotate(node)
+                        // Case 3: right-rotate grandparent
+                        node.parent.color = BLACK
+                        grandparent.color = RED
+                        rightRotate(grandparent)
+                else:
+                    // mirror image of above
+                    uncle = grandparent.left
+                    if uncle and uncle.color == RED:
+                        node.parent.color = BLACK
+                        uncle.color = BLACK
+                        grandparent.color = RED
+                        node = grandparent
+                    else:
+                        if node == node.parent.left:
+                            node = node.parent
+                            rightRotate(node)
+                        node.parent.color = BLACK
+                        grandparent.color = RED
+                        leftRotate(grandparent)
+            root.color = BLACK
+        ``` 
+
+    RBT - Delete Steps:
+        1. Start at the root node.
+        2. Delete the target key as in a standard BST.
+        3. If the deleted node or the node that replaces it is red, simply remove it (no violation).
+        4. If a black node is deleted or replaced, fix violations of Red-Black properties:
+            a) If the replacement node is red, color it black.
+            b) If the replacement node is black (or null), perform fix-up:
+                i. While the node is not the root and is black:
+                    - If the node is a left child:
+                        * Let sibling = parent.right
+                        * If sibling is red:
+                            - Recolor sibling and parent.
+                            - Left-rotate parent.
+                            - Update sibling.
+                        * If both sibling's children are black:
+                            - Recolor sibling red.
+                            - Move up to parent.
+                        * If sibling's right child is black and left child is red:
+                            - Recolor sibling and its left child.
+                            - Right-rotate sibling.
+                            - Update sibling.
+                        * If sibling's right child is red:
+                            - Recolor sibling with parent's color.
+                            - Color parent and sibling's right child black.
+                            - Left-rotate parent.
+                            - Set node to root.
+                    - If the node is a right child: (mirror above)
+                ii. Color node black.
+        5. Ensure the root is always black.
+
+        Example (Pseudocode):
+
+        ````plaintext
+        delete(node):
+            standard BST delete
+            if deleted node was red or replacement is red:
+                // No fix needed
+                return
+            while node != root and node.color == BLACK:
+                if node == node.parent.left:
+                    sibling = node.parent.right
+                    if sibling.color == RED:
+                        sibling.color = BLACK
+                        node.parent.color = RED
+                        leftRotate(node.parent)
+                        sibling = node.parent.right
+                    if sibling.left.color == BLACK and sibling.right.color == BLACK:
+                        sibling.color = RED
+                        node = node.parent
+                    else:
+                        if sibling.right.color == BLACK:
+                            sibling.left.color = BLACK
+                            sibling.color = RED
+                            rightRotate(sibling)
+                            sibling = node.parent.right
+                        sibling.color = node.parent.color
+                        node.parent.color = BLACK
+                        sibling.right.color = BLACK
+                        leftRotate(node.parent)
+                        node = root
+                else:
+                    // mirror image of above
+                    sibling = node.parent.left
+                    if sibling.color == RED:
+                        sibling.color = BLACK
+                        node.parent.color = RED
+                        rightRotate(node.parent)
+                        sibling = node.parent.left
+                    if sibling.left.color == BLACK and sibling.right.color == BLACK:
+                        sibling.color = RED
+                        node = node.parent
+                    else:
+                        if sibling.left.color == BLACK:
+                            sibling.right.color = BLACK
+                            sibling.color = RED
+                            leftRotate(sibling)
+                            sibling = node.parent.left
+                        sibling.color = node.parent.color
+                        node.parent.color = BLACK
+                        sibling.left.color = BLACK
+                        rightRotate(node.parent)
+                        node = root
+            node.color = BLACK
+        ````
+
+        AVL Tree Notes (Detailed)
+
+Trie Notes:
+Trie Notes (Detailed)
+    1. Definition:
+        - A Trie (pronounced "try"), also known as a prefix tree or digital tree, is 
+        a tree-like data structure 
+        used to store a dynamic set of strings, 
+        typically for retrieval by prefix.
+        - Each node represents a single character of a string.
+
+    2. Properties:
+        - The root node is usually empty and 
+        does not correspond to any character.
+        - Each edge represents a character.
+        - Each path from the root to a node represents 
+        a prefix of the stored strings.
+        - Nodes may store a flag indicating 
+        if they mark the end of a valid word.
+
+    3. Structure:
+        - Each node contains:
+            * A map or array of child pointers 
+            (one for each possible character).
+            * A boolean flag (isEndOfWord) 
+            to indicate if the node represents the end of a word.
+
+    4. Search Operation:
+        - Start at the root.
+        - For each character in the search string, 
+        follow the corresponding child pointer.
+        - If a pointer is missing, 
+        the string is not present.
+        - If all characters are found and 
+        the last node is marked as end of word, 
+        the string exists.
+
+        Example (Pseudocode):
+
+        search(root, word):
+            node = root
+            for char in word:
+                if char not in node.children:
+                    return False
+                node = node.children[char]
+            return node.isEndOfWord
+
+    5. Insertion:
+        - Start at the root.
+        - For each character in the word, create a child node if it does not exist.
+        - After the last character, mark the node as end of word.
+
+        Example (Pseudocode):
+
+        insert(root, word):
+            node = root
+            for char in word:
+                if char not in node.children:
+                    node.children[char] = new TrieNode()
+                node = node.children[char]
+            node.isEndOfWord = True
+
+    6. Deletion:
+        - Recursively traverse the trie to the end of the word.
+        - Unmark the end of word flag.
+        - Optionally, remove nodes that are no longer needed (i.e., nodes that are not prefixes of other words).
+
+        Example (Pseudocode):
+
+        delete(node, word, depth=0):
+            if depth == len(word):
+                if not node.isEndOfWord:
+                    return False
+                node.isEndOfWord = False
+                return len(node.children) == 0
+            char = word[depth]
+            if char not in node.children:
+                return False
+            shouldDelete = delete(node.children[char], word, depth+1)
+            if shouldDelete:
+                del node.children[char]
+                return not node.isEndOfWord and len(node.children) == 0
+            return False
+
+    7. Complexity:
+        - Search: O(L), where L is the length of the word.
+        - Insert: O(L)
+        - Delete: O(L)
+        - Space: O(N * L * A), where N is the number of words, L is average word length, and A is the alphabet size.
+
+    8. Applications:
+        - Autocomplete and spell-checking.
+        - IP routing (longest prefix matching).
+        - Dictionary implementations.
+        - Word games and search engines.
+
+    9. Advantages:
+        - Fast prefix-based lookups.
+        - Efficient for storing large sets of strings with shared prefixes.
+
+    10. Disadvantages:
+        - Can use more memory than other data structures (e.g., hash tables) for sparse datasets.
+        - Not suitable for non-string or non-prefix-based queries.
+
+    References:
+    - "Introduction to Algorithms" by Cormen et al.
+    - Wikipedia: https://en.wikipedia.org/wiki/Trie
+
+Example with text diagram:
+
+    Trie Example: Dictionary Words
+
+    Let's insert these words: "CAT", "CAR", "CARD", "CARE", "CAREFUL", "CATS", "DOG"
+
+    Step-by-Step Insertion:
+
+    #1. Insert "CAT":
+    ```
+        ROOT
+        |
+        C
+        |
+        A
+        |
+        T*
+    ```
+
+    #2. Insert "CAR":
+    ```
+        ROOT
+        |
+        C
+        |
+        A
+       / \
+      T*  R*
+    ```
+
+    #3. Insert "CARD":
+    ```
+        ROOT
+        |
+        C
+        |
+        A
+       / \
+      T*  R*
+          |
+          D*
+    ```
+
+    #4. Insert "CARE":
+    ```
+        ROOT
+        |
+        C
+        |
+        A
+       / \
+      T*  R*
+         / \
+        D*  E*
+    ```
+
+    #5. Insert "CAREFUL":
+    ```
+        ROOT
+        |
+        C
+        |
+        A
+       / \
+      T*  R*
+         / \
+        D*  E*
+            |
+            F
+            |
+            U
+            |
+            L*
+    ```
+
+    #6. Insert "CATS":
+    ```
+        ROOT
+         |
+         C
+         |
+         A
+        / \
+       T*  R*
+       |  / \
+      S* D* E*
+            |
+            F
+            |
+            U
+            |
+            L*
+    ```
+
+    #7. Insert "DOG":
+    ```
+        ROOT
+       /   \
+      C     D
+      |     |
+      A     O
+     / \    |
+    T*  R*  G*
+    |  / \
+    S* D* E*
+          |
+          F
+          |
+          U
+          |
+          L*
+    ```
+
+    Final Complete Trie Structure:
+
+    ```
+        ROOT
+       /   \
+      C     D
+      |     |
+      A     O
+     / \    |
+    T*  R*  G*
+    |  / \
+    S* D* E*
+          |
+          F
+          |
+          U
+          |
+          L*
+    ```
+
+    Legend: `*` = End of word marker (isEndOfWord = true)
+
+    Trie Properties Demonstrated:
+
+    1. Shared Prefixes: "CAR", "CARD", "CARE", "CAREFUL" all share "CAR"
+    2. Root is Empty: ROOT node contains no character
+    3. Path = Word: Each path from root to `*` represents a complete word
+    4. Efficient Storage: Common prefixes stored only once
+
+    Search Examples:
+
+    Search "CAR":
+    - ROOT → C → A → R* ✅ (Found, ends with *)
+
+    Search "CARD":
+    - ROOT → C → A → R → D* ✅ (Found, ends with *)
+
+    Search "CA":
+    - ROOT → C → A ❌ (Not found, no * marker)
+
+    Search "CAMERA":
+    - ROOT → C → A → ? ❌ (Path doesn't exist)
+
+    Time Complexity:
+    - Search/Insert/Delete: O(L) where L = length of word
+    - Space: O(N × L × A) where N = number of words, A = alphabet size
+
+    This Trie efficiently stores 7 words using shared prefixes, demonstrating why it's perfect for autocomplete, spell-checkers, and dictionary implementations!
+
+Trie - Operations
+    Trie - Insert Steps:
+        1. Start at the root node.
+        2. For each character in the word:
+            a) If the character does not exist as a child, create a new node.
+            b) Move to the child node.
+        3. After the last character, mark the node as end of word.
+
+    Trie - Search Steps:
+        1. Start at the root node.
+        2. For each character in the word:
+            a) If the character does not exist as a child, return False.
+            b) Move to the child node.
+        3. After the last character, return True if the node is marked as end of word.
+
+    Trie - Prefix Search Steps:
+        1. Start at the root node.
+        2. For each character in the prefix:
+            a) If the character does not exist as a child, return False.
+            b) Move to the child node.
+        3. After the last character, return True (prefix exists).
+
+    Trie - Delete Steps:
+        1. Recursively traverse to the end of the word.
+        2. Unmark the end of word flag.
+        3. Remove nodes that are no longer needed (i.e., not prefixes for other words).
+
+    Summary:
+        - Tries are efficient for prefix-based operations and storing dictionaries of words.
+        - They support fast insert, search, and prefix queries.
+        - Widely used in text processing, autocomplete, and search applications.
+
+
+
+B-Tree notes:
+B-Tree Notes (Detailed)
+    1. Definition:
+        - A B-Tree is a self-balancing search tree designed 
+        for systems that read and write large blocks of data 
+        (e.g., databases, filesystems).
+        - Generalizes binary search trees by allowing nodes 
+        to have more than two children.
+        - Optimized for minimizing disk I/O.
+
+    2. Properties:
+        - Each node contains a certain number of keys and children (except leaves).
+        - All leaves appear at the same level (tree is balanced).
+        - A B-Tree of order t (minimum degree) has:
+            * Every node (except root) has at least t-1 keys and at most 2t-1 keys.
+            * The root has at least 1 key.
+            * Every internal node has at least t children and at most 2t children.
+            * Keys within a node are sorted.
+            * Children pointers separate the keys into intervals.
+
+    3. Structure:
+        - Each node contains:
+            * n: number of keys
+            * keys[1..n]: sorted array of keys
+            * children[0..n]: pointers to child nodes 
+            (if not a leaf)
+            * leaf: boolean indicating if node is a leaf
+
+    4. Search Operation:
+        - Similar to binary search within a node.
+        - At each node, perform binary search 
+        to find the key or the child to descend into.
+        - Time complexity: O(log n)
+
+    5. Insertion:
+        - Always insert into a leaf node.
+        - If the leaf is full (2t-1 keys), split it:
+            * Median key moves up to the parent.
+            * Node splits into two nodes with t-1 keys each.
+        - If the parent is also full, recursively split up to the root.
+        - If the root splits, the tree height increases by 1.
+
+        Example (Pseudocode):
+
+        insert(key):
+            if root is full:
+                s = new node
+                s.leaf = False
+                s.children[0] = root
+                splitChild(s, 0)
+                root = s
+            insertNonFull(root, key)
+
+        splitChild(parent, i):
+            y = parent.children[i]
+            z = new node
+            z.leaf = y.leaf
+            z.keys = y.keys[t:2t-1]
+            if not y.leaf:
+                z.children = y.children[t:2t]
+            y.keys = y.keys[0:t-1]
+            parent.children.insert(i+1, z)
+            parent.keys.insert(i, y.keys[t-1])
+
+    6. Deletion:
+        - More complex than insertion.
+        - If the key is in a leaf, simply remove it.
+        - If the key is in an internal node:
+            * If the child before or after the key has at least t keys, 
+            replace the key with its predecessor or successor and recursively delete.
+            * If both children have t-1 keys, merge them and recursively delete.
+        - If a child has only t-1 keys, ensure it has at least t keys 
+        before descending (by borrowing from siblings or merging).
+
+    7. Complexity:
+        - Search: O(log n)
+        - Insert: O(log n)
+        - Delete: O(log n)
+        - Height of B-Tree: O(log_t n), where t is the minimum degree.
+
+    8. Applications:
+        - Widely used in databases and filesystems (e.g., MySQL, SQLite, NTFS, ext4).
+        - Suitable for storage systems with large blocks/pages.
+
+    9. Advantages:
+        - Minimizes disk reads/writes by maximizing branching factor.
+        - Maintains balance with minimal restructuring.
+        - Efficient for large datasets and external storage.
+
+    10. Disadvantages:
+        - More complex implementation than binary search trees.
+        - Not as efficient for in-memory data structures with small datasets.
+
+    References:
+    - "Introduction to Algorithms" by Cormen et al.
+    - Wikipedia: https://en.wikipedia.org/wiki/B-tree
+
+B-Tree - Operations
+    B-Tree - Search Steps:
+        1. Start at the root node.
+        2. For the current node:
+            a) Perform binary search among the keys.
+            b) If the key is found, return it.
+            c) If the node is a leaf and key not found, return null.
+            d) Otherwise, descend to the appropriate child and repeat.
+
+        Example (Pseudocode):
+
+        search(node, key):
+            i = 0
+            while i < node.n and key > node.keys[i]:
+                i += 1
+            if i < node.n and key == node.keys[i]:
+                return (node, i)
+            elif node.leaf:
+                return null
+            else:
+                return search(node.children[i], key)
+
+    B-Tree - Insert Steps:
+        1. If the root is full, split it and increase the tree height.
+        2. Descend to the appropriate child recursively, splitting any full child encountered on the way down.
+        3. Insert the key into a non-full leaf node.
+
+        Example (Pseudocode):
+
+        insertNonFull(node, key):
+            i = node.n - 1
+            if node.leaf:
+                node.keys.append(0)
+                while i >= 0 and key < node.keys[i]:
+                    node.keys[i+1] = node.keys[i]
+                    i -= 1
+                node.keys[i+1] = key
+                node.n += 1
+            else:
+                while i >= 0 and key < node.keys[i]:
+                    i -= 1
+                i += 1
+                if node.children[i].n == 2*t - 1:
+                    splitChild(node, i)
+                    if key > node.keys[i]:
+                        i += 1
+                insertNonFull(node.children[i], key)
+
+    B-Tree - Delete Steps:
+        1. Find the key to be deleted.
+        2. If the key is in a leaf, remove it.
+        3. If the key is in an internal node:
+            a) If the child before or after the key has at least t keys, 
+            replace the key with its predecessor or successor and recursively delete.
+            b) If both children have t-1 keys, merge them and recursively delete.
+        4. If descending into a child with t-1 keys, 
+        ensure it has at least t keys by borrowing or merging.
+
+        Example (Pseudocode):
+
+        delete(node, key):
+            // See Cormen et al. for full details; deletion is complex and involves multiple cases.
+
+    Summary:
+        - B-Trees are balanced, multi-way search trees optimized for disk and large block storage.
+        - They minimize disk I/O by maximizing the number of keys per node.
+        - Used extensively in database and filesystem implementations.
