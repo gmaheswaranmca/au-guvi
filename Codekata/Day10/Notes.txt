@@ -1038,3 +1038,55 @@ RBT - functions
         if isLeft: parnet.left = x 
         else parent.right = x 
     }
+
+    private void fixInsert(Node z) {
+        while (z.parent != null && z.parent.color == RED) {
+            Node parent = z.parent;
+            Node grandparent = parent.parent;
+            
+            if (parent == grandparent.left) {
+                Node uncle = grandparent.right;
+                if (uncle != null && uncle.color == RED) {
+                    // Case 1: Uncle is red - recolor
+                    parent.color = BLACK;
+                    uncle.color = BLACK;
+                    grandparent.color = RED;
+                    z = grandparent;
+                } else {
+                    // Case 2: Uncle is black
+                    if (z == parent.right) {
+                        // Case 2a: z is right child - left rotate
+                        z = parent;
+                        leftRotate(z);
+                        parent = z.parent;
+                    }
+                    // Case 2b: z is left child - recolor and right rotate
+                    parent.color = BLACK;
+                    grandparent.color = RED;
+                    rightRotate(grandparent);
+                }
+            } else {
+                Node uncle = grandparent.left;
+                if (uncle != null && uncle.color == RED) {
+                    // Case 1: Uncle is red - recolor
+                    parent.color = BLACK;
+                    uncle.color = BLACK;
+                    grandparent.color = RED;
+                    z = grandparent;
+                } else {
+                    // Case 2: Uncle is black
+                    if (z == parent.left) {
+                        // Case 2a: z is left child - right rotate
+                        z = parent;
+                        rightRotate(z);
+                        parent = z.parent;
+                    }
+                    // Case 2b: z is right child - recolor and left rotate
+                    parent.color = BLACK;
+                    grandparent.color = RED;
+                    leftRotate(grandparent);
+                }
+            }
+        }
+        root.color = BLACK;
+    }
