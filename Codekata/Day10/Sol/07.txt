@@ -1,0 +1,64 @@
+import java.util.*;
+
+class TrieNode {
+    TrieNode[] children = new TrieNode[26];
+    boolean isEnd = false;
+}
+
+class Trie {
+    private TrieNode root;
+    public Trie() {
+        root = new TrieNode();
+    }
+    public void insert(String word) {
+        TrieNode node = root;
+        for (char ch : word.toCharArray()) {
+            int idx = ch - 'a';
+            if (node.children[idx] == null)
+                node.children[idx] = new TrieNode();
+            node = node.children[idx];
+        }
+        node.isEnd = true;
+    }
+    public boolean search(String word) {
+        TrieNode node = root;
+        for (char ch : word.toCharArray()) {
+            int idx = ch - 'a';
+            if (node.children[idx] == null)
+                return false;
+            node = node.children[idx];
+        }
+        return node.isEnd;
+    }
+    public boolean startsWith(String prefix) {
+        TrieNode node = root;
+        for (char ch : prefix.toCharArray()) {
+            int idx = ch - 'a';
+            if (node.children[idx] == null)
+                return false;
+            node = node.children[idx];
+        }
+        return true;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        Trie trie = new Trie();
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().split(" ", 2);
+            String op = parts[0];
+            String arg = parts[1];
+            if (op.equals("insert")) {
+                trie.insert(arg);
+            } else if (op.equals("search")) {
+                System.out.println(trie.search(arg));
+            } else if (op.equals("startsWith")) {
+                System.out.println(trie.startsWith(arg));
+            }
+        }
+        sc.close();
+    }
+}

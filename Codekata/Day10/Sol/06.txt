@@ -1,0 +1,51 @@
+import java.util.*;
+
+class Node {
+    int val;
+    Node left, right;
+    Node(int v) {
+        val = v;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        Map<Integer, Node> map = new HashMap<>();
+        Set<Integer> children = new HashSet<>();
+        for (int i = 0; i < N; i++) {
+            int v = sc.nextInt(), l = sc.nextInt(), r = sc.nextInt();
+            Node node = map.getOrDefault(v, new Node(v));
+            if (l != -1) {
+                node.left = map.getOrDefault(l, new Node(l));
+                map.put(l, node.left);
+                children.add(l);
+            }
+            if (r != -1) {
+                node.right = map.getOrDefault(r, new Node(r));
+                map.put(r, node.right);
+                children.add(r);
+            }
+            map.put(v, node);
+        }
+        int rootVal = -1;
+        for (int key : map.keySet()) {
+            if (!children.contains(key)) {
+                rootVal = key;
+                break;
+            }
+        }
+        int K = sc.nextInt();
+        Node root = map.get(rootVal);
+        System.out.println(search(root, K) ? "Found" : "Not Found");
+    }
+
+    static boolean search(Node root, int key) {
+        while (root != null) {
+            if (root.val == key) return true;
+            root = key < root.val ? root.left : root.right;
+        }
+        return false;
+    }
+}

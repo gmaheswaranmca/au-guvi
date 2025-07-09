@@ -1,0 +1,96 @@
+import java.util.*;
+
+class AVLTree {
+    static class Node {
+        int val, height;
+        Node left, right;
+        Node(int val) {
+            this.val = val;
+            this.height = 1;
+        }
+    }
+
+    Node root;
+
+    void insert(int key) {
+        root = insert(root, key);
+    }
+
+    private Node insert(Node node, int key) {
+        if (node == null) return new Node(key);
+
+        if (key < node.val)
+            node.left = insert(node.left, key);
+        else if (key > node.val)
+            node.right = insert(node.right, key);
+        else
+            return node; // duplicate keys not allowed
+
+        node.height = 1 + Math.max(height(node.left), height(node.right));
+        int balance = getBalance(node);
+
+        // LL
+        if (balance > 1 && key < node.left.val) {
+            System.out.println("LL Rotation at node " + node.val);
+            return rightRotate(node);
+        }
+        // RR
+        if (balance < -1 && key > node.right.val) {
+            System.out.println("RR Rotation at node " + node.val);
+            return leftRotate(node);
+        }
+        // LR
+        if (balance > 1 && key > node.left.val) {
+            System.out.println("LR Rotation at node " + node.val);
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+        // RL
+        if (balance < -1 && key < node.right.val) {
+            System.out.println("RL Rotation at node " + node.val);
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+        return node;
+    }
+
+    private int height(Node node) {
+        return node == null ? 0 : node.height;
+    }
+
+    private int getBalance(Node node) {
+        return node == null ? 0 : height(node.left) - height(node.right);
+    }
+
+    private Node rightRotate(Node y) {
+        Node x = y.left;
+        Node T2 = x.right;
+        x.right = y;
+        y.left = T2;
+        y.height = Math.max(height(y.left), height(y.right)) + 1;
+        x.height = Math.max(height(x.left), height(x.right)) + 1;
+        return x;
+    }
+
+    private Node leftRotate(Node x) {
+        Node y = x.right;
+        Node T2 = y.left;
+        y.left = x;
+        x.right = T2;
+        x.height = Math.max(height(x.left), height(x.right)) + 1;
+        y.height = Math.max(height(y.left), height(y.right)) + 1;
+        return y;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        AVLTree tree = new AVLTree();
+        for (int i = 0; i < n; i++) {
+            int val = sc.nextInt();
+            tree.insert(val);
+        }
+    }
+}
