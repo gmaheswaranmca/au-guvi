@@ -1,0 +1,39 @@
+Hemanth     : CSE Cloud + Certification + Backend Development
+Kowshik     : CSE Certifications 2
+Prasanth    : CSE Ethical Hacking 
+Tanuj(z)a   : ECE + MERN from tech hub 
+Lakshmi Sai : ECE + MERN from tech hub 
+Rama        : ECE + MERN from tech hub     
+Rajesh      : CSE + Redhat + Pearson's JS/Java Certifications + Service Now
+              World Wide Cars 
+Bhardwaj    : CSE + Redhat + Pearson's JS/Java Certifications + Service Now
+              Product Crud ops on Swing App 
+Sai Prabhakar: CSE + Redhat + Pearson's JS/Java Certifications + Service Now
+               Food App 
+Alekhya     : CSE, Linux Certification, C++/C Cert from Cisco, 
+              JS/Java/Py/Html/Cs from Pearson,
+              Instructor-Learner App+2, CodeChef 1400
+Priya Reethika Lanka: CSE, Linux Certification, C++/C Cert from Cisco, 
+              JS/Java/Py/Html/Cs from Pearson,
+              Grow Hive+2
+Lakshmi Prasanna Kuracha: CSE, SalesForce(Admin+Developer)+Project, 
+        Certification Py/Java/HTML/CSS Pearson, 
+        C/C++ from Cisco 
+Chandini: CSE, HTML/CSS/Py Certifications, AWS Innovative Origin
+Harini: CSE, Full Stack FrontEnd/BackEnd Apna College + Project, 
+        Py/Java from NPTL, HTML/CSS from Pearson 
+Navadeep: CSE, RedHat Cert, Py/Html/Css,ServiceNow, Projects+2
+Deepak Ajay: IT, RedHat Cert, AWS, Java/Js/Html/css/C++ Cert, Projects+3
+Hemanth Kumar: CSE, RedHat Cert, AWS, Java/Js/Html/css, Spring Boot, Projects+3
+Harsha Varthan: IT,RedHat Cert, C++ - Cisco, Java/JS/Py - Pearson, ServiceNow, MERN devr, Projects+3
+Manikanda: IT,JS/html/css - Pearson, ServiceNow, Projects+3, MERN devr 
+Siva Kumar: IT,CCNA, JS/Html/css-Pearson, MERN devr, Projects+3
+JyothiSwaroopa: IT, RedHat Cert, Js/Html/css-Pearson, C++ - Cisco, MERN, Projects+4
+Tejaswini: IT,Js/Html/css, C++, Java, Python, Projects+2
+Siva Gangadhar: IT,Js/Py/Html/Css - Pearson, MERN, Java Hrank Batch, Projects+2
+JayaSurya: IT, Java Hrank Batch, MERN, css/js/html, CCNA, Projects+3
+---
+Harsha
+Sudheer
+Balaraju
+Harsha 
