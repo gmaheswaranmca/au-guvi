@@ -1039,54 +1039,475 @@ RBT - functions
         else parent.right = x 
     }
 
+    // Fix Red-Black Tree violations after insertion
+    // This method restores RBT properties when a red node has a red parent
     private void fixInsert(Node z) {
+        // Continue fixing while z has a red parent (violates RBT property)
         while (z.parent != null && z.parent.color == RED) {
             Node parent = z.parent;
             Node grandparent = parent.parent;
             
+            // Case A: Parent is left child of grandparent
             if (parent == grandparent.left) {
                 Node uncle = grandparent.right;
+                
+                // Case 1: Uncle is red - recolor and move up
                 if (uncle != null && uncle.color == RED) {
-                    // Case 1: Uncle is red - recolor
-                    parent.color = BLACK;
-                    uncle.color = BLACK;
-                    grandparent.color = RED;
-                    z = grandparent;
+                    parent.color = BLACK;      // Make parent black
+                    uncle.color = BLACK;       // Make uncle black
+                    grandparent.color = RED;   // Make grandparent red
+                    z = grandparent;           // Move z up to grandparent
                 } else {
-                    // Case 2: Uncle is black
+                    // Case 2: Uncle is black or null
+                    
+                    // Case 2a: z is right child (triangle case) - convert to line
                     if (z == parent.right) {
-                        // Case 2a: z is right child - left rotate
-                        z = parent;
-                        leftRotate(z);
-                        parent = z.parent;
+                        z = parent;            // Move z to parent
+                        leftRotate(z);         // Left rotate to make it a line
+                        parent = z.parent;     // Update parent reference
                     }
-                    // Case 2b: z is left child - recolor and right rotate
-                    parent.color = BLACK;
-                    grandparent.color = RED;
-                    rightRotate(grandparent);
+                    
+                    // Case 2b: z is left child (line case) - recolor and rotate
+                    parent.color = BLACK;      // Make parent black
+                    grandparent.color = RED;   // Make grandparent red
+                    rightRotate(grandparent);  // Right rotate grandparent
                 }
             } else {
+                // Case B: Parent is right child of grandparent (mirror of Case A)
                 Node uncle = grandparent.left;
+                
+                // Case 1: Uncle is red - recolor and move up
                 if (uncle != null && uncle.color == RED) {
-                    // Case 1: Uncle is red - recolor
-                    parent.color = BLACK;
-                    uncle.color = BLACK;
-                    grandparent.color = RED;
-                    z = grandparent;
+                    parent.color = BLACK;      // Make parent black
+                    uncle.color = BLACK;       // Make uncle black
+                    grandparent.color = RED;   // Make grandparent red
+                    z = grandparent;           // Move z up to grandparent
                 } else {
-                    // Case 2: Uncle is black
+                    // Case 2: Uncle is black or null
+                    
+                    // Case 2a: z is left child (triangle case) - convert to line
                     if (z == parent.left) {
-                        // Case 2a: z is left child - right rotate
-                        z = parent;
-                        rightRotate(z);
-                        parent = z.parent;
+                        z = parent;            // Move z to parent
+                        rightRotate(z);        // Right rotate to make it a line
+                        parent = z.parent;     // Update parent reference
                     }
-                    // Case 2b: z is right child - recolor and left rotate
-                    parent.color = BLACK;
-                    grandparent.color = RED;
-                    leftRotate(grandparent);
+                    
+                    // Case 2b: z is right child (line case) - recolor and rotate
+                    parent.color = BLACK;      // Make parent black
+                    grandparent.color = RED;   // Make grandparent red
+                    leftRotate(grandparent);   // Left rotate grandparent
                 }
             }
         }
+        // Always ensure root is black (RBT property)
         root.color = BLACK;
     }
+
+    RBT Insert Example - Step by Step Tree Formation:
+
+    Let's insert values: 10, 20, 30, 15, 25, 12, 18 to demonstrate all fixInsert cases.
+
+    Initial State: Empty tree
+    ```
+    NULL
+    ```
+
+    Step 1: Insert 10
+    ```
+    10(B)  // Root is always black
+    ```
+
+    Step 2: Insert 20
+    ```
+      10(B)
+        \
+        20(R)  // New node is red, parent is black - NO VIOLATION
+    ```
+
+    Step 3: Insert 30
+    ```
+      10(B)
+        \
+        20(R)
+          \
+          30(R)  // Red-Red violation! 20(R) -> 30(R)
+    ```
+
+    Fix Step 3: Uncle is NULL (black), parent is right child, z is right child
+    Case 2b: Line case - recolor and left rotate
+    ```
+        20(B)
+       /     \
+    10(R)   30(R)
+    ```
+
+    Step 4: Insert 15
+    ```
+        20(B)
+       /     \
+    10(R)   30(R)
+      \
+      15(R)  // Red-Red violation! 10(R) -> 15(R)
+    ```
+
+    Fix Step 4: Uncle is 30(R) - RED UNCLE!
+    Case 1: Recolor parent, uncle, grandparent
+    ```
+        20(R)     // Grandparent becomes red
+       /     \
+    10(B)   30(B)  // Parent and uncle become black
+      \
+      15(R)
+    ```
+    Then root.color = BLACK (final step)
+    ```
+        20(B)
+       /     \
+    10(B)   30(B)
+      \
+      15(R)
+    ```
+
+    Step 5: Insert 25
+    ```
+        20(B)
+       /     \
+    10(B)   30(B)
+      \       /
+      15(R) 25(R)  // Red-Red violation! 30(B) -> 25(R) - NO VIOLATION
+    ```
+
+    Step 6: Insert 12
+    ```
+        20(B)
+       /     \
+    10(B)   30(B)
+      \       /
+      15(R) 25(R)
+      /
+    12(R)  // Red-Red violation! 15(R) -> 12(R)
+    ```
+
+    Fix Step 6: Uncle is NULL (black), parent is right child, z is left child
+    Case 2a: Triangle case - convert to line with right rotation
+    ```
+        20(B)
+       /     \
+    10(B)   30(B)
+      \       /
+      12(R) 25(R)
+        \
+        15(R)
+    ```
+
+    Then Case 2b: Line case - recolor and right rotate grandparent
+    ```
+        12(B)
+       /     \
+    10(R)   20(R)
+              \     \
+             15(R) 30(B)
+                     /
+                   25(R)
+    ```
+
+    Step 7: Insert 18
+    ```
+        12(B)
+       /     \
+    10(R)   20(R)
+              \     \
+             15(R) 30(B)
+               \     /
+               18(R) 25(R)  // Red-Red violation! 15(R) -> 18(R)
+    ```
+
+    Fix Step 7: Uncle is 30(B) - BLACK UNCLE, parent is left child, z is right child
+    Case 2a: Triangle case - convert to line with left rotation
+    ```
+        12(B)
+       /     \
+    10(R)   20(R)
+              \     \
+             18(R) 30(B)
+             /       /
+           15(R)   25(R)
+    ```
+
+    Then Case 2b: Line case - recolor and right rotate grandparent
+    ```
+        12(B)
+       /     \
+    10(R)   18(B)
+           /     \
+         15(R)   20(R)
+                   \
+                   30(B)
+                   /
+                 25(R)
+    ```
+
+    Final Tree:
+    ```
+        12(B)
+       /     \
+    10(R)   18(B)
+           /     \
+         15(R)   20(R)
+                   \
+                   30(B)
+                   /
+                 25(R)
+    ```
+
+    Cases Demonstrated:
+    1. Case 1 (Uncle Red): Step 4 - Recolor parent, uncle, grandparent
+    2. Case 2a (Triangle): Step 6 & 7 - Rotate to convert triangle to line
+    3. Case 2b (Line): Step 3, 6, 7 - Recolor and rotate grandparent
+
+    Key Insights:
+    - New nodes are always inserted as RED
+    - Violations occur when red parent has red child
+    - Uncle's color determines the fix strategy
+    - Triangle cases need conversion to line cases first
+    - Root is always forced to BLACK at the end
+
+    static void fixDelete(Node[] rootRef, Node node) {
+        while (node != rootRef[0] && node.color == 'B') {
+            if (node == node.parent.left) {
+                // Case: node is left child of parent
+                Node sibling = node.parent.right;
+                
+                // Case 1: Sibling is red
+                if (sibling.color == 'R') {
+                    sibling.color = 'B';
+                    node.parent.color = 'R';
+                    leftRotate(rootRef, node.parent);
+                    sibling = node.parent.right; // Update sibling after rotation
+                }
+                
+                // Case 2: Both sibling's children are black
+                if (sibling.left.color == 'B' && sibling.right.color == 'B') {
+                    sibling.color = 'R'; // Make sibling red
+                    node = node.parent;   // Move up to parent
+                } else {
+                    // Case 3: Sibling's right child is black, left child is red
+                    if (sibling.right.color == 'B') {
+                        sibling.left.color = 'B';
+                        sibling.color = 'R';
+                        rightRotate(rootRef, sibling);
+                        sibling = node.parent.right; // Update sibling after rotation
+                    }
+                    
+                    // Case 4: Sibling's right child is red
+                    sibling.color = node.parent.color;
+                    node.parent.color = 'B';
+                    sibling.right.color = 'B';
+                    leftRotate(rootRef, node.parent);
+                    node = rootRef[0]; // Set to root to terminate loop
+                }
+            } else {
+                // Case: node is right child of parent (mirror of above)
+                Node sibling = node.parent.left;
+                
+                // Case 1: Sibling is red
+                if (sibling.color == 'R') {
+                    sibling.color = 'B';
+                    node.parent.color = 'R';
+                    rightRotate(rootRef, node.parent);
+                    sibling = node.parent.left; // Update sibling after rotation
+                }
+                
+                // Case 2: Both sibling's children are black
+                if (sibling.right.color == 'B' && sibling.left.color == 'B') {
+                    sibling.color = 'R'; // Make sibling red
+                    node = node.parent;   // Move up to parent
+                } else {
+                    // Case 3: Sibling's left child is black, right child is red
+                    if (sibling.left.color == 'B') {
+                        sibling.right.color = 'B';
+                        sibling.color = 'R';
+                        leftRotate(rootRef, sibling);
+                        sibling = node.parent.left; // Update sibling after rotation
+                    }
+                    
+                    // Case 4: Sibling's left child is red
+                    sibling.color = node.parent.color;
+                    node.parent.color = 'B';
+                    sibling.left.color = 'B';
+                    rightRotate(rootRef, node.parent);
+                    node = rootRef[0]; // Set to root to terminate loop
+                }
+            }
+        }
+        node.color = 'B'; // Ensure final node is black
+    }
+
+    RBT Delete Example - Step by Step Tree Formation:
+
+    Let's start with this Red-Black Tree and delete values to demonstrate all fixDelete cases.
+
+    Initial Tree:
+    ```
+        20(B)
+       /     \
+    10(R)   30(B)
+    /  \    /    \
+   5(B) 15(B) 25(R) 40(R)
+              /
+            22(B)
+    ```
+
+    Case 1: Delete 5 (Red leaf node)
+    ```
+        20(B)
+       /     \
+    10(R)   30(B)
+      \     /    \
+      15(B) 25(R) 40(R)
+              /
+            22(B)
+    ```
+    No violation - deleting red node is safe.
+
+    Case 2: Delete 15 (Black leaf node with red sibling)
+    ```
+        20(B)
+       /     \
+    10(R)   30(B)      // 10(R) becomes the problem node
+            /    \     // Sibling is 30(B), but 10 lost its black child
+          25(R) 40(R)
+          /
+        22(B)
+    ```
+
+    Problem: 10(R) loses black child, becomes "doubly black"
+    Fix Case 1: Convert red sibling to black sibling
+    ```
+        30(B)           // 30 becomes new root of subtree
+       /     \
+    20(R)   40(R)       // 20 becomes red
+    /  \    
+   10(B) 25(R)          // 10 becomes black to fix double-black
+         /
+       22(B)
+    ```
+
+    Case 3: Delete 22 (Black node with black sibling and black nephews)
+    ```
+        30(B)
+       /     \
+    20(R)   40(R)
+    /  \    
+   10(B) 25(R)          // 25 loses its left child
+    ```
+
+    Problem: 25(R) becomes "doubly black" after losing black child
+    Fix Case 2: Both sibling's children are black
+    ```
+        30(B)
+       /     \
+    20(B)   40(R)       // 20 becomes black (absorbs extra black)
+    /  \    
+   10(R) 25(R)          // 10 becomes red, 25 stays red
+    ```
+
+    Case 4: Delete 10 (Black node - triangle case)
+    ```
+        30(B)
+       /     \
+    20(B)   40(R)
+      \    
+      25(R)
+    ```
+
+    Problem: 20(B) loses left child, sibling 40(R) has red left child
+    Fix Case 3: Convert to Case 4 by right rotation
+    ```
+        30(B)
+       /     \
+    20(B)   25(R)       // Right rotate to make 25 the sibling
+             \
+             40(R)
+    ```
+
+    Then Case 4: Sibling's outer child is red
+    ```
+        25(B)
+       /     \
+    20(B)   30(R)
+             \
+             40(R)
+    ```
+
+    Case 5: Delete 20 (Black node with red sibling - comprehensive)
+    ```
+        25(B)
+       /     \
+    NIL     30(R)
+             \
+             40(R)
+    ```
+
+    Problem: NIL node is "doubly black", sibling 30(R) is red
+    Fix Case 1: Make sibling black, parent red, rotate
+    ```
+        30(B)           // 30 becomes black
+       /     \
+    25(R)   40(R)       // 25 becomes red
+    /
+   NIL(doubly-black)
+    ```
+
+    Then apply Case 2: Both sibling's children are black
+    ```
+        30(B)
+       /     \
+    25(B)   40(R)       // 25 absorbs extra black
+    ```
+
+    Final Tree after all deletions:
+    ```
+        30(B)
+       /     \
+    25(B)   40(R)
+    ```
+
+    Detailed Case Analysis:
+
+    Case 1: Sibling is Red
+    - Make sibling black, parent red
+    - Rotate parent towards deleted side
+    - Updates sibling reference
+    - Converts to Cases 2, 3, or 4
+
+    Case 2: Sibling is Black, Both Nephews Black
+    - Make sibling red (reduces black-height)
+    - Move double-black up to parent
+    - May propagate up the tree
+
+    Case 3: Sibling is Black, Outer Nephew Black, Inner Nephew Red
+    - Make inner nephew black, sibling red
+    - Rotate sibling away from deleted side
+    - Converts to Case 4
+
+    Case 4: Sibling is Black, Outer Nephew Red
+    - Copy parent's color to sibling
+    - Make parent and outer nephew black
+    - Rotate parent towards deleted side
+    - Terminates fix-up (sets node to root)
+
+    Key Insights:
+    - Deleting red nodes never causes violations
+    - Deleting black nodes may create "double-black" problems
+    - Sibling's color determines the fix strategy
+    - Cases 1 and 3 are conversion cases
+    - Cases 2 and 4 are terminal cases
+    - Fix-up may propagate up the tree in Case 2
+    - Always ensure final node is black
+
+    Mirror Cases:
+    - Left child cases are mirrored for right child cases
+    - Rotation directions are reversed
+    - Left/right nephew roles are swapped
+    - Same logical flow applies    
