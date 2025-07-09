@@ -249,8 +249,11 @@ Red-Black Tree Notes (Detailed)
         - Every node is either red or black.
         - The root is always black.
         - All leaves (NIL nodes) are black.
-        - If a node is red, then both its children are black (no two reds in a row).
-        - Every path from a node to its descendant NIL nodes contains the same number of black nodes (black-height).
+        - If a node is red, 
+        then both its children are black (no two reds in a row).
+        - Every path from a node 
+        to its descendant NIL nodes contains 
+        the same number of black nodes (black-height).
 
     3. Rotations:
         - Used to maintain balance after insertions and deletions.
@@ -373,7 +376,8 @@ Red-Black Tree - Operations
                     (left-right or right-left), 
                     rotate to convert to "outside" 
                     (left-left or right-right).
-                    - Perform a rotation on the grandparent (right or left, as appropriate).
+                    - Perform a rotation on the grandparent 
+                    (right or left, as appropriate).
                     - Swap colors of parent and grandparent.
         5. Ensure the root is always black.
 
@@ -971,3 +975,66 @@ B-Tree - Operations
         - B-Trees are balanced, multi-way search trees optimized for disk and large block storage.
         - They minimize disk I/O by maximizing the number of keys per node.
         - Used extensively in database and filesystem implementations.
+
+
+RBT - functions 
+       x
+      / \
+     α   y
+        / \
+       β   γ
+    ==>
+       y
+      / \
+     x   γ
+    / \
+   α   β
+    private void leftRotate(Node x) {
+        y = x.right                         
+        gama = y.right 
+        beta = y.left **
+        alpha = x.left 
+        parent = x.parent 
+        isLeft = (x == parent.left)
+        //rotation
+        y.left = x
+        x.parent = y
+
+        x.right = beta 
+        beta.parent = x
+
+        y.parent = parent         
+        
+        if parent == null: root = y
+        else if isLeft: x.parent.left = y
+        else: x.parent.right = y 
+    }
+       y
+      / \
+     x   γ
+    / \
+   α   β
+   ==>
+       x
+      / \
+     α   y
+        / \
+       β   γ   
+    private void rightRotate(Node y) {
+        x = y.left 
+        alpha = x.left 
+        beta = x.right **
+        gama = y.right 
+        parent = y.parent 
+        isLeft = (y == parent.left)
+        //rotaion 
+        x.right = y 
+        y.parent = x 
+
+        y.left = beta 
+        beta.parent = y 
+
+        x.parent = parent 
+        if isLeft: parnet.left = x 
+        else parent.right = x 
+    }
