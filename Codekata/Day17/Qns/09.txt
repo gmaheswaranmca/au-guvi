@@ -1,0 +1,113 @@
+Prompt 
+    Base Question - "Task Scheduling with Dependencies", "Given a set of tasks with dependencies, determine if it is possible to finish all tasks and provide a valid order using topological sorting.", "Easy", "LeetCode, Microsoft"
+    Give me full coding question for the above base question in the below format:
+    Problem title, Proble Description, Input format, Output format,
+    Constraints, Sample Input / Ouput / Explanation,
+    Difficulty, 
+    Five Test Cases 
+----------------------------------
+Problem Title:
+Task Scheduling with Dependencies
+
+Problem Description:
+You are given a list of tasks, each represented by a unique integer from 0 to N-1. Some tasks have dependencies, meaning that one task must be completed before another can begin. Given the total number of tasks and a list of dependency pairs, determine if it is possible to finish all tasks. If possible, return a valid order in which the tasks can be completed (topological order). If not possible, return "Impossible".
+
+Input Format:
+- The first line contains two integers N and M, where N is the number of tasks and M is the number of dependency pairs.
+- The next M lines each contain two integers u and v, indicating that task u must be completed before task v.
+
+Output Format:
+- If it is possible to finish all tasks, output a single line containing the tasks in a valid order (space-separated).
+- If it is not possible, output "Impossible".
+
+Constraints:
+- 1 ≤ N ≤ 10^5
+- 0 ≤ M ≤ 10^5
+- 0 ≤ u, v < N
+
+Sample Input 1:
+4 3
+0 1
+1 2
+2 3
+
+Sample Output 1:
+0 1 2 3
+
+Sample Input 2:
+3 3
+0 1
+1 2
+2 0
+
+Sample Output 2:
+Impossible
+
+Sample Input 3:
+5 0
+
+Sample Output 3:
+0 1 2 3 4
+
+Sample Input 4:
+6 4
+2 3
+3 1
+4 0
+5 2
+
+Sample Output 4:
+4 0 5 2 3 1
+
+Sample Input 5:
+2 2
+0 1
+1 0
+
+Sample Output 5:
+Impossible
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 2
+0 1
+1 2
+Output:
+0 1 2
+
+Test Case 2:
+Input:
+4 4
+0 1
+1 2
+2 3
+3 1
+Output:
+Impossible
+
+Test Case 3:
+Input:
+1 0
+Output:
+0
+
+Test Case 4:
+Input:
+2 1
+1 0
+Output:
+1 0
+
+Test Case 5:
+Input:
+5 4
+0 2
+1 2
+2 3
+3 4
+Output:
+0 1 2 3 4

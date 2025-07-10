@@ -1,0 +1,83 @@
+Prompt 
+    Base Question - "Minimum Cost Path", "Given a grid with costs assigned to each cell, find the minimum cost to reach the bottom-right cell from the top-left cell using Dijkstra’s algorithm.", "Medium", "LeetCode, Google"
+    Give me full coding question for the above base question in the below format:
+    Problem title, Proble Description, Input format, Output format,
+    Constraints, Sample Input / Ouput / Explanation,
+    Difficulty, 
+    Five Test Cases 
+----------------------------------
+Problem Title:
+Minimum Cost Path in a Grid
+
+Problem Description:
+Given an m x n grid where each cell contains a non-negative integer representing the cost to enter that cell, find the minimum cost to reach the bottom-right cell (m-1, n-1) from the top-left cell (0, 0). You can only move either down or right at any point in time. The cost of a path is the sum of the costs of all cells visited along the path, including the starting and ending cells. Implement your solution using Dijkstra’s algorithm.
+
+Input Format:
+- The first line contains two integers m and n, the number of rows and columns in the grid.
+- The next m lines each contain n integers, representing the cost grid.
+
+Output Format:
+- A single integer representing the minimum cost to reach the bottom-right cell from the top-left cell.
+
+Constraints:
+- 1 <= m, n <= 100
+- 0 <= grid[i][j] <= 1000
+
+Sample Input:
+3 3
+1 3 1
+1 5 1
+4 2 1
+
+Sample Output:
+7
+
+Explanation:
+The path 1→3→1→1→1 gives the minimum cost 7.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+2 2
+1 2
+1 1
+Output:
+3
+
+Test Case 2:
+Input:
+3 3
+1 3 1
+1 5 1
+4 2 1
+Output:
+7
+
+Test Case 3:
+Input:
+1 4
+1 2 3 4
+Output:
+10
+
+Test Case 4:
+Input:
+4 1
+1
+2
+3
+4
+Output:
+10
+
+Test Case 5:
+Input:
+3 3
+0 0 0
+0 0 0
+0 0 0
+Output:
+0

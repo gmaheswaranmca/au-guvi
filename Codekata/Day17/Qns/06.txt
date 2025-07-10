@@ -1,0 +1,96 @@
+Prompt 
+    Base Question - "Find All Topological Sorts", "Given a directed acyclic graph, print all possible topological orderings of its vertices.", "Hard", "GeeksforGeeks, Adobe"
+    Give me full coding question for the above base question in the below format:
+    Problem title, Proble Description, Input format, Output format,
+    Constraints, Sample Input / Ouput / Explanation,
+    Difficulty, 
+    Five Test Cases 
+----------------------------------
+Problem Title:
+Find All Topological Sorts of a Directed Acyclic Graph
+
+Problem Description:
+Given a directed acyclic graph (DAG) with N vertices and M edges, print all possible topological orderings of its vertices. A topological ordering of a DAG is a linear ordering of its vertices such that for every directed edge u → v, vertex u comes before v in the ordering. If there are multiple possible orderings, print each one on a separate line in lexicographical order.
+
+Input Format:
+- The first line contains two integers N and M, the number of vertices and the number of edges.
+- The next M lines each contain two integers u and v, representing a directed edge from vertex u to vertex v.
+- Vertices are numbered from 1 to N.
+
+Output Format:
+- Print all possible topological orderings, one per line, in lexicographical order. Each ordering should be a sequence of N space-separated integers.
+
+Constraints:
+- 1 ≤ N ≤ 8
+- 0 ≤ M ≤ N*(N-1)/2
+- 1 ≤ u, v ≤ N
+- The given graph is a DAG (no cycles).
+
+Sample Input:
+4 3
+1 2
+1 3
+3 4
+
+Sample Output:
+1 3 4 2
+1 2 3 4
+1 2 4 3
+
+Explanation:
+There are three possible topological orderings for the given graph.
+
+Difficulty:
+Hard
+
+Test Cases:
+Test Case 1:
+Input:
+3 2
+1 2
+2 3
+Output:
+1 2 3
+
+Test Case 2:
+Input:
+4 3
+1 2
+1 3
+3 4
+Output:
+1 2 3 4
+1 2 4 3
+1 3 4 2
+
+Test Case 3:
+Input:
+3 0
+Output:
+1 2 3
+1 3 2
+2 1 3
+2 3 1
+3 1 2
+3 2 1
+
+Test Case 4:
+Input:
+5 4
+1 2
+1 3
+3 4
+2 5
+Output:
+1 2 3 4 5
+1 2 3 5 4
+1 3 1 2 4 5
+1 3 2 4 5
+1 3 2 5 4
+
+Test Case 5:
+Input:
+2 1
+2 1
+Output:
+2 1

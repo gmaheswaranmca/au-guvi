@@ -1,0 +1,99 @@
+"Shortest Path in Weighted Graph", 
+"Given a weighted directed graph, 
+find the shortest path from a source node to all other nodes 
+using Dijkstra’s algorithm.", 
+"Medium", 
+"LeetCode, HackerRank, Google"
+
+----------------------------------
+
+Problem Title:
+Shortest Path in Weighted Directed Graph
+
+Problem Description:
+Given a weighted directed graph with N nodes and M edges, and a source node S, find the shortest distance from the source node S to every other node in the graph. If a node is unreachable from the source, output -1 for that node. The graph does not contain negative weight edges.
+
+Input Format:
+- The first line contains three integers N, M, and S — the number of nodes, the number of edges, and the source node (1-based indexing).
+- The next M lines each contain three integers u, v, w — representing a directed edge from node u to node v with weight w.
+
+Output Format:
+- Output N space-separated integers, where the i-th integer is the shortest distance from S to node i (1-based). If a node is unreachable, output -1 for that node.
+
+Constraints:
+- 1 ≤ N ≤ 10^5
+- 1 ≤ M ≤ 2×10^5
+- 1 ≤ u, v ≤ N
+- 1 ≤ w ≤ 10^9
+- 1 ≤ S ≤ N
+
+Sample Input:
+5 6 1
+1 2 2
+1 3 4
+2 3 1
+2 4 7
+3 5 3
+4 5 1
+
+Sample Output:
+0 2 3 9 6
+
+Explanation:
+- The shortest path from 1 to 1 is 0.
+- The shortest path from 1 to 2 is 2.
+- The shortest path from 1 to 3 is 3 (1->2->3).
+- The shortest path from 1 to 4 is 9 (1->2->4).
+- The shortest path from 1 to 5 is 6 (1->3->5).
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+4 4 1
+1 2 1
+2 3 2
+3 4 3
+1 4 10
+Output:
+0 1 3 6
+
+Test Case 2:
+Input:
+3 1 2
+2 3 5
+Output:
+-1 0 5
+
+Test Case 3:
+Input:
+6 7 3
+3 1 2
+3 2 4
+1 4 7
+2 4 1
+4 5 3
+5 6 2
+2 6 10
+Output:
+2 4 0 5 8 10
+
+Test Case 4:
+Input:
+5 3 5
+5 1 2
+5 2 3
+2 3 4
+Output:
+2 3 7 -1 0
+
+Test Case 5:
+Input:
+2 0 1
+Output:
+0 -1
+
+----------------------------------
+

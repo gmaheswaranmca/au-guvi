@@ -1,0 +1,105 @@
+Prompt 
+    Base Question - "Single Source Shortest Path with Negative Edges", "Find the shortest path from a source to all vertices in a graph that may have negative edge weights using Bellman-Ford algorithm.", "Medium", "HackerRank, Amazon"
+    Give me full coding question for the above base question in the below format:
+    Problem title, Proble Description, Input format, Output format,
+    Constraints, Sample Input / Ouput / Explanation,
+    Difficulty, 
+    Five Test Cases 
+----------------------------------
+Problem Title:
+Single Source Shortest Path with Negative Edges
+
+Problem Description:
+Given a directed weighted graph with N vertices and M edges, some of which may have negative weights, find the shortest distance from a given source vertex S to all other vertices using the Bellman-Ford algorithm. If a vertex is unreachable from the source, output "INF" for that vertex. If the graph contains a negative weight cycle that is reachable from the source, output "NEGATIVE CYCLE" and terminate.
+
+Input Format:
+- The first line contains three integers N, M, and S — the number of vertices, the number of edges, and the source vertex (0-indexed).
+- The next M lines each contain three integers u, v, and w — representing a directed edge from vertex u to vertex v with weight w.
+
+Output Format:
+- If there is a negative weight cycle reachable from the source, output "NEGATIVE CYCLE".
+- Otherwise, output N space-separated values, where the i-th value is the shortest distance from S to vertex i, or "INF" if vertex i is unreachable.
+
+Constraints:
+- 1 ≤ N ≤ 500
+- 0 ≤ M ≤ 10,000
+- 0 ≤ S < N
+- 0 ≤ u, v < N
+- -10^9 ≤ w ≤ 10^9
+
+Sample Input 1:
+5 8 0
+0 1 -1
+0 2 4
+1 2 3
+1 3 2
+1 4 2
+3 2 5
+3 1 1
+4 3 -3
+
+Sample Output 1:
+0 -1 2 -2 1
+
+Explanation 1:
+The shortest distances from vertex 0 to all other vertices are as shown.
+
+Sample Input 2:
+3 3 0
+0 1 1
+1 2 -1
+2 0 -1
+
+Sample Output 2:
+NEGATIVE CYCLE
+
+Explanation 2:
+There is a negative weight cycle reachable from the source.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+4 4 0
+0 1 1
+1 2 2
+2 3 3
+3 0 4
+Output:
+0 1 3 6
+
+Test Case 2:
+Input:
+3 2 0
+0 1 5
+1 2 7
+Output:
+0 5 12
+
+Test Case 3:
+Input:
+4 4 1
+0 1 2
+1 2 -3
+2 3 2
+3 1 1
+Output:
+INF 0 -3 -1
+
+Test Case 4:
+Input:
+2 1 0
+0 1 -100
+Output:
+0 -100
+
+Test Case 5:
+Input:
+3 3 0
+0 1 2
+1 2 -5
+2 1 1
+Output:
+0 2 -3

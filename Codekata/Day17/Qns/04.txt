@@ -1,0 +1,96 @@
+Prompt 
+    Base Question - "Network Delay Time", "Given times of signal transmission between nodes, find the time it takes for all nodes to receive the signal from a starting node using Dijkstra’s algorithm.", "Medium", "LeetCode, Uber"
+    Give me full coding question for the above base question in the below format:
+    Problem title, Proble Description, Input format, Output format,
+    Constraints, Sample Input / Ouput / Explanation,
+    Difficulty, 
+    Five Test Cases 
+----------------------------------
+Problem Title:
+Network Delay Time
+
+Problem Description:
+You are given a network of N nodes, labeled from 1 to N. Times of signal transmission between pairs of nodes are given as a list of travel times, where each entry times[i] = (u, v, w) represents that a signal can travel from node u to node v in w units of time. You are also given a starting node K. The signal is sent from node K to all other nodes in the network. Return the time it takes for all nodes to receive the signal. If it is impossible for all nodes to receive the signal, return -1.
+
+Input Format:
+- The first line contains two integers N and M, the number of nodes and the number of edges.
+- The next M lines each contain three integers u, v, w, representing a directed edge from u to v with travel time w.
+- The last line contains the integer K, the starting node.
+
+Output Format:
+- A single integer representing the time it takes for all nodes to receive the signal, or -1 if it is impossible.
+
+Constraints:
+- 1 <= N <= 100
+- 1 <= M <= 6000
+- 1 <= u, v <= N
+- 1 <= w <= 100
+- K is a valid node label.
+
+Sample Input:
+4 4
+2 1 1
+2 3 1
+3 4 1
+1 4 4
+2
+
+Sample Output:
+2
+
+Explanation:
+The signal starts at node 2. It takes 1 unit of time to reach node 1 and node 3. From node 3, it takes another 1 unit to reach node 4. The longest time taken for any node to receive the signal is 2.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+4 4
+2 1 1
+2 3 1
+3 4 1
+1 4 4
+2
+Output:
+2
+
+Test Case 2:
+Input:
+3 2
+1 2 1
+2 3 2
+1
+Output:
+3
+
+Test Case 3:
+Input:
+3 1
+1 2 1
+2
+Output:
+-1
+
+Test Case 4:
+Input:
+2 1
+1 2 1
+2
+Output:
+-1
+
+Test Case 5:
+Input:
+5 7
+1 2 2
+1 3 5
+2 3 1
+2 4 2
+3 5 1
+4 5 2
+5 1 3
+1
+Output:
+5
