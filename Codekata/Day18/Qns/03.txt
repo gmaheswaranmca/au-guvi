@@ -1,0 +1,77 @@
+Prompt 
+    Base Question - "Distinct Substrings", "Count the number of distinct substrings in a string using Z Algorithm.", "Hard", "CodeChef, Facebook"
+    Give me full coding question for the above base question in the below format:
+    Problem title, Proble Description, Input format, Output format,
+    Constraints, Sample Input / Ouput / Explanation,
+    Difficulty, 
+    Five Test Cases 
+----------------------------------
+Problem Title: Distinct Substrings
+
+Problem Description:
+Given a string S, count the number of distinct substrings present in S. A substring is a contiguous sequence of characters within the string. You are required to use the Z Algorithm to efficiently solve this problem.
+
+Input Format:
+- The first line contains a single integer T, the number of test cases.
+- Each of the next T lines contains a string S consisting of lowercase English letters.
+
+Output Format:
+For each test case, output a single integer — the number of distinct substrings in the given string S.
+
+Constraints:
+- 1 ≤ T ≤ 10
+- 1 ≤ |S| ≤ 10^5
+- The sum of |S| over all test cases does not exceed 10^6
+
+Sample Input:
+2
+ababa
+aaaa
+
+Sample Output:
+9
+4
+
+Explanation:
+Test case 1: The distinct substrings of "ababa" are: "a", "b", "ab", "ba", "aba", "bab", "ababa", "bab", "aba". There are 9 in total.
+Test case 2: The distinct substrings of "aaaa" are: "a", "aa", "aaa", "aaaa". There are 4 in total.
+
+Difficulty:
+Hard
+
+Test Cases:
+1. 
+Input: 
+1
+aaaab 
+Output: 
+10
+
+2. 
+Input: 
+1
+abcde
+Output: 
+15
+
+3. 
+Input: 
+1
+zzzzzz
+Output: 
+6
+
+4. 
+Input: 
+1
+banana 
+Output: 
+15
+
+5. 
+Input: 
+1
+abcdabc
+Output: 
+21
+----------------------------------

@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class PatternOccurrencesZAlgorithm {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String text = sc.nextLine();
+        String pattern = sc.nextLine();
+        List<Integer> result = findPatternOccurrences(text, pattern);
+        for (int i = 0; i < result.size(); i++) {
+            if (i > 0) System.out.print(" ");
+            System.out.print(result.get(i));
+        }
+        System.out.println();
+    }
+
+    private static List<Integer> findPatternOccurrences(String text, String pattern) {
+        String concat = pattern + "$" + text;
+        int l = concat.length();
+        int[] z = new int[l];
+        int left = 0, right = 0;
+        for (int i = 1; i < l; i++) {
+            if (i <= right)
+                z[i] = Math.min(right - i + 1, z[i - left]);
+            while (i + z[i] < l && concat.charAt(z[i]) == concat.charAt(i + z[i]))
+                z[i]++;
+            if (i + z[i] - 1 > right) {
+                left = i;
+                right = i + z[i] - 1;
+            }
+        }
+        List<Integer> indices = new ArrayList<>();
+        int patLen = pattern.length();
+        for (int i = patLen + 1; i < l; i++) {
+            if (z[i] == patLen) {
+                indices.add(i - patLen - 1);
+            }
+        }
+        return indices;
+    }
+}

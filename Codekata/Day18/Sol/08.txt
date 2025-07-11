@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String S = sc.nextLine();
+        String P = sc.nextLine();
+        List<Integer> result = rabinKarp(S, P);
+        if (result.isEmpty()) {
+            System.out.println("-1");
+        } else {
+            for (int i = 0; i < result.size(); i++) {
+                if (i > 0) System.out.print(" ");
+                System.out.print(result.get(i));
+            }
+            System.out.println();
+        }
+    }
+
+    private static List<Integer> rabinKarp(String text, String pattern) {
+        int n = text.length();
+        int m = pattern.length();
+        int base = 101; // A prime base
+        int mod = 1_000_000_007; // Large prime modulus
+
+        long patternHash = 0, textHash = 0, power = 1;
+        List<Integer> indices = new ArrayList<>();
+
+        // Precompute base^(m-1) % mod
+        for (int i = 0; i < m - 1; i++) {
+            power = (power * base) % mod;
+        }
+
+        // Compute hash of pattern and first window
+        for (int i = 0; i < m; i++) {
+            patternHash = (patternHash * base + pattern.charAt(i)) % mod;
+            textHash = (textHash * base + text.charAt(i)) % mod;
+        }
+
+        // Slide the window
+        for (int i = 0; i <= n - m; i++) {
+            if (patternHash == textHash) {
+                if (text.substring(i, i + m).equals(pattern)) {
+                    indices.add(i);
+                }
+            }
+            if (i < n - m) {
+                textHash = (textHash - text.charAt(i) * power % mod + mod) % mod;
+                textHash = (textHash * base + text.charAt(i + m)) % mod;
+            }
+        }
+        return indices;
+    }
+}

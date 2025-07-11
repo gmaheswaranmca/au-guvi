@@ -1,0 +1,107 @@
+"Pattern Matching with Wildcards", "Implement pattern matching where the pattern may contain wildcards '?' and '*' using Z Algorithm.", "Hard", "Microsoft, HackerRank"
+
+----------------------------------
+Pattern Matching with Wildcards
+
+Problem Description:
+Given a text string and a pattern string, implement a function to determine if the pattern matches the entire text. The pattern may contain the wildcard characters:
+- '?' which matches any single character.
+- '*' which matches any sequence of characters (including the empty sequence).
+
+You are required to use the Z Algorithm as part of your solution.
+
+Input Format:
+The first line contains the text string.
+The second line contains the pattern string.
+
+Output Format:
+Print "YES" if the pattern matches the entire text, otherwise print "NO".
+
+Constraints:
+1 ≤ length of text ≤ 10^5
+1 ≤ length of pattern ≤ 10^5
+Both text and pattern consist of lowercase English letters, '?', and '*'.
+
+Sample Input 1:
+abefcdgiescdfimde
+ab*cd?i*de
+
+Sample Output 1:
+YES
+
+Explanation:
+'*' matches "ef", '?' matches 'g', and the rest matches exactly.
+
+Sample Input 2:
+abcde
+a*e
+
+Sample Output 2:
+YES
+
+Explanation:
+'*' matches "bcd".
+
+Sample Input 3:
+abcde
+a*d
+
+Sample Output 3:
+NO
+
+Explanation:
+Pattern does not match the entire text.
+
+Sample Input 4:
+mississippi
+m??*ss*?i*pi
+
+Sample Output 4:
+YES
+
+Sample Input 5:
+abcdef
+*?*?*?*
+
+Sample Output 5:
+YES
+
+Difficulty:
+Hard
+
+Test Cases:
+1.
+Input:
+abefcdgiescdfimde
+ab*cd?i*de
+Output:
+YES
+
+2.
+Input:
+abcde
+a*e
+Output:
+YES
+
+3.
+Input:
+abcde
+a*d
+Output:
+NO
+
+4.
+Input:
+mississippi
+m??*ss*?i*pi
+Output:
+YES
+
+5.
+Input:
+abcdef
+*?*?*?*
+Output:
+YES
+----------------------------------

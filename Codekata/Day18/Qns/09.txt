@@ -1,0 +1,79 @@
+"Pattern Occurrences", "Given a pattern and a text, find the starting indices of all occurrences of the pattern in the text using Z Algorithm.", "Medium", "LeetCode, Adobe"
+
+----------------------------------
+Problem Title:
+Pattern Occurrences Using Z Algorithm
+
+Problem Description:
+Given a string `text` and a string `pattern`, find all starting indices in `text` where `pattern` occurs as a substring. Use the Z Algorithm to efficiently find all occurrences. Return the list of starting indices (0-based).
+
+Input Format:
+- The first line contains the string `text`.
+- The second line contains the string `pattern`.
+
+Output Format:
+- Print the starting indices (space-separated) of all occurrences of `pattern` in `text`. If there are no occurrences, print an empty line.
+
+Constraints:
+- 1 ≤ length of text ≤ 10^6
+- 1 ≤ length of pattern ≤ 10^5
+- Both strings consist of lowercase English letters only.
+
+Sample Input 1:
+ababcababcabc
+abc
+
+Sample Output 1:
+2 7 10
+
+Sample Explanation 1:
+The pattern "abc" occurs at indices 2, 7, and 10 in the text.
+
+Sample Input 2:
+aaaaa
+aa
+
+Sample Output 2:
+0 1 2 3
+
+Sample Explanation 2:
+The pattern "aa" occurs at indices 0, 1, 2, and 3.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+abcabcabc
+abc
+Output:
+0 3 6
+
+Test Case 2:
+Input:
+mississippi
+issi
+Output:
+1 4
+
+Test Case 3:
+Input:
+abcdef
+gh
+Output:
+
+Test Case 4:
+Input:
+aaaa
+a
+Output:
+0 1 2 3
+
+Test Case 5:
+Input:
+ababababa
+aba
+Output:
+0 2 4 6
+----------------------------------

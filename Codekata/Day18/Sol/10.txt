@@ -1,0 +1,112 @@
+import java.util.*;
+
+public class WildcardPatternMatching {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String text = sc.nextLine();
+        String pattern = sc.nextLine();
+        System.out.println(isMatch(text, pattern) ? "YES" : "NO");
+    }
+
+    // Main matching function
+    public static boolean isMatch(String text, String pattern) {
+        // Collapse multiple '*' into one '*'
+        StringBuilder sb = new StringBuilder();
+        boolean prevStar = false;
+        for (char c : pattern.toCharArray()) {
+            if (c == '*') {
+                if (!prevStar) {
+                    sb.append(c);
+                    prevStar = true;
+                }
+            } else {
+                sb.append(c);
+                prevStar = false;
+            }
+        }
+        pattern = sb.toString();
+
+        // Split pattern by '*'
+        String[] parts = pattern.split("\\*",-1);
+        int n = text.length(), m = parts.length;
+        int idx = 0, tIdx = 0;
+
+        // Match prefix (before first '*')
+        if (!pattern.startsWith("*")) {
+            String pre = parts[0];
+            if (!matchAt(text, 0, pre)) return false;
+            idx++;
+            tIdx += pre.length();
+        }
+
+        // Match suffix (after last '*')
+        int endIdx = n;
+        if (!pattern.endsWith("*")) {
+            String suf = parts[m-1];
+            if (!matchAt(text, n - suf.length(), suf)) return false;
+            m--;
+            endIdx -= suf.length();
+        }
+
+        // Match middle parts using Z Algorithm
+        for (; idx < m-1; idx++) {
+            String part = parts[idx];
+            if (part.isEmpty()) continue;
+            int found = findWithWildcards(text, tIdx, endIdx, part);
+            if (found == -1) return false;
+            tIdx = found + part.length();
+        }
+        return true;
+    }
+
+    // Match pattern with '?' at position in text
+    private static boolean matchAt(String text, int pos, String pat) {
+        if (pos < 0 || pos + pat.length() > text.length()) return false;
+        for (int i = 0; i < pat.length(); i++) {
+            if (pat.charAt(i) != '?' && pat.charAt(i) != text.charAt(pos + i))
+                return false;
+        }
+        return true;
+    }
+
+    // Find part (with '?') in text[l..r) using Z Algorithm
+    private static int findWithWildcards(String text, int l, int r, String pat) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(pat).append('#');
+        for (int i = l; i < r; i++) sb.append(text.charAt(i));
+        int[] z = zAlgorithmWithWildcards(sb.toString(), pat.length());
+        for (int i = pat.length() + 1; i < z.length; i++) {
+            if (z[i] == pat.length()) {
+                return l + (i - (pat.length() + 1));
+            }
+        }
+        return -1;
+    }
+
+    // Z Algorithm supporting '?'
+    private static int[] zAlgorithmWithWildcards(String s, int patLen) {
+        int n = s.length();
+        int[] z = new int[n];
+        int l = 0, r = 0;
+        for (int i = 1; i < n; i++) {
+            if (i <= r) z[i] = Math.min(r - i + 1, z[i - l]);
+            while (i + z[i] < n && matchChar(s.charAt(z[i]), s.charAt(i + z[i]), z[i], patLen))
+                z[i]++;
+            if (i + z[i] - 1 > r) {
+                l = i;
+                r = i + z[i] - 1;
+            }
+        }
+        return z;
+    }
+
+    // Helper for matching with '?'
+    private static boolean matchChar(char a, char b, int idx, int patLen) {
+        // Only pattern (first patLen) can have '?'
+        if (idx < patLen) {
+            return a == '?' || a == b;
+        } else {
+            return a == b;
+        }
+    }
+}

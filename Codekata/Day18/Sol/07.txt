@@ -1,0 +1,67 @@
+import java.util.*;
+
+public class MultiplePatternSearchRabinKarp {
+    static final int MOD = 1000000007;
+    static final int BASE = 256;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine().trim());
+        String[] patterns = new String[n];
+        for (int i = 0; i < n; i++) {
+            patterns[i] = sc.nextLine().trim();
+        }
+        String text = sc.nextLine().trim();
+
+        for (String pattern : patterns) {
+            List<Integer> indices = rabinKarp(text, pattern);
+            if (indices.isEmpty()) {
+                System.out.println("-1");
+            } else {
+                for (int i = 0; i < indices.size(); i++) {
+                    if (i > 0) System.out.print(" ");
+                    System.out.print(indices.get(i));
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    private static List<Integer> rabinKarp(String text, String pattern) {
+        List<Integer> result = new ArrayList<>();
+        int m = pattern.length();
+        int n = text.length();
+        if (m > n) return result;
+
+        long patternHash = 0, textHash = 0, h = 1;
+
+        // The value of h would be "pow(BASE, m-1)%MOD"
+        for (int i = 0; i < m - 1; i++)
+            h = (h * BASE) % MOD;
+
+        // Calculate the hash value of pattern and first window of text
+        for (int i = 0; i < m; i++) {
+            patternHash = (BASE * patternHash + pattern.charAt(i)) % MOD;
+            textHash = (BASE * textHash + text.charAt(i)) % MOD;
+        }
+
+        // Slide the pattern over text one by one
+        for (int i = 0; i <= n - m; i++) {
+            // Check the hash values of current window of text and pattern
+            if (patternHash == textHash) {
+                // Check for characters one by one
+                if (text.substring(i, i + m).equals(pattern)) {
+                    result.add(i);
+                }
+            }
+            // Calculate hash value for next window of text
+            if (i < n - m) {
+                textHash = (BASE * (textHash - text.charAt(i) * h) + text.charAt(i + m)) % MOD;
+                // We might get negative value of textHash, converting it to positive
+                if (textHash < 0)
+                    textHash += MOD;
+            }
+        }
+        return result;
+    }
+}
