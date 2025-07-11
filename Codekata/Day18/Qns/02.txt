@@ -1,10 +1,6 @@
 Prompt 
     Base Question - "Detecting Plagiarism", "Given two documents, use Rabin-Karp algorithm to detect if one is a substring of the other.", "Medium", "Google, Codeforces"
-    Give me full coding question for the above base question in the below format:
-    Problem title, Proble Description, Input format, Output format,
-    Constraints, Sample Input / Ouput / Explanation,
-    Difficulty, 
-    Five Test Cases 
+    
 ----------------------------------
 Problem Title:
 Detecting Plagiarism Using Rabin-Karp Algorithm
