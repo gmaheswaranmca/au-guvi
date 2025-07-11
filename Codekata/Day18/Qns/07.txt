@@ -1,0 +1,97 @@
+"Multiple Pattern Search", "Given a list of patterns and a text, find all patterns that appear in the text using Rabin-Karp.", "Hard", "Amazon, HackerEarth"
+
+----------------------------------
+Problem Title:
+Multiple Pattern Search using Rabin-Karp
+
+Problem Description:
+Given a list of patterns and a text, your task is to find all patterns that appear in the text using the Rabin-Karp algorithm. For each pattern, output all starting indices (0-based) where the pattern occurs in the text. If a pattern does not occur in the text, output -1 for that pattern.
+
+Input Format:
+- The first line contains an integer N, the number of patterns.
+- The next N lines each contain a pattern string.
+- The next line contains the text string.
+
+Output Format:
+For each pattern (in the order given), output a line containing the starting indices (space-separated) where the pattern occurs in the text. If the pattern does not occur, output -1.
+
+Constraints:
+- 1 ≤ N ≤ 10^3
+- 1 ≤ length of each pattern ≤ 10^4
+- 1 ≤ length of text ≤ 10^6
+- All strings consist of lowercase English letters only.
+
+Sample Input:
+3
+abc
+de
+a
+abcdeabc
+
+Sample Output:
+0 5
+3
+0 5 6
+
+Sample Explanation:
+- "abc" occurs at indices 0 and 5.
+- "de" occurs at index 3.
+- "a" occurs at indices 0, 5, and 6.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+2
+ab
+ba
+abbaab
+
+Output:
+0 4
+1 3
+
+Test Case 2:
+Input:
+1
+xyz
+abcdefgh
+
+Output:
+-1
+
+Test Case 3:
+Input:
+3
+a
+b
+c
+abcabc
+
+Output:
+0 3
+1 4
+2 5
+
+Test Case 4:
+Input:
+2
+aaa
+aa
+aaaaa
+
+Output:
+0 1 2
+0 1 2 3
+
+Test Case 5:
+Input:
+1
+abcde
+abcde
+
+Output:
+0
+----------------------------------

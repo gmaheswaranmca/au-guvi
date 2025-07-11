@@ -1,0 +1,71 @@
+"Minimum Characters for Palindrome", "Find the minimum number of characters to be added at the front of a string to make it a palindrome using KMP.", "Medium", "Amazon, Codeforces"
+
+----------------------------------
+Problem Title:
+Minimum Characters for Palindrome
+
+Problem Description:
+Given a string S, find the minimum number of characters that need to be added to the front of S to make it a palindrome. You are required to use the Knuth-Morris-Pratt (KMP) algorithm or its concepts to solve this problem efficiently.
+
+Input Format:
+- A single line containing the string S.
+
+Output Format:
+- A single integer representing the minimum number of characters to be added to the front of S to make it a palindrome.
+
+Constraints:
+- 1 ≤ |S| ≤ 10^6
+- S consists of lowercase English letters only.
+
+Sample Input 1:
+aacecaaa
+
+Sample Output 1:
+2
+
+Sample Explanation 1:
+By adding "aa" in front of "aacecaaa", we get "a a a c e c a a a", which is a palindrome.
+
+Sample Input 2:
+abcd
+
+Sample Output 2:
+3
+
+Sample Explanation 2:
+By adding "dcb" in front of "abcd", we get "d c b a b c d", which is a palindrome.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+aacecaaa
+Output:
+2
+
+Test Case 2:
+Input:
+abcd
+Output:
+3
+
+Test Case 3:
+Input:
+racecar
+Output:
+0
+
+Test Case 4:
+Input:
+aabb
+Output:
+2
+
+Test Case 5:
+Input:
+abcba
+Output:
+0
+----------------------------------

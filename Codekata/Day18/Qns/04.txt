@@ -1,0 +1,71 @@
+"Substring Search", "Implement the KMP algorithm to find all occurrences of a pattern in a given text.", "Medium", "HackerRank, Microsoft"
+
+----------------------------------
+Problem Title:
+Substring Search using KMP Algorithm
+
+Problem Description:
+Given two strings, a text and a pattern, implement the Knuth-Morris-Pratt (KMP) algorithm to find all starting indices where the pattern occurs in the text. The algorithm should efficiently search for all (possibly overlapping) occurrences of the pattern in the text.
+
+Input Format:
+- The first line contains the string `text`.
+- The second line contains the string `pattern`.
+
+Output Format:
+- Print the starting indices (0-based) of all occurrences of the pattern in the text, separated by spaces. If the pattern does not occur in the text, print "-1".
+
+Constraints:
+- 1 ≤ length of text ≤ 10^6
+- 1 ≤ length of pattern ≤ 10^5
+- Both text and pattern consist of lowercase English letters only.
+
+Sample Input:
+ababcabcabababd
+ababd
+
+Sample Output:
+10
+
+Explanation:
+The pattern "ababd" occurs in the text starting at index 10.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+
+Test Case 1:
+Input:
+abcabcabc
+abc
+Output:
+0 3 6
+
+Test Case 2:
+Input:
+aaaaa
+aa
+Output:
+0 1 2 3
+
+Test Case 3:
+Input:
+abcdef
+gh
+Output:
+-1
+
+Test Case 4:
+Input:
+mississippi
+issi
+Output:
+1 4
+
+Test Case 5:
+Input:
+aabaaabaaac
+aabaaac
+Output:
+4
+----------------------------------

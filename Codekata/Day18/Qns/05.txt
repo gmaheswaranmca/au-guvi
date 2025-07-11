@@ -1,0 +1,70 @@
+"Cyclic Pattern Detection", "Given a string, determine if it can be constructed by repeating a substring using KMP preprocessing.", "Medium", "Google, LeetCode"
+
+----------------------------------
+Problem Title:
+Cyclic Pattern Detection
+
+Problem Description:
+Given a non-empty string s, determine if it can be constructed by repeating a substring of itself multiple times. You are required to use the Knuth-Morris-Pratt (KMP) preprocessing algorithm to solve this problem efficiently.
+
+Input Format:
+- A single line containing the string s.
+
+Output Format:
+- Print "YES" if the string can be constructed by repeating a substring, otherwise print "NO".
+
+Constraints:
+- 1 <= length of s <= 10^5
+- s consists only of lowercase English letters.
+
+Sample Input 1:
+ababab
+
+Sample Output 1:
+YES
+
+Explanation 1:
+The string "ababab" can be constructed by repeating the substring "ab" three times.
+
+Sample Input 2:
+abcabcabc
+
+Sample Output 2:
+YES
+
+Explanation 2:
+The string "abcabcabc" can be constructed by repeating the substring "abc" three times.
+
+Sample Input 3:
+abcd
+
+Sample Output 3:
+NO
+
+Explanation 3:
+The string "abcd" cannot be constructed by repeating any of its substrings.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input: ababab
+Output: YES
+
+Test Case 2:
+Input: abcabcabc
+Output: YES
+
+Test Case 3:
+Input: abcd
+Output: NO
+
+Test Case 4:
+Input: aaaa
+Output: YES
+
+Test Case 5:
+Input: abac
+Output: NO
+----------------------------------

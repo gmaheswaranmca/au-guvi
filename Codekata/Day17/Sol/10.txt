@@ -1,0 +1,63 @@
+import java.util.*;
+
+public class CriticalPath {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt(), M = sc.nextInt();
+        int[] duration = new int[N + 1];
+        for (int i = 1; i <= N; i++) duration[i] = sc.nextInt();
+
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i <= N; i++) adj.add(new ArrayList<>());
+        int[] indegree = new int[N + 1];
+        for (int i = 0; i < M; i++) {
+            int u = sc.nextInt(), v = sc.nextInt();
+            adj.get(u).add(v);
+            indegree[v]++;
+        }
+
+        int[] dist = new int[N + 1];
+        int[] prev = new int[N + 1];
+        Queue<Integer> q = new ArrayDeque<>();
+        for (int i = 1; i <= N; i++) {
+            dist[i] = duration[i];
+            if (indegree[i] == 0) q.add(i);
+        }
+
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            for (int v : adj.get(u)) {
+                if (dist[v] < dist[u] + duration[v]) {
+                    dist[v] = dist[u] + duration[v];
+                    prev[v] = u;
+                }
+                indegree[v]--;
+                if (indegree[v] == 0) q.add(v);
+            }
+        }
+
+        int maxTime = 0, endTask = 1;
+        for (int i = 1; i <= N; i++) {
+            if (dist[i] > maxTime) {
+                maxTime = dist[i];
+                endTask = i;
+            }
+        }
+
+        // Reconstruct path
+        List<Integer> path = new ArrayList<>();
+        int curr = endTask;
+        while (curr != 0) {
+            path.add(curr);
+            curr = prev[curr];
+        }
+        Collections.reverse(path);
+
+        System.out.println(maxTime);
+        for (int i = 0; i < path.size(); i++) {
+            System.out.print(path.get(i));
+            if (i < path.size() - 1) System.out.print(" ");
+        }
+        System.out.println();
+    }
+}

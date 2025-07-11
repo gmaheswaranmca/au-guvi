@@ -1,0 +1,75 @@
+"Longest Prefix Suffix", 
+"Given a string, find the length of the longest prefix which is also a suffix. 
+The prefix and suffix should not overlap.", 
+"Easy", 
+"LeetCode, Amazon"
+
+----------------------------------
+
+Problem Title:
+Longest Prefix Suffix
+
+Problem Description:
+Given a string S, find the length of the longest proper prefix of S which is also a suffix of S. A proper prefix is a prefix that is not equal to the string itself. The prefix and suffix should not overlap.
+
+Input Format:
+- A single line containing the string S.
+
+Output Format:
+- An integer representing the length of the longest proper prefix of S which is also a suffix.
+
+Constraints:
+- 1 <= |S| <= 10^5
+- S consists of lowercase English letters only.
+
+Sample Input 1:
+abab
+
+Sample Output 1:
+2
+
+Explanation 1:
+The longest proper prefix which is also a suffix is "ab", which has length 2.
+
+Sample Input 2:
+aaaa
+
+Sample Output 2:
+3
+
+Explanation 2:
+The longest proper prefix which is also a suffix is "aaa", which has length 3.
+
+Sample Input 3:
+abcd
+
+Sample Output 3:
+0
+
+Explanation 3:
+There is no proper prefix which is also a suffix.
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input: abcdabc
+Output: 3
+
+Test Case 2:
+Input: abcab
+Output: 2
+
+Test Case 3:
+Input: aaaa
+Output: 3
+
+Test Case 4:
+Input: abacabadabacaba
+Output: 7
+
+Test Case 5:
+Input: xyz
+Output: 0
+----------------------------------

@@ -1,0 +1,70 @@
+"DNA Sequence Matching", "Given a DNA sequence and a pattern, use Rabin-Karp to find all matching positions of the pattern in the sequence.", "Medium", "Illumina, LeetCode"
+
+----------------------------------
+Problem Title:
+DNA Sequence Matching Using Rabin-Karp
+
+Problem Description:
+Given a DNA sequence consisting of the characters 'A', 'C', 'G', and 'T', and a pattern string of the same character set, find all starting indices in the DNA sequence where the pattern occurs as a substring. Use the Rabin-Karp algorithm for efficient pattern matching.
+
+Input Format:
+- The first line contains a string S, the DNA sequence.
+- The second line contains a string P, the pattern to search for.
+
+Output Format:
+- Print all starting indices (0-based) where the pattern P is found in S, separated by spaces. If the pattern is not found, print -1.
+
+Constraints:
+- 1 ≤ |S| ≤ 10^6
+- 1 ≤ |P| ≤ 10^5
+- S and P consist only of the characters 'A', 'C', 'G', 'T'.
+
+Sample Input:
+ACGTACGTGACG
+ACG
+
+Sample Output:
+0 4 9
+
+Explanation:
+The pattern "ACG" appears in the DNA sequence at indices 0, 4, and 9.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+ACGTACGTGACG
+ACG
+Output:
+0 4 9
+
+Test Case 2:
+Input:
+TTTTTTTT
+TTT
+Output:
+0 1 2 3 4 5
+
+Test Case 3:
+Input:
+GATTACA
+TAC
+Output:
+3
+
+Test Case 4:
+Input:
+AGCTAGCTAG
+GGA
+Output:
+-1
+
+Test Case 5:
+Input:
+A
+A
+Output:
+0
+----------------------------------

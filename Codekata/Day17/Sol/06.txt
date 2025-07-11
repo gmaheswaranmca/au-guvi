@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class AllTopologicalSorts {
+    static List<List<Integer>> allOrders = new ArrayList<>();
+    static void allTopologicalSorts(Map<Integer, List<Integer>> graph, int[] inDegree, boolean[] visited, List<Integer> res, int N) {
+        boolean flag = false;
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i] && inDegree[i] == 0) {
+                visited[i] = true;
+                res.add(i);
+                for (int v : graph.getOrDefault(i, new ArrayList<>())) {
+                    inDegree[v]--;
+                }
+                allTopologicalSorts(graph, inDegree, visited, res, N);
+                for (int v : graph.getOrDefault(i, new ArrayList<>())) {
+                    inDegree[v]++;
+                }
+                visited[i] = false;
+                res.remove(res.size() - 1);
+                flag = true;
+            }
+        }
+        if (!flag && res.size() == N) {
+            allOrders.add(new ArrayList<>(res));
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt(), M = sc.nextInt();
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        int[] inDegree = new int[N + 1];
+        for (int i = 0; i < M; i++) {
+            int u = sc.nextInt(), v = sc.nextInt();
+            graph.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
+            inDegree[v]++;
+        }
+        boolean[] visited = new boolean[N + 1];
+        allTopologicalSorts(graph, inDegree, visited, new ArrayList<>(), N);
+        List<String> result = new ArrayList<>();
+        for (List<Integer> order : allOrders) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < order.size(); i++) {
+                sb.append(order.get(i));
+                if (i != order.size() - 1) sb.append(" ");
+            }
+            result.add(sb.toString());
+        }
+        Collections.sort(result);
+        for (String s : result) {
+            System.out.println(s);
+        }
+    }
+}
