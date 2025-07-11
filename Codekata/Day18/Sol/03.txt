@@ -21,18 +21,45 @@ public class DistinctSubstringsZAlgo {
         return z;
     }
 
-    // Function to count distinct substrings using Z Algorithm
+    // Function to count distinct substrings using Z Algorithm efficiently
     public static int countDistinctSubstrings(String s) {
         int n = s.length();
-        Set<String> substrings = new HashSet<>();
+        int totalDistinct = 0;
+        
+        // Use suffix array approach with Z-algorithm
+        List<String> suffixes = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            String suffix = s.substring(i);
-            int[] z = buildZ(suffix);
-            for (int len = 1; len <= suffix.length(); len++) {
-                substrings.add(suffix.substring(0, len));
-            }
+            suffixes.add(s.substring(i));
         }
-        return substrings.size();
+        
+        // Sort suffixes to group similar ones together
+        Collections.sort(suffixes);
+        
+        // Count distinct substrings using Z-array to find common prefixes
+        for (int i = 0; i < suffixes.size(); i++) {
+            String currentSuffix = suffixes.get(i);
+            int uniqueContribution = currentSuffix.length();
+            
+            if (i > 0) {
+                // Use Z-algorithm to find longest common prefix with previous suffix
+                String combined = suffixes.get(i - 1) + "#" + currentSuffix;
+                int[] z = buildZ(combined);
+                int prevSuffixLen = suffixes.get(i - 1).length();
+                
+                // The LCP length is the Z-value at position (prevSuffixLen + 1)
+                int lcpLength = 0;
+                if (prevSuffixLen + 1 < z.length) {
+                    lcpLength = z[prevSuffixLen + 1];
+                }
+                
+                // Only count the non-overlapping part as new distinct substrings
+                uniqueContribution = Math.max(0, currentSuffix.length() - lcpLength);
+            }
+            
+            totalDistinct += uniqueContribution;
+        }
+        
+        return totalDistinct;
     }
 
 
