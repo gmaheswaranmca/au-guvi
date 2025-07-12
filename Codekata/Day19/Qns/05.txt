@@ -1,0 +1,112 @@
+"Prefix Sum with Fenwick Tree", 
+"Implement prefix sum queries and point updates using a Fenwick Tree.", 
+"Easy", 
+"LeetCode, Amazon"
+
+----------------------------------
+Problem Title:
+Prefix Sum with Fenwick Tree
+
+Problem Description:
+You are given an array of integers of size N. You need to efficiently perform the following two types of operations:
+1. Update the value at a specific index.
+2. Query the sum of elements from index 1 to a given index.
+Implement a Fenwick Tree (Binary Indexed Tree) to support these operations efficiently.
+
+Input Format:
+- The first line contains two integers N and Q, the size of the array and the number of queries.
+- The second line contains N integers, the initial values of the array (1-based indexing).
+- The next Q lines each contain a query in one of the following formats:
+    - "1 x y" : Update the value at index x to y.
+    - "2 x"   : Output the sum of elements from index 1 to x.
+
+Output Format:
+For each query of type 2, output the result on a new line.
+
+Constraints:
+- 1 ≤ N, Q ≤ 10^5
+- 1 ≤ x ≤ N
+- 1 ≤ y ≤ 10^9
+- Initial array values are between 1 and 10^9
+
+Sample Input:
+5 5
+1 2 3 4 5
+2 3
+1 2 10
+2 3
+2 5
+1 5 7
+
+Sample Output:
+6
+14
+26
+
+Explanation:
+- Query 1: Sum from index 1 to 3 is 1+2+3=6
+- Query 2: Update index 2 to 10, array becomes [1,10,3,4,5]
+- Query 3: Sum from index 1 to 3 is 1+10+3=14
+- Query 4: Sum from index 1 to 5 is 1+10+3+4+5=23
+- Query 5: Update index 5 to 7, array becomes [1,10,3,4,7]
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 3
+2 4 6
+2 2
+1 1 5
+2 3
+Output:
+6
+15
+
+Test Case 2:
+Input:
+4 4
+1 1 1 1
+2 4
+1 2 5
+2 2
+2 4
+Output:
+4
+6
+8
+
+Test Case 3:
+Input:
+2 2
+100 200
+2 2
+1 2 50
+Output:
+300
+
+Test Case 4:
+Input:
+6 5
+5 4 3 2 1 6
+2 6
+1 3 10
+2 3
+2 5
+1 1 7
+Output:
+21
+19
+15
+
+Test Case 5:
+Input:
+1 2
+42
+2 1
+1 1 100
+Output:
+42
+----------------------------------
