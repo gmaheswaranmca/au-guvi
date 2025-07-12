@@ -32,22 +32,22 @@ Constraints:
 Sample Input:
 5 5
 1 2 3 4 5
-2 3
-1 2 10
-2 3
-2 5
-1 5 7
+2 3         
+1 2 10      
+2 3         
+2 5         
+1 5 7       
 
 Sample Output:
 6
 14
-26
+22
 
 Explanation:
 - Query 1: Sum from index 1 to 3 is 1+2+3=6
 - Query 2: Update index 2 to 10, array becomes [1,10,3,4,5]
 - Query 3: Sum from index 1 to 3 is 1+10+3=14
-- Query 4: Sum from index 1 to 5 is 1+10+3+4+5=23
+- Query 4: Sum from index 1 to 5 is 1+10+3+4+5=22
 - Query 5: Update index 5 to 7, array becomes [1,10,3,4,7]
 
 Difficulty:

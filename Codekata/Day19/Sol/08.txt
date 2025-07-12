@@ -1,0 +1,87 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    static class SegmentTree {
+        int n;
+        long[] tree, lazy;
+
+        SegmentTree(long[] arr) {
+            n = arr.length;
+            tree = new long[4 * n];
+            lazy = new long[4 * n];
+            build(1, 0, n - 1, arr);
+        }
+
+        void build(int node, int l, int r, long[] arr) {
+            if (l == r) {
+                tree[node] = arr[l];
+            } else {
+                int m = (l + r) / 2;
+                build(2 * node, l, m, arr);
+                build(2 * node + 1, m + 1, r, arr);
+                tree[node] = Math.min(tree[2 * node], tree[2 * node + 1]);
+            }
+        }
+
+        void push(int node, int l, int r) {
+            if (lazy[node] != 0) {
+                tree[node] += lazy[node];
+                if (l != r) {
+                    lazy[2 * node] += lazy[node];
+                    lazy[2 * node + 1] += lazy[node];
+                }
+                lazy[node] = 0;
+            }
+        }
+
+        void update(int node, int l, int r, int ul, int ur, long val) {
+            push(node, l, r);
+            if (r < ul || l > ur) return;
+            if (ul <= l && r <= ur) {
+                lazy[node] += val;
+                push(node, l, r);
+                return;
+            }
+            int m = (l + r) / 2;
+            update(2 * node, l, m, ul, ur, val);
+            update(2 * node + 1, m + 1, r, ul, ur, val);
+            tree[node] = Math.min(tree[2 * node], tree[2 * node + 1]);
+        }
+
+        long query(int node, int l, int r, int ql, int qr) {
+            push(node, l, r);
+            if (r < ql || l > qr) return Long.MAX_VALUE;
+            if (ql <= l && r <= qr) return tree[node];
+            int m = (l + r) / 2;
+            return Math.min(query(2 * node, l, m, ql, qr), query(2 * node + 1, m + 1, r, ql, qr));
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int q = Integer.parseInt(st.nextToken());
+        long[] arr = new long[n];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) arr[i] = Long.parseLong(st.nextToken());
+        SegmentTree seg = new SegmentTree(arr);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < q; i++) {
+            st = new StringTokenizer(br.readLine());
+            int type = Integer.parseInt(st.nextToken());
+            if (type == 1) {
+                int l = Integer.parseInt(st.nextToken()) - 1;
+                int r = Integer.parseInt(st.nextToken()) - 1;
+                long v = Long.parseLong(st.nextToken());
+                seg.update(1, 0, n - 1, l, r, v);
+            } else {
+                int l = Integer.parseInt(st.nextToken()) - 1;
+                int r = Integer.parseInt(st.nextToken()) - 1;
+                sb.append(seg.query(1, 0, n - 1, l, r)).append('\n');
+            }
+        }
+        System.out.print(sb);
+    }
+}

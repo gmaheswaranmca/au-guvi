@@ -1,0 +1,112 @@
+"Range Sum of Powers using Segment Tree (Lazy Probagation)", 
+"Compute the sum of squares or cubes of elements in a range, with updates.", 
+"Medium", 
+"LeetCode, Amazon"
+
+----------------------------------
+Problem Title:
+Range Sum of Powers using Segment Tree (Lazy Propagation)
+
+Problem Description:
+Given an array of integers of size N, you are required to efficiently perform the following operations:
+1. Update the value at a specific index.
+2. Compute the sum of the k-th powers (for example, squares or cubes) of elements in a given range [L, R].
+
+You need to implement a data structure (Segment Tree with Lazy Propagation) that supports these operations efficiently.
+
+Input Format:
+- The first line contains three integers N, Q, and K — the size of the array, the number of queries, and the power to which each element should be raised (2 for squares, 3 for cubes, etc.).
+- The second line contains N space-separated integers, the initial array.
+- The next Q lines each describe a query:
+    - For update: "1 idx val" (update the element at index idx to val, 1-based indexing)
+    - For query: "2 L R" (compute the sum of k-th powers from index L to R, inclusive, 1-based indexing)
+
+Output Format:
+For each query of type 2, output the result on a new line.
+
+Constraints:
+- 1 ≤ N, Q ≤ 10^5
+- 1 ≤ K ≤ 3
+- 1 ≤ array[i], val ≤ 10^4
+- 1 ≤ idx, L, R ≤ N
+- L ≤ R
+
+Sample Input:
+5 5 2
+1 2 3 4 5
+2 1 5
+1 3 10
+2 2 4
+1 5 6
+2 1 5
+
+Sample Output:
+55
+120
+158
+
+Explanation:
+- Initial array: [1, 2, 3, 4, 5]
+- Query 1: Sum of squares from 1 to 5: 1^2 + 2^2 + 3^2 + 4^2 + 5^2 = 55
+- Update: Set index 3 to 10 → [1, 2, 10, 4, 5]
+- Query 2: Sum of squares from 2 to 4: 2^2 + 10^2 + 4^2 = 4 + 100 + 16 = 120
+- Update: Set index 5 to 6 → [1, 2, 10, 4, 6]
+- Query 3: Sum of squares from 1 to 5: 1^2 + 2^2 + 10^2 + 4^2 + 6^2 = 1 + 4 + 100 + 16 + 36 = 157
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 3 2
+2 3 4
+2 1 3
+1 2 5
+2 1 3
+Output:
+29
+45
+
+Test Case 2:
+Input:
+4 4 3
+1 2 3 4
+2 2 4
+1 4 1
+2 1 4
+2 3 4
+Output:
+99
+37
+28
+
+Test Case 3:
+Input:
+2 2 2
+5 6
+2 1 2
+1 1 3
+Output:
+61
+
+Test Case 4:
+Input:
+6 3 2
+1 1 1 1 1 1
+2 1 6
+1 3 10
+2 1 6
+Output:
+6
+105
+
+Test Case 5:
+Input:
+5 2 3
+2 2 2 2 2
+2 1 5
+1 5 3
+Output:
+40
+----------------------------------

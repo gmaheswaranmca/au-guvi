@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class FBT {
     static class FenwickTree {
         long[] tree;
         int n;
@@ -49,8 +49,9 @@ public class Main {
             if (type == 1) {
                 int x = Integer.parseInt(st.nextToken());
                 long y = Long.parseLong(st.nextToken());
-                long delta = y - arr[x];
-                arr[x] = y;
+                //long delta = y - arr[x];
+                //arr[x] = y;
+                ft.add(x, -arr[x]);
                 ft.add(x, y);
             } else if (type == 2) {
                 int x = Integer.parseInt(st.nextToken());
