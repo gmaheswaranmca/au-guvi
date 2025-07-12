@@ -1,0 +1,113 @@
+"Range Count of Elements Greater Than X using Segment Tree", 
+"Count how many elements are greater than a given value in a range, with updates.", 
+"Hard", 
+"InterviewBit, Facebook"
+
+----------------------------------
+Problem Title:
+Range Count of Elements Greater Than X using Segment Tree
+
+Problem Description:
+Given an array of integers, you are required to answer two types of queries efficiently:
+1. Update the value at a specific index in the array.
+2. Given a range [L, R] and an integer X, count how many elements in the subarray from index L to R (inclusive) are strictly greater than X.
+
+You need to process Q such queries.
+
+Input Format:
+- The first line contains two integers N and Q, the size of the array and the number of queries.
+- The second line contains N integers, the initial elements of the array.
+- The next Q lines each describe a query:
+    - For an update query: "1 idx val" (set array[idx] = val, 0-based indexing)
+    - For a range query: "2 L R X" (count elements > X in array[L..R], 0-based indexing)
+
+Output Format:
+For each range query, output a single integer (the count), each on a new line.
+
+Constraints:
+- 1 ≤ N, Q ≤ 10^5
+- 0 ≤ idx, L, R < N
+- L ≤ R
+- -10^9 ≤ array[i], val, X ≤ 10^9
+
+Sample Input:
+6 5
+1 5 2 7 3 4
+2 1 4 3
+1 2 8
+2 0 5 4
+1 4 1
+2 3 5 2
+
+Sample Output:
+2
+3
+2
+
+Explanation:
+- Query 1: Elements in [1,4] are [5,2,7,3]. Elements > 3 are [5,7], so output 2.
+- Query 2: After update, array = [1,5,8,7,3,4]. Elements in [0,5] are [1,5,8,7,3,4]. Elements > 4 are [5,8,7], so output 3.
+- Query 3: After update, array = [1,5,8,7,1,4]. Elements in [3,5] are [7,1,4]. Elements > 2 are [7,4], so output 2.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+5 3
+2 4 6 8 10
+2 0 4 5
+1 2 3
+2 1 3 2
+Output:
+3
+2
+
+Test Case 2:
+Input:
+4 4
+1 1 1 1
+2 0 3 0
+1 1 2
+2 0 3 1
+2 2 2 0
+Output:
+4
+3
+1
+
+Test Case 3:
+Input:
+3 2
+-1 -2 -3
+2 0 2 -2
+2 1 2 -4
+Output:
+1
+2
+
+Test Case 4:
+Input:
+7 4
+5 3 8 6 2 7 4
+2 2 6 5
+1 5 1
+2 0 3 4
+2 4 6 3
+Output:
+2
+2
+2
+
+Test Case 5:
+Input:
+6 3
+10 20 30 40 50 60
+2 1 4 25
+1 3 15
+2 0 5 10
+Output:
+2
+5
+----------------------------------

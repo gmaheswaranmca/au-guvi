@@ -1,0 +1,112 @@
+"Range GCD Query using Segment Tree", 
+"Support queries to find the GCD of elements in a range, with point updates.", 
+"Medium", 
+"LeetCode, Amazon"
+
+----------------------------------
+Problem Title:
+Range GCD Query using Segment Tree
+
+Problem Description:
+You are given an array of N integers. You need to efficiently support the following two types of operations:
+1. Update the value at a specific index in the array.
+2. Query the greatest common divisor (GCD) of elements in a given range [L, R] (inclusive).
+
+Implement a data structure that can handle these operations efficiently.
+
+Input Format:
+- The first line contains two integers N and Q, the size of the array and the number of queries.
+- The second line contains N space-separated integers, representing the initial array.
+- The next Q lines each describe a query:
+    - For an update: "1 idx val" (set arr[idx] = val, 0-based indexing)
+    - For a query: "2 L R" (find GCD of arr[L] to arr[R], inclusive, 0-based indexing)
+
+Output Format:
+- For each query of type 2, output a single integer: the GCD of the specified range.
+
+Constraints:
+- 1 ≤ N, Q ≤ 10^5
+- 1 ≤ arr[i], val ≤ 10^9
+- 0 ≤ idx, L, R < N
+- L ≤ R
+
+Sample Input:
+5 5
+2 6 9 5 3
+2 1 3
+1 2 15
+2 0 2
+1 4 10
+2 3 4
+
+Sample Output:
+1
+1
+5
+
+Explanation:
+- Query 1: GCD of [6, 9, 5] = 1
+- Update: arr[2] = 15 → [2, 6, 15, 5, 3]
+- Query 2: GCD of [2, 6, 15] = 1
+- Update: arr[4] = 10 → [2, 6, 15, 5, 10]
+- Query 3: GCD of [5, 10] = 5
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 3
+5 10 15
+2 0 2
+1 1 20
+2 0 2
+Output:
+5
+5
+
+Test Case 2:
+Input:
+4 4
+7 14 21 28
+2 1 3
+1 2 35
+2 0 2
+2 2 2
+Output:
+7
+7
+35
+
+Test Case 3:
+Input:
+2 2
+8 12
+2 0 1
+1 0 6
+Output:
+4
+
+Test Case 4:
+Input:
+6 4
+3 6 9 12 15 18
+2 2 5
+1 3 21
+2 0 3
+2 4 5
+Output:
+3
+3
+3
+
+Test Case 5:
+Input:
+1 2
+100
+2 0 0
+1 0 50
+Output:
+100
+----------------------------------
