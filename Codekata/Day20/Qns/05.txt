@@ -1,0 +1,102 @@
+"Prim’s Algorithm in Dense Graphs", "Given a dense graph represented as an adjacency matrix, use Prim’s algorithm to compute the minimum spanning tree and print the edges included.", "Medium", "Codeforces, Amazon"
+
+----------------------------------
+Problem Title:
+Prim’s Algorithm in Dense Graphs
+
+Problem Description:
+You are given a dense undirected weighted graph with N vertices, represented as an adjacency matrix. Your task is to use Prim’s algorithm to compute the Minimum Spanning Tree (MST) of the graph and print the edges included in the MST. The graph is connected and contains no self-loops or multiple edges.
+
+Input Format:
+- The first line contains an integer N, the number of vertices in the graph.
+- The next N lines each contain N integers, where the j-th integer in the i-th line represents the weight of the edge between vertex i and vertex j. If there is no edge between i and j, the weight will be 0.
+
+Output Format:
+- Print N-1 lines, each containing three integers u v w, representing an edge between vertices u and v with weight w that is included in the MST. Print the edges in the order they are added to the MST.
+
+Constraints:
+- 2 ≤ N ≤ 500
+- 0 ≤ weight ≤ 10^6
+- The graph is connected.
+- No self-loops (i.e., weight[i][i] = 0 for all i)
+- No multiple edges.
+
+Sample Input:
+4
+0 2 3 0
+2 0 1 4
+3 1 0 5
+0 4 5 0
+
+Sample Output:
+1 2 2
+2 3 1
+1 3 3
+
+Sample Explanation:
+The MST includes the edges (1,2) with weight 2, (2,3) with weight 1, and (1,3) with weight 3. The order of edges corresponds to the order in which they are added by Prim’s algorithm.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3
+0 1 2
+1 0 3
+2 3 0
+Output:
+1 2 1
+1 3 2
+
+Test Case 2:
+Input:
+5
+0 2 0 6 0
+2 0 3 8 5
+0 3 0 0 7
+6 8 0 0 9
+0 5 7 9 0
+Output:
+1 2 2
+2 3 3
+2 5 5
+1 4 6
+
+Test Case 3:
+Input:
+2
+0 10
+10 0
+Output:
+1 2 10
+
+Test Case 4:
+Input:
+4
+0 1 1 1
+1 0 1 1
+1 1 0 1
+1 1 1 0
+Output:
+1 2 1
+1 3 1
+1 4 1
+
+Test Case 5:
+Input:
+6
+0 3 0 0 6 5
+3 0 1 0 0 4
+0 1 0 6 0 4
+0 0 6 0 8 5
+6 0 0 8 0 2
+5 4 4 5 2 0
+Output:
+1 2 3
+2 3 1
+2 6 4
+6 5 2
+6 4 5
+----------------------------------
