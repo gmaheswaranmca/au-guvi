@@ -1,0 +1,74 @@
+import java.util.*;
+
+public class Main {
+    static class Edge {
+        int to, rev;
+        int cap;
+        Edge(int to, int rev, int cap) {
+            this.to = to;
+            this.rev = rev;
+            this.cap = cap;
+        }
+    }
+
+    static ArrayList<Edge>[] graph;
+    static boolean[] visited;
+
+    static void addEdge(int from, int to) {
+        graph[from].add(new Edge(to, graph[to].size(), 1));
+        graph[to].add(new Edge(from, graph[from].size() - 1, 0));
+    }
+
+    static boolean dfs(int v, int t) {
+        if (v == t) return true;
+        visited[v] = true;
+        for (Edge e : graph[v]) {
+            if (e.cap > 0 && !visited[e.to]) {
+                if (dfs(e.to, t)) {
+                    e.cap -= 1;
+                    graph[e.to].get(e.rev).cap += 1;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static int maxFlow(int s, int t) {
+        int flow = 0;
+        while (true) {
+            visited = new boolean[graph.length];
+            if (!dfs(s, t)) break;
+            flow++;
+        }
+        return flow;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt(); // left side
+        int M = sc.nextInt(); // right side
+        int E = sc.nextInt();
+
+        int S = 0;
+        int T = N + M + 1;
+        int size = N + M + 2;
+        graph = new ArrayList[size];
+        for (int i = 0; i < size; i++) graph[i] = new ArrayList<>();
+
+        // Source to U
+        for (int i = 1; i <= N; i++) addEdge(S, i);
+
+        // V to Sink
+        for (int i = 1; i <= M; i++) addEdge(N + i, T);
+
+        // Edges between U and V
+        for (int i = 0; i < E; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            addEdge(u, N + v);
+        }
+
+        System.out.println(maxFlow(S, T));
+    }
+}

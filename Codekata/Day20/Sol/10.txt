@@ -1,0 +1,57 @@
+import java.util.*;
+
+public class CriticalConnections {
+    private int time = 0;
+    private List<List<Integer>> result = new ArrayList<>();
+    private List<Integer>[] graph;
+    private int[] disc;
+    private int[] low;
+
+    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+        graph = new ArrayList[n];
+        for (int i = 0; i < n; i++) graph[i] = new ArrayList<>();
+        for (List<Integer> conn : connections) {
+            int u = conn.get(0), v = conn.get(1);
+            graph[u].add(v);
+            graph[v].add(u);
+        }
+        disc = new int[n];
+        low = new int[n];
+        Arrays.fill(disc, -1);
+        for (int i = 0; i < n; i++) {
+            if (disc[i] == -1) dfs(i, -1);
+        }
+        return result;
+    }
+
+    private void dfs(int u, int parent) {
+        disc[u] = low[u] = time++;
+        for (int v : graph[u]) {
+            if (v == parent) continue;
+            if (disc[v] == -1) {
+                dfs(v, u);
+                low[u] = Math.min(low[u], low[v]);
+                if (low[v] > disc[u]) {
+                    result.add(Arrays.asList(u, v));
+                }
+            } else {
+                low[u] = Math.min(low[u], disc[v]);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), m = sc.nextInt();
+        List<List<Integer>> connections = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt(), v = sc.nextInt();
+            connections.add(Arrays.asList(u, v));
+        }
+        CriticalConnections solver = new CriticalConnections();
+        List<List<Integer>> bridges = solver.criticalConnections(n, connections);
+        for (List<Integer> bridge : bridges) {
+            System.out.println(bridge.get(0) + " " + bridge.get(1));
+        }
+    }
+}

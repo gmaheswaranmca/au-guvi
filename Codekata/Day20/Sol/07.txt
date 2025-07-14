@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class MinimumSpanningTreeInGrid {
+    static class Cell implements Comparable<Cell> {
+        int x, y, cost;
+        Cell(int x, int y, int cost) {
+            this.x = x;
+            this.y = y;
+            this.cost = cost;
+        }
+        public int compareTo(Cell other) {
+            return Integer.compare(this.cost, other.cost);
+        }
+    }
+
+    static int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0}};
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), m = sc.nextInt();
+        int[][] grid = new int[n][m];
+        for(int i=0;i<n;i++)
+            for(int j=0;j<m;j++)
+                grid[i][j] = sc.nextInt();
+
+        boolean[][] visited = new boolean[n][m];
+        PriorityQueue<Cell> pq = new PriorityQueue<>();
+        pq.offer(new Cell(0, 0, 0));
+        int totalCost = 0, count = 0, totalCells = n * m;
+
+        while(!pq.isEmpty() && count < totalCells) {
+            Cell curr = pq.poll();
+            if(visited[curr.x][curr.y]) continue;
+            visited[curr.x][curr.y] = true;
+            totalCost += curr.cost;
+            count++;
+            for(int[] d : dirs) {
+                int nx = curr.x + d[0], ny = curr.y + d[1];
+                if(nx >= 0 && nx < n && ny >= 0 && ny < m && !visited[nx][ny]) {
+                    pq.offer(new Cell(nx, ny, grid[curr.x][curr.y] + grid[nx][ny]));
+                }
+            }
+        }
+        System.out.println(totalCost);
+    }
+}

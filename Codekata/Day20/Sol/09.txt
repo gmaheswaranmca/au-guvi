@@ -1,0 +1,92 @@
+import java.util.*;
+
+public class EdmondsKarpMaxFlow {
+    static class Edge {
+        int to, rev;
+        long cap, flow;
+        Edge(int to, int rev, long cap) {
+            this.to = to;
+            this.rev = rev;
+            this.cap = cap;
+            this.flow = 0;
+        }
+    }
+
+    static class MaxFlow {
+        int N;
+        List<Edge>[] adj;
+
+        @SuppressWarnings("unchecked")
+        MaxFlow(int N) {
+            this.N = N;
+            adj = new ArrayList[N];
+            for (int i = 0; i < N; i++) adj[i] = new ArrayList<>();
+        }
+
+        void addEdge(int u, int v, long cap) {
+            Edge a = new Edge(v, adj[v].size(), cap);
+            Edge b = new Edge(u, adj[u].size(), 0);
+            adj[u].add(a);
+            adj[v].add(b);
+        }
+
+        long bfs(int s, int t, int[] parent, Edge[] path) {
+            Arrays.fill(parent, -1);
+            Queue<Integer> q = new LinkedList<>();
+            q.add(s);
+            parent[s] = s;
+            while (!q.isEmpty()) {
+                int u = q.poll();
+                for (Edge e : adj[u]) {
+                    if (parent[e.to] == -1 && e.cap > e.flow) {
+                        parent[e.to] = u;
+                        path[e.to] = e;
+                        if (e.to == t) return 1;
+                        q.add(e.to);
+                    }
+                }
+            }
+            return 0;
+        }
+
+        long maxFlow(int s, int t) {
+            long flow = 0;
+            int[] parent = new int[N];
+            Edge[] path = new Edge[N];
+            while (bfs(s, t, parent, path) > 0) {
+                long aug = Long.MAX_VALUE;
+                for (int v = t; v != s; v = parent[v]) {
+                    aug = Math.min(aug, path[v].cap - path[v].flow);
+                }
+                for (int v = t; v != s; v = parent[v]) {
+                    path[v].flow += aug;
+                    adj[path[v].to].get(path[v].rev).flow -= aug;
+                }
+                flow += aug;
+            }
+            return flow;
+        }
+
+        void resetFlows() {
+            for (List<Edge> edges : adj)
+                for (Edge e : edges)
+                    e.flow = 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt(), M = sc.nextInt(), Q = sc.nextInt();
+        MaxFlow mf = new MaxFlow(N);
+        for (int i = 0; i < M; i++) {
+            int u = sc.nextInt() - 1, v = sc.nextInt() - 1;
+            long c = sc.nextLong();
+            mf.addEdge(u, v, c);
+        }
+        for (int q = 0; q < Q; q++) {
+            int S = sc.nextInt() - 1, T = sc.nextInt() - 1;
+            mf.resetFlows();
+            System.out.println(mf.maxFlow(S, T));
+        }
+    }
+}

@@ -1,0 +1,97 @@
+"Critical Connections in a Network", "Given a network of servers, find all critical connections (bridges) whose removal will disconnect the network.", "Medium", "LeetCode, Amazon"
+
+----------------------------------
+Problem Title:
+Critical Connections in a Network
+
+Problem Description:
+You are given a network of n servers labeled from 0 to n-1. The network is connected by a list of connections, where each connection is a pair of servers [u, v] representing a bidirectional connection between server u and server v. A critical connection is a connection that, if removed, will make some servers unable to reach some others (i.e., the network becomes disconnected). Your task is to find all such critical connections in the network.
+
+Input Format:
+- The first line contains two integers n and m, the number of servers and the number of connections.
+- The next m lines each contain two integers u and v, representing a connection between servers u and v.
+
+Output Format:
+- Output all critical connections as a list of pairs [u, v]. Each pair should be printed on a separate line, with u and v separated by a space. The order of the pairs does not matter.
+
+Constraints:
+- 1 <= n <= 10^5
+- 1 <= m <= 2*10^5
+- 0 <= u, v < n
+- There are no duplicate connections.
+- The network is connected.
+
+Sample Input:
+4 4
+0 1
+1 2
+2 0
+1 3
+
+Sample Output:
+1 3
+
+Explanation:
+Removing the connection [1, 3] disconnects server 3 from the rest of the network. The other connections are not critical because their removal does not disconnect the network.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+
+Test Case 1:
+Input:
+5 5
+0 1
+1 2
+2 0
+1 3
+3 4
+Output:
+1 3
+3 4
+
+Test Case 2:
+Input:
+3 3
+0 1
+1 2
+2 0
+Output:
+
+Test Case 3:
+Input:
+6 7
+0 1
+1 2
+2 0
+1 3
+3 4
+4 5
+5 3
+Output:
+1 3
+
+Test Case 4:
+Input:
+2 1
+0 1
+Output:
+0 1
+
+Test Case 5:
+Input:
+7 7
+0 1
+1 2
+2 0
+1 3
+3 4
+4 5
+5 6
+Output:
+1 3
+3 4
+4 5
+5 6
+----------------------------------

@@ -1,0 +1,75 @@
+import java.util.*;
+
+public class ReverseDeleteMST {
+    static class Edge implements Comparable<Edge> {
+        int u, v, w;
+        Edge(int u, int v, int w) {
+            this.u = u;
+            this.v = v;
+            this.w = w;
+        }
+        public int compareTo(Edge other) {
+            return other.w - this.w; // Descending order
+        }
+    }
+
+    static int N;
+    static ArrayList<Integer>[] adj;
+
+    static void addEdge(int u, int v) {
+        adj[u].add(v);
+        adj[v].add(u);
+    }
+
+    static void removeEdge(int u, int v) {
+        adj[u].remove((Integer)v);
+        adj[v].remove((Integer)u);
+    }
+
+    static boolean isConnected(int n) {
+        boolean[] visited = new boolean[n + 1];
+        Queue<Integer> q = new LinkedList<>();
+        q.add(1);
+        visited[1] = true;
+        int count = 1;
+        while (!q.isEmpty()) {
+            int node = q.poll();
+            for (int nei : adj[node]) {
+                if (!visited[nei]) {
+                    visited[nei] = true;
+                    q.add(nei);
+                    count++;
+                }
+            }
+        }
+        return count == n;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        N = sc.nextInt();
+        int M = sc.nextInt();
+        List<Edge> edges = new ArrayList<>();
+        adj = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) adj[i] = new ArrayList<>();
+        for (int i = 0; i < M; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            int w = sc.nextInt();
+            edges.add(new Edge(u, v, w));
+            addEdge(u, v);
+        }
+        Collections.sort(edges);
+        int totalWeight = 0;
+        for (Edge e : edges) totalWeight += e.w;
+        for (Edge e : edges) {
+            removeEdge(e.u, e.v);
+            if (!isConnected(N)) {
+                addEdge(e.u, e.v);
+            } else {
+                totalWeight -= e.w;
+            }
+        }
+        System.out.println(totalWeight);
+    }
+}

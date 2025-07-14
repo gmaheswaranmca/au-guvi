@@ -1,0 +1,93 @@
+"Network Flow Maximum Matching", "Given a bipartite graph, find the maximum matching using the Ford-Fulkerson method for network flow.", "Hard", "LeetCode, Facebook"
+
+----------------------------------
+Problem Title:
+Maximum Bipartite Matching using Network Flow
+
+Problem Description:
+Given a bipartite graph with N nodes on the left side (U) and M nodes on the right side (V), and a list of edges connecting nodes from U to V, find the maximum matching using the Ford-Fulkerson method for network flow. A matching is a set of edges such that no two edges share a node.
+
+Input Format:
+- The first line contains two integers N and M, the number of nodes on the left and right sides.
+- The second line contains an integer E, the number of edges.
+- The next E lines each contain two integers u and v, indicating an edge between node u in U (1-based index) and node v in V (1-based index).
+
+Output Format:
+- A single integer representing the size of the maximum matching.
+
+Constraints:
+- 1 ≤ N, M ≤ 500
+- 1 ≤ E ≤ N * M
+- 1 ≤ u ≤ N
+- 1 ≤ v ≤ M
+
+Sample Input:
+3 3
+4
+1 1
+1 2
+2 2
+3 3
+
+Sample Output:
+3
+
+Explanation:
+The bipartite graph has 3 nodes on each side and 4 edges. The maximum matching is 3, as each node can be matched uniquely.
+
+Difficulty:
+Hard
+
+Test Cases:
+Test Case 1:
+Input:
+2 2
+2
+1 1
+2 2
+Output:
+2
+
+Test Case 2:
+Input:
+4 4
+4
+1 1
+2 2
+3 3
+4 4
+Output:
+4
+
+Test Case 3:
+Input:
+3 3
+2
+1 2
+2 3
+Output:
+2
+
+Test Case 4:
+Input:
+5 5
+6
+1 1
+1 2
+2 2
+3 3
+4 4
+5 5
+Output:
+5
+
+Test Case 5:
+Input:
+3 4
+3
+1 1
+2 2
+3 3
+Output:
+3
+----------------------------------

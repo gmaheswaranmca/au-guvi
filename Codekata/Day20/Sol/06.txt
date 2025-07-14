@@ -1,0 +1,41 @@
+import java.util.*;
+
+public class MinimumCostToConnectCities {
+    static class Edge implements Comparable<Edge> {
+        int to, cost;
+        Edge(int to, int cost) {
+            this.to = to;
+            this.cost = cost;
+        }
+        public int compareTo(Edge other) {
+            return Integer.compare(this.cost, other.cost);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt(), M = sc.nextInt();
+        List<Edge>[] graph = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) graph[i] = new ArrayList<>();
+        for (int i = 0; i < M; i++) {
+            int u = sc.nextInt(), v = sc.nextInt(), w = sc.nextInt();
+            graph[u].add(new Edge(v, w));
+            graph[v].add(new Edge(u, w));
+        }
+        boolean[] visited = new boolean[N + 1];
+        PriorityQueue<Edge> pq = new PriorityQueue<>();
+        int count = 0, totalCost = 0;
+        pq.add(new Edge(1, 0));
+        while (!pq.isEmpty() && count < N) {
+            Edge curr = pq.poll();
+            if (visited[curr.to]) continue;
+            visited[curr.to] = true;
+            totalCost += curr.cost;
+            count++;
+            for (Edge e : graph[curr.to]) {
+                if (!visited[e.to]) pq.add(e);
+            }
+        }
+        System.out.println(count == N ? totalCost : -1);
+    }
+}
