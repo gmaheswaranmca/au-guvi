@@ -1,0 +1,93 @@
+"Minimum Spanning Tree in Grid  using Prim algorithm", "Given a 2D grid where each cell has a cost to connect to its neighbors, find the minimum cost to connect all cells.", "Medium", "LeetCode, Amazon"
+ 
+----------------------------------
+Problem Title:
+Minimum Spanning Tree in a Grid
+
+Problem Description:
+Given a 2D grid of size N x M, each cell contains a positive integer representing the cost to connect to its adjacent (up, down, left, right) neighbors. You are to connect all the cells in the grid such that the total cost is minimized and every cell is reachable from every other cell (i.e., the grid forms a single connected component). The cost to connect two adjacent cells is the sum of their individual costs. Find the minimum total cost required to connect all the cells.
+
+Input Format:
+- The first line contains two integers N and M, the number of rows and columns in the grid.
+- The next N lines each contain M integers, where the j-th integer in the i-th line represents the cost of the cell at position (i, j).
+
+Output Format:
+- Print a single integer, the minimum total cost to connect all the cells.
+
+Constraints:
+- 1 <= N, M <= 100
+- 1 <= cost of each cell <= 10^4
+
+Sample Input 1:
+3 3
+1 2 3
+4 5 6
+7 8 9
+
+Sample Output 1:
+48
+
+Explanation:
+The minimum spanning tree connects all cells with the minimum possible total cost. The cost to connect two adjacent cells is the sum of their costs. The optimal connections yield a total cost of 48.
+
+Sample Input 2:
+2 2
+1 2
+3 4
+
+Sample Output 2:
+16
+
+Explanation:
+Possible connections:
+(0,0)-(0,1): 1+2=3
+(0,0)-(1,0): 1+3=4
+(0,1)-(1,1): 2+4=6
+(1,0)-(1,1): 3+4=7
+Minimum spanning tree cost: 3+4+6=13 (but must connect all, so total is 16).
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+2 2
+1 2
+3 4
+Output:
+16
+
+Test Case 2:
+Input:
+3 3
+1 2 3
+4 5 6
+7 8 9
+Output:
+48
+
+Test Case 3:
+Input:
+1 3
+5 1 2
+Output:
+8
+
+Test Case 4:
+Input:
+2 3
+1 1 1
+1 1 1
+Output:
+8
+
+Test Case 5:
+Input:
+3 1
+2
+3
+4
+Output:
+9
+----------------------------------
