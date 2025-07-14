@@ -1,0 +1,13 @@
+Title: Healthcare Management System 
+Teams: Shravanthi, Reethika, Alekhya, Divya
+       Jyothi, Likitha, Raphicah,
+       Sandhiya, Ramya 
+Tasks:  Ramya, Shravanthi: DB 
+        Reethika: Patient/Doctor Appointment, 
+        Alekhya: Doctor Module
+        Divya: OP Patient Module 
+        Likitha: UI / GUI Developer 
+        Raphicah: Billing System 
+        Jyothi: Testing 
+        Sandhiya: User Login 
+         

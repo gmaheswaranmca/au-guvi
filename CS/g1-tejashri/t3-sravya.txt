@@ -1,0 +1,11 @@
+Title: e-commerce web app 
+Teams: Sravya, Tejasri, Devi, Rajakumari, 
+       Lakshya, Prasanna, Anupama, Surya Narayanamma
+Tasks:  Sravya: Order Scheduling, 
+       Tejasri: Parcel Management and Autosuggestion, 
+       Devi: Cart Item and ID,
+       Rajakumari: Fraud Detection, 
+       Lakshya: Suggestion, 
+       Prasanna:Store Inv App Sys- AVL, 
+       Anupama:Cart Mgmnt, 
+       Suryanarayanamma: Coupon Management 

@@ -1,0 +1,10 @@
+Title: Online Food Ordering
+Teams: Harini, Prasanna, Chanthini,
+       Uma, Aleema, Swathi,
+       Srilakshmi, Lakshmi Kala
+Tasks: Uma, Aleema: Front End / Login using HTML/CSS/JS 
+       Harini, Swathi: FE to BE, Docs 
+       Prasanna: Logic (Location Management)
+       Chanthini: Searching and Filtering 
+       Lakshmi Kala: Cart Management / Pricing 
+       Srilakshmi: Menu Display

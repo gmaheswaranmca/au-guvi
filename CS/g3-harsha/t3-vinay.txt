@@ -1,0 +1,11 @@
+Title: Maze Solver 
+Teams: Balaraju, Vinay, Akshay, Hemanth, 
+       Veerababu, Teja, Suresh, Raghu 
+        
+Tasks: Balaraju: Dijktra algo, tester ]
+       Vinay: A* Algo, 
+       Akshay: Designer, 
+       Veerababu: BFS algo, Hemanth
+       Teja: DFS algo, 
+       Suresh, Raghu, : Frontends
+    

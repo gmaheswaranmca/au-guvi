@@ -1,0 +1,9 @@
+Title: Real Time SM Feed using Trees/Graphs
+Teams: Hemanth, Navadeep, Surya, Harsha,
+       Manikanta, Harsha, Siva.G 
+       Ajay, Siva 
+Tasks: 
+      Development: Harsha, Manikanta, Siva.G, Surya, Siva
+        interface (front end + back end + database )
+      Core: Ajay, Harsha, Navadeep, Hemanth
+        ds + algo 

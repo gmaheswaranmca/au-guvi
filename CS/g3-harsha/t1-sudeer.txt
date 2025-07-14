@@ -1,0 +1,9 @@
+Title: Plagiarism Checker (Web App using Next.js / Express.js|Spring)
+Teams: Sudheer, Harsha, Gopal, Rahul, 
+       Lakshman, Sai Krishna, Raja, Lalithendra,
+       Umesh
+Tasks: SuSudheer, Sai Krishna:       Backend
+       Gopal:                        Tester, 
+       Rahul, Lakshman, Lalithendra: Algo 
+       Raja                        : Algo
+       Harsha, Umesh:                Frontend

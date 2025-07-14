@@ -1,0 +1,10 @@
+Title: Password Generator
+Teams: Divya, Kaveri, Charishma, Prathyusha,
+       Lahari, Visali
+Tasks: 
+        Divya: UI Frontend, 
+        Kaveri: Features Dev, 
+        Charishma: Code Dev, 
+        Prathyusha: Testing,
+        Lahari: Deployment, 
+        Visali: Documentation, UML, SDLC, Final Report

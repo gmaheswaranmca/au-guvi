@@ -1,0 +1,16 @@
+Title: Book My Ticket
+Teams: Sai Prabhakar, Kowshik, Hemanth, Prashanth,
+       Rajesh, Bharadwaj, Sai, 
+       Nithish, Sudheer, Gopal Krishna
+Tasks: 
+       Sai Prabhakar: Train and Route Mgmt , 
+       Kowshik: Admin Dashboard and CP, 
+       Hemanth: Auth and User Module, 
+       Prashanth: Payment Simulation and Ticket Summary,
+       Rajesh:Seat Availabiity and Status Tracking, 
+       Bharadwaj: Compartment and Seating Structure, 
+       Sai: Berth Req. System, 
+       Nithish :Booking Logic, 
+       Sudheer: DB Design and Integration, 
+       Gopal Krishna: Waiting List and RAC Management
+

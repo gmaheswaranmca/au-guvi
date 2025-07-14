@@ -1,0 +1,8 @@
+Title: Craft Cart (Ancient Products)
+Teams: Keerthi, Nageshwari, Tejaswini, Rama,
+       Lakshmi Shree, Thanuja, Dharani, Veera veni
+Tasks: 
+    Keerthi, Nageshwari: Login and Sign up page 
+    Tejaswini, Dharani, Veera veni: DSA Implementation
+    Rama, Lakshmi Shree, Thanuja: Product, Cart, Home pages 
+    
