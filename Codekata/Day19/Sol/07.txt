@@ -1,0 +1,59 @@
+import java.util.*;
+
+public class Main {
+    static class FenwickTree {
+        int[] tree;
+        int n;
+
+        FenwickTree(int size) {
+            n = size;
+            tree = new int[n + 2];
+        }
+
+        void update(int idx, int delta) {
+            while (idx <= n) {
+                tree[idx] += delta;
+                idx += idx & -idx;
+            }
+        }
+
+        int query(int idx) {
+            int sum = 0;
+            while (idx > 0) {
+                sum += tree[idx];
+                idx -= idx & -idx;
+            }
+            return sum;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        int[] sorted = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+            sorted[i] = arr[i];
+        }
+
+        // Coordinate compression
+        Arrays.sort(sorted);
+        Map<Integer, Integer> map = new HashMap<>();
+        int idx = 1;
+        for (int num : sorted) {
+            if (!map.containsKey(num)) {
+                map.put(num, idx++);
+            }
+        }
+
+        FenwickTree bit = new FenwickTree(idx);
+        long invCount = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            int pos = map.get(arr[i]);
+            invCount += bit.query(pos - 1);
+            bit.update(pos, 1);
+        }
+        System.out.println(invCount);
+    }
+}

@@ -1,0 +1,98 @@
+ "Minimum Spanning Tree Construction", "Given a connected, undirected, weighted graph, implement Kruskal’s algorithm to find the minimum spanning tree and output its total weight.", "Medium", "LeetCode, HackerRank, Google"
+
+----------------------------------
+Problem Title:
+Minimum Spanning Tree Construction
+
+Problem Description:
+Given a connected, undirected, weighted graph with N nodes and M edges, your task is to implement Kruskal’s algorithm to find the minimum spanning tree (MST) of the graph. Output the total weight of the MST.
+
+Input Format:
+- The first line contains two integers N and M, the number of nodes and edges in the graph.
+- The next M lines each contain three integers u, v, and w, representing an edge between nodes u and v with weight w.
+
+Output Format:
+- Output a single integer, the total weight of the minimum spanning tree.
+
+Constraints:
+- 1 ≤ N ≤ 10^5
+- N - 1 ≤ M ≤ 2 × 10^5
+- 1 ≤ u, v ≤ N
+- 1 ≤ w ≤ 10^9
+- The graph is connected.
+- There are no self-loops or multiple edges between the same pair of nodes.
+
+Sample Input:
+4 5
+1 2 1
+1 3 4
+2 3 2
+2 4 3
+3 4 5
+
+Sample Output:
+6
+
+Explanation:
+The minimum spanning tree includes the edges (1-2), (2-3), and (2-4) with weights 1, 2, and 3 respectively. The total weight is 1 + 2 + 3 = 6.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 3
+1 2 2
+2 3 3
+1 3 1
+Output:
+3
+
+Test Case 2:
+Input:
+5 7
+1 2 10
+1 3 5
+2 3 4
+2 4 1
+3 4 2
+3 5 8
+4 5 7
+Output:
+14
+
+Test Case 3:
+Input:
+2 1
+1 2 100
+Output:
+100
+
+Test Case 4:
+Input:
+6 9
+1 2 3
+1 3 1
+2 3 7
+2 4 5
+3 4 4
+3 5 2
+4 5 6
+4 6 8
+5 6 9
+Output:
+16
+
+Test Case 5:
+Input:
+4 6
+1 2 2
+1 3 2
+1 4 2
+2 3 2
+2 4 2
+3 4 2
+Output:
+6
+----------------------------------
