@@ -1,0 +1,1477 @@
+General Tree
+    Definition of General Tree:
+        - A General Tree is 
+        a hierarchical data structure 
+        where each node can have any number of child nodes. 
+        - Unlike binary trees, 
+        which limit children to at most two, 
+        general trees are more flexible and 
+        are used to represent hierarchies 
+        like file systems, company structures, etc.
+
+    Terminologies in a General Tree:
+        | Term           | Description                                                                     |
+        | -------------- | ------------------------------------------------------------------------------- |
+        | Node           | Basic element containing data and links to child nodes.                         |
+        | Root           | The topmost node in the tree, without a parent.                                 |
+        | Parent         | A node that has one or more child nodes.                                        |
+        | Child          | A node that descends from another node (its parent).                            |
+        | Siblings       | Nodes that share the same parent.                                               |
+        | Leaf Node      | A node with no children.                                                        |
+        | Internal Node  | A node that has at least one child.                                             |
+        | Subtree        | A tree formed by any node and its descendants.                                  |
+        | Level          | The number of edges from the root to the node (root is at level 0 or 1).        |
+        | Height         | The maximum level (or depth) of any node in the tree.                           |
+        | Depth          | The number of edges from the root to the current node.                          |
+        | Degree of Node | Number of children a node has.                                                  |
+        | Degree of Tree | The maximum degree of all nodes in the tree.                                    |
+        | Ancestor       | Any node in the path from the root to a given node (excluding the node itself). |
+        | Descendant     | Any node that comes after a given node in the tree structure.                   |
+
+        - General trees are more abstract and useful 
+        when node relationships are not limited to pairs.
+
+    Example 
+        1. Company Hierarchy Tree
+
+        ```
+                      CEO
+                    /  |   \
+                CTO   CFO   COO
+                / \         |
+             Dev1 Dev2     OpsHead
+        ```
+        * Root: CEO
+        * Internal Nodes: CEO, CTO, COO
+        * Leaf Nodes: Dev1, Dev2, CFO, OpsHead
+        * This shows how an organization may structure its reporting hierarchy.
+
+        2. File System Tree
+
+        ```
+                Root
+              /   |   \
+            etc   usr   var
+                  |
+                 bin
+        ```
+        * Root: Root
+        * Subtrees: etc, usr (with child bin), var
+        * Useful to represent directories and subdirectories.
+
+        3. Family Tree
+
+        ```
+                 Grandparent
+                /     |     \
+             Uncle  Parent Aunt
+                      |
+                    Child
+        ```
+
+        * Shows multi-level relationships.
+        * Degree of `Grandparent` is 3, Height of tree is 3.
+
+
+        Each of these trees highlights 
+        a common use case for general trees, 
+        where nodes may have more than two children.
+
+    Common Operations on a General Tree
+        A General Tree allows each node 
+        to have any number of children. 
+        Here's a list of common operations performed on it:
+
+        | Operation            | Time Complexity     | Purpose                                                                     |
+        | -------------------- | ------------------- | --------------------------------------------------------------------------- |
+        | Traversal            | O(n)                | Visit all nodes (DFS or BFS) to process or display tree contents.           |
+        | Search               | O(n)                | Find a node with a specific value.                                          |
+        | Insertion            | O(1) to O(n)        | Add a new child to a given parent node. (O(1) if parent reference is known) |
+        | Deletion             | O(n)                | Remove a node and all its descendants (subtree deletion).                   |
+        | Height Calculation   | O(n)                | Find the height (max depth) of the tree.                                    |
+        | Find Parent          | O(n)                | Identify the parent of a given node (if no parent pointer exists).          |
+        | Count Nodes / Leaves | O(n)                | Count total or leaf nodes for metrics or validation.                        |
+
+        > Note: `n` is the number of nodes in the tree.
+        > Most operations require traversal 
+          since general trees don’t enforce structure like binary trees do.
+
+--- 
+
+Binary Tree
+    Definition of Binary Tree:
+        - A Binary Tree is 
+          a hierarchical data structure 
+          in which each node has at most two children, 
+          referred to as the left child and the right child.
+
+    Binary Tree Terminologies:
+        | Term                     | Description                                                                                           |
+        | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+        | Node                     | Basic unit containing a data element and links to left and right child nodes.                         |
+        | Root                     | The topmost node in the tree. It has no parent.                                                       |
+        | Parent                   | A node that has a link to one or more child nodes.                                                    |
+        | Child                    | A node that descends from another node (its parent).                                                  |
+        | Left Child               | The node connected via the left link of its parent.                                                   |
+        | Right Child              | The node connected via the right link of its parent.                                                  |
+        | Leaf Node                | A node with no children (i.e., both left and right links are null).                                   |
+        | Subtree                  | A tree formed by any node and its descendants.                                                        |
+        | Siblings                 | Nodes that have the same parent.                                                                      |
+        | Level                    | Distance from the root node (root is level 0 or 1, depending on convention).                          |
+        | Height                   | The length of the longest path from a node to a leaf.                                                 |
+        | Depth                    | The number of edges from the root to the node.                                                        |
+        | Degree                   | Number of children a node has (0, 1, or 2 in binary tree).                                            |
+        | Binary Search Tree (BST) | A binary tree where left child < parent < right child (for all nodes).                                |
+        | Complete Binary Tree     | All levels are completely filled except possibly the last, and all nodes are as far left as possible. |
+        | Full Binary Tree         | Every node has 0 or 2 children.                                                                       |
+        | Perfect Binary Tree      | All internal nodes have two children, and all leaves are at the same level.                           |
+
+    Example
+
+        1. Simple Binary Tree
+            ```
+                 A
+                / \
+               B   C
+              /     \
+             D       E
+            ```
+            * Root: A
+            * Internal Nodes: A, B, C
+            * Leaf Nodes: D, E
+            * Not a full or complete binary tree.
+
+        2. Complete Binary Tree
+            ```
+                 1
+                / \
+               2   3
+              / \  /
+             4  5 6
+            ```
+
+            * All levels are filled except the last, 
+              and nodes are as left as possible.
+            * Good for array representation (e.g., heaps).
+
+        3. Perfect Binary Tree
+            ```
+                  1
+                /   \
+               2     3
+              / \   / \
+             4   5 6   7
+            ```
+
+            * Every internal node has two children.
+            * All leaf nodes are at the same level.
+            * Height = 2, Number of nodes = 2^(h+1) - 1 = 7
+
+        - Each of these binary trees serves 
+          different structural and algorithmic purposes.
+
+    Common Operations on a Binary Tree
+        Binary trees support several fundamental operations 
+        that are essential in various algorithms and data structures. 
+        Here's a breakdown:
+        | Operation               | Time Complexity     | Purpose                                                                              |
+        | ----------------------- | ------------------- | ------------------------------------------------------------------------------------ |
+        | Traversal               | O(n)                | Visit all nodes in a specific order (Inorder, Preorder, Postorder, Level-order).     |
+        | Insertion               | O(n)                | Add a node at the next available position (in level-order-style).                    |
+        | Deletion                | O(n)                | Remove a node while preserving tree structure.                                       |
+        | Search                  | O(n)                | Find a node with a specific value.                                                   |
+        | Find Height             | O(n)                | Compute the longest path from root to leaf.                                          |
+        | Count Nodes / Leaves    | O(n)                | Count total nodes, or count only leaf nodes (with no children).                      |
+        | Mirror / Invert Tree    | O(n)                | Swap left and right children recursively.                                            |
+        | Check for Balanced Tree | O(n)                | Check whether height difference between left and right subtree is ≤ 1 for all nodes. |
+        | Clone / Copy Tree       | O(n)                | Create an exact copy of the tree.                                                    |
+
+        ---
+
+        > Note: `n` = number of nodes in the tree.
+        > Time complexity is linear for most operations because each node may need to be visited once.
+
+---
+
+Binary Search Tree (BST)
+    Definition of Binary Search Tree (BST):
+        A Binary Search Tree (BST) is 
+        a special type of binary tree where:
+            * The left subtree of a node contains 
+              only nodes with values less than the node’s value.
+            * The right subtree of a node contains only nodes 
+              with values greater than the node’s value.
+            * Both left and right subtrees must also be Binary Search Trees.
+
+        This property makes BSTs efficient for searching, inserting, and deleting data.
+
+    Terminologies in Binary Search Tree (BST):
+        | Term              | Description                                                                   |
+        | ----------------- | ----------------------------------------------------------------------------- |
+        | Node              | Basic element holding data and links to left and right children.              |
+        | Root              | The topmost node in the BST.                                                  |
+        | Parent            | A node that has one or more child nodes.                                      |
+        | Child             | A node descending from a parent.                                              |
+        | Left Child        | The node connected to the left link; holds a smaller value than its parent.   |
+        | Right Child       | The node connected to the right link; holds a greater value than its parent.  |
+        | Leaf Node         | A node with no children.                                                      |
+        | Subtree           | A tree formed from a node and its descendants.                                |
+        | Inorder Traversal | Left → Root → Right traversal; returns nodes in sorted (ascending) order.     |
+        | Height            | The length of the longest path from a node to a leaf.                         |
+        | Depth             | The number of edges from the root to the node.                                |
+        | Balanced BST      | A BST where the height difference between left and right subtrees is minimal. |
+        | Unbalanced BST    | A BST skewed to one side (left or right), degrading performance to O(n).      |
+        | Successor         | The smallest node in the right subtree (used in deletion).                    |
+        | Predecessor       | The largest node in the left subtree.                                         |
+
+    Example of a Binary Search Tree:
+            ```
+                50
+                /  \
+              30    70
+             / \    / \
+           20  40  60  80
+            ```
+        * Node `30` is left of `50`, and all of its descendants (`20`, `40`) are < `50`.
+        * Node `70` is right of `50`, and its descendants (`60`, `80`) are > `50`.
+
+    Example 
+        Example 1: Simple BST
+        ```
+              40
+             /  \
+           20    60
+          / \    / \
+        10  30  50  70
+        ```
+        * Left subtree: All values < 40
+        * Right subtree: All values > 40
+        * Inorder Traversal: `10 20 30 40 50 60 70` (sorted order)
+
+        Example 2: BST Built from [50, 30, 70, 20, 40, 60, 80]
+        ```
+             50
+            /  \
+         30    70
+        / \    / \
+      20  40  60  80
+        ```
+        * Inserted in the order: 
+          root = 50, then 30 (left), 70 (right), and so on 
+          maintaining BST property.
+
+        Example 3: Skewed BST (Right-Skewed)
+        ```
+            10
+             \
+              20
+                \
+                30
+                  \
+                  40
+        ```
+        * Happens when elements are inserted in increasing order.
+        * Worst-case BST (like a linked list), time complexities degrade to O(n).
+
+        Example 4: Skewed BST (Left-Skewed)
+        ```
+                40
+               /
+              30
+             /
+            20
+           /
+          10
+        ```
+
+        * Happens with decreasing order inserts.
+
+    Common Operations on BST:
+        | Operation     | Time Complexity (Average Case)     | Purpose                               |
+        | ------------- | ---------------------------------- | ------------------------------------- |
+        | Search        | O(log n)                           | Find if a value exists                |
+        | Insertion     | O(log n)                           | Add a new node                        |
+        | Deletion      | O(log n)                           | Remove a node and rearrange           |
+        | Traversals    | O(n)                               | Inorder (sorted), Preorder, Postorder |
+
+        > Note: If the BST becomes unbalanced 
+          (e.g., like a linked list), 
+          time complexity can degrade to O(n).
+
+
+    Common Operations on a Binary Search Tree (BST)
+        A Binary Search Tree allows 
+        for efficient searching, insertion, and deletion 
+        by maintaining the BST property:
+        Left subtree < Node < Right subtree.
+
+        | Operation          | Average Time Complexity     | Worst Case     | Purpose                                             |
+        | ------------------ | --------------------------- | -------------- | --------------------------------------------------- |
+        | Search             | O(log n)                    | O(n)           | Find whether a value exists in the tree.            |
+        | Insertion          | O(log n)                    | O(n)           | Add a new node while maintaining BST property.      |
+        | Deletion           | O(log n)                    | O(n)           | Remove a node and rearrange the tree.               |
+        | Inorder Traversal  | O(n)                        | O(n)           | Visit nodes in sorted (ascending) order.            |
+        | Preorder/Postorder | O(n)                        | O(n)           | Used for copying or deleting the tree.              |
+        | Find Min/Max       | O(log n)                    | O(n)           | Go left-most (min) or right-most (max) in the tree. |
+        | Find Successor     | O(log n)                    | O(n)           | Find the next higher value (used in deletion).      |
+        | Height of Tree     | O(n)                        | O(n)           | Longest path from root to leaf.                     |
+        | Is Balanced        | O(n)                        | O(n)           | Check if the tree is height-balanced.               |
+
+        > ⚠ Worst-case happens when the BST becomes skewed (like a linked list), 
+             especially with sorted input.
+
+--- 
+
+AVL Tree
+    🔷 Definition:
+        An AVL Tree is 
+        a self-balancing Binary Search Tree (BST) 
+        where the difference of heights (balance factor) 
+        between the left and 
+                right subtrees of every node is 
+        at most 1.
+
+        It is named after its inventors Adelson-Velsky and Landis.
+    🔷 Key Terminologies:
+        | Term                | Description                                                     |
+        | ------------------- | --------------------------------------------------------------- |
+        | Height              | Number of edges on the longest path from a node to a leaf.      |
+        | Balance Factor      | `Balance Factor = height(left subtree) - height(right subtree)` |
+        | Balanced Node       | A node is balanced if its balance factor is `-1`, `0`, or `1`.  |
+        | Rotation            | A restructuring technique used to rebalance the tree.           |
+        | Single Rotation     | One-time adjustment using Left or Right rotation.               |
+        | Double Rotation     | Combination of two rotations (Left-Right or Right-Left).        |
+
+    🔷 Types of Rotations (Used to Restore Balance):
+        | Imbalance Type   | Rotation Needed     | Scenario Example              |
+        | ---------------- | ------------------- | ----------------------------- |
+        | LL (Left-Left)   | Right Rotation      | New node added to left-left   |
+        | RR (Right-Right) | Left Rotation       | New node added to right-right |
+        | LR (Left-Right)  | Left-Right Rotation | New node added to left-right  |
+        | RL (Right-Left)  | Right-Left Rotation | New node added to right-left  |
+
+    🔷 Properties:
+        * Always balanced → guarantees `O(log n)` time for insertion, deletion, and search.
+        * Suitable for applications where frequent insertions and deletions occur.
+
+    🔷 Example 
+        ✅ Example 1: Simple Balanced AVL Tree (No Rotation Needed)
+            Inserting: `30 → 20 → 40`
+                ```
+                   30
+                  /  \
+                20    40
+                ```
+
+            * All nodes have balance factor `0` or `±1`, so no rotation needed.
+
+        ✅ Example 2: LL (Left-Left) Rotation
+            Inserting: `30 → 20 → 10`
+            Before rotation:
+                ```
+                   30
+                   /
+                  20
+                 /
+                10
+                ```
+
+            Balance factor at node `30` = `2` (unbalanced)
+            ➡ Apply Right Rotation on `30`.
+
+            After rotation:
+                ```
+                  20
+                 /   \
+                10    30
+                ```
+
+        ✅ Example 3: RR (Right-Right) Rotation
+            Inserting: `30 → 40 → 50`
+            Before rotation:
+                ```
+                    30
+                     \
+                      40
+                       \
+                        50
+                ```
+
+            Balance factor at node `30` = `-2`
+            ➡ Apply Left Rotation on `30`.
+
+            After rotation:
+                ```
+                   40
+                  /  \
+                30    50
+                ```
+
+        ✅ Example 4: LR (Left-Right) Rotation
+            Inserting: `30 → 10 → 20`
+            Before rotation:
+                ```
+                    30
+                   /
+                 10
+                   \
+                    20
+                ```
+
+            Balance factor at `30` = `2`
+            ➡ Apply Left Rotation on 10, then Right Rotation on 30
+
+            After rotation:
+                ```
+                    20
+                    /  \
+                10    30
+                ```
+
+        ✅ Example 5: RL (Right-Left) Rotation
+            Inserting: `30 → 50 → 40`
+            Before rotation:
+            ```
+                30
+                \
+                50
+                /
+                40
+            ```
+
+            Balance factor at `30` = `-2`
+            ➡ Apply Right Rotation on 50, then Left Rotation on 30
+
+            After rotation:
+                ```
+                    40
+                    /  \
+                30    50
+                ```
+
+    ✅ How to Check if an AVL Tree Node is Unbalanced
+        In an AVL tree, every node must satisfy the balance condition:
+        > Balance Factor = `height(left subtree) - height(right subtree)`
+
+        🔷 When is a node unbalanced?
+            A node is considered unbalanced 
+            if its balance factor is not in {-1, 0, +1}.
+            | Balance Factor | Meaning                      | Status                   |
+            | -------------- | ---------------------------- | -------------------------|
+            | `0`            | Perfectly balanced           | ✅ Balanced              |
+            | `+1` or `-1`   | Slightly heavier on one side | ✅ Balanced              |
+            | `> +1`         | Too heavy on the left        | ❌ Unbalanced (LL or LR) |
+            | `< -1`         | Too heavy on the right       | ❌ Unbalanced (RR or RL) |
+
+      
+        🔷 How to Check Balance Factor in Code (Python Example):
+            ```python
+            def get_height(node):
+                if not node:
+                    return 0
+                return max(get_height(node.left), get_height(node.right)) + 1
+
+            def get_balance_factor(node):
+                if not node:
+                    return 0
+                return get_height(node.left) - get_height(node.right)
+
+            def is_unbalanced(node):
+                bf = get_balance_factor(node)
+                return bf < -1 or bf > 1
+            ```
+
+        🔧 Example:
+            If a node has:
+                * Left subtree height = 3
+                * Right subtree height = 1
+                → Balance Factor = `3 - 1 = +2` → ❌ Unbalanced
+
+    ✅ What is LL in AVL Trees?
+        LL stands for Left-Left imbalance, 
+        which occurs in an AVL Tree when:
+            * A new node is inserted into 
+              the left subtree of the left child of a node, and
+            * This causes the balance factor of that ancestor node 
+              to become greater than +1, making it left-heavy.
+
+        🔷 When does LL happen?
+            Example insertion: `30 → 20 → 10`
+            ```
+                 30
+                /
+               20
+              /
+             10
+            ```
+
+        Here:
+            * Node `30` becomes unbalanced after inserting `10` 
+              into the left of left child.
+            * Balance factor of `30` becomes `+2` → LL case.
+
+
+        🔷 How to fix LL imbalance?
+            ✅ Apply a single Right Rotation on the unbalanced node (here, `30`).
+
+            After right rotation:
+            ```
+                 20
+                /  \
+              10    30
+            ```
+
+            Now the tree is balanced.
+
+        🔧 Rule of Thumb:
+        > LL case = insert left of left → Right Rotation needed
+
+    ✅ How to Fix an LL (Left-Left) Imbalance in an AVL Tree
+        Once you've identified that a node is 
+        unbalanced due to Left-Left (LL) insertion, you fix it using a Right Rotation.
+
+        🔷 When does LL happen?
+            You inserted into the left subtree of the left child of a node.
+            For example: insert `30 → 20 → 10`
+
+            ```
+                30
+               /
+              20
+             /
+            10
+            ```
+
+            * Balance factor at `30` = `2` (unbalanced)
+            * Left child `20` also has a left-heavy subtree ⇒ LL Case
+
+            🔧 Fix: Perform a Right Rotation
+                Let’s call the unbalanced node `z = 30`, its left child `y = 20`, and `y`’s left child `x = 10`.
+
+        #🔁 Right Rotation Steps:
+            ```plaintext
+                 z (30)                     y (20)
+                /                         /   \
+               y (20)       →           x(10)  z(30)
+              /   \                           /
+             x(10) T3                        T3
+            ```
+ 
+        🔢 ✅ Code Snippet (Python-like Pseudocode)
+            ```python
+            def right_rotate(z):
+                y = z.left
+                T3 = y.right
+
+                # Perform rotation
+                y.right = z
+                z.left = T3
+
+                # Update heights (if maintaining)
+                z.height = 1 + max(height(z.left), height(z.right))
+                y.height = 1 + max(height(y.left), height(y.right))
+
+                return y  # New root after rotation
+            ```
+
+        🔢 Java Version
+            ```java
+            Node rightRotate(Node z) {
+                Node y = z.left;
+                Node T3 = y.right;
+
+                // Rotation
+                y.right = z;
+                z.left = T3;
+
+                // Update heights
+                z.height = Math.max(height(z.left), height(z.right)) + 1;
+                y.height = Math.max(height(y.left), height(y.right)) + 1;
+
+                return y; // New root after rotation
+            }
+            ```
+
+    ✅ `RR` stands for Right-Right Rotation 
+        — a specific type of imbalance that occurs when:
+
+        > A node is inserted into 
+          the right subtree of the right child of an unbalanced node.
+
+        ✅ RR (Right-Right) Case – When It Happens
+
+        This happens when:
+
+        * You insert a node into the right of right, like:
+        Insert → `30 → 40 → 50`
+
+        Tree before imbalance:
+        ```
+            30
+             \
+              40
+                \
+                50
+        ```
+
+        This creates a right-heavy imbalance at node `30` 
+        (balance factor becomes -2), and 
+        the deepest inserted node (`50`) 
+        is in the right subtree of the right child (`40`).
+
+
+        🔧 Fixing RR Imbalance: Left Rotation
+        To fix it, you perform a left rotation at the unbalanced node (`30`):
+        ```
+             40
+            /  \
+          30    50
+        ```
+
+        🔁 Left Rotation Logic
+        Let’s say `z` is the unbalanced node (`30`), and 
+        `y` is its right child (`40`):
+
+        ```java
+        Node leftRotate(Node z) {
+            Node y = z.right;
+            Node T2 = y.left;
+
+            y.left = z;
+            z.right = T2;
+
+            // update heights
+            z.height = 1 + max(height(z.left), height(z.right));
+            y.height = 1 + max(height(y.left), height(y.right));
+
+            return y; // new root after rotation
+        }
+        ```
+
+        📌 Summary
+        | Condition                    | Imbalance Type | Fix               |
+        | ---------------------------- | -------------- | ----------------- |
+        | Inserted into right of right | RR             | Left Rotation     |
+
+    ✅ What is LR (Left-Right) Case?
+        An LR imbalance occurs when:
+            > A node is inserted into 
+              the right subtree of the left child of an unbalanced node.
+
+        🔎 When It Happens
+            Example: Insert in this order → `50 → 30 → 40`
+            Tree before imbalance:
+                ```
+                    50
+                    /
+                  30
+                    \
+                    40
+                ```
+
+            * The node `50` becomes unbalanced (balance factor = +2)
+            * The imbalance is in the left subtree of `50`, 
+              and within that, in the right subtree of `30`
+            * That makes it a Left-Right case
+
+        🛠 Fixing LR Case: Double Rotation
+            You need two steps:
+            1. Left Rotation on the left child (`30`)
+            2. Right Rotation on the unbalanced node (`50`)
+
+        #Step 1: Left Rotate `30`
+            ```
+                50
+                /
+              40
+             /
+            30
+            ```
+
+        #Step 2: Right Rotate `50`
+            ```
+                 40
+                /  \
+              30    50
+            ```
+
+        Now the AVL tree is balanced again.
+
+
+        🔁 Code Outline (Java or Pseudocode)
+            ```java
+            if (balance > 1 && key > node.left.value) {
+                node.left = leftRotate(node.left);  // Step 1
+                return rightRotate(node);           // Step 2
+            }
+            ```
+
+        📌 Summary
+            | Condition                       | Imbalance Type | Fix (Rotations)       |
+            | ------------------------------- | -------------- | --------------------- |
+            | Insert into right of left child | LR             | Left + Right Rotation |
+
+    ✅ What is LR (Left-Right) Case?
+        The RL (Right-Left) case in an AVL Tree occurs when:
+            > A node is inserted into the left subtree of the right child of an unbalanced node.
+
+        ✅ When RL Happens
+            Example insertion order: `30 → 50 → 40`
+
+            Tree before imbalance:
+
+            ```
+              30
+                \
+                50
+                /
+              40
+            ```
+
+            * Node `30` becomes unbalanced with a balance factor of `-2`
+            * The imbalance is in the right subtree of `30`
+            * But the newly inserted node `40` is in the left subtree of 50, making it an RL case
+
+        🛠 How to Fix RL Case
+            You perform two rotations:
+                1. Right Rotation on the right child (`50`)
+                2. Left Rotation on the unbalanced node (`30`)
+
+        #Step 1: Right Rotate `50`
+            ```
+                30
+                 \
+                 40
+                    \
+                    50
+            ```
+
+        #Step 2: Left Rotate `30`
+            ```
+                 40
+                /  \
+              30    50
+            ```
+
+            Tree is now balanced.
+
+        🔁 Code Pattern (Pseudocode / Java-style)
+            ```java
+            if (balance < -1 && key < node.right.value) {
+                node.right = rightRotate(node.right);  // Step 1
+                return leftRotate(node);               // Step 2
+            }
+            ```
+
+        📌 Summary
+
+        | Condition                       | Imbalance Type | Fix (Rotations)       |
+        | ------------------------------- | -------------- | --------------------- |
+        | Insert into left of right child | RL             | Right + Left Rotation |
+
+--- 
+
+Red-Black Tree
+    A Red-Black Tree (RBT) is 
+    a type of self-balancing Binary Search Tree (BST) 
+    where each node has an extra bit for color 
+    — either red or black. 
+    
+    The balancing of the tree is not perfect 
+    but ensures that the longest path from root to a leaf is 
+    no more than twice the length of the shortest path. 
+    
+    This guarantees that basic operations 
+    like insertion, deletion, and search all take O(log n) time.
+
+    ✅ Red-Black Tree Properties (Rules):
+        1. Node Color: Every node is either red or black.
+        2. Root Property: The root is always black.
+        3. Leaf Property: Every leaf (NIL pointer) is considered black.
+        4. Red Property: Red nodes cannot have red children (no two red nodes in a row).
+        5. Black Height Property: From a node to its descendant leaves, every path contains the same number of black nodes.
+
+    🔑 Red-Black Tree Terminologies:
+        | Term                | Description                                                                               |
+        | ------------------- | ----------------------------------------------------------------------------------------- |
+        | Root                | The topmost node of the tree, always black.                                               |
+        | Leaf (NIL Node)     | Special sentinel nodes that are black and represent the absence of a child.               |
+        | Color               | Each node is either red or black. Helps maintain balance.                                 |
+        | Black Height        | Number of black nodes on any path from a node to a leaf (not counting the node itself).   |
+        | Uncle               | The sibling of a node’s parent. Important in re-balancing during insertions.              |
+        | Rotation            | A local tree restructuring operation to maintain BST and balancing properties. Two types: |
+        |                     | * Left Rotation * Right Rotation                                                          |
+        | Recoloring          | Changing a node's color from red to black or vice versa during fix-up operations.      |
+        | Double Red Violation| When a red node has a red parent — violates the Red Property and needs to be fixed.    |
+
+    🔄 Common Operations
+        * Insertion: Insert as in BST → color the node red → fix violations via rotations/recoloring.
+        * Deletion: Replace as in BST → if black node removed, fix-up needed to maintain properties.
+
+    🔄 Red-Black Tree Operations
+
+        Red-Black Tree (RBT) supports standard Binary Search Tree operations 
+        — insertion, deletion, and search 
+        — with additional balancing logic to maintain its 5 properties.
+
+        🔍 1. Search Operation
+            * Same as in a regular BST: traverse left or right based on key comparison.
+            * Time Complexity: `O(log n)` in balanced case.
+
+        ➕ 2. Insertion Operation
+            Steps:
+                1. Insert node like in a BST.
+                2. Color the new node red.
+                3. Fix violations using:
+            * Recoloring if the uncle is red.
+            * Rotations (left/right) if the uncle is black.
+            Cases:
+                * Case 1: New node is root → color it black.
+                * Case 2: Parent is black → tree is valid.
+                * Case 3: Parent and uncle are red → recolor.
+                * Case 4/5: Parent is red, uncle is black → rotate and recolor.
+
+        ➖ 3. Deletion Operation
+            Steps:
+                1. Delete node like in BST.
+                2. If deleted node is red, no fix needed.
+                3. If black, fix-up is required to preserve black-height property.
+            Cases:
+                * Use a "double black" concept to represent missing black node.
+                * Fix using combinations of:
+                    * Sibling color checks
+                    * Rotations
+                    * Recoloring
+
+            Deletion is more complex than insertion due to multiple fix-up scenarios.
+
+        🔁 4. Rotations
+            Used during insert/delete fix-up to restore RBT properties.
+
+            * Left Rotation (LR):
+
+            * Performed when a right child becomes the new root of the subtree.
+            * Right Rotation (RR):
+
+            * Performed when a left child becomes the new root of the subtree.
+            * Left-Right (LR) / Right-Left (RL):
+
+            * Double rotations used in more complex fix-up scenarios.
+
+        ✅ Operation Complexities
+            | Operation | Time Complexity |
+            | --------- | --------------- |
+            | Search    | `O(log n)`      |
+            | Insert    | `O(log n)`      |
+            | Delete    | `O(log n)`      |
+
+    Example
+        A simple Red-Black Tree (RBT) Example 
+        to illustrate insertion and balancing:
+
+        ✅ Let's Insert the Following Values in Order:
+            `10`, `20`, `30`
+
+        ⚙ Step-by-Step RBT Insertion:
+        🔹 Insert 10
+            * Tree is empty → insert 10 as root
+            * As per RBT rules: Root must be black
+
+            ```
+            10(B)
+            ```
+
+        🔹 Insert 20
+            * 20 > 10 → insert as right child of 10
+            * Inserted node is colored red
+
+            ```
+               10(B)
+                    \
+                    20(R)
+            ```
+
+            No violation → Parent is black → ✅ Tree is valid.
+
+        #🔹 Insert 30
+            * 30 > 20 → insert as right child of 20 (which is red)
+            * Now: Red (30) → Red (20) → Violation of RBT Rule 4 (no two reds in a row)
+
+            Fix: Perform Left Rotation at 10 and recolor
+
+        Before rotation:
+            ```
+               10(B)
+                    \
+                    20(R)
+                        \
+                        30(R)
+            ```
+
+        After fix (rotate left at 10):
+            * 20 becomes new root
+            * 10 becomes left child
+            * 30 remains right child
+            * Recolor 20 → black, 10 and 30 → red
+            ```
+                 20(B)
+                /    \
+             10(R)  30(R)
+            ```
+
+        Now RBT properties are satisfied ✅
+
+    Example 
+        a structured breakdown of 
+        all major combinations of insertions and deletions 
+        in a Red-Black Tree (RBT), 
+        with examples for each case. 
+        These demonstrate how violations are resolved using recoloring and rotations.
+
+        🔼 INSERTION CASES
+        ✅ Case 1: Inserting the root
+        * Insert node → it becomes black (rule: root is black)
+            Insert: `10`
+            Result:
+
+            ```
+            10(B)
+            ```
+
+        ✅ Case 2: Parent is black
+            * Insert a red child under a black node → no fix needed.
+
+            Insert: `10`, `5`
+            Result:
+
+            ```
+              10(B)
+              /
+            5(R)
+            ```
+        🔁 Case 3: Parent and Uncle are Red
+            * Recolor parent and uncle to black; grandparent to red → might recurse upward.
+
+            Insert: `10`, `5`, `15`, `1`
+            Result before fix:
+            ```
+                10(B)
+                /    \
+             5(R)  15(R)
+              /
+            1(R)
+            ```
+
+            Violation: 5 and 1 are red → 5's sibling 15 is also red
+            Fix: Recolor 5, 15 → black; 10 → red
+            ```
+                10(R)
+                /    \
+             5(B)  15(B)
+              /
+            1(R)
+            ```
+
+            Now root is red → recolor back to black.
+
+        🔁 Case 4: Left-Right (LR) or Right-Left (RL)
+            * Rotate twice (zig-zag shape), then recolor
+
+            Insert: `30`, `10`, `20`
+
+            Before Fix:
+
+            ```
+                30(B)
+                /
+             10(R)
+                \
+               20(R)
+            ```
+
+            Fix:
+
+            * Left rotation on 10 → right rotation on 30
+            * 20 becomes new root, recolored to black
+
+            After Fix:
+
+            ```
+                20(B)
+                /    \
+            10(R)  30(R)
+            ```
+
+        🔁 Case 5: Left-Left (LL) or Right-Right (RR)
+            * Single rotation and recoloring
+            Insert: `10`, `5`, `1`
+            Before Fix:
+            ```
+                10(B)
+                /
+               5(R)
+              /
+            1(R)
+            ```
+
+            Fix: Right rotation on 10
+
+            After Fix:
+            ```
+                5(B)
+               /   \
+            1(R)  10(R)
+            ```
+
+        🔽 DELETION CASES
+            ✅ Case 1: Deleting a red node
+
+            * Just remove it — no violation
+
+            Tree:
+                ```
+                    10(B)
+                   /
+                5(R)
+                ```
+
+            Delete: `5` → No fix needed
+            Result:
+                ```
+                10(B)
+                ```
+
+        🔁 Case 2: Deleting black node with red child
+            * Replace and recolor child to black
+
+            Tree:
+                ```
+                10(B)
+                    \
+                    20(R)
+                ```
+
+            Delete: `10`
+            Result:
+                ```
+                20(B)
+                ```
+
+        🔁 Case 3: Double Black – Sibling is Black with Red Child
+            Tree:
+                ```
+                    40(B)
+                    /    \
+                20(B)   60(B)
+                        /
+                    50(R)
+                ```
+
+            Delete: `20`
+
+            Fix:
+                * Left rotation at 40
+                * Recolor
+
+            After Fix:
+                ```
+                    60(B)
+                    /
+                40(B)
+                    \
+                    50(R)
+                ```
+
+        🔁 Case 4: Sibling is Black with Black Children
+            * Recolor sibling red; push double-black upward
+            Tree:
+                ```
+                    40(B)
+                    /    \
+                20(B)   60(B)
+                ```
+
+            Delete: `20`
+
+            Fix:
+                * 60 recolored red
+                * 40 becomes double black → now root, recolor black
+
+        🔁 Case 5: Sibling is Red
+            * Rotate, recolor, then proceed with standard cases
+
+            Tree:
+                ```
+                    40(B)
+                    /    \
+                20(B)   60(R)
+                ```
+
+            Delete: `20`
+
+            Fix:
+                * Rotate left at 40 → 60 becomes new root
+                * Then handle deletion as sibling becomes black again
+
+            Result:
+                ```
+                    60(B)
+                    /
+                40(B)
+                ```
+
+---
+
+Use Cases:
+    Here’s a breakdown of the use cases 
+    for each type of tree data structure, 
+    showing where and why they're applied in real-world problems:
+
+    🌲 1. General Tree
+        A tree where nodes can have any number of children.
+        Use Cases:
+            * File systems (folders and subfolders)
+            * XML/HTML DOM representation
+            * Organization hierarchy structures
+            * Game development (decision trees, game states)
+            * Category trees in e-commerce
+
+    🌳 2. Binary Tree
+        A tree where each node has at most two children (left and right).
+        Use Cases:
+            * Expression trees (mathematical expressions)
+            * Syntax trees in compilers
+            * Huffman coding trees (for compression)
+            * Binary heap (priority queues)
+            * Foundation for more advanced trees like BST, AVL, etc.
+
+    🌿 3. Binary Search Tree (BST)
+        A binary tree with the left child < parent < right child property.
+        Use Cases:
+            * Efficient searching and insertion when tree is balanced
+            * Dictionary and symbol table implementations
+            * In-order traversal to get sorted order
+            * Handling dynamic ordered data
+
+        > ❗ Downside: Can become skewed and degrade to O(n) if not balanced.
+
+    🌲 4. AVL Tree
+        A self-balancing BST where balance factor of each node is between -1 and 1.
+        Use Cases:
+            * In-memory databases requiring high read performance
+            * Indexing in databases where more frequent read and less frequent write
+            * Real-time applications where strictly balanced tree is beneficial
+            * Memory-limited systems (AVL trees do fewer rebalancing steps for lookup)
+
+    🌳 5. Red-Black Tree (RBT)
+        A less strictly balanced BST with guaranteed O(log n) for all operations.
+        Use Cases:
+            * Language libraries: C++ STL (`map`, `set`), Java (`TreeMap`, `TreeSet`)
+            * Linux Kernel memory management
+            * Multithreaded systems (fewer rotations than AVL, so faster updates)
+            * Databases where frequent insertions and deletions happen
+
+    Summary Table
+        | Tree Type      | Balanced?   | Main Use Case                           |
+        | -------------- | ----------- | --------------------------------------- |
+        | General Tree   | ❌          | File systems, DOM trees                 |
+        | Binary Tree    | ❌          | Expression trees, heaps                 |
+        | BST            | ❌          | Ordered data with minimal writes        |
+        | AVL Tree       | ✅ (Strict) | Fast reads, database indexes            |
+        | Red-Black Tree | ✅ (Loose)  | Library containers, OS-level scheduling |
+
+    ...
+    
+    🧩 Use Cases of Red-Black Tree (RBT)
+        Red-Black Trees are widely used 
+        in systems and libraries 
+        where balanced search performance and ordered data are essential. 
+        Below are key use cases:
+        🔹 1. Self-Balancing Sorted Containers
+            RBT ensures that the tree height remains `O(log n)`, 
+            making operations efficient even in worst-case scenarios.
+            Examples:
+                * `TreeSet`, `TreeMap` in Java
+                * `std::map`, `std::set` in C++ STL
+        🔹 2. Database Indexing
+            Used in databases and file systems 
+            to maintain indexes 
+            where quick lookup, insertion, and deletion are required 
+            while maintaining sorted order.
+        🔹 3. Memory Management (OS & JVM)
+            * Used in Linux kernel to manage memory regions (e.g., Virtual Memory Areas).
+            * JVM uses RBT in its internal memory allocators and object tracking.
+        🔹 4. Scheduling and Event Simulation
+            RBT can efficiently handle time-ordered tasks or events, 
+            where insertions, deletions, and 
+            finding the next event must be fast.
+        🔹 5. Associative Containers in Compilers
+            Used in symbol tables to store variables/functions 
+            in sorted order and 
+            to allow efficient updates.
+        🔹 6. Network Routing Tables
+            Used in software-defined networking 
+            for maintaining ordered routing tables.
+        ✅ Why RBT Over Other Trees?
+            * Guarantees `O(log n)` time 
+              for all operations.
+            * Safer choice in applications 
+              where worst-case performance must be bounded 
+              (unlike AVL trees that may do more rotations).
+
+---
+
+Trie 
+    📘 Definition of Trie
+        A Trie (pronounced *"try"*) is 
+        a special type of tree data structure 
+        used to efficiently store and retrieve strings, 
+        especially useful when dealing with prefix-based searches. 
+        
+        It is also known as a prefix tree.
+
+    📌 Trie Terminologies
+        | Term             | Description                                                        |
+        | ---------------- | ------------------------------------------------------------------ |
+        | Node             | Each node represents a single character of a word.                 |
+        | Root             | The starting node; usually empty or `null` character.              |
+        | Edge             | Connects a parent node to a child, representing a character.       |
+        | Children         | A node can have multiple child nodes for different characters.     |
+        | Path             | Sequence of characters from the root to a node forms a prefix.     |
+        | End of Word Flag | A boolean marker at a node indicating that a word ends here.       |
+
+    💡 Properties and Qualities of Trie
+        1. Hierarchical Structure: Organizes data in levels corresponding to characters 
+        in the input strings.
+        2. No Redundancy: Shared prefixes are stored only once.
+        3. Alphabet Size Based Branching: Each node may have up to `N` children 
+        where `N` is the size of the character set 
+        (e.g., 26 for lowercase a–z).
+        4. Fast Search: Time complexity for search, insert, and delete is 
+        O(L) where `L` is the length of the word 
+        (independent of total number of words).
+        5. Space Usage: May use more memory than a hashmap 
+        if strings do not share prefixes, 
+        but efficient when storing lots of words with common prefixes.
+        6. Lexicographical Ordering: In-order traversal can give sorted order of words.
+
+
+    🧰 Use Cases of Trie
+        | Use Case                             | Description                                               |
+        | ------------------------------------ | --------------------------------------------------------- |
+        | 🔤 Auto-complete / Auto-suggest      | Suggests words based on typed prefix.                     |
+        | 🔍 Spell Checking                    | Quickly validates if a string is a valid word.            |
+        | 🔡 Prefix Matching                   | Efficiently finds all words starting with a given prefix. |
+        | 🆎 Dictionary Implementation         | Ideal for storing a dynamic dictionary of words.          |
+        | 🧮 IP Routing (Longest Prefix Match) | Used in network routers for fast lookups.                 |
+        | 🧠 Word Games & Solvers              | Useful in Scrabble/Boggle solvers.                        |
+        | 🔄 DNA Sequence Matching             | Finds patterns in bioinformatics data.                    |
+
+
+    Examples of Trie (Prefix Tree) 
+        - to show how it works for common operations like insertion, search, and prefix matching.
+        🔤 Words to Insert into Trie
+
+        Let’s insert the following words into a Trie:
+        `["cat", "cap", "can", "bat", "bake"]`
+
+        🌲 Trie Structure After Insertion
+            ```
+            (root)
+            ├── c
+            │   └── a
+            │       ├── t (end)
+            │       ├── p (end)
+            │       └── n (end)
+            └── b
+                └── a
+                    ├── t (end)
+                    └── k
+                        └── e (end)
+            ```
+
+            Each path from root to a node with `(end)` represents a complete word.
+
+
+        ✅ Example 1: Search
+            Check if `"cap"` exists:
+                * root → c → a → p → ✅ found → Returns: true
+
+            Check `"cab"`:
+                * root → c → a → b → ❌ not found → Returns: false
+
+        🔍 Example 2: Prefix Match
+            Check if any word starts with `"ca"`:
+                * root → c → a → ✅ exists → Returns: true
+
+            Check for prefix `"ba"`:
+                * root → b → a → ✅ exists → Returns: true
+
+            Check for prefix `"z"`:
+                * root → z → ❌ → Returns: false
+
+        ➕ Example 3: Insert "cape"
+            Path: `c → a → p → e`
+            * Since `"cap"` already exists, only add `e` as a child of `p`
+            * Mark node `e` as end of word
+
+        🧠 Summary of Trie Capabilities
+            | Operation     | Description                           |
+            | ------------- | ------------------------------------- |
+            | Insert        | Add words character by character      |
+            | Search        | Check if exact word exists            |
+            | StartsWith    | Check if any word begins with prefix  |
+            | Auto-complete | Return all words starting with prefix |
+
+---
+
+B-Tree 
+    ✅ Definition: B-Tree
+    A B-Tree is 
+    a self-balancing, multi-way search tree 
+    optimized for disk storage and fast access. 
+    
+    Unlike binary search trees (BSTs), 
+    each node can have more than two children and 
+    can store multiple keys, 
+    making B-Trees ideal for systems 
+    that read and write large blocks of data.
+
+    📘 Terminologies in B-Tree
+        | Term          | Description                                                                                                 |
+        | ------------- | ----------------------------------------------------------------------------------------------------------- |
+        | Order (t)     | Minimum degree; defines the range of children per node. A node has at most `2t` children and `2t - 1` keys. |
+        | Node          | A structure that contains multiple keys and children pointers.                                              |
+        | Root          | Topmost node; can have fewer than `t-1` keys.                                                               |
+        | Internal Node | A node that is not a leaf and has at least two children.                                                    |
+        | Leaf Node     | Node with no children; holds data or points to data blocks.                                                 |
+        | Height        | The number of levels in the B-Tree.                                                                         |
+
+    🌲 Key Properties of B-Tree (Order t)
+        1. Every node can have at most `2t - 1` keys and `2t` children.
+        2. Every node (except root) must have at least `t - 1` keys.
+        3. All leaves appear at the same level (perfectly balanced).
+        4. Keys in a node are stored in sorted order.
+        5. Supports efficient search, insert, delete in O(log n) time.
+        6. Grows and shrinks from the root, not the leaves.
+
+    🌟 Qualities
+        * Self-balancing: Automatically maintains balance on insert/delete.
+        * Efficient for disk storage: Reduces disk I/O because of fewer levels.
+        * Scalable: Suitable for huge datasets.
+        * Can store more data per node than binary trees (due to multiple keys).
+
+    🔧 Use Cases of B-Tree
+        | Domain                          | Purpose                                   |
+        | ------------------------------- | ----------------------------------------- |
+        | Databases (MySQL, Oracle)       | Used in indexing large tables.            |
+        | File systems (NTFS, HFS+, ext4) | Directory structure, file block mapping.  |
+        | Operating Systems               | Virtual memory, page tables, etc.         |
+        | Embedded systems                | Index storage in low-memory environments. |
+        | Search Engines                  | Maintaining sorted indexes on disk.       |
+    
+    Examples 
+        that illustrate B-Tree operations 
+        like insertion and structure at different stages. 
+        We'll use a B-Tree of order `t = 2` 
+        (i.e., a node can have a maximum of `2t - 1 = 3 keys` and `2t = 4 children`).
+
+        🌱 Start with empty B-Tree (`t = 2`)
+            Insert: `10`
+                ```
+                [10]
+                ```
+
+        🌱 Insert: `20, 5`
+            ```
+            [5 10 20]
+            ```
+
+        🔀 Insert: `6` → Causes Split
+            Now node has 4 keys (`5 6 10 20`), which exceeds `3`. So, split the node:
+                * Middle key = `10` → goes up
+                * Left = `[5 6]`, Right = `[20]`
+            ```
+                    [10]
+                /    \
+            [5 6]   [20]
+            ```
+
+        🌱 Insert: `12, 30, 7`
+            * Insert `12`: goes to right child `[20]` → becomes `[12 20]`
+            * Insert `30`: `[12 20 30]` (no split needed yet)
+            * Insert `7`: goes to left child `[5 6]` → becomes `[5 6 7]` (still fine)
+            ```
+                    [10]
+                /    \
+            [5 6 7]  [12 20 30]
+            ```
+
+        ---
+
+        ⚠️ Insert: `4` → Left node `[5 6 7]` becomes `[4 5 6 7]` → needs split
+            * Mid = `6`, push to root. Root becomes `[6 10]`
+            * Children: `[4 5]`, `[7]`, `[12 20 30]`
+            ```
+                    [6 10]
+                    /   |    \
+            [4 5]  [7]  [12 20 30]
+            ```
+
+        🧠 Observation
+            * B-Tree grows in height only when the root splits.
+            * All leaf nodes are always at the same level.
+    ...
+
+    Basic operations 
+        on a B-Tree, especially for order `t` (minimum degree):
+
+        1. 🔍 Search(key)
+            * Goal: Find whether a key exists in the B-Tree.
+            * Approach:
+                * Start from the root, compare `key` with the keys in the node.
+                * If not found and not a leaf, 
+                  recursively search in the appropriate child.
+            * Time Complexity: `O(log n)` (due to balanced structure)
+
+        2. ➕ Insert(key)
+            * Goal: Insert a key while maintaining B-Tree properties.
+            * Steps:
+                * Traverse down to the correct leaf node.
+                * If full (i.e., contains `2t - 1` keys), split the node.
+                * Promote the middle key to the parent.
+                * Recursively split up if necessary (even the root).
+            * Time Complexity: `O(log n)`
+
+        3. ➖ Delete(key)
+            * Goal: Remove a key and maintain B-Tree rules.
+            * Cases:
+
+            1. If the key is in a leaf, delete directly.
+            2. If the key is in an internal node, replace it with:
+                * The predecessor (max key in left subtree), or
+                * The successor (min key in right subtree).
+                * Then delete recursively from that subtree.
+            3. If the child has < `t` keys, merge or borrow 
+               to satisfy minimum key requirement.
+            * Time Complexity: `O(log n)`
+                > 🔧 Note: Deletion is more complex than 
+                  insertion due to balancing requirements.
+
+        4. 📏 Traverse()
+            * Used to print or walk through the tree in sorted order.
+            * In-order traversal: for every node, 
+              visit child[i] → key[i] → child[i+1].
+
+        5. 🧮 Split and Merge (Internal Operations)
+            * Split: Occurs during insertion if a node is full.
+            * Merge: Occurs during deletion 
+              if two children each have less than `t` keys.
+
+        Summary Table
+            | Operation | Description                      | Time Complexity |
+            | --------- | -------------------------------- | --------------- |
+            | Search    | Find a key                       | `O(log n)`      |
+            | Insert    | Add a key (with split if needed) | `O(log n)`      |
+            | Delete    | Remove a key (may need merge)    | `O(log n)`      |
+            | Traverse  | Sorted walk of all keys          | `O(n)`          |
