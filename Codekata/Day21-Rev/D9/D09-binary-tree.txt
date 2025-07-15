@@ -1,0 +1,92 @@
+Binary Tree
+    Definition of Binary Tree:
+        - A Binary Tree is 
+          a hierarchical data structure 
+          in which each node has at most two children, 
+          referred to as the left child and the right child.
+
+    Binary Tree Terminologies:
+        | Term                     | Description                                                                                           |
+        | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+        | Node                     | Basic unit containing a data element and links to left and right child nodes.                         |
+        | Root                     | The topmost node in the tree. It has no parent.                                                       |
+        | Parent                   | A node that has a link to one or more child nodes.                                                    |
+        | Child                    | A node that descends from another node (its parent).                                                  |
+        | Left Child               | The node connected via the left link of its parent.                                                   |
+        | Right Child              | The node connected via the right link of its parent.                                                  |
+        | Leaf Node                | A node with no children (i.e., both left and right links are null).                                   |
+        | Subtree                  | A tree formed by any node and its descendants.                                                        |
+        | Siblings                 | Nodes that have the same parent.                                                                      |
+        | Level                    | Distance from the root node (root is level 0 or 1, depending on convention).                          |
+        | Height                   | The length of the longest path from a node to a leaf.                                                 |
+        | Depth                    | The number of edges from the root to the node.                                                        |
+        | Degree                   | Number of children a node has (0, 1, or 2 in binary tree).                                            |
+        | Binary Search Tree (BST) | A binary tree where left child < parent < right child (for all nodes).                                |
+        | Complete Binary Tree     | All levels are completely filled except possibly the last, and all nodes are as far left as possible. |
+        | Full Binary Tree         | Every node has 0 or 2 children.                                                                       |
+        | Perfect Binary Tree      | All internal nodes have two children, and all leaves are at the same level.                           |
+
+    Example
+
+        1. Simple Binary Tree
+            ```
+                 A
+                / \
+               B   C
+              /     \
+             D       E
+            ```
+            * Root: A
+            * Internal Nodes: A, B, C
+            * Leaf Nodes: D, E
+            * Not a full or complete binary tree.
+
+        2. Complete Binary Tree
+            ```
+                 1
+                / \
+               2   3
+              / \  /
+             4  5 6
+            ```
+
+            * All levels are filled except the last, 
+              and nodes are as left as possible.
+            * Good for array representation (e.g., heaps).
+
+        3. Perfect Binary Tree
+            ```
+                  1
+                /   \
+               2     3
+              / \   / \
+             4   5 6   7
+            ```
+
+            * Every internal node has two children.
+            * All leaf nodes are at the same level.
+            * Height = 2, Number of nodes = 2^(h+1) - 1 = 7
+
+        - Each of these binary trees serves 
+          different structural and algorithmic purposes.
+
+    Common Operations on a Binary Tree
+        Binary trees support several fundamental operations 
+        that are essential in various algorithms and data structures. 
+        Here's a breakdown:
+        | Operation               | Time Complexity     | Purpose                                                                              |
+        | ----------------------- | ------------------- | ------------------------------------------------------------------------------------ |
+        | Traversal               | O(n)                | Visit all nodes in a specific order (Inorder, Preorder, Postorder, Level-order).     |
+        | Insertion               | O(n)                | Add a node at the next available position (in level-order-style).                    |
+        | Deletion                | O(n)                | Remove a node while preserving tree structure.                                       |
+        | Search                  | O(n)                | Find a node with a specific value.                                                   |
+        | Find Height             | O(n)                | Compute the longest path from root to leaf.                                          |
+        | Count Nodes / Leaves    | O(n)                | Count total nodes, or count only leaf nodes (with no children).                      |
+        | Mirror / Invert Tree    | O(n)                | Swap left and right children recursively.                                            |
+        | Check for Balanced Tree | O(n)                | Check whether height difference between left and right subtree is ≤ 1 for all nodes. |
+        | Clone / Copy Tree       | O(n)                | Create an exact copy of the tree.                                                    |
+
+        ---
+
+        > Note: `n` = number of nodes in the tree.
+        > Time complexity is linear for most operations because each node may need to be visited once.

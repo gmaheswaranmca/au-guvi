@@ -1,0 +1,97 @@
+General Tree
+    Definition of General Tree:
+        - A General Tree is 
+        a hierarchical data structure 
+        where each node can have any number of child nodes. 
+        - Unlike binary trees, 
+        which limit children to at most two, 
+        general trees are more flexible and 
+        are used to represent hierarchies 
+        like file systems, company structures, etc.
+
+    Terminologies in a General Tree:
+        | Term           | Description                                                                     |
+        | -------------- | ------------------------------------------------------------------------------- |
+        | Node           | Basic element containing data and links to child nodes.                         |
+        | Root           | The topmost node in the tree, without a parent.                                 |
+        | Parent         | A node that has one or more child nodes.                                        |
+        | Child          | A node that descends from another node (its parent).                            |
+        | Siblings       | Nodes that share the same parent.                                               |
+        | Leaf Node      | A node with no children.                                                        |
+        | Internal Node  | A node that has at least one child.                                             |
+        | Subtree        | A tree formed by any node and its descendants.                                  |
+        | Level          | The number of edges from the root to the node (root is at level 0 or 1).        |
+        | Height         | The maximum level (or depth) of any node in the tree.                           |
+        | Depth          | The number of edges from the root to the current node.                          |
+        | Degree of Node | Number of children a node has.                                                  |
+        | Degree of Tree | The maximum degree of all nodes in the tree.                                    |
+        | Ancestor       | Any node in the path from the root to a given node (excluding the node itself). |
+        | Descendant     | Any node that comes after a given node in the tree structure.                   |
+
+        - General trees are more abstract and useful 
+        when node relationships are not limited to pairs.
+
+    Example 
+        1. Company Hierarchy Tree
+
+        ```
+                      CEO
+                    /  |   \
+                CTO   CFO   COO
+                / \         |
+             Dev1 Dev2     OpsHead
+        ```
+        * Root: CEO
+        * Internal Nodes: CEO, CTO, COO
+        * Leaf Nodes: Dev1, Dev2, CFO, OpsHead
+        * This shows how an organization may structure its reporting hierarchy.
+
+        2. File System Tree
+
+        ```
+                Root
+              /   |   \
+            etc   usr   var
+                  |
+                 bin
+        ```
+        * Root: Root
+        * Subtrees: etc, usr (with child bin), var
+        * Useful to represent directories and subdirectories.
+
+        3. Family Tree
+
+        ```
+                 Grandparent
+                /     |     \
+             Uncle  Parent Aunt
+                      |
+                    Child
+        ```
+
+        * Shows multi-level relationships.
+        * Degree of `Grandparent` is 3, Height of tree is 3.
+
+
+        Each of these trees highlights 
+        a common use case for general trees, 
+        where nodes may have more than two children.
+
+    Common Operations on a General Tree
+        A General Tree allows each node 
+        to have any number of children. 
+        Here's a list of common operations performed on it:
+
+        | Operation            | Time Complexity     | Purpose                                                                     |
+        | -------------------- | ------------------- | --------------------------------------------------------------------------- |
+        | Traversal            | O(n)                | Visit all nodes (DFS or BFS) to process or display tree contents.           |
+        | Search               | O(n)                | Find a node with a specific value.                                          |
+        | Insertion            | O(1) to O(n)        | Add a new child to a given parent node. (O(1) if parent reference is known) |
+        | Deletion             | O(n)                | Remove a node and all its descendants (subtree deletion).                   |
+        | Height Calculation   | O(n)                | Find the height (max depth) of the tree.                                    |
+        | Find Parent          | O(n)                | Identify the parent of a given node (if no parent pointer exists).          |
+        | Count Nodes / Leaves | O(n)                | Count total or leaf nodes for metrics or validation.                        |
+
+        > Note: `n` is the number of nodes in the tree.
+        > Most operations require traversal 
+          since general trees don’t enforce structure like binary trees do.

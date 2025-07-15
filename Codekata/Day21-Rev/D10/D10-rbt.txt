@@ -1,0 +1,385 @@
+Red-Black Tree
+    A Red-Black Tree (RBT) is 
+    a type of self-balancing Binary Search Tree (BST) 
+    where each node has an extra bit for color 
+    — either red or black. 
+    
+    The balancing of the tree is not perfect 
+    but ensures that the longest path from root to a leaf is 
+    no more than twice the length of the shortest path. 
+    
+    This guarantees that basic operations 
+    like insertion, deletion, and search all take O(log n) time.
+
+    ✅ Red-Black Tree Properties (Rules):
+        1. Node Color: Every node is either red or black.
+        2. Root Property: The root is always black.
+        3. Leaf Property: Every leaf (NIL pointer) is considered black.
+        4. Red Property: Red nodes cannot have red children (no two red nodes in a row).
+        5. Black Height Property: From a node to its descendant leaves, every path contains the same number of black nodes.
+
+    🔑 Red-Black Tree Terminologies:
+        | Term                | Description                                                                               |
+        | ------------------- | ----------------------------------------------------------------------------------------- |
+        | Root                | The topmost node of the tree, always black.                                               |
+        | Leaf (NIL Node)     | Special sentinel nodes that are black and represent the absence of a child.               |
+        | Color               | Each node is either red or black. Helps maintain balance.                                 |
+        | Black Height        | Number of black nodes on any path from a node to a leaf (not counting the node itself).   |
+        | Uncle               | The sibling of a node’s parent. Important in re-balancing during insertions.              |
+        | Rotation            | A local tree restructuring operation to maintain BST and balancing properties. Two types: |
+        |                     | * Left Rotation * Right Rotation                                                          |
+        | Recoloring          | Changing a node's color from red to black or vice versa during fix-up operations.      |
+        | Double Red Violation| When a red node has a red parent — violates the Red Property and needs to be fixed.    |
+
+    🔄 Common Operations
+        * Insertion: Insert as in BST → color the node red → fix violations via rotations/recoloring.
+        * Deletion: Replace as in BST → if black node removed, fix-up needed to maintain properties.
+
+    🔄 Red-Black Tree Operations
+
+        Red-Black Tree (RBT) supports standard Binary Search Tree operations 
+        — insertion, deletion, and search 
+        — with additional balancing logic to maintain its 5 properties.
+
+        🔍 1. Search Operation
+            * Same as in a regular BST: traverse left or right based on key comparison.
+            * Time Complexity: `O(log n)` in balanced case.
+
+        ➕ 2. Insertion Operation
+            Steps:
+                1. Insert node like in a BST.
+                2. Color the new node red.
+                3. Fix violations using:
+            * Recoloring if the uncle is red.
+            * Rotations (left/right) if the uncle is black.
+            Cases:
+                * Case 1: New node is root → color it black.
+                * Case 2: Parent is black → tree is valid.
+                * Case 3: Parent and uncle are red → recolor.
+                * Case 4/5: Parent is red, uncle is black → rotate and recolor.
+
+        ➖ 3. Deletion Operation
+            Steps:
+                1. Delete node like in BST.
+                2. If deleted node is red, no fix needed.
+                3. If black, fix-up is required to preserve black-height property.
+            Cases:
+                * Use a "double black" concept to represent missing black node.
+                * Fix using combinations of:
+                    * Sibling color checks
+                    * Rotations
+                    * Recoloring
+
+            Deletion is more complex than insertion due to multiple fix-up scenarios.
+
+        🔁 4. Rotations
+            Used during insert/delete fix-up to restore RBT properties.
+
+            * Left Rotation (LR):
+
+            * Performed when a right child becomes the new root of the subtree.
+            * Right Rotation (RR):
+
+            * Performed when a left child becomes the new root of the subtree.
+            * Left-Right (LR) / Right-Left (RL):
+
+            * Double rotations used in more complex fix-up scenarios.
+
+        ✅ Operation Complexities
+            | Operation | Time Complexity |
+            | --------- | --------------- |
+            | Search    | `O(log n)`      |
+            | Insert    | `O(log n)`      |
+            | Delete    | `O(log n)`      |
+
+    Example
+        A simple Red-Black Tree (RBT) Example 
+        to illustrate insertion and balancing:
+
+        ✅ Let's Insert the Following Values in Order:
+            `10`, `20`, `30`
+
+        ⚙ Step-by-Step RBT Insertion:
+        🔹 Insert 10
+            * Tree is empty → insert 10 as root
+            * As per RBT rules: Root must be black
+
+            ```
+            10(B)
+            ```
+
+        🔹 Insert 20
+            * 20 > 10 → insert as right child of 10
+            * Inserted node is colored red
+
+            ```
+               10(B)
+                    \
+                    20(R)
+            ```
+
+            No violation → Parent is black → ✅ Tree is valid.
+
+        #🔹 Insert 30
+            * 30 > 20 → insert as right child of 20 (which is red)
+            * Now: Red (30) → Red (20) → Violation of RBT Rule 4 (no two reds in a row)
+
+            Fix: Perform Left Rotation at 10 and recolor
+
+        Before rotation:
+            ```
+               10(B)
+                    \
+                    20(R)
+                        \
+                        30(R)
+            ```
+
+        After fix (rotate left at 10):
+            * 20 becomes new root
+            * 10 becomes left child
+            * 30 remains right child
+            * Recolor 20 → black, 10 and 30 → red
+            ```
+                 20(B)
+                /    \
+             10(R)  30(R)
+            ```
+
+        Now RBT properties are satisfied ✅
+
+    Example 
+        a structured breakdown of 
+        all major combinations of insertions and deletions 
+        in a Red-Black Tree (RBT), 
+        with examples for each case. 
+        These demonstrate how violations are resolved using recoloring and rotations.
+
+        🔼 INSERTION CASES
+        ✅ Case 1: Inserting the root
+        * Insert node → it becomes black (rule: root is black)
+            Insert: `10`
+            Result:
+
+            ```
+            10(B)
+            ```
+
+        ✅ Case 2: Parent is black
+            * Insert a red child under a black node → no fix needed.
+
+            Insert: `10`, `5`
+            Result:
+
+            ```
+              10(B)
+              /
+            5(R)
+            ```
+        🔁 Case 3: Parent and Uncle are Red
+            * Recolor parent and uncle to black; grandparent to red → might recurse upward.
+
+            Insert: `10`, `5`, `15`, `1`
+            Result before fix:
+            ```
+                10(B)
+                /    \
+             5(R)  15(R)
+              /
+            1(R)
+            ```
+
+            Violation: 5 and 1 are red → 5's sibling 15 is also red
+            Fix: Recolor 5, 15 → black; 10 → red
+            ```
+                10(R)
+                /    \
+             5(B)  15(B)
+              /
+            1(R)
+            ```
+
+            Now root is red → recolor back to black.
+
+        🔁 Case 4: Left-Right (LR) or Right-Left (RL)
+            * Rotate twice (zig-zag shape), then recolor
+
+            Insert: `30`, `10`, `20`
+
+            Before Fix:
+
+            ```
+                30(B)
+                /
+             10(R)
+                \
+               20(R)
+            ```
+
+            Fix:
+
+            * Left rotation on 10 → right rotation on 30
+            * 20 becomes new root, recolored to black
+
+            After Fix:
+
+            ```
+                20(B)
+                /    \
+            10(R)  30(R)
+            ```
+
+        🔁 Case 5: Left-Left (LL) or Right-Right (RR)
+            * Single rotation and recoloring
+            Insert: `10`, `5`, `1`
+            Before Fix:
+            ```
+                10(B)
+                /
+               5(R)
+              /
+            1(R)
+            ```
+
+            Fix: Right rotation on 10
+
+            After Fix:
+            ```
+                5(B)
+               /   \
+            1(R)  10(R)
+            ```
+
+        🔽 DELETION CASES
+            ✅ Case 1: Deleting a red node
+
+            * Just remove it — no violation
+
+            Tree:
+                ```
+                    10(B)
+                   /
+                5(R)
+                ```
+
+            Delete: `5` → No fix needed
+            Result:
+                ```
+                10(B)
+                ```
+
+        🔁 Case 2: Deleting black node with red child
+            * Replace and recolor child to black
+
+            Tree:
+                ```
+                10(B)
+                    \
+                    20(R)
+                ```
+
+            Delete: `10`
+            Result:
+                ```
+                20(B)
+                ```
+
+        🔁 Case 3: Double Black – Sibling is Black with Red Child
+            Tree:
+                ```
+                    40(B)
+                    /    \
+                20(B)   60(B)
+                        /
+                    50(R)
+                ```
+
+            Delete: `20`
+
+            Fix:
+                * Left rotation at 40
+                * Recolor
+
+            After Fix:
+                ```
+                    60(B)
+                    /
+                40(B)
+                    \
+                    50(R)
+                ```
+
+        🔁 Case 4: Sibling is Black with Black Children
+            * Recolor sibling red; push double-black upward
+            Tree:
+                ```
+                    40(B)
+                    /    \
+                20(B)   60(B)
+                ```
+
+            Delete: `20`
+
+            Fix:
+                * 60 recolored red
+                * 40 becomes double black → now root, recolor black
+
+        🔁 Case 5: Sibling is Red
+            * Rotate, recolor, then proceed with standard cases
+
+            Tree:
+                ```
+                    40(B)
+                    /    \
+                20(B)   60(R)
+                ```
+
+            Delete: `20`
+
+            Fix:
+                * Rotate left at 40 → 60 becomes new root
+                * Then handle deletion as sibling becomes black again
+
+            Result:
+                ```
+                    60(B)
+                    /
+                40(B)
+                ```
+
+🧩 Use Cases of Red-Black Tree (RBT)
+    Red-Black Trees are widely used 
+    in systems and libraries 
+    where balanced search performance and ordered data are essential. 
+    Below are key use cases:
+    🔹 1. Self-Balancing Sorted Containers
+        RBT ensures that the tree height remains `O(log n)`, 
+        making operations efficient even in worst-case scenarios.
+        Examples:
+            * `TreeSet`, `TreeMap` in Java
+            * `std::map`, `std::set` in C++ STL
+    🔹 2. Database Indexing
+        Used in databases and file systems 
+        to maintain indexes 
+        where quick lookup, insertion, and deletion are required 
+        while maintaining sorted order.
+    🔹 3. Memory Management (OS & JVM)
+        * Used in Linux kernel to manage memory regions (e.g., Virtual Memory Areas).
+        * JVM uses RBT in its internal memory allocators and object tracking.
+    🔹 4. Scheduling and Event Simulation
+        RBT can efficiently handle time-ordered tasks or events, 
+        where insertions, deletions, and 
+        finding the next event must be fast.
+    🔹 5. Associative Containers in Compilers
+        Used in symbol tables to store variables/functions 
+        in sorted order and 
+        to allow efficient updates.
+    🔹 6. Network Routing Tables
+        Used in software-defined networking 
+        for maintaining ordered routing tables.
+    ✅ Why RBT Over Other Trees?
+        * Guarantees `O(log n)` time 
+            for all operations.
+        * Safer choice in applications 
+            where worst-case performance must be bounded 
+            (unlike AVL trees that may do more rotations).

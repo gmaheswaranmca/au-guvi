@@ -1,0 +1,57 @@
+Use Cases:
+    Here’s a breakdown of the use cases 
+    for each type of tree data structure, 
+    showing where and why they're applied in real-world problems:
+
+    🌲 1. General Tree
+        A tree where nodes can have any number of children.
+        Use Cases:
+            * File systems (folders and subfolders)
+            * XML/HTML DOM representation
+            * Organization hierarchy structures
+            * Game development (decision trees, game states)
+            * Category trees in e-commerce
+
+    🌳 2. Binary Tree
+        A tree where each node has at most two children (left and right).
+        Use Cases:
+            * Expression trees (mathematical expressions)
+            * Syntax trees in compilers
+            * Huffman coding trees (for compression)
+            * Binary heap (priority queues)
+            * Foundation for more advanced trees like BST, AVL, etc.
+
+    🌿 3. Binary Search Tree (BST)
+        A binary tree with the left child < parent < right child property.
+        Use Cases:
+            * Efficient searching and insertion when tree is balanced
+            * Dictionary and symbol table implementations
+            * In-order traversal to get sorted order
+            * Handling dynamic ordered data
+
+        > ❗ Downside: Can become skewed and degrade to O(n) if not balanced.
+
+    🌲 4. AVL Tree
+        A self-balancing BST where balance factor of each node is between -1 and 1.
+        Use Cases:
+            * In-memory databases requiring high read performance
+            * Indexing in databases where more frequent read and less frequent write
+            * Real-time applications where strictly balanced tree is beneficial
+            * Memory-limited systems (AVL trees do fewer rebalancing steps for lookup)
+
+    🌳 5. Red-Black Tree (RBT)
+        A less strictly balanced BST with guaranteed O(log n) for all operations.
+        Use Cases:
+            * Language libraries: C++ STL (`map`, `set`), Java (`TreeMap`, `TreeSet`)
+            * Linux Kernel memory management
+            * Multithreaded systems (fewer rotations than AVL, so faster updates)
+            * Databases where frequent insertions and deletions happen
+
+    Summary Table
+        | Tree Type      | Balanced?   | Main Use Case                           |
+        | -------------- | ----------- | --------------------------------------- |
+        | General Tree   | ❌          | File systems, DOM trees                 |
+        | Binary Tree    | ❌          | Expression trees, heaps                 |
+        | BST            | ❌          | Ordered data with minimal writes        |
+        | AVL Tree       | ✅ (Strict) | Fast reads, database indexes            |
+        | Red-Black Tree | ✅ (Loose)  | Library containers, OS-level scheduling |

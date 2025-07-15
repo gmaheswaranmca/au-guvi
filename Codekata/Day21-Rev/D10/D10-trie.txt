@@ -1,0 +1,101 @@
+Trie 
+    📘 Definition of Trie
+        A Trie (pronounced *"try"*) is 
+        a special type of tree data structure 
+        used to efficiently store and retrieve strings, 
+        especially useful when dealing with prefix-based searches. 
+        
+        It is also known as a prefix tree.
+
+    📌 Trie Terminologies
+        | Term             | Description                                                        |
+        | ---------------- | ------------------------------------------------------------------ |
+        | Node             | Each node represents a single character of a word.                 |
+        | Root             | The starting node; usually empty or `null` character.              |
+        | Edge             | Connects a parent node to a child, representing a character.       |
+        | Children         | A node can have multiple child nodes for different characters.     |
+        | Path             | Sequence of characters from the root to a node forms a prefix.     |
+        | End of Word Flag | A boolean marker at a node indicating that a word ends here.       |
+
+    💡 Properties and Qualities of Trie
+        1. Hierarchical Structure: Organizes data in levels corresponding to characters 
+        in the input strings.
+        2. No Redundancy: Shared prefixes are stored only once.
+        3. Alphabet Size Based Branching: Each node may have up to `N` children 
+        where `N` is the size of the character set 
+        (e.g., 26 for lowercase a–z).
+        4. Fast Search: Time complexity for search, insert, and delete is 
+        O(L) where `L` is the length of the word 
+        (independent of total number of words).
+        5. Space Usage: May use more memory than a hashmap 
+        if strings do not share prefixes, 
+        but efficient when storing lots of words with common prefixes.
+        6. Lexicographical Ordering: In-order traversal can give sorted order of words.
+
+
+    🧰 Use Cases of Trie
+        | Use Case                             | Description                                               |
+        | ------------------------------------ | --------------------------------------------------------- |
+        | 🔤 Auto-complete / Auto-suggest      | Suggests words based on typed prefix.                     |
+        | 🔍 Spell Checking                    | Quickly validates if a string is a valid word.            |
+        | 🔡 Prefix Matching                   | Efficiently finds all words starting with a given prefix. |
+        | 🆎 Dictionary Implementation         | Ideal for storing a dynamic dictionary of words.          |
+        | 🧮 IP Routing (Longest Prefix Match) | Used in network routers for fast lookups.                 |
+        | 🧠 Word Games & Solvers              | Useful in Scrabble/Boggle solvers.                        |
+        | 🔄 DNA Sequence Matching             | Finds patterns in bioinformatics data.                    |
+
+
+    Examples of Trie (Prefix Tree) 
+        - to show how it works for common operations like insertion, search, and prefix matching.
+        🔤 Words to Insert into Trie
+
+        Let’s insert the following words into a Trie:
+        `["cat", "cap", "can", "bat", "bake"]`
+
+        🌲 Trie Structure After Insertion
+            ```
+            (root)
+            ├── c
+            │   └── a
+            │       ├── t (end)
+            │       ├── p (end)
+            │       └── n (end)
+            └── b
+                └── a
+                    ├── t (end)
+                    └── k
+                        └── e (end)
+            ```
+
+            Each path from root to a node with `(end)` represents a complete word.
+
+
+        ✅ Example 1: Search
+            Check if `"cap"` exists:
+                * root → c → a → p → ✅ found → Returns: true
+
+            Check `"cab"`:
+                * root → c → a → b → ❌ not found → Returns: false
+
+        🔍 Example 2: Prefix Match
+            Check if any word starts with `"ca"`:
+                * root → c → a → ✅ exists → Returns: true
+
+            Check for prefix `"ba"`:
+                * root → b → a → ✅ exists → Returns: true
+
+            Check for prefix `"z"`:
+                * root → z → ❌ → Returns: false
+
+        ➕ Example 3: Insert "cape"
+            Path: `c → a → p → e`
+            * Since `"cap"` already exists, only add `e` as a child of `p`
+            * Mark node `e` as end of word
+
+        🧠 Summary of Trie Capabilities
+            | Operation     | Description                           |
+            | ------------- | ------------------------------------- |
+            | Insert        | Add words character by character      |
+            | Search        | Check if exact word exists            |
+            | StartsWith    | Check if any word begins with prefix  |
+            | Auto-complete | Return all words starting with prefix |
