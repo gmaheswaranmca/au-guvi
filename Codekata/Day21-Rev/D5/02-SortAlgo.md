@@ -239,24 +239,24 @@ public class QuickSort {
     
     private static int partition(int[] arr, int low, int high) {
         int pivot = arr[high]; // Choose last element as pivot
-        int i = low - 1; // Index of smaller element
+        int i = low - 1; // Index of smaller element (upper bound)
         
-        for (int j = low; j < high; j++) {
+        for (int j = low; j < high; j++) {//traversal in greater elements
             if (arr[j] <= pivot) {
-                i++;
-                // Swap arr[i] and arr[j]
+                i++;//update smaller element index
+                // Swap arr[i] and arr[j]//samller with greater
                 int temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
             }
         }
         
-        // Swap arr[i+1] and arr[high] (pivot)
+        // Swap arr[i+1] (first greater) and arr[high] (pivot)
         int temp = arr[i + 1];
         arr[i + 1] = arr[high];
         arr[high] = temp;
         
-        return i + 1;
+        return i + 1;//index of pivot
     }
     
     public static void main(String[] args) {
