@@ -1,0 +1,93 @@
+"Remove K Digits", 
+"Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible.", 
+"Medium", 
+"LeetCode, Amazon"
+
+----------------------------------
+Problem Title:
+Remove K Digits
+
+Problem Description:
+Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible. The result should not contain any leading zeros unless the result is 0.
+
+Input Format:
+- The first line contains a string num representing the non-negative integer.
+- The second line contains an integer k, the number of digits to remove.
+
+Output Format:
+- A string representing the smallest possible number after removing k digits.
+
+Constraints:
+- 1 <= num.length <= 10^5
+- num consists of only digits and does not contain any leading zeros.
+- 0 <= k <= num.length
+
+Sample Input 1:
+1432219
+3
+
+Sample Output 1:
+1219
+
+Explanation 1:
+Remove the digits 4, 3, and 2 to get the smallest number 1219.
+
+Sample Input 2:
+10200
+1
+
+Sample Output 2:
+200
+
+Explanation 2:
+Remove the digit 1 to get 0200, which becomes 200 after removing leading zeros.
+
+Sample Input 3:
+10
+2
+
+Sample Output 3:
+0
+
+Explanation 3:
+Remove both digits to get an empty string, which is interpreted as 0.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+1432219
+3
+Output:
+1219
+
+Test Case 2:
+Input:
+10200
+1
+Output:
+200
+
+Test Case 3:
+Input:
+10
+2
+Output:
+0
+
+Test Case 4:
+Input:
+1234567890
+9
+Output:
+0
+
+Test Case 5:
+Input:
+112
+1
+Output:
+11
+----------------------------------

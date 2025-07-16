@@ -1,0 +1,95 @@
+import java.util.*;
+
+class CircularQueue {
+    private int[] arr;
+    private int front, rear, size, capacity;
+
+    public CircularQueue(int n) {
+        arr = new int[n];
+        capacity = n;
+        front = 0;
+        rear = -1;
+        size = 0;
+    }
+
+    public boolean enqueue(int x) {
+        if (isFull()) return false;
+        rear = (rear + 1) % capacity;
+        arr[rear] = x;
+        size++;
+        return true;
+    }
+
+    public Integer dequeue() {
+        if (isEmpty()) return null;
+        int val = arr[front];
+        front = (front + 1) % capacity;
+        size--;
+        return val;
+    }
+
+    public Integer getFront() {
+        if (isEmpty()) return null;
+        return arr[front];
+    }
+
+    public Integer getRear() {
+        if (isEmpty()) return null;
+        return arr[rear];
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public boolean isFull() {
+        return size == capacity;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int q = sc.nextInt();
+        sc.nextLine();
+        CircularQueue cq = new CircularQueue(n);
+        for (int i = 0; i < q; i++) {
+            String line = sc.nextLine().trim();
+            if (line.startsWith("ENQUEUE")) {
+                int x = Integer.parseInt(line.split(" ")[1]);
+                if (cq.enqueue(x)) {
+                    System.out.println("ENQUEUED");
+                } else {
+                    System.out.println("FULL");
+                }
+            } else if (line.equals("DEQUEUE")) {
+                Integer val = cq.dequeue();
+                if (val == null) {
+                    System.out.println("EMPTY");
+                } else {
+                    System.out.println(val);
+                }
+            } else if (line.equals("FRONT")) {
+                Integer val = cq.getFront();
+                if (val == null) {
+                    System.out.println("EMPTY");
+                } else {
+                    System.out.println(val);
+                }
+            } else if (line.equals("REAR")) {
+                Integer val = cq.getRear();
+                if (val == null) {
+                    System.out.println("EMPTY");
+                } else {
+                    System.out.println(val);
+                }
+            } else if (line.equals("ISEMPTY")) {
+                System.out.println(cq.isEmpty() ? 1 : 0);
+            } else if (line.equals("ISFULL")) {
+                System.out.println(cq.isFull() ? 1 : 0);
+            }
+        }
+        sc.close();
+    }
+}

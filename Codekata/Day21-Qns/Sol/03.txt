@@ -1,0 +1,48 @@
+import java.util.*;
+
+class UniquePrefixes {
+    static class TrieNode {
+        TrieNode[] children = new TrieNode[26];
+        int count = 0;
+    }
+
+    static void insert(TrieNode root, String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            int idx = c - 'a';
+            if (node.children[idx] == null) {
+                node.children[idx] = new TrieNode();
+            }
+            node = node.children[idx];
+            node.count++;
+        }
+    }
+
+    static String getPrefix(TrieNode root, String word) {
+        TrieNode node = root;
+        StringBuilder prefix = new StringBuilder();
+        for (char c : word.toCharArray()) {
+            int idx = c - 'a';
+            prefix.append(c);
+            node = node.children[idx];
+            if (node.count == 1) break;
+        }
+        return prefix.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        String[] words = new String[n];
+        for (int i = 0; i < n; i++) {
+            words[i] = sc.nextLine();
+        }
+        TrieNode root = new TrieNode();
+        for (String word : words) {
+            insert(root, word);
+        }
+        for (String word : words) {
+            System.out.println(getPrefix(root, word));
+        }
+    }
+}

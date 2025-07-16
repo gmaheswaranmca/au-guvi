@@ -1,0 +1,99 @@
+import java.util.*;
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class BucketSortLinkedList {
+    // Helper to insert node at end of a bucket
+    private static ListNode insert(ListNode head, ListNode node) {
+        if (head == null) return node;
+        ListNode curr = head;
+        while (curr.next != null) curr = curr.next;
+        curr.next = node;
+        return head;
+    }
+
+    // Insertion sort for linked list (for sorting buckets)
+    private static ListNode insertionSort(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        while (head != null) {
+            ListNode prev = dummy;
+            while (prev.next != null && prev.next.val < head.val) prev = prev.next;
+            ListNode next = head.next;
+            head.next = prev.next;
+            prev.next = head;
+            head = next;
+        }
+        return dummy.next;
+    }
+
+    public static ListNode bucketSort(ListNode head, int n) {
+        if (head == null || head.next == null) return head;
+
+        // Find min and max
+        int min = head.val, max = head.val;
+        ListNode curr = head.next;
+        while (curr != null) {
+            min = Math.min(min, curr.val);
+            max = Math.max(max, curr.val);
+            curr = curr.next;
+        }
+
+        int bucketCount = Math.max(1, (int)Math.sqrt(n));
+        ListNode[] buckets = new ListNode[bucketCount];
+
+        // Distribute nodes into buckets
+        curr = head;
+        while (curr != null) {
+            int idx = (int)((long)(curr.val - min) * (bucketCount - 1) / (max - min == 0 ? 1 : max - min));
+            ListNode next = curr.next;
+            curr.next = null;
+            buckets[idx] = insert(buckets[idx], curr);
+            curr = next;
+        }
+
+        // Sort each bucket and concatenate
+        ListNode dummy = new ListNode(0), tail = dummy;
+        for (int i = 0; i < bucketCount; i++) {
+            if (buckets[i] != null) {
+                buckets[i] = insertionSort(buckets[i]);
+                tail.next = buckets[i];
+                while (tail.next != null) tail = tail.next;
+            }
+        }
+        return dummy.next;
+    }
+
+    // Utility to build linked list from array
+    public static ListNode buildList(int[] arr) {
+        ListNode dummy = new ListNode(0), curr = dummy;
+        for (int v : arr) {
+            curr.next = new ListNode(v);
+            curr = curr.next;
+        }
+        return dummy.next;
+    }
+
+    // Utility to print linked list
+    public static void printList(ListNode head) {
+        while (head != null) {
+            System.out.print(head.val);
+            if (head.next != null) System.out.print(" ");
+            head = head.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+        ListNode head = buildList(arr);
+        head = bucketSort(head, n);
+        printList(head);
+    }
+}

@@ -1,0 +1,106 @@
+"Unique Prefixes", 
+"Find the shortest unique prefix for every word in a given list.", 
+"Medium", 
+"Amazon"
+
+----------------------------------
+Problem Title:
+Unique Prefixes
+
+Problem Description:
+Given a list of words, find the shortest unique prefix for each word. The shortest unique prefix of a word is the smallest prefix which is not shared by any other word in the list. Return the list of shortest unique prefixes in the same order as the input words.
+
+Input Format:
+- The first line contains an integer N, the number of words.
+- The next N lines each contain a word consisting of lowercase English letters.
+
+Output Format:
+- Output N lines, each containing the shortest unique prefix for the corresponding word in the input.
+
+Constraints:
+- 1 ≤ N ≤ 10^4
+- 1 ≤ Length of each word ≤ 100
+- All words consist of lowercase English letters.
+
+Sample Input:
+4
+dog
+cat
+car
+apple
+
+Sample Output:
+d
+cat
+car
+a
+
+Explanation:
+- "dog" can be uniquely identified by "d".
+- "cat" and "car" share the prefix "ca", so "cat" needs "cat" and "car" needs "car".
+- "apple" can be uniquely identified by "a".
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3
+zebra
+dog
+duck
+Output:
+z
+dog
+du
+
+Test Case 2:
+Input:
+5
+apple
+ape
+april
+bat
+ball
+Output:
+app
+ape
+apr
+ba
+bal
+
+Test Case 3:
+Input:
+2
+hello
+helium
+Output:
+hell
+heli
+
+Test Case 4:
+Input:
+4
+one
+two
+three
+four
+Output:
+o
+t
+th
+f
+
+Test Case 5:
+Input:
+3
+a
+b
+c
+Output:
+a
+b
+c
+
+----------------------------------

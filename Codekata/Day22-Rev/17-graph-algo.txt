@@ -8,7 +8,14 @@ Dijkstra's Algorithm - Notes
     - Uses a priority queue (min-heap) to select the next node with the smallest tentative distance.
 
     Algorithm Steps:
-    1. Initialize distances from the source to all nodes as infinity, except the source itself (distance 0).
+    1. Set the distance to the source node as 0.
+    2. For each other node, set the distance to infinity.
+    3. Add all nodes to the priority queue.
+    4. While the priority queue is not empty:
+        a. Remove the node u with the smallest distance from the queue.
+        b. For each neighbor v of u:
+            i. Calculate alt = dist[u] + length(u, v).
+            ii. If alt < dist[v], update dist[v] = alt.
     2. Mark all nodes as unvisited. Set the source node as current.
     3. For the current node, consider all its unvisited neighbors and calculate their tentative distances.
     4. If the calculated distance of a node is less than the known distance, update it.
@@ -63,7 +70,8 @@ Bellman-Ford Algorithm - Notes
     - Can detect negative weight cycles.
 
     Algorithm Steps:
-    1. Initialize distances from the source to all nodes as infinity, except the source itself (distance 0).
+    1. Initialize distances from the source to all nodes as infinity, 
+    except the source itself (distance 0).
     2. Repeat (V-1) times:
         a. For each edge (u, v) with weight w:
             - If dist[u] + w < dist[v], update dist[v] = dist[u] + w.

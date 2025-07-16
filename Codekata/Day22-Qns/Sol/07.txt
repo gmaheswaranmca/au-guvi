@@ -1,0 +1,63 @@
+import java.util.*;
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class ReverseKGroup {
+    // Function to reverse k nodes in the linked list
+    public static ListNode reverseKGroup(ListNode head, int k) {
+        ListNode curr = head;
+        int count = 0;
+        // Check if there are at least k nodes left
+        while (curr != null && count < k) {
+            curr = curr.next;
+            count++;
+        }
+        if (count == k) {
+            // Reverse k nodes
+            curr = reverseKGroup(curr, k);
+            while (count-- > 0) {
+                ListNode tmp = head.next;
+                head.next = curr;
+                curr = head;
+                head = tmp;
+            }
+            head = curr;
+        }
+        return head;
+    }
+
+    // Helper to build linked list from array
+    public static ListNode buildList(int[] arr) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        for (int v : arr) {
+            curr.next = new ListNode(v);
+            curr = curr.next;
+        }
+        return dummy.next;
+    }
+
+    // Helper to print linked list
+    public static void printList(ListNode head) {
+        while (head != null) {
+            System.out.print(head.val);
+            if (head.next != null) System.out.print(" ");
+            head = head.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String[] vals = sc.nextLine().trim().split("\\s+");
+        int[] arr = Arrays.stream(vals).mapToInt(Integer::parseInt).toArray();
+        int k = Integer.parseInt(sc.nextLine().trim());
+        ListNode head = buildList(arr);
+        head = reverseKGroup(head, k);
+        printList(head);
+    }
+}

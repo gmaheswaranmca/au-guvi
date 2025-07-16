@@ -1,0 +1,123 @@
+"Design Hit Counter", 
+"Design a hit counter which counts the number of hits received in the past 5 minutes.", 
+"Medium", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title:
+Design Hit Counter
+
+Problem Description:
+You are tasked with designing a hit counter that counts the number of hits received in the past 5 minutes (i.e., the past 300 seconds). Implement a class HitCounter that supports the following two methods:
+- void hit(int timestamp): Records a hit at the given timestamp (in seconds).
+- int getHits(int timestamp): Returns the number of hits received in the past 5 minutes (300 seconds) from the given timestamp (inclusive).
+
+Both methods will be called with timestamps in chronological order (i.e., the timestamp for each call to hit and getHits will be greater than or equal to the timestamp of the previous call).
+
+Input Format:
+- The first line contains an integer n, the number of operations.
+- The next n lines each contain an operation in one of the following formats:
+    - "hit timestamp"
+    - "getHits timestamp"
+
+Output Format:
+- For each "getHits" operation, output the number of hits in the past 5 minutes at that timestamp.
+
+Constraints:
+- 1 <= n <= 10^4
+- 1 <= timestamp <= 10^9
+- All timestamps are in seconds and are given in non-decreasing order.
+
+Sample Input:
+7
+hit 1
+hit 2
+hit 300
+getHits 300
+hit 301
+getHits 301
+getHits 600
+
+Sample Output:
+3
+3
+1
+
+Explanation:
+- At timestamp 300, there have been hits at 1, 2, and 300, all within the last 300 seconds.
+- At timestamp 301, hits at 2, 300, and 301 are within the last 300 seconds.
+- At timestamp 600, only the hit at 301 is within the last 300 seconds.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+5
+hit 1
+hit 2
+hit 3
+getHits 3
+getHits 4
+Output:
+3
+3
+
+Test Case 2:
+Input:
+6
+hit 100
+hit 200
+hit 300
+getHits 300
+hit 400
+getHits 400
+Output:
+3
+3
+
+Test Case 3:
+Input:
+8
+hit 1
+hit 2
+hit 3
+hit 301
+getHits 301
+getHits 302
+hit 600
+getHits 600
+Output:
+4
+3
+1
+
+Test Case 4:
+Input:
+4
+hit 1
+hit 2
+getHits 300
+getHits 301
+Output:
+2
+1
+
+Test Case 5:
+Input:
+7
+hit 10
+hit 20
+hit 300
+hit 301
+getHits 301
+getHits 310
+getHits 610
+Output:
+4
+3
+1
+
+----------------------------------

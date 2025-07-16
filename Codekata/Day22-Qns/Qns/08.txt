@@ -1,0 +1,87 @@
+"Delete Node in a Linked List", 
+"Given only access to a node in a singly linked list (not the head), delete that node.", 
+"Easy", 
+"LeetCode, Facebook"
+
+----------------------------------
+
+Problem Title:
+Delete Node in a Linked List
+
+Problem Description:
+You are given access to a node in a singly linked list (not the head of the list). The node you are given is guaranteed not to be the tail node. Write a function to delete this node from the linked list. You do not have access to the head of the list.
+
+Input Format:
+- First line contains an integer n, the number of nodes in the linked list.
+- Second line contains n space-separated integers representing the values of the nodes.
+- Third line contains an integer k, the 1-based position of the node to be deleted.
+
+Output Format:
+- Print the linked list after deleting the specified node.
+- Print the values separated by spaces, followed by a newline.
+
+Constraints:
+- 2 ≤ n ≤ 1000
+- 1 ≤ k ≤ n-1 (cannot delete the last node)
+- -1000 ≤ node values ≤ 1000
+- All node values are integers.
+
+Sample Input:
+4
+4 5 1 9
+2
+
+Sample Output:
+4 1 9
+
+Explanation:
+The linked list is 4 -> 5 -> 1 -> 9. We need to delete the node at position 2 (1-based indexing), which is the node with value 5. After deletion, the linked list becomes 4 -> 1 -> 9.
+
+
+Difficulty:
+Easy
+
+Five Test Cases:
+
+Test Case 1:
+Input:
+4
+4 5 1 9
+2
+Output:
+4 1 9
+
+Test Case 2:
+Input:
+4
+1 2 3 4
+3
+Output:
+1 2 4
+
+Test Case 3:
+Input:
+2
+0 1
+1
+Output:
+1
+
+Test Case 4:
+Input:
+4
+7 8 9 10
+2
+Output:
+7 9 10
+
+Test Case 5:
+Input:
+5
+5 6 7 8 9
+3
+Output:
+5 6 8 9
+
+
+----------------------------------

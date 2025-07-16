@@ -1,0 +1,13 @@
+"Convert Sorted Array to BST", "Convert a sorted array to a height-balanced BST.", "Easy", "LeetCode, Amazon"
+"Print All Root-to-Leaf Paths in General Tree", "Print all possible root-to-leaf paths in a general tree.", "Medium", "Amazon, CodeSignal"
+"Unique Prefixes", "Find the shortest unique prefix for every word in a given list.", "Medium", "Amazon"
+"Print RBT in Zigzag Order", "Print the nodes of a Red-Black Tree in zigzag (spiral) order.", "Medium", "LeetCode, Facebook"
+
+"Sort Array with Limited Range", "Given an array where elements are in a small range, choose the most efficient sorting algorithm and implement it.", "Easy", "HackerEarth, Infosys"
+"Quick Sort on Strings", "Sort an array of strings using the quick sort algorithm.", "Medium", "Amazon, Facebook"
+"Recursive Bubble Sort", "Implement bubble sort recursively to sort an array of integers.", "Medium", "GeeksforGeeks, CodeChef"
+
+"Bucket Sort for Linked Lists", "Given a singly linked list of integers, sort it using Bucket Sort without converting it to an array.", "Hard", "Facebook, Amazon"
+"Radix Sort for Negative Numbers", "Modify Radix Sort to handle arrays containing both positive and negative integers.", "Medium", "Codeforces, Apple"
+"Remove K Digits", "Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible.", "Medium", "LeetCode, Amazon"
+

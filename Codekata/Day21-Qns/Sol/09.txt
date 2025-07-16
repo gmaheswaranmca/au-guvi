@@ -1,0 +1,77 @@
+import java.util.*;
+
+public class RadixSortNegativeNumbers {
+    // Helper function to perform counting sort based on digit represented by exp
+    private static void countingSort(int[] arr, int exp) {
+        int n = arr.length;
+        int[] output = new int[n];
+        int[] count = new int[10];
+        Arrays.fill(count, 0);
+
+        for (int i = 0; i < n; i++)
+            count[(arr[i] / exp) % 10]++;
+
+        for (int i = 1; i < 10; i++)
+            count[i] += count[i - 1];
+
+        for (int i = n - 1; i >= 0; i--) {
+            int idx = (arr[i] / exp) % 10;
+            output[count[idx] - 1] = arr[i];
+            count[idx]--;
+        }
+
+        for (int i = 0; i < n; i++)
+            arr[i] = output[i];
+    }
+
+    // Standard radix sort for non-negative integers
+    private static void radixSort(int[] arr) {
+        int max = Arrays.stream(arr).max().orElse(0);
+        for (int exp = 1; max / exp > 0; exp *= 10)
+            countingSort(arr, exp);
+    }
+
+    // Main function to handle both negative and positive numbers
+    public static void radixSortWithNegatives(int[] arr) {
+        List<Integer> negatives = new ArrayList<>();
+        List<Integer> positives = new ArrayList<>();
+
+        for (int num : arr) {
+            if (num < 0)
+                negatives.add(-num); // Store absolute value for sorting
+            else
+                positives.add(num);
+        }
+
+        int[] negArr = negatives.stream().mapToInt(i -> i).toArray();
+        int[] posArr = positives.stream().mapToInt(i -> i).toArray();
+
+        radixSort(negArr);
+        radixSort(posArr);
+
+        // Reconstruct the sorted array
+        int idx = 0;
+        // Add negatives in reverse order (since -100 < -1)
+        for (int i = negArr.length - 1; i >= 0; i--)
+            arr[idx++] = -negArr[i];
+        // Add positives
+        for (int num : posArr)
+            arr[idx++] = num;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        radixSortWithNegatives(arr);
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i]);
+            if (i != n - 1) System.out.print(" ");
+        }
+        System.out.println();
+    }
+}

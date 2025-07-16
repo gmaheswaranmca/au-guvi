@@ -1,0 +1,45 @@
+import java.util.*;
+
+public class RootToLeafPaths {
+    static Map<Integer, List<Integer>> tree = new HashMap<>();
+    static Set<Integer> visited = new HashSet<>();
+    static List<Integer> nodeValues = new ArrayList<>();
+    static int root;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        nodeValues = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            nodeValues.add(sc.nextInt());
+        }
+        root = nodeValues.get(0);
+        for (int i = 0; i < n - 1; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            tree.computeIfAbsent(u, k -> new ArrayList<>()).add(v);
+            tree.computeIfAbsent(v, k -> new ArrayList<>()).add(u);
+        }
+        List<Integer> path = new ArrayList<>();
+        dfs(root, -1, path);
+    }
+
+    static void dfs(int node, int parent, List<Integer> path) {
+        path.add(node);
+        boolean isLeaf = true;
+        for (int child : tree.getOrDefault(node, Collections.emptyList())) {
+            if (child != parent) {
+                isLeaf = false;
+                dfs(child, node, path);
+            }
+        }
+        if (isLeaf) {
+            for (int i = 0; i < path.size(); i++) {
+                System.out.print(path.get(i));
+                if (i != path.size() - 1) System.out.print(" ");
+            }
+            System.out.println();
+        }
+        path.remove(path.size() - 1);
+    }
+}

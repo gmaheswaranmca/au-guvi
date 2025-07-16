@@ -1,0 +1,84 @@
+"Largest Rectangle in Histogram", 
+"Given an array representing the heights of bars in a histogram, find the area of the largest rectangle that can be formed.", 
+"Hard", 
+"LeetCode, Amazon"
+
+----------------------------------
+
+Problem Title:
+Largest Rectangle in Histogram
+
+Problem Description:
+Given an array of integers representing the heights of bars in a histogram, find the area of the largest rectangle that can be formed within the bounds of the histogram. Each bar has a width of 1 unit, and the rectangle must be formed by contiguous bars.
+
+Input Format:
+- The first line contains a single integer n, the number of bars in the histogram.
+- The second line contains n space-separated integers, where each integer represents the height of a bar.
+
+Output Format:
+- Print a single integer, the area of the largest rectangle that can be formed in the histogram.
+
+Constraints:
+- 1 ≤ n ≤ 10^5
+- 0 ≤ height of each bar ≤ 10^4
+
+Sample Input 1:
+7
+2 1 5 6 2 3 1
+
+Sample Output 1:
+10
+
+Explanation 1:
+The largest rectangle can be formed using the bars with heights 5 and 6 (indices 2 and 3), giving an area of 5*2=10.
+
+Sample Input 2:
+6
+2 4 2 1 10 6
+
+Sample Output 2:
+10
+
+Explanation 2:
+The largest rectangle is formed by the bar with height 10 (index 4), area = 10*1=10.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+5
+1 2 3 4 5
+Output:
+9
+
+Test Case 2:
+Input:
+4
+6 2 5 4
+Output:
+8
+
+Test Case 3:
+Input:
+8
+2 1 2 3 1 2 1 2
+Output:
+6
+
+Test Case 4:
+Input:
+3
+2 2 2
+Output:
+6
+
+Test Case 5:
+Input:
+1
+0
+Output:
+0
+
+----------------------------------

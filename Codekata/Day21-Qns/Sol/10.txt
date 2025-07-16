@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class RemoveKDigits {
+    public static String removeKdigits(String num, int k) {
+        if (k == num.length()) return "0";
+        Deque<Character> stack = new ArrayDeque<>();
+        for (char digit : num.toCharArray()) {
+            while (!stack.isEmpty() && k > 0 && stack.peekLast() > digit) {
+                stack.pollLast();
+                k--;
+            }
+            stack.offerLast(digit);
+        }
+        // Remove remaining digits from the end if k > 0
+        while (k-- > 0) {
+            stack.pollLast();
+        }
+        // Build the result and remove leading zeros
+        StringBuilder sb = new StringBuilder();
+        boolean leadingZero = true;
+        for (char digit : stack) {
+            if (leadingZero && digit == '0') continue;
+            leadingZero = false;
+            sb.append(digit);
+        }
+        return sb.length() == 0 ? "0" : sb.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String num = sc.nextLine().trim();
+        int k = Integer.parseInt(sc.nextLine().trim());
+        System.out.println(removeKdigits(num, k));
+    }
+}

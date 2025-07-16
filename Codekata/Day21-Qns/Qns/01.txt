@@ -1,0 +1,80 @@
+"Convert Sorted Array to BST", 
+"Convert a sorted array to a height-balanced BST.", 
+"Easy", 
+"LeetCode, Amazon"
+
+----------------------------------
+Problem Title:
+Convert Sorted Array to Binary Search Tree
+
+Problem Description:
+Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree (BST). A height-balanced BST is a binary tree in which the depth of the two subtrees of every node never differs by more than one.
+
+Input Format:
+- The first line contains an integer n, the number of elements in the array.
+- The second line contains n space-separated integers representing the sorted array nums.
+
+Output Format:
+- Print the preorder traversal of the constructed BST as space-separated integers.
+
+Constraints:
+- 1 <= n <= 10^4
+- -10^5 <= nums[i] <= 10^5
+- nums is sorted in strictly increasing order.
+
+Sample Input:
+7
+-10 -3 0 5 9 12 15
+
+Sample Output:
+5 -3 -10 0 12 9 15
+
+Explanation:
+The input array is [-10, -3, 0, 5, 9, 12, 15]. One possible height-balanced BST is:
+    5
+      /   \
+    -3     12
+   /  \   /  \
+-10   0  9   15
+The preorder traversal of this tree is: 5 -3 -10 0 12 9 15
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+1 2 3
+Output:
+2 1 3
+
+Test Case 2:
+Input:
+5
+-5 -3 0 2 4
+Output:
+0 -5 -3 2 4
+
+Test Case 3:
+Input:
+1
+7
+Output:
+7
+
+Test Case 4:
+Input:
+6
+-8 -3 0 1 5 9
+Output:
+1 -3 -8 0 5 9
+
+Test Case 5:
+Input:
+4
+10 20 30 40
+Output:
+20 10 30 40
+
+----------------------------------

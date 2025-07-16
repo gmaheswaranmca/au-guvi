@@ -1,0 +1,74 @@
+ "Remove Linked List Elements", 
+ "Remove all elements from a linked list of integers that have value val.", 
+ "Easy", 
+ "LeetCode, Google"
+
+----------------------------------
+Problem Title:
+Remove Linked List Elements
+
+Problem Description:
+Given the head of a singly linked list and an integer val, remove all the nodes of the linked list that have Node.val equal to val, and return the new head.
+
+Input Format:
+- The first line contains space-separated integers representing the values of the linked list nodes.
+- The second line contains a single integer val, the value to be removed from the linked list.
+
+Output Format:
+- Print the values of the modified linked list in order, space-separated. If the list is empty, print "Empty".
+
+Constraints:
+- The number of nodes in the list is in the range [0, 10^4].
+- -100 ≤ Node.val ≤ 100
+- -100 ≤ val ≤ 100
+
+Sample Input:
+1 2 6 3 4 5 6
+6
+
+Sample Output:
+1 2 3 4 5
+
+Sample Explanation:
+All nodes with value 6 are removed from the linked list.
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input:
+1 2 6 3 4 5 6
+6
+Output:
+1 2 3 4 5
+
+Test Case 2:
+Input:
+7 7 7 7
+7
+Output:
+Empty
+
+Test Case 3:
+Input:
+1 2 3 4 5
+6
+Output:
+1 2 3 4 5
+
+Test Case 4:
+Input:
+1 1 2 3 1
+1
+Output:
+2 3
+
+Test Case 5:
+Input:
+5
+5
+Output:
+Empty
+
+----------------------------------

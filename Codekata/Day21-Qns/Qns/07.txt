@@ -1,0 +1,72 @@
+"Recursive Bubble Sort", 
+"Implement bubble sort recursively to sort an array of integers.", 
+"Medium", 
+"GeeksforGeeks, CodeChef"
+
+----------------------------------
+Problem Title: Recursive Bubble Sort
+
+Problem Description:
+Given an array of integers, implement the bubble sort algorithm recursively to sort the array in ascending order. You are not allowed to use any loops (for, while, etc.) in your implementation. Your function should sort the array in-place.
+
+Input Format:
+- The first line contains a single integer N, the number of elements in the array.
+- The second line contains N space-separated integers, representing the elements of the array.
+
+Output Format:
+- Print the sorted array as space-separated integers in a single line.
+
+Constraints:
+- 1 ≤ N ≤ 1000
+- -10^6 ≤ Array elements ≤ 10^6
+
+Sample Input:
+5
+5 1 4 2 8
+
+Sample Output:
+1 2 4 5 8
+
+Explanation:
+The input array is [5, 1, 4, 2, 8]. After applying recursive bubble sort, the sorted array is [1, 2, 4, 5, 8].
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+6
+3 2 1 6 5 4
+Output:
+1 2 3 4 5 6
+
+Test Case 2:
+Input:
+4
+10 9 8 7
+Output:
+7 8 9 10
+
+Test Case 3:
+Input:
+7
+-1 0 5 -10 8 2 3
+Output:
+-10 -1 0 2 3 5 8
+
+Test Case 4:
+Input:
+1
+42
+Output:
+42
+
+Test Case 5:
+Input:
+8
+5 5 5 5 5 5 5 5
+Output:
+5 5 5 5 5 5 5 5
+
+----------------------------------

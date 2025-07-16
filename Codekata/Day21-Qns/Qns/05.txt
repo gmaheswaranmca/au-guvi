@@ -1,0 +1,85 @@
+"Sort Array with Limited Range", 
+"Given an array where elements are in a small range, choose the most efficient sorting algorithm and implement it.", 
+"Easy", 
+"HackerEarth, Infosys"
+
+----------------------------------
+
+Problem Title:
+Sort Array with Limited Range
+
+Problem Description:
+Given an array of N integers where each element is in the range [0, K], sort the array in non-decreasing order. Your solution should be optimized for the given constraints.
+
+Input Format:
+- The first line contains two integers N and K, the size of the array and the maximum value in the array.
+- The second line contains N space-separated integers representing the elements of the array.
+
+Output Format:
+- Print the sorted array as N space-separated integers.
+
+Constraints:
+- 1 ≤ N ≤ 10^6
+- 0 ≤ K ≤ 10^4
+- 0 ≤ Array[i] ≤ K
+
+Sample Input 1:
+6 5
+1 4 2 2 5 0
+
+Sample Output 1:
+0 1 2 2 4 5
+
+Explanation:
+The array elements are within the range [0, 5]. Counting sort is efficient for this range and sorts the array as shown.
+
+Sample Input 2:
+5 3
+3 1 2 1 0
+
+Sample Output 2:
+0 1 1 2 3
+
+Explanation:
+All elements are between 0 and 3. The sorted array is printed.
+
+Difficulty:
+Easy
+
+Test Cases:
+Test Case 1:
+Input:
+7 4
+4 2 1 3 2 0 1
+Output:
+0 1 1 2 2 3 4
+
+Test Case 2:
+Input:
+10 2
+2 2 1 0 1 2 0 1 2 0
+Output:
+0 0 0 1 1 1 1 2 2 2
+
+Test Case 3:
+Input:
+1 0
+0
+Output:
+0
+
+Test Case 4:
+Input:
+8 8
+8 7 6 5 4 3 2 1
+Output:
+1 2 3 4 5 6 7 8
+
+Test Case 5:
+Input:
+4 1
+1 0 1 0
+Output:
+0 0 1 1
+
+----------------------------------

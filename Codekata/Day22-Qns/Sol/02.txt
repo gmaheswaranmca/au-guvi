@@ -1,0 +1,38 @@
+import java.util.*;
+
+class HitCounter {
+    private Queue<Integer> queue;
+
+    public HitCounter() {
+        queue = new LinkedList<>();
+    }
+
+    public void hit(int timestamp) {
+        queue.offer(timestamp);
+    }
+
+    public int getHits(int timestamp) {
+        while (!queue.isEmpty() && queue.peek() <= timestamp - 300) {
+            queue.poll();
+        }
+        return queue.size();
+    }
+}
+
+// Driver code to process input as per the problem statement
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine());
+        HitCounter counter = new HitCounter();
+        for (int i = 0; i < n; i++) {
+            String[] parts = sc.nextLine().split(" ");
+            if (parts[0].equals("hit")) {
+                counter.hit(Integer.parseInt(parts[1]));
+            } else if (parts[0].equals("getHits")) {
+                System.out.println(counter.getHits(Integer.parseInt(parts[1])));
+            }
+        }
+        sc.close();
+    }
+}

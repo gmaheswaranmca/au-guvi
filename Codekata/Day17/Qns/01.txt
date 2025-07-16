@@ -39,7 +39,7 @@ Sample Input:
 Sample Output:
 0 2 3 9 6
 
-Explanation:
+Explanation: 1:2(2),3(4) | 2:3(1),4(7) | 3:5(3) | 4:5(1) ==> [0, I:2, I:4:3, I:9, I:6:10] 
 - The shortest path from 1 to 1 is 0.
 - The shortest path from 1 to 2 is 2.
 - The shortest path from 1 to 3 is 3 (1->2->3).

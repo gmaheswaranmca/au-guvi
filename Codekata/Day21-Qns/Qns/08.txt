@@ -1,0 +1,74 @@
+"Bucket Sort for Linked Lists", 
+"Given a singly linked list of integers, sort it using Bucket Sort without converting it to an array.", 
+"Hard", 
+"Facebook, Amazon"
+ 
+----------------------------------
+
+Problem Title:
+Bucket Sort for Linked Lists
+
+Problem Description:
+Given a singly linked list of integers, sort the linked list using the Bucket Sort algorithm. You are not allowed to convert the linked list into an array or use any array-based sorting. All operations must be performed directly on the linked list nodes. Return the head of the sorted linked list.
+
+Input Format:
+- The first line contains an integer N, the number of nodes in the linked list.
+- The second line contains N space-separated integers, representing the values of the linked list nodes in order.
+
+Output Format:
+- Output the sorted linked list as a sequence of space-separated integers in a single line.
+
+Constraints:
+- 1 ≤ N ≤ 10^5
+- -10^6 ≤ Node value ≤ 10^6
+
+Sample Input:
+6
+3 1 4 2 5 0
+
+Sample Output:
+0 1 2 3 4 5
+
+Explanation:
+The linked list is sorted in ascending order using Bucket Sort, and the output displays the sorted values.
+
+Difficulty:
+Hard
+
+Test Cases:
+Test Case 1:
+Input:
+5
+10 5 3 8 2
+Output:
+2 3 5 8 10
+
+Test Case 2:
+Input:
+7
+-3 0 2 -1 5 4 -2
+Output:
+-3 -2 -1 0 2 4 5
+
+Test Case 3:
+Input:
+4
+1000000 -1000000 0 500000
+Output:
+-1000000 0 500000 1000000
+
+Test Case 4:
+Input:
+1
+42
+Output:
+42
+
+Test Case 5:
+Input:
+8
+8 7 6 5 4 3 2 1
+Output:
+1 2 3 4 5 6 7 8
+
+----------------------------------

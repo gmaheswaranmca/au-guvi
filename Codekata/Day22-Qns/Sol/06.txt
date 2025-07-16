@@ -1,0 +1,52 @@
+import java.util.*;
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; next = null; }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.hasNextInt() ? sc.nextInt() : 0;
+        ListNode head = null, tail = null;
+        List<ListNode> nodes = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int val = sc.nextInt();
+            ListNode node = new ListNode(val);
+            nodes.add(node);
+            if (head == null) {
+                head = node;
+                tail = node;
+            } else {
+                tail.next = node;
+                tail = node;
+            }
+        }
+        int pos = sc.hasNextInt() ? sc.nextInt() : -1;
+        if (pos >= 0 && pos < nodes.size()) {
+            tail.next = nodes.get(pos);
+        }
+        ListNode cycleNode = detectCycle(head);
+        System.out.println(cycleNode != null ? cycleNode.val : "null");
+    }
+
+    public static ListNode detectCycle(ListNode head) {
+        if (head == null) return null;
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                ListNode entry = head;
+                while (entry != slow) {
+                    entry = entry.next;
+                    slow = slow.next;
+                }
+                return entry;
+            }
+        }
+        return null;
+    }
+}

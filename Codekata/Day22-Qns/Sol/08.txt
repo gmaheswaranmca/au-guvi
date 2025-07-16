@@ -1,0 +1,55 @@
+import java.util.*;
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+
+public class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        
+        if (n == 0) return;
+        
+        ListNode head = new ListNode(sc.nextInt());
+        ListNode current = head;
+        
+        for (int i = 1; i < n; i++) {
+            current.next = new ListNode(sc.nextInt());
+            current = current.next;
+        }
+        
+        int k = sc.nextInt();
+        
+        // Find the node to delete
+        ListNode nodeToDelete = head;
+        for (int i = 1; i < k; i++) {
+            nodeToDelete = nodeToDelete.next;
+        }
+        
+        Solution solution = new Solution();
+        solution.deleteNode(nodeToDelete);
+        
+        // Print the modified linked list
+        current = head;
+        while (current != null) {
+            System.out.print(current.val);
+            if (current.next != null) {
+                System.out.print(" ");
+            }
+            current = current.next;
+        }
+        System.out.println();
+    }
+}

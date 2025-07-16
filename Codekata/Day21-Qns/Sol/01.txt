@@ -1,0 +1,39 @@
+import java.util.*;
+
+class TreeNode {
+  int val;
+  TreeNode left, right;
+  TreeNode(int x) { val = x; }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int[] nums = new int[n];
+    for(int i = 0; i < n; i++) nums[i] = sc.nextInt();
+    TreeNode root = sortedArrayToBST(nums, 0, n - 1);
+    List<Integer> preorder = new ArrayList<>();
+    preorderTraversal(root, preorder);
+    for(int i = 0; i < preorder.size(); i++) {
+      if(i > 0) System.out.print(" ");
+      System.out.print(preorder.get(i));
+    }
+  }
+
+  static TreeNode sortedArrayToBST(int[] nums, int left, int right) {
+    if(left > right) return null;
+    int mid = left + (right - left) / 2;
+    TreeNode node = new TreeNode(nums[mid]);
+    node.left = sortedArrayToBST(nums, left, mid - 1);
+    node.right = sortedArrayToBST(nums, mid + 1, right);
+    return node;
+  }
+
+  static void preorderTraversal(TreeNode node, List<Integer> res) {
+    if(node == null) return;
+    res.add(node.val);
+    preorderTraversal(node.left, res);
+    preorderTraversal(node.right, res);
+  }
+}

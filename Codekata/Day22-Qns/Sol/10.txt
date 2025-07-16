@@ -1,0 +1,60 @@
+import java.util.*;
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class RemoveLinkedListElements {
+    public static ListNode removeElements(ListNode head, int val) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode curr = dummy;
+        while (curr.next != null) {
+            if (curr.next.val == val) {
+                curr.next = curr.next.next;
+            } else {
+                curr = curr.next;
+            }
+        }
+        return dummy.next;
+    }
+
+    public static ListNode buildList(int[] arr) {
+        ListNode dummy = new ListNode(-1);
+        ListNode curr = dummy;
+        for (int num : arr) {
+            curr.next = new ListNode(num);
+            curr = curr.next;
+        }
+        return dummy.next;
+    }
+
+    public static void printList(ListNode head) {
+        if (head == null) {
+            System.out.println("Empty");
+            return;
+        }
+        ListNode curr = head;
+        while (curr != null) {
+            System.out.print(curr.val);
+            if (curr.next != null) System.out.print(" ");
+            curr = curr.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String[] nums = sc.nextLine().trim().split("\\s+");
+        int[] arr = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            arr[i] = Integer.parseInt(nums[i]);
+        }
+        int val = Integer.parseInt(sc.nextLine().trim());
+        ListNode head = buildList(arr);
+        ListNode result = removeElements(head, val);
+        printList(result);
+    }
+}

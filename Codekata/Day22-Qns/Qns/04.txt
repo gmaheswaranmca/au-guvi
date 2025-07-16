@@ -1,0 +1,122 @@
+Queue using Stacks", 
+"Implement a queue using two stacks.", 
+"Easy", 
+"LeetCode, Microsoft"
+ 
+----------------------------------
+
+Problem Title:
+Implement Queue using Two Stacks
+
+Problem Description:
+Design and implement a queue using two stacks. The implemented queue should support all the operations of a standard queue: enqueue (push), dequeue (pop), peek (front), and checking if the queue is empty. You are only allowed to use standard stack operations (push, pop, peek, and isEmpty).
+
+Input Format:
+- The first line contains an integer n, the number of operations.
+- The next n lines each contain an operation:
+    - "enqueue x" to add element x to the queue.
+    - "dequeue" to remove the element from the front of the queue.
+    - "peek" to print the element at the front of the queue.
+    - "empty" to print "true" if the queue is empty, otherwise "false".
+
+Output Format:
+For each "peek" or "empty" operation, output the result on a new line.
+
+Constraints:
+- 1 <= n <= 1000
+- For "enqueue x", 1 <= x <= 10^6
+- It is guaranteed that "dequeue" and "peek" operations will not be called on an empty queue.
+
+Sample Input:
+7
+enqueue 1
+enqueue 2
+peek
+dequeue
+peek
+dequeue
+empty
+
+Sample Output:
+1
+2
+true
+
+Explanation:
+- After enqueue 1 and 2, the queue is [1, 2].
+- "peek" returns 1.
+- "dequeue" removes 1, queue is now [2].
+- "peek" returns 2.
+- "dequeue" removes 2, queue is now empty.
+- "empty" returns true.
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input:
+5
+enqueue 10
+enqueue 20
+peek
+dequeue
+peek
+
+Output:
+10
+20
+
+Test Case 2:
+Input:
+4
+enqueue 5
+enqueue 6
+dequeue
+peek
+
+Output:
+6
+
+Test Case 3:
+Input:
+6
+enqueue 7
+enqueue 8
+enqueue 9
+dequeue
+peek
+empty
+
+Output:
+8
+false
+
+Test Case 4:
+Input:
+3
+enqueue 100
+peek
+empty
+
+Output:
+100
+false
+
+Test Case 5:
+Input:
+8
+enqueue 1
+enqueue 2
+enqueue 3
+dequeue
+dequeue
+peek
+dequeue
+empty
+
+Output:
+3
+true
+
+----------------------------------

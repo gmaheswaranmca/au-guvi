@@ -1,0 +1,100 @@
+"Print RBT in Zigzag Order", 
+"Print the nodes of a Red-Black Tree in zigzag (spiral) order.", 
+"Medium", 
+"LeetCode, Facebook"
+ 
+----------------------------------
+Problem Title:
+Print Red-Black Tree in Zigzag Order
+
+Problem Description:
+Given a Red-Black Tree, print its nodes in zigzag (spiral) order. In zigzag order, the first level is printed from left to right, the next level from right to left, and so on, alternating at each level. You are given the root of the Red-Black Tree. Assume the tree nodes contain integer values.
+
+Input Format:
+- The first line contains an integer N, the number of nodes in the tree.
+- The next N lines each contain three space-separated values: value, left_child_index, right_child_index.
+    - value: integer value of the node.
+    - left_child_index: index (1-based) of the left child node, or -1 if there is no left child.
+    - right_child_index: index (1-based) of the right child node, or -1 if there is no right child.
+- The root of the tree is always the first node (index 1).
+
+Output Format:
+- Print the node values in zigzag order, separated by spaces, in a single line.
+
+Constraints:
+- 1 ≤ N ≤ 10^4
+- -10^5 ≤ value ≤ 10^5
+- Each left_child_index and right_child_index is either -1 or a valid index (1-based) of another node.
+
+Sample Input:
+7
+10 2 3
+5 4 5
+15 6 7
+2 -1 -1
+7 -1 -1
+12 -1 -1
+20 -1 -1
+
+Sample Output:
+10 15 5 2 7 12 20
+
+Explanation:
+Level 1: 10 (left to right)
+Level 2: 15 5 (right to left)
+Level 3: 2 7 12 20 (left to right)
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+1
+42 -1 -1
+Output:
+42
+
+Test Case 2:
+Input:
+3
+8 2 3
+3 -1 -1
+10 -1 -1
+Output:
+8 10 3
+
+Test Case 3:
+Input:
+5
+1 2 3
+2 4 5
+3 -1 -1
+4 -1 -1
+5 -1 -1
+Output:
+1 3 2 4 5
+
+Test Case 4:
+Input:
+4
+7 2 -1
+3 -1 3
+9 -1 -1
+5 -1 -1
+Output:
+7 3 9 5
+
+Test Case 5:
+Input:
+6
+20 2 3
+10 4 5
+30 -1 6
+5 -1 -1
+15 -1 -1
+40 -1 -1
+Output:
+20 30 10 5 15 40
+
+----------------------------------

@@ -1,0 +1,172 @@
+"Circular Queue Implementation", 
+"Design and implement a circular queue with efficient enqueue and dequeue operations.", 
+"Medium", 
+"LeetCode, Google"
+ 
+----------------------------------
+
+Problem Title:
+Circular Queue Implementation
+
+Problem Description:
+Design and implement a circular queue data structure that supports the following operations efficiently:
+- Enqueue: Add an element to the rear of the queue.
+- Dequeue: Remove and return the element from the front of the queue.
+- Front: Get the front item from the queue.
+- Rear: Get the last item from the queue.
+- isEmpty: Check whether the queue is empty.
+- isFull: Check whether the queue is full.
+
+Your implementation should use a fixed-size array and must handle the wrap-around condition efficiently.
+
+Input Format:
+- The first line contains an integer n, the size of the queue.
+- The second line contains an integer q, the number of operations.
+- The next q lines each contain an operation in one of the following formats:
+    - "ENQUEUE x" (where x is an integer to add)
+    - "DEQUEUE"
+    - "FRONT"
+    - "REAR"
+    - "ISEMPTY"
+    - "ISFULL"
+
+Output Format:
+For each operation that returns a value (DEQUEUE, FRONT, REAR, ISEMPTY, ISFULL), print the result on a new line. For ENQUEUE, print "ENQUEUED" if successful, or "FULL" if the queue is full. For DEQUEUE, print the dequeued value or "EMPTY" if the queue is empty.
+
+Constraints:
+- 1 <= n <= 1000
+- 1 <= q <= 10000
+- -10^6 <= x <= 10^6
+
+Sample Input:
+5
+8
+ENQUEUE 10
+ENQUEUE 20
+FRONT
+REAR
+DEQUEUE
+DEQUEUE
+DEQUEUE
+ISEMPTY
+
+Sample Output:
+ENQUEUED
+ENQUEUED
+10
+20
+10
+20
+EMPTY
+1
+
+Explanation:
+- ENQUEUE 10 and ENQUEUE 20 add elements to the queue.
+- FRONT returns 10, the first element.
+- REAR returns 20, the last element.
+- DEQUEUE removes and returns 10, then 20.
+- The next DEQUEUE finds the queue empty.
+- ISEMPTY returns 1 (true).
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+6
+ENQUEUE 5
+ENQUEUE 6
+ENQUEUE 7
+ENQUEUE 8
+DEQUEUE
+FRONT
+
+Output:
+ENQUEUED
+ENQUEUED
+ENQUEUED
+FULL
+5
+6
+
+Test Case 2:
+Input:
+2
+5
+ENQUEUE 1
+DEQUEUE
+DEQUEUE
+ISEMPTY
+ISFULL
+
+Output:
+ENQUEUED
+1
+EMPTY
+1
+0
+
+Test Case 3:
+Input:
+4
+7
+ENQUEUE 2
+ENQUEUE 3
+ENQUEUE 4
+DEQUEUE
+ENQUEUE 5
+REAR
+ISFULL
+
+Output:
+ENQUEUED
+ENQUEUED
+ENQUEUED
+2
+ENQUEUED
+5
+1
+
+Test Case 4:
+Input:
+1
+4
+ENQUEUE 100
+ISFULL
+DEQUEUE
+ISEMPTY
+
+Output:
+ENQUEUED
+1
+100
+1
+
+Test Case 5:
+Input:
+5
+9
+ENQUEUE 1
+ENQUEUE 2
+ENQUEUE 3
+ENQUEUE 4
+ENQUEUE 5
+DEQUEUE
+DEQUEUE
+FRONT
+REAR
+
+Output:
+ENQUEUED
+ENQUEUED
+ENQUEUED
+ENQUEUED
+ENQUEUED
+1
+2
+3
+5
+
+----------------------------------
