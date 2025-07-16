@@ -1,0 +1,165 @@
+Dijkstra's Algorithm - Notes
+----------------------------
+    Purpose:
+    - Finds the shortest path from a source node to all other nodes in a weighted graph with non-negative edge weights.
+
+    Key Concepts:
+    - Greedy algorithm.
+    - Uses a priority queue (min-heap) to select the next node with the smallest tentative distance.
+
+    Algorithm Steps:
+    1. Initialize distances from the source to all nodes as infinity, except the source itself (distance 0).
+    2. Mark all nodes as unvisited. Set the source node as current.
+    3. For the current node, consider all its unvisited neighbors and calculate their tentative distances.
+    4. If the calculated distance of a node is less than the known distance, update it.
+    5. Once all neighbors are considered, mark the current node as visited.
+    6. Select the unvisited node with the smallest tentative distance as the new current node.
+    7. Repeat steps 3-6 until all nodes are visited or the smallest tentative distance among the unvisited nodes is infinity.
+
+    Data Structures:
+    - Distance array (or map)
+    - Priority queue (min-heap)
+    - Visited set
+
+    Time Complexity:
+    - O((V + E) log V) with a min-heap (V = vertices, E = edges)
+
+    Limitations:
+    - Does not work with negative edge weights.
+
+    Applications:
+    - GPS navigation
+    - Network routing protocols
+    - Shortest path in maps and games
+
+    Pseudocode:
+    ----------------
+    function Dijkstra(Graph, source):
+        dist[source] = 0
+        for each vertex v in Graph:
+            if v ≠ source:
+                dist[v] = infinity
+            add v to priority queue Q
+
+        while Q is not empty:
+            u = node in Q with smallest dist[u]
+            remove u from Q
+
+            for each neighbor v of u:
+                alt = dist[u] + length(u, v)
+                if alt < dist[v]:
+                    dist[v] = alt
+
+        return dist
+
+Bellman-Ford Algorithm - Notes
+------------------------------
+    Purpose:
+    - Computes shortest paths from a single source node to all other nodes in a weighted graph (can handle negative edge weights).
+
+    Key Concepts:
+    - Dynamic programming approach.
+    - Relaxes all edges up to (V-1) times (V = number of vertices).
+    - Can detect negative weight cycles.
+
+    Algorithm Steps:
+    1. Initialize distances from the source to all nodes as infinity, except the source itself (distance 0).
+    2. Repeat (V-1) times:
+        a. For each edge (u, v) with weight w:
+            - If dist[u] + w < dist[v], update dist[v] = dist[u] + w.
+    3. Check for negative weight cycles:
+        a. For each edge (u, v) with weight w:
+            - If dist[u] + w < dist[v], a negative cycle exists.
+
+    Data Structures:
+    - Distance array (or map)
+
+    Time Complexity:
+    - O(V * E) (V = vertices, E = edges)
+
+    Limitations:
+    - Slower than Dijkstra's algorithm for graphs without negative weights.
+
+    Applications:
+    - Detecting negative weight cycles
+    - Currency arbitrage detection
+    - Routing algorithms (e.g., RIP)
+
+    Pseudocode:
+    ----------------
+    function BellmanFord(Graph, source):
+        dist[source] = 0
+        for each vertex v in Graph:
+            if v ≠ source:
+                dist[v] = infinity
+
+        for i from 1 to |V|-1:
+            for each edge (u, v) with weight w in Graph:
+                if dist[u] + w < dist[v]:
+                    dist[v] = dist[u] + w
+
+        for each edge (u, v) with weight w in Graph:
+            if dist[u] + w < dist[v]:
+                report "Negative weight cycle detected"
+
+        return dist
+
+Topological Sorting (Kahn's Algorithm) - Notes
+----------------------------------------------
+        Purpose:
+        - Produces a linear ordering of vertices in a Directed Acyclic Graph (DAG) such that for every directed edge u → v, vertex u comes before v in the ordering.
+
+        Key Concepts:
+        - Only works for DAGs (Directed Acyclic Graphs).
+        - Uses in-degree (number of incoming edges) for each node.
+        - Nodes with in-degree 0 can be placed in the ordering.
+
+        Algorithm Steps:
+        1. Compute in-degree for each vertex.
+        2. Initialize a queue and enqueue all vertices with in-degree 0.
+        3. While the queue is not empty:
+            a. Remove a vertex u from the queue and add it to the topological order.
+            b. For each neighbor v of u:
+                - Decrement in-degree of v by 1.
+                - If in-degree of v becomes 0, enqueue v.
+        4. If all vertices are processed, a valid topological order exists.
+        5. If not all vertices are processed, the graph has a cycle (not a DAG).
+
+        Data Structures:
+        - In-degree array (or map)
+        - Queue for vertices with in-degree 0
+        - List for topological order
+
+        Time Complexity:
+        - O(V + E) (V = vertices, E = edges)
+
+        Limitations:
+        - Only applicable to DAGs.
+
+        Applications:
+        - Task scheduling
+        - Course prerequisite ordering
+        - Build systems (dependency resolution)
+
+        Pseudocode:
+        ----------------
+        function KahnTopologicalSort(Graph):
+            in_degree = [0 for each vertex]
+            for each edge (u, v) in Graph:
+                in_degree[v] += 1
+
+            queue = all vertices with in_degree 0
+            topo_order = []
+
+            while queue is not empty:
+                u = queue.pop()
+                topo_order.append(u)
+                for each neighbor v of u:
+                    in_degree[v] -= 1
+                    if in_degree[v] == 0:
+                        queue.append(v)
+
+            if length of topo_order == number of vertices:
+                return topo_order
+            else:
+                report "Graph has a cycle"

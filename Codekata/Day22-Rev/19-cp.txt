@@ -1,0 +1,158 @@
+Segment Tree Notes
+
+1. What is a Segment Tree?
+- A segment tree is a binary tree data structure used for storing information about intervals or segments.
+- It allows querying and updating ranges efficiently (commonly in O(log n) time).
+
+2. Use Cases:
+- Range sum queries
+- Range minimum/maximum queries
+- Range updates (with lazy propagation)
+- Counting occurrences in a range
+
+3. Structure:
+- Each node represents a segment [l, r] of the array.
+- The root represents the whole array.
+- Leaves represent single elements.
+
+4. Construction:
+- Recursively divide the array into halves.
+- Each node stores information (sum, min, max, etc.) about its segment.
+
+5. Query:
+- To query a range [L, R], traverse the tree:
+    - If the segment is completely inside [L, R], use the node's value.
+    - If the segment is outside, ignore.
+    - If partially inside, query both children.
+
+6. Update:
+- To update an element or a range, traverse to the relevant leaf or segment.
+- Update the value and propagate changes up the tree.
+
+7. Complexity:
+- Build: O(n)
+- Query: O(log n)
+- Update: O(log n)
+
+8. Variants:
+- Lazy propagation: For efficient range updates.
+- Persistent segment tree: For keeping history of modifications.
+
+9. Example Applications:
+- Range sum/min/max queries
+- Interval covering/counting problems
+- Dynamic connectivity
+
+10. Sample Code (Range Sum Query):
+class SegmentTree:
+    def __init__(self, data):
+        self.n = len(data)
+        self.tree = [0] * (2 * self.n)
+        # Build the tree
+        for i in range(self.n):
+            self.tree[self.n + i] = data[i]
+        for i in range(self.n - 1, 0, -1):
+            self.tree[i] = self.tree[2 * i] + self.tree[2 * i + 1]
+
+    def update(self, index, value):
+        # Set value at position index
+        pos = index + self.n
+        self.tree[pos] = value
+        while pos > 1:
+            pos //= 2
+            self.tree[pos] = self.tree[2 * pos] + self.tree[2 * pos + 1]
+
+    def query(self, left, right):
+        # Range sum query [left, right)
+        res = 0
+        l = left + self.n
+        r = right + self.n
+        while l < r:
+            if l % 2:
+                res += self.tree[l]
+                l += 1
+            if r % 2:
+                r -= 1
+                res += self.tree[r]
+            l //= 2
+            r //= 2
+        return res
+
+# Example usage:
+arr = [1, 3, 5, 7, 9, 11]
+st = SegmentTree(arr)
+print(st.query(1, 5))  # Output: 24 (3+5+7+9)
+st.update(3, 10)
+print(st.query(1, 5))  # Output: 27 (3+5+10+9)
+
+
+Fenwick Tree (Binary Indexed Tree) Notes
+
+1. What is a Fenwick Tree?
+- A Fenwick Tree, also known as a Binary Indexed Tree (BIT), is a data structure that efficiently supports prefix sum queries and point updates.
+
+2. Use Cases:
+- Prefix sum queries
+- Point updates
+- Inversion counting
+- Frequency tables
+
+3. Structure:
+- Uses a 1-based array to store cumulative information.
+- Each index covers a range of elements determined by the least significant bit.
+
+4. Construction:
+- Initialize an array of size n+1 (1-based indexing).
+- Build by updating each element.
+
+5. Query:
+- To get the prefix sum up to index i, repeatedly subtract the least significant bit from i and sum the values.
+
+6. Update:
+- To add a value to index i, repeatedly add the least significant bit to i and update the values.
+
+7. Complexity:
+- Build: O(n log n)
+- Query: O(log n)
+- Update: O(log n)
+
+8. Variants:
+- 2D Fenwick Tree: For 2D range queries.
+- Range update, point query (with modifications).
+
+9. Example Applications:
+- Cumulative frequency tables
+- Counting inversions in an array
+- Range sum queries
+
+10. Sample Code (Prefix Sum Query):
+
+class FenwickTree:
+    def __init__(self, size):
+        self.n = size
+        self.tree = [0] * (self.n + 1)
+
+    def update(self, index, value):
+        # Add value to index (1-based)
+        i = index
+        while i <= self.n:
+            self.tree[i] += value
+            i += i & -i
+
+    def query(self, index):
+        # Prefix sum up to index (1-based)
+        res = 0
+        i = index
+        while i > 0:
+            res += self.tree[i]
+            i -= i & -i
+        return res
+
+# Example usage:
+arr = [1, 3, 5, 7, 9, 11]
+ft = FenwickTree(len(arr))
+for idx, val in enumerate(arr):
+    ft.update(idx + 1, val)
+print(ft.query(5))  # Output: 25 (1+3+5+7+9)
+ft.update(4, 3)     # Add 3 to index 4 (7 -> 10)
+print(ft.query(5))  # Output: 28 (1+3+5+10+9)

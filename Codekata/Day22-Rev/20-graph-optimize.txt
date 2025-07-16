@@ -1,0 +1,88 @@
+Kruskal's Algorithm - Notes
+
+1. Purpose:
+    - Finds the Minimum Spanning Tree (MST) of 
+    a connected, undirected, weighted graph.
+    - MST: A subset of edges connecting all vertices 
+    with minimum total edge weight and no cycles.
+
+2. Steps:
+    a. Sort all edges in non-decreasing order of their weights.
+    b. Initialize MST as an empty set.
+    c. For each edge in sorted order:
+        - If adding the edge does not form a cycle 
+        (i.e., connects two different components), add it to the MST.
+        - Use Union-Find (Disjoint Set Union) to check for cycles efficiently.
+    d. Repeat until MST has (V-1) edges, where V is the number of vertices.
+
+3. Data Structures:
+    - Edge list (with weights)
+    - Disjoint Set Union (Union-Find) for cycle detection
+
+4. Time Complexity:
+    - Sorting edges: O(E log E)
+    - Union-Find operations: O(E α(V)), 
+    where α is the inverse Ackermann function (very slow-growing)
+    - Overall: O(E log E)
+
+5. Characteristics:
+    - Greedy algorithm
+    - Works well for sparse graphs
+    - May produce different MSTs if multiple edges have the same weight
+
+6. Comparison:
+    - Prim's algorithm is another MST algorithm, 
+    but it grows the MST from a starting vertex, 
+    while Kruskal's adds edges in order of weight.
+
+7. Applications:
+    - Network design (telecommunications, electrical grids)
+    - Clustering in machine learning
+    - Approximation algorithms for NP-hard problems
+
+References:
+- "Introduction to Algorithms" by Cormen et al.
+- https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+
+
+Prim's Algorithm - Notes
+
+1. Purpose:
+    - Finds the Minimum Spanning Tree (MST) of a connected, undirected, weighted graph.
+    - MST: A subset of edges connecting all vertices with minimum total edge weight and no cycles.
+
+2. Steps:
+    a. Start with any vertex as the initial MST.
+    b. At each step, select the minimum-weight edge 
+    that connects a vertex in the MST to a vertex outside the MST.
+    c. Add the selected edge and vertex to the MST.
+    d. Repeat until all vertices are included in the MST.
+
+3. Data Structures:
+    - Priority queue (min-heap) to efficiently select the minimum-weight edge.
+    - Array or set to track vertices included in the MST.
+
+4. Time Complexity:
+    - Using a simple array: O(V^2)
+    - Using a min-heap (binary heap): O(E log V)
+    - Using a Fibonacci heap: O(E + V log V)
+
+5. Characteristics:
+    - Greedy algorithm.
+    - Grows the MST from a starting vertex.
+    - Suitable for dense graphs.
+    - Always produces the same MST if edge weights are unique.
+
+6. Comparison:
+    - Kruskal's algorithm adds edges in order of weight, 
+    while Prim's grows the MST from a starting vertex.
+    - Prim's is often faster for dense graphs; 
+    Kruskal's is better for sparse graphs.
+
+7. Applications:
+    - Network design (computer networks, road networks)
+    - Approximation algorithms for NP-hard problems
+
+References:
+- "Introduction to Algorithms" by Cormen et al.
+- https://en.wikipedia.org/wiki/Prim%27s_algorithm

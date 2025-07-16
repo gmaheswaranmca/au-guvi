@@ -1,0 +1,175 @@
+Recursion and Backtracking are 
+    fundamental concepts in problem solving, 
+    especially in algorithms and coding interviews. 
+    Here’s a concise breakdown:
+
+    🧠 Recursion:
+        A function calling itself to solve smaller subproblems.
+    Examples:
+        * Factorial
+        * Fibonacci
+        * Sum of array
+        * Binary Search (recursive)
+        * Tree traversals
+
+    The Tower of Hanoi 
+        is a classic recursion problem 
+        that teaches how recursive thinking 
+        can break down a problem into 
+        simpler subproblems.
+    
+        Recursive Nature
+        To move `n` disks:
+            * Move `n−1` disks from source to helper.
+            * Move the largest disk to destination.
+            * Move `n−1` disks from helper to destination.
+
+Backtracking:
+    A form of recursion 
+    where you explore all possibilities, 
+    but undo ("backtrack") 
+    when a solution path fails.
+    
+    ie "Backtracking is recursion + undo. 
+    You explore choices, and 
+    backtrack when a path doesn’t lead to a solution."
+
+    Steps:
+        1. Choose a solution
+        2. Explore recursively
+        3. Undo the choice (backtrack)
+
+    ✅ Where It Is Used
+        * Problems where we must find:
+            * All possible solutions (e.g., permutations, combinations).
+            * A single valid solution under constraints (e.g., N-Queens).
+            * Optimal solution by pruning (e.g., Sudoku).
+    Classic Problems:
+        * N-Queens
+        * Sudoku Solver
+        * Word Search
+        * Subsets / Combinations / Permutations
+        * Rat in a Maze
+        * Permutations/Combinations
+    
+
+
+        Classification of Backtracking 
+            based on problem types and 
+            the technique used to prune the search space. Here’s a breakdown:
+
+            🧩 1. Combinatorial Backtracking
+                * Involves generating all combinations, permutations, or subsets.
+                * No constraints or only soft rules (like avoiding duplicates).
+
+                ✅ Examples:
+                    * Generating subsets of a set
+                    * All permutations of a string
+                    * Combinations that sum to a target
+
+            🧠 2. Constraint Satisfaction Backtracking
+                * Deals with strong rules (constraints) that must be followed.
+                * Applies pruning and early termination.
+
+                ✅ Examples:
+                    * N-Queens problem (no two queens attack each other)
+                    * Sudoku solver
+                    * Map coloring
+                    * Cryptarithmetic puzzles
+
+            ⚙️ 3. Optimization Backtracking
+                * Tries all valid paths, but among them, returns the optimal (e.g., min/max) result.
+
+                ✅ Examples:
+                    * 0/1 Knapsack problem (when solved via backtracking)
+                    * Longest valid path in a maze
+                    * Maximum number of valid configurations
+
+            🔍 Based on Pruning Techniques:
+                | Type                   | Description                                                               |
+                | ---------------------- | ------------------------------------------------------------------------- |
+                | Naive Backtracking     | Tries all paths, no pruning                                               |
+                | Forward Checking       | Eliminates invalid choices early based on current partial state           |
+                | Constraint Propagation | Applies domain rules (like Sudoku rules) ahead to reduce the search space |
+                | Memoized Backtracking  | Combines backtracking with memoization to avoid re-exploring same states  |
+
+
+    Example: Subsets
+        ```java
+        import java.util.*;
+
+        public class SubsetsGenerator {
+
+            public static List<List<Integer>> subsets(int[] nums) {
+                List<List<Integer>> res = new ArrayList<>();
+                backtrack(nums, 0, new ArrayList<>(), res);
+                return res;
+            }
+
+            private static void backtrack(int[] nums, int index, List<Integer> path, List<List<Integer>> res) {
+                res.add(new ArrayList<>(path)); // Add a copy of current path
+
+                for (int i = index; i < nums.length; i++) {
+                    path.add(nums[i]);                  // Choose
+                    backtrack(nums, i + 1, path, res);  // Explore
+                    path.remove(path.size() - 1);       // Unchoose (backtrack)
+                }
+            }
+
+            public static void main(String[] args) {
+                int[] nums = {1, 2, 3};
+                List<List<Integer>> result = subsets(nums);
+
+                for (List<Integer> subset : result) {
+                    System.out.println(subset);
+                }
+            }
+        }
+        ```
+        State Space Tree for Subsets Example (nums = [1, 2, 3]):
+
+        Each node shows the current subset (path) and the index in the array.
+
+        Level 0: Start
+        []
+        |
+        |-- Include 1
+        |   [1]
+        |   |
+        |   |-- Include 2
+        |   |   [1, 2]
+        |   |   |
+        |   |   |-- Include 3
+        |   |   |   [1, 2, 3]
+        |   |   |
+        |   |   |-- Exclude 3
+        |   |
+        |   |-- Exclude 2
+        |       [1]
+        |       |
+        |       |-- Include 3
+        |           [1, 3]
+        |       |
+        |       |-- Exclude 3
+        |
+        |-- Exclude 1
+            []
+            |
+            |-- Include 2
+            |   [2]
+            |   |
+            |   |-- Include 3
+            |   |   [2, 3]
+            |   |
+            |   |-- Exclude 3
+            |
+            |-- Exclude 2
+                []
+                |
+                |-- Include 3
+                |   [3]
+                |
+                |-- Exclude 3
+
+        All paths (leaf nodes) represent a subset:
+        [[], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]]

@@ -1,0 +1,376 @@
+Dynamic Programming (DP) Notes
+==============================
+
+Definition:
+-----------
+Dynamic Programming is a method for solving complex problems by breaking them down into simpler subproblems. It is applicable when the problem has overlapping subproblems and optimal substructure.
+
+Key Concepts:
+-------------
+1. **Optimal Substructure**: The optimal solution to the problem can be constructed from optimal solutions of its subproblems.
+2. **Overlapping Subproblems**: The problem can be broken down into subproblems which are reused several times.
+
+Approaches:
+-----------
+- **Top-Down (Memoization)**: Solve the problem recursively and store the results of subproblems to avoid redundant computations.
+- **Bottom-Up (Tabulation)**: Solve all possible subproblems starting from the smallest, and use their solutions to build up solutions to larger problems.
+
+Steps to Solve DP Problems:
+---------------------------
+1. Define the subproblem.
+2. Write the recurrence relation.
+3. Identify base cases.
+4. Choose memoization or tabulation.
+5. Implement and optimize.
+
+Examples:
+---------
+- Fibonacci Sequence
+- Knapsack Problem
+- Longest Common Subsequence
+- Coin Change Problem
+- Edit Distance
+
+Common Pitfalls:
+----------------
+- Not identifying overlapping subproblems.
+- Incorrect base cases.
+- Inefficient state representation.
+
+Tips:
+-----
+- Draw recursion trees to find overlapping subproblems.
+- Use arrays or hash maps for memoization.
+- Optimize space if possible (e.g., reduce 2D DP to 1D).
+
+References:
+-----------
+- "Introduction to Algorithms" by Cormen et al.
+- LeetCode DP problems
+- GeeksforGeeks DP tutorials
+
+
+Greedy Technique Notes
+======================
+
+Definition:
+-----------
+Greedy algorithms build up a solution piece by piece, 
+always choosing the next piece that offers the most immediate benefit. 
+They do not reconsider their choices, 
+aiming for a locally optimal solution at each step.
+
+Key Concepts:
+-------------
+1. **Greedy Choice Property**: A global optimum can be arrived at by selecting a local optimum.
+2. **Optimal Substructure**: An optimal solution to the problem contains optimal solutions to subproblems.
+
+Approach:
+---------
+- At each step, make the choice that seems best at the moment.
+- Do not revisit previous choices.
+
+Steps to Solve Greedy Problems:
+-------------------------------
+1. Identify the greedy choice property.
+2. Prove that making greedy choices leads to an optimal solution.
+3. Design an algorithm based on the greedy strategy.
+4. Implement and test.
+
+Examples:
+---------
+- Activity Selection Problem
+- Fractional Knapsack Problem
+- Huffman Coding
+- Prim’s and Kruskal’s Algorithms for Minimum Spanning Tree
+- Dijkstra’s Algorithm for Shortest Path
+
+Common Pitfalls:
+----------------
+- Assuming greedy always works (it does not for all problems).
+- Not proving the greedy choice property.
+- Overlooking counterexamples.
+
+Tips:
+-----
+- Try to prove correctness with an exchange argument or induction.
+- Compare with dynamic programming to check if greedy is sufficient.
+- Test with edge cases and small examples.
+
+References:
+-----------
+- "Introduction to Algorithms" by Cormen et al.
+- LeetCode Greedy problems
+- GeeksforGeeks Greedy tutorials
+
+----------------------------------
+
+"Longest Increasing Subsequence", 
+"Given an array of integers, 
+find the length of the longest strictly increasing subsequence.", 
+"Medium", 
+"LeetCode, Amazon, Microsoft"
+
+----------------------------------
+
+Problem Title: Longest Increasing Subsequence
+
+Problem Description:
+Given an array of integers, find the length of the longest strictly increasing subsequence. A subsequence is a sequence that can be derived from the array by deleting some or no elements without changing the order of the remaining elements. The subsequence must be strictly increasing, meaning each element is greater than the previous one.
+
+Input Format:
+- The first line contains an integer n, the number of elements in the array.
+- The second line contains n space-separated integers representing the elements of the array.
+
+Output Format:
+- Print a single integer, the length of the longest strictly increasing subsequence.
+
+Constraints:
+- 1 ≤ n ≤ 2500
+- -10^4 ≤ array[i] ≤ 10^4
+
+Sample Input:
+6
+10 9 2 5 3 7
+
+Sample Output:
+3
+
+Sample Explanation:
+The longest strictly increasing subsequence is [2, 5, 7], so the answer is 3.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+8
+1 3 2 4 3 5 4 6
+Output:
+5
+
+Test Case 2:
+Input:
+5
+5 4 3 2 1
+Output:
+1
+
+Test Case 3:
+Input:
+7
+1 2 3 4 5 6 7
+Output:
+7
+
+Test Case 4:
+Input:
+10
+10 22 9 33 21 50 41 60 80 1
+Output:
+6
+
+Test Case 5:
+Input:
+1
+100
+Output:
+1
+
+----------------------------------
+
+import java.util.Scanner;
+
+public class LongestIncreasingSubsequence {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        System.out.println(lengthOfLIS(nums));
+    }
+
+    public static int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        if (n == 0) return 0;
+        int[] dp = new int[n];
+        int maxLen = 1;
+        for(int i = 0; i < n; i++) {
+            dp[i] = 1;
+            for(int j = 0; j < i; j++) {
+                if(nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            maxLen = Math.max(maxLen, dp[i]);
+        }
+        return maxLen;
+    }
+}
+
+----------------------------------
+input `[10, 9, 2, 5, 3, 7]` 
+
+| i | nums[i] | dp before     | j loop comparisons (nums[j] < nums[i])                              | dp after      | maxLen |
+|---|---------|---------------|---------------------------------------------------------------------|---------------|--------|
+| 0 |   10    | [0,0,0,0,0,0] | none                                                                | [1,0,0,0,0,0] |   1    |
+| 1 |    9    | [1,0,0,0,0,0] | 10 < 9? No                                                          | [1,1,0,0,0,0] |   1    |
+| 2 |    2    | [1,1,0,0,0,0] | 10 < 2? No; 9 < 2? No                                               | [1,1,1,0,0,0] |   1    |
+| 3 |    5    | [1,1,1,0,0,0] | 10 < 5? No; 9 < 5? No; 2 < 5? Yes → dp[3]=dp[2]+1=2                 | [1,1,1,2,0,0] |   2    |
+| 4 |    3    | [1,1,1,2,0,0] | 10 < 3? No; 9 < 3? No; 2 < 3? Yes → dp[4]=dp[2]+1=2; 5 < 3? No      | [1,1,1,2,2,0] |   2    |
+| 5 |    7    | [1,1,1,2,2,0] | 10 < 7? No; 9 < 7? No; 2 < 7? Yes → dp[5]=dp[2]+1=2; 5 < 7? Yes → dp[5]=dp[3]+1=3; 3 < 7? Yes → dp[5]=dp[4]+1=3 
+                                                                                                    | [1,1,1,2,2,3] |   3    |
+----------------------------------
+
+"Activity Selection", 
+"Given start and end times of activities, select the maximum number of non-overlapping activities.", 
+"Easy", 
+"GeeksforGeeks, Google"
+
+----------------------------------
+
+Problem Title: Activity Selection Problem
+
+Problem Description:
+Given N activities with their start and end times, select the maximum number of activities that can be performed by a single person, assuming that a person can only work on a single activity at a time. Two activities are said to be non-overlapping if the start time of one activity is not less than the end time of the other.
+
+Input Format:
+- The first line contains a single integer N, the number of activities.
+- The next N lines each contain two integers, S and E, representing the start and end times of each activity.
+
+Output Format:
+- Print a single integer, the maximum number of non-overlapping activities that can be performed.
+
+Constraints:
+- 1 ≤ N ≤ 10^5
+- 0 ≤ S < E ≤ 10^9
+
+Sample Input:
+6
+1 3
+2 4
+3 5
+0 6
+5 7
+8 9
+
+Sample Output:
+4
+
+Sample Explanation:
+The selected activities can be (1,3), (3,5), (5,7), and (8,9). These activities do not overlap and their count is 4.
+
+Difficulty:
+Easy
+
+Test Cases:
+Test Case 1:
+Input:
+3
+1 2
+2 3
+3 4
+Output:
+3
+
+Test Case 2:
+Input:
+4
+1 4
+2 3
+3 5
+4 6
+Output:
+2
+
+Test Case 3:
+Input:
+5
+1 10
+2 3
+3 4
+4 5
+5 6
+Output:
+4
+
+Test Case 4:
+Input:
+2
+1 5
+2 6
+Output:
+1
+
+Test Case 5:
+Input:
+7
+1 2
+2 3
+3 4
+4 5
+5 6
+6 7
+7 8
+Output:
+7
+
+----------------------------------
+
+import java.util.*;
+
+public class ActivitySelection {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[][] activities = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            activities[i][0] = sc.nextInt();
+            activities[i][1] = sc.nextInt();
+        }
+        Arrays.sort(activities, Comparator.comparingInt(a -> a[1]));
+        int count = 0, lastEnd = -1;
+        for (int[] act : activities) {
+            if (act[0] >= lastEnd) {
+                count++;
+                lastEnd = act[1];
+            }
+        }
+        System.out.println(count);
+    }
+}
+
+----------------------------------
+- Sorts the `activities` array in ascending order based on the end time (`a[1]`) of each activity.
+- This is crucial for the greedy algorithm to select the maximum number of non-overlapping activities.
+
+- Initializes `count` to 0 (number of selected activities) and 
+`lastEnd` to -1 (end time of the last selected activity).
+- Iterates through each activity:
+    - If the activity’s start time (`act[0]`) is greater than or equal to `lastEnd`, 
+    it means the activity does not overlap with the previously selected one.
+    - Increments `count` and updates `lastEnd` to the current activity’s end time.
+
+Test Case 2:
+Input:
+4
+1 4
+2 3
+3 5
+4 6
+Output:
+2
+
+Test Case 3:
+Input:
+5
+1 10
+2 3
+3 4
+4 5
+5 6
+Output:
+4

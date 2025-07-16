@@ -1,0 +1,145 @@
+Hashing, Hashtable, and HashSet - Notes
+
+1. Hashing
+-----------
+- Hashing is a technique to convert a range of key values into a range of indexes of an array.
+- A hash function takes an input (key) and returns an integer (hash code).
+- The hash code is used as an index in a hash table.
+- Good hash functions distribute keys uniformly and minimize collisions.
+
+2. Hashtable
+-------------
+- A Hashtable is a data structure that implements an associative array, mapping keys to values.
+- Uses hashing to compute an index into an array of buckets or slots.
+- On collision (when two keys hash to the same index), uses collision resolution techniques:
+    - Chaining (linked lists at each bucket)
+    - Open addressing (probing for next available slot)
+- Average time complexity for search, insert, delete: O(1)
+- Examples: Java's `Hashtable`, Python's `dict`, C++'s `unordered_map`
+
+3. HashSet
+-----------
+- A HashSet is a collection that contains no duplicate elements.
+- Internally uses a hash table to store elements.
+- Only stores keys (no associated values).
+- Operations: add, remove, contains (all O(1) average time)
+- Examples: Java's `HashSet`, Python's `set`, C++'s `unordered_set`
+
+Summary Table:
+---------------
+| Feature      | Hashtable         | HashSet           |
+|--------------|------------------|-------------------|
+| Stores       | Key-Value pairs  | Unique values     |
+| Duplicates   | Keys unique      | No duplicates     |
+| Lookup time  | O(1) avg         | O(1) avg          |
+| Use case     | Map/dictionary   | Set operations    |
+
+
+--------------------------------------
+
+"Find All Duplicates in an Array", 
+"Given an array of integers, find all elements that appear twice.", 
+"Medium", 
+"LeetCode, Amazon"
+
+----------------------------------
+
+Problem Title:
+Find All Duplicates in an Array
+
+Problem Description:
+Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once. Find all the elements that appear twice in this array. Return the answer in any order. You must solve the problem without using extra space and in O(n) runtime.
+
+Input Format:
+- The first line contains an integer n, the size of the array.
+- The second line contains n space-separated integers representing the elements of the array.
+
+Output Format:
+- Print the list of integers that appear twice in the array, separated by spaces. If no duplicates are found, print an empty line.
+
+Constraints:
+- 1 ≤ n ≤ 10^5
+- 1 ≤ a[i] ≤ n
+
+Sample Input:
+8
+4 3 2 7 8 2 3 1
+
+Sample Output:
+2 3
+
+Explanation:
+Both 2 and 3 appear twice in the array.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+6
+1 2 3 4 5 6
+Output:
+
+Test Case 2:
+Input:
+5
+1 1 2 2 3
+Output:
+1 2
+
+Test Case 3:
+Input:
+7
+7 3 5 3 7 1 2
+Output:
+7 3
+
+Test Case 4:
+Input:
+4
+4 4 4 4
+Output:
+4
+
+Test Case 5:
+Input:
+10
+10 9 8 7 6 5 4 3 2 1
+Output:(empty line)
+
+--------------------------------------
+
+import java.util.*;
+
+public class FindDuplicates {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] nums = new int[n];
+        for(int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        List<Integer> res = findDuplicates(nums);
+        for(int i = 0; i < res.size(); i++) {
+            System.out.print(res.get(i));
+            if(i != res.size() - 1) System.out.print(" ");
+        }
+        System.out.println();
+    }
+
+    public static List<Integer> findDuplicates(int[] nums) {
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++) {
+            int idx = Math.abs(nums[i]) - 1;
+            if(nums[idx] < 0) {
+                result.add(Math.abs(nums[i]));
+            } else {
+                nums[idx] = -nums[idx];
+            }
+        }
+        return result;
+    }
+}
+
+--------------------------------------
