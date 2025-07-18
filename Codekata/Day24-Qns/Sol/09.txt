@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class Main {
+    static final int MOD = 1_000_000_007;
+    static int N, M, K;
+    static List<Integer>[] adj;
+    static int[][] dp;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        N = sc.nextInt();
+        M = sc.nextInt();
+        K = sc.nextInt();
+        adj = new ArrayList[N];
+        for (int i = 0; i < N; i++) adj[i] = new ArrayList<>();
+        for (int i = 0; i < M; i++) {
+            int u = sc.nextInt() - 1, v = sc.nextInt() - 1;
+            adj[u].add(v);
+            adj[v].add(u);
+        }
+        dp = new int[N][1 << N];
+        for (int[] row : dp) Arrays.fill(row, -1);
+        System.out.println(solve(0, 0));
+    }
+
+    static int solve(int v, int mask) {
+        if (v == N) return 1;
+        if (dp[v][mask] != -1) return dp[v][mask];
+        int res = 0;
+        for (int color = 0; color < K; color++) {
+            boolean ok = true;
+            for (int u : adj[v]) {
+                if (u < v) {
+                    int prevColor = (mask >> (u * 4)) & 0xF;
+                    if (prevColor == color + 1) {
+                        ok = false;
+                        break;
+                    }
+                }
+            }
+            if (ok) {
+                int newMask = mask | ((color + 1) << (v * 4));
+                res = (res + solve(v + 1, newMask)) % MOD;
+            }
+        }
+        return dp[v][mask] = res;
+    }
+}

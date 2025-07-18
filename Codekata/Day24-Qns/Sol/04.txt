@@ -1,0 +1,82 @@
+import java.util.*;
+
+public class Main {
+    static class Task {
+        String id;
+        int duration;
+        List<String> deps = new ArrayList<>();
+        List<String> next = new ArrayList<>();
+        int inDegree = 0;
+        int earliestStart = 0;
+        String prev = null;
+        Task(String id, int duration) {
+            this.id = id;
+            this.duration = duration;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int N = Integer.parseInt(sc.nextLine());
+        Map<String, Task> tasks = new HashMap<>();
+        for (int i = 0; i < N; i++) {
+            String[] parts = sc.nextLine().split("\\s+");
+            String id = parts[0];
+            int duration = Integer.parseInt(parts[1]);
+            int K = Integer.parseInt(parts[2]);
+            Task t = new Task(id, duration);
+            for (int j = 0; j < K; j++) {
+                t.deps.add(parts[3 + j]);
+            }
+            tasks.put(id, t);
+        }
+        // Build graph
+        for (Task t : tasks.values()) {
+            for (String dep : t.deps) {
+                tasks.get(dep).next.add(t.id);
+                t.inDegree++;
+            }
+        }
+        // Topological sort and critical path calculation
+        Queue<Task> q = new ArrayDeque<>();
+        for (Task t : tasks.values()) {
+            if (t.inDegree == 0) q.add(t);
+        }
+        Map<String, Integer> finishTime = new HashMap<>();
+        while (!q.isEmpty()) {
+            Task t = q.poll();
+            int start = t.earliestStart;
+            int finish = start + t.duration;
+            finishTime.put(t.id, finish);
+            for (String nextId : t.next) {
+                Task nextTask = tasks.get(nextId);
+                if (finish > nextTask.earliestStart) {
+                    nextTask.earliestStart = finish;
+                    nextTask.prev = t.id;
+                }
+                nextTask.inDegree--;
+                if (nextTask.inDegree == 0) {
+                    q.add(nextTask);
+                }
+            }
+        }
+        // Find task with max finish time
+        String lastTask = null;
+        int maxTime = 0;
+        for (Map.Entry<String, Integer> e : finishTime.entrySet()) {
+            if (e.getValue() > maxTime) {
+                maxTime = e.getValue();
+                lastTask = e.getKey();
+            }
+        }
+        // Reconstruct path
+        List<String> path = new ArrayList<>();
+        while (lastTask != null) {
+            path.add(lastTask);
+            lastTask = tasks.get(lastTask).prev;
+        }
+        Collections.reverse(path);
+        System.out.println(maxTime);
+        System.out.println(String.join(" ", path));
+    }
+}

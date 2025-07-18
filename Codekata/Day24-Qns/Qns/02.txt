@@ -1,0 +1,123 @@
+"All Pairs Shortest Path Updates", 
+"Given a graph and a series of edge updates, efficiently maintain shortest paths between all pairs of nodes.", 
+"Hard", 
+"Google, Facebook"
+
+----------------------------------
+
+Problem Title:
+All Pairs Shortest Path Updates
+
+Problem Description:
+You are given a directed weighted graph with N nodes and M edges. The graph may contain self-loops and multiple edges between the same pair of nodes. You are also given Q queries. Each query is either:
+1. An edge update: add a new edge or update the weight of an existing edge between two nodes.
+2. A shortest path query: report the shortest path distance between two nodes.
+
+Your task is to efficiently process all queries, maintaining the shortest path distances between all pairs of nodes after each update.
+
+Input Format:
+- The first line contains three integers N, M, and Q — the number of nodes, edges, and queries.
+- The next M lines each contain three integers u, v, w — denoting a directed edge from node u to node v with weight w.
+- The next Q lines describe the queries:
+    - For an edge update: "UPDATE u v w" (add or update the edge from u to v with weight w)
+    - For a shortest path query: "QUERY u v" (report the shortest path from u to v)
+
+Output Format:
+- For each "QUERY" operation, output a single integer: the shortest path distance from u to v. If there is no path, output -1.
+
+Constraints:
+- 1 ≤ N ≤ 300
+- 1 ≤ M, Q ≤ 10^5
+- 1 ≤ u, v ≤ N
+- 1 ≤ w ≤ 10^9
+
+Sample Input:
+5 4 5
+1 2 3
+2 3 4
+3 4 2
+4 5 1
+QUERY 1 5
+UPDATE 2 5 2
+QUERY 1 5
+UPDATE 1 3 1
+QUERY 1 4
+
+Sample Output:
+10
+5
+3
+
+Explanation:
+- Initial shortest path from 1 to 5 is 1→2→3→4→5 = 3+4+2+1 = 10.
+- After updating edge 2→5 to weight 2, shortest path is 1→2→5 = 3+2 = 5.
+- After updating edge 1→3 to weight 1, shortest path is 1→3→4 = 1+2 = 3.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 2 3
+1 2 5
+2 3 7
+QUERY 1 3
+UPDATE 1 3 2
+QUERY 1 3
+
+Output:
+12
+2
+
+Test Case 2:
+Input:
+4 3 4
+1 2 1
+2 3 1
+3 4 1
+QUERY 1 4
+UPDATE 2 4 1
+QUERY 1 4
+QUERY 4 1
+
+Output:
+3
+2
+-1
+
+Test Case 3:
+Input:
+2 1 2
+1 2 10
+QUERY 2 1
+QUERY 1 2
+
+Output:
+-1
+10
+
+Test Case 4:
+Input:
+5 0 2
+QUERY 1 5
+UPDATE 1 5 100
+
+Output:
+-1
+
+Test Case 5:
+Input:
+3 3 3
+1 2 1
+2 3 1
+3 1 1
+QUERY 1 3
+UPDATE 1 3 5
+QUERY 1 3
+
+Output:
+2
+2
+
+----------------------------------

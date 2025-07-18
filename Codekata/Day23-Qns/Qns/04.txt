@@ -1,0 +1,116 @@
+"Range Count of Primes", 
+"Count the number of prime numbers in a range, with updates allowed.", 
+"Hard", 
+"LeetCode, Amazon"
+ 
+----------------------------------
+
+Problem Title:
+Range Count of Primes
+
+Problem Description:
+You are given an array of integers of length N. You need to efficiently answer Q queries of two types:
+1. Update the value at a given index in the array.
+2. Given a range [L, R], count how many numbers in that range are prime numbers.
+
+Input Format:
+- The first line contains two integers N and Q, the size of the array and the number of queries.
+- The second line contains N integers, the initial elements of the array.
+- The next Q lines each describe a query:
+    - For an update query: "1 idx val" (set array[idx] = val, 0-based index)
+    - For a range query: "2 L R" (count primes in array[L..R], inclusive, 0-based indices)
+
+Output Format:
+For each range query, output a single integer on a new line: the count of prime numbers in the specified range.
+
+Constraints:
+- 1 ≤ N, Q ≤ 10^5
+- 1 ≤ array[i], val ≤ 10^6
+- 0 ≤ idx, L, R < N
+- L ≤ R
+
+Sample Input:
+5 5
+2 4 5 6 7
+2 0 4
+1 2 10
+2 1 3
+1 4 11
+2 0 4
+
+Sample Output:
+3
+1
+2
+
+Explanation:
+- First query: count primes in [2, 4, 5, 6, 7] → 2, 5, 7 are primes → output 3.
+- Second query: update index 2 to 10 → array becomes [2, 4, 10, 6, 7].
+- Third query: count primes in [4, 10, 6] → only 5 is replaced by 10 (not prime), so only 1 prime (none in 4, 10, 6).
+- Fourth query: update index 4 to 11 → array becomes [2, 4, 10, 6, 11].
+- Fifth query: count primes in [2, 4, 10, 6, 11] → 2 and 11 are primes → output 2.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 3
+1 2 3
+2 0 2
+1 1 5
+2 0 2
+Output:
+2
+2
+
+Test Case 2:
+Input:
+4 2
+4 6 8 9
+2 0 3
+2 1 2
+Output:
+0
+0
+
+Test Case 3:
+Input:
+6 4
+2 3 5 7 11 13
+2 0 5
+1 3 4
+2 2 4
+2 0 2
+Output:
+6
+2
+3
+
+Test Case 4:
+Input:
+5 3
+10 15 17 19 23
+2 2 4
+1 0 2
+2 0 2
+Output:
+3
+2
+
+Test Case 5:
+Input:
+7 5
+1 4 6 8 9 10 11
+2 0 6
+1 5 13
+2 5 6
+1 0 2
+2 0 2
+Output:
+1
+2
+1
+
+----------------------------------

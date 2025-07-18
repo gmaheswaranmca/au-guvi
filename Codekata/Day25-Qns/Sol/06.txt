@@ -1,0 +1,69 @@
+import java.util.*;
+import java.io.*;
+
+class HuffmanNode implements Comparable<HuffmanNode> {
+    char ch;
+    int freq;
+    HuffmanNode left, right;
+
+    HuffmanNode(char ch, int freq) {
+        this.ch = ch;
+        this.freq = freq;
+    }
+
+    HuffmanNode(int freq, HuffmanNode left, HuffmanNode right) {
+        this.ch = '\0';
+        this.freq = freq;
+        this.left = left;
+        this.right = right;
+    }
+
+    public int compareTo(HuffmanNode o) {
+        if (this.freq != o.freq) return this.freq - o.freq;
+        // For tie-breaking, compare by character if both are leaves
+        if (this.left == null && this.right == null && o.left == null && o.right == null)
+            return this.ch - o.ch;
+        return 0;
+    }
+}
+
+public class Main {
+    static void buildCodes(HuffmanNode node, String code, Map<Character, String> map) {
+        if (node == null) return;
+        if (node.left == null && node.right == null) {
+            map.put(node.ch, code.length() > 0 ? code : "0");
+            return;
+        }
+        buildCodes(node.left, code + "0", map);
+        buildCodes(node.right, code + "1", map);
+    }
+
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        int N = Integer.parseInt(sc.nextLine().trim());
+        PriorityQueue<HuffmanNode> pq = new PriorityQueue<>();
+        for (int i = 0; i < N; i++) {
+            String[] parts = sc.nextLine().trim().split("\\s+");
+            char ch = parts[0].charAt(0);
+            int freq = Integer.parseInt(parts[1]);
+            pq.add(new HuffmanNode(ch, freq));
+        }
+
+        while (pq.size() > 1) {
+            HuffmanNode n1 = pq.poll();
+            HuffmanNode n2 = pq.poll();
+            HuffmanNode merged = new HuffmanNode(n1.freq + n2.freq, n1, n2);
+            pq.add(merged);
+        }
+
+        HuffmanNode root = pq.poll();
+        Map<Character, String> codeMap = new HashMap<>();
+        buildCodes(root, "", codeMap);
+
+        List<Character> chars = new ArrayList<>(codeMap.keySet());
+        Collections.sort(chars);
+        for (char c : chars) {
+            System.out.println(c + ": " + codeMap.get(c));
+        }
+    }
+}

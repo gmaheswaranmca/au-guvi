@@ -1,0 +1,111 @@
+"Minimum Time to Complete All Jobs", 
+"Given jobs with dependencies and processing times, find the minimum time to finish all jobs using topological sorting.", 
+"Medium", 
+"Amazon, LeetCode"
+
+----------------------------------
+Problem Title:
+Minimum Time to Complete All Jobs
+
+Problem Description:
+You are given N jobs labeled from 1 to N. Each job has a certain processing time. Some jobs depend on the completion of other jobs before they can start. Given the list of dependencies and the processing times for each job, determine the minimum time required to complete all jobs. Multiple jobs can be processed simultaneously as long as their dependencies are satisfied.
+
+Input Format:
+- The first line contains an integer N, the number of jobs.
+- The second line contains N space-separated integers, where the i-th integer is the processing time of job i (1-based index).
+- The third line contains an integer M, the number of dependencies.
+- The next M lines each contain two integers u and v, indicating that job u must be completed before job v can start.
+
+Output Format:
+- A single integer representing the minimum time required to complete all jobs.
+
+Constraints:
+- 1 ≤ N ≤ 10^4
+- 0 ≤ M ≤ 2×10^4
+- 1 ≤ processing time of each job ≤ 10^4
+- 1 ≤ u, v ≤ N
+- No cyclic dependencies (the dependency graph is a Directed Acyclic Graph)
+
+Sample Input:
+5
+1 2 3 4 5
+4
+1 2
+1 3
+3 4
+2 5
+
+Sample Output:
+9
+
+Explanation:
+- Job 1 can start immediately and takes 1 unit of time.
+- Job 2 and 3 depend on job 1, so they can start after 1 unit.
+- Job 2 takes 2 units, so finishes at time 3.
+- Job 3 takes 3 units, so finishes at time 4.
+- Job 4 depends on job 3, so starts at 4 and finishes at 8.
+- Job 5 depends on job 2, so starts at 3 and finishes at 8.
+- The minimum time to finish all jobs is max(1,3,4,8,8) = 8.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3
+2 3 4
+2
+1 2
+2 3
+Output:
+9
+
+Test Case 2:
+Input:
+4
+1 2 3 4
+0
+Output:
+4
+
+Test Case 3:
+Input:
+6
+2 2 2 2 2 2
+5
+1 2
+1 3
+2 4
+3 5
+4 6
+Output:
+8
+
+Test Case 4:
+Input:
+5
+5 4 3 2 1
+4
+1 2
+2 3
+3 4
+4 5
+Output:
+15
+
+Test Case 5:
+Input:
+7
+3 2 1 4 5 6 7
+6
+1 2
+1 3
+2 4
+3 5
+4 6
+5 7
+Output:
+16
+
+----------------------------------

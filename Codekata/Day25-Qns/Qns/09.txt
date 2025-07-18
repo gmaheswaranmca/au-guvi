@@ -1,0 +1,75 @@
+"Minimum Palindrome Partitioning", 
+"Given a string, partition it into the minimum number of palindromic substrings.", 
+"Hard", 
+"LeetCode, Amazon, Facebook"
+
+----------------------------------
+
+Problem Title:
+Minimum Palindrome Partitioning
+
+Problem Description:
+Given a string s, partition s into the minimum number of substrings such that each substring is a palindrome. Return the minimum number of cuts needed to partition the string.
+
+Input Format:
+- A single line containing the string s.
+
+Output Format:
+- A single integer representing the minimum number of cuts needed.
+
+Constraints:
+- 1 <= s.length <= 1000
+- s consists of lowercase English letters only.
+
+Sample Input 1:
+aab
+
+Sample Output 1:
+1
+
+Explanation 1:
+The string "aab" can be partitioned as "aa" | "b", where both substrings are palindromes. Only 1 cut is needed.
+
+Sample Input 2:
+a
+
+Sample Output 2:
+0
+
+Explanation 2:
+The string "a" is already a palindrome, so no cuts are needed.
+
+Sample Input 3:
+abccbc
+
+Sample Output 3:
+2
+
+Explanation 3:
+The string can be partitioned as "a" | "bccb" | "c", where all substrings are palindromes.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input: aab
+Output: 1
+
+Test Case 2:
+Input: a
+Output: 0
+
+Test Case 3:
+Input: abccbc
+Output: 2
+
+Test Case 4:
+Input: banana
+Output: 1
+
+Test Case 5:
+Input: racecar
+Output: 0
+
+----------------------------------

@@ -1,0 +1,104 @@
+"Critical Path in Project Scheduling", 
+Given a set of tasks with durations and dependencies, find the critical path using topological sorting.", 
+"Medium", 
+"Coursera, Microsoft"
+
+----------------------------------
+
+Problem Title:
+Critical Path in Project Scheduling
+
+Problem Description:
+You are given a set of tasks required to complete a project. Each task has a unique identifier, a duration (in days), and a list of dependencies (tasks that must be completed before this task can start). Your goal is to determine the critical path of the project, i.e., the longest path of dependent tasks that determines the minimum completion time for the entire project. Use topological sorting to help find the critical path.
+
+Input Format:
+- The first line contains an integer N, the number of tasks.
+- The next N lines each describe a task in the following format:
+    TaskID Duration K Dep1 Dep2 ... DepK
+    where TaskID is a string, Duration is an integer, K is the number of dependencies, and Dep1 ... DepK are the TaskIDs of dependencies. If K is 0, there are no dependencies for that task.
+
+Output Format:
+- Print the total duration of the critical path.
+- Print the sequence of TaskIDs in the critical path, separated by spaces.
+
+Constraints:
+- 1 ≤ N ≤ 1000
+- 1 ≤ Duration ≤ 100
+- TaskIDs are unique strings of up to 10 characters.
+- The dependency graph is a Directed Acyclic Graph (DAG).
+
+Sample Input:
+5
+A 3 0
+B 2 1 A
+C 4 1 A
+D 2 2 B C
+E 1 1 D
+
+Sample Output:
+10
+A C D E
+
+Explanation:
+The critical path is A → C → D → E with durations 3 + 4 + 2 + 1 = 10.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+A 2 0
+B 3 1 A
+C 4 1 B
+Output:
+9
+A B C
+
+Test Case 2:
+Input:
+4
+A 1 0
+B 2 1 A
+C 3 1 A
+D 4 2 B C
+Output:
+8
+A C D
+
+Test Case 3:
+Input:
+6
+A 2 0
+B 2 1 A
+C 2 1 A
+D 2 1 B
+E 2 1 C
+F 2 2 D E
+Output:
+8
+A B D F
+
+Test Case 4:
+Input:
+2
+A 5 0
+B 10 0
+Output:
+10
+B
+
+Test Case 5:
+Input:
+5
+A 2 0
+B 2 1 A
+C 2 1 A
+D 2 1 B
+E 2 1 C
+Output:
+6
+A B D
+
+----------------------------------

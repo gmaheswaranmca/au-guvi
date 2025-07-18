@@ -1,0 +1,116 @@
+"K Shortest Paths", 
+"Given a weighted directed graph, find the k shortest paths from a source to a destination node.", 
+"Hard", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title:
+K Shortest Paths
+
+Problem Description:
+Given a weighted directed graph with n nodes and m edges, find the k shortest paths from a source node s to a destination node t. Each path should be simple (no repeated nodes), and the paths should be listed in order of increasing total weight. If there are fewer than k distinct paths, output all of them.
+
+Input Format:
+- The first line contains four integers n, m, k, s, t: the number of nodes, the number of edges, the number k, the source node s, and the destination node t.
+- The next m lines each contain three integers u, v, w, representing a directed edge from node u to node v with weight w.
+
+Output Format:
+- Output k lines. Each line contains the total weight of one of the k shortest paths from s to t, in increasing order. If there are fewer than k paths, output as many as exist.
+
+Constraints:
+- 2 ≤ n ≤ 1000
+- 1 ≤ m ≤ 10000
+- 1 ≤ k ≤ 100
+- 1 ≤ s, t ≤ n
+- 1 ≤ u, v ≤ n
+- 1 ≤ w ≤ 10^6
+- u ≠ v
+- The graph may contain cycles, but no self-loops or multiple edges between the same pair of nodes.
+
+Sample Input:
+5 7 3 1 5
+1 2 2
+1 3 4
+2 3 1
+2 4 7
+3 4 3
+4 5 1
+3 5 5
+
+Sample Output:
+8
+10
+12
+
+Explanation:
+The three shortest paths from node 1 to node 5 are:
+1. 1 → 2 → 3 → 4 → 5 (2 + 1 + 3 + 1 = 7)
+2. 1 → 3 → 4 → 5 (4 + 3 + 1 = 8)
+3. 1 → 3 → 5 (4 + 5 = 9)
+But since the output is the total weights in increasing order, the output is:
+7
+8
+9
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+4 4 2 1 4
+1 2 1
+2 3 1
+3 4 1
+1 4 5
+Output:
+3
+5
+
+Test Case 2:
+Input:
+3 2 3 1 3
+1 2 2
+2 3 2
+Output:
+4
+
+Test Case 3:
+Input:
+6 8 4 2 6
+2 3 2
+3 4 2
+4 6 2
+2 5 3
+5 6 3
+2 4 5
+3 6 6
+4 5 1
+Output:
+6
+7
+10
+11
+
+Test Case 4:
+Input:
+5 6 2 1 5
+1 2 1
+2 3 1
+3 4 1
+4 5 1
+1 3 4
+2 5 10
+Output:
+4
+12
+
+Test Case 5:
+Input:
+3 1 2 1 3
+1 2 1
+Output:
+(no output, as there is no path from 1 to 3)
+
+----------------------------------

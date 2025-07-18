@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class Main {
+    static List<Integer>[] tree;
+    static int[] subtreeSize;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        tree = new ArrayList[n + 1];
+        subtreeSize = new int[n + 1];
+        for (int i = 1; i <= n; i++) tree[i] = new ArrayList<>();
+        for (int i = 0; i < n - 1; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            tree[u].add(v);
+            tree[v].add(u);
+        }
+        dfs(1, 0);
+        for (int i = 1; i <= n; i++) {
+            System.out.print(subtreeSize[i]);
+            if (i < n) System.out.print(" ");
+        }
+    }
+
+    static void dfs(int node, int parent) {
+        subtreeSize[node] = 1;
+        for (int child : tree[node]) {
+            if (child != parent) {
+                dfs(child, node);
+                subtreeSize[node] += subtreeSize[child];
+            }
+        }
+    }
+}

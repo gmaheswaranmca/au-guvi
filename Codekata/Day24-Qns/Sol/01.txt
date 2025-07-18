@@ -1,0 +1,45 @@
+import java.util.*;
+
+public class MinimumTimeToCompleteAllJobs {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] proc = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            proc[i] = sc.nextInt();
+        }
+        int m = sc.nextInt();
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i <= n; i++) adj.add(new ArrayList<>());
+        int[] indegree = new int[n + 1];
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adj.get(u).add(v);
+            indegree[v]++;
+        }
+        int[] time = new int[n + 1];
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 1; i <= n; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
+                time[i] = proc[i];
+            }
+        }
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            for (int v : adj.get(u)) {
+                time[v] = Math.max(time[v], time[u] + proc[v]);
+                indegree[v]--;
+                if (indegree[v] == 0) {
+                    q.add(v);
+                }
+            }
+        }
+        int ans = 0;
+        for (int i = 1; i <= n; i++) {
+            ans = Math.max(ans, time[i]);
+        }
+        System.out.println(ans);
+    }
+}

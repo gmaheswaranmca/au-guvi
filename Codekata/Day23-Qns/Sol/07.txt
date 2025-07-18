@@ -1,0 +1,60 @@
+
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    static class Query {
+        int type, l, r, x;
+        Query(int type, int l, int r, int x) {
+            this.type = type;
+            this.l = l;
+            this.r = r;
+            this.x = x;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] nq = br.readLine().split(" ");
+        int n = Integer.parseInt(nq[0]);
+        int q = Integer.parseInt(nq[1]);
+        String[] arrStr = br.readLine().split(" ");
+        ArrayList<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < n; i++) arr.add(Integer.parseInt(arrStr[i]));
+        ArrayList<Query> queries = new ArrayList<>();
+        for (int i = 0; i < q; i++) {
+            String[] parts = br.readLine().split(" ");
+            int type = Integer.parseInt(parts[0]);
+            int l = Integer.parseInt(parts[1]) - 1;
+            int r = Integer.parseInt(parts[2]) - 1;
+            int x = (type == 3) ? 0 : Integer.parseInt(parts[3]);
+            queries.add(new Query(type, l, r, x));
+        }
+
+        for (Query query : queries) {
+            if (query.type == 1) {
+                // Insert x into subarray [l, r] (append at end of subarray)
+                arr.add(query.r + 1, query.x);
+            } else if (query.type == 2) {
+                // Delete x from subarray [l, r] (remove first occurrence)
+                for (int i = query.l; i <= query.r; i++) {
+                    if (arr.get(i).equals(query.x)) {
+                        arr.remove(i);
+                        break;
+                    }
+                }
+            } else if (query.type == 3) {
+                // Find median of subarray [l, r]
+                ArrayList<Integer> sub = new ArrayList<>(arr.subList(query.l, query.r + 1));
+                Collections.sort(sub);
+                int sz = sub.size();
+                if (sz % 2 == 1) {
+                    System.out.printf("%.1f\n", (double)sub.get(sz / 2));
+                } else {
+                    double med = (sub.get(sz / 2 - 1) + sub.get(sz / 2)) / 2.0;
+                    System.out.printf("%.1f\n", med);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,83 @@
+"Interleaving String", 
+"Given three strings, determine if the third string is formed by interleaving the first two strings.", 
+"Medium", 
+"LeetCode, Microsoft, Google"
+
+----------------------------------
+
+Problem Title:
+Interleaving String
+
+Problem Description:
+Given three strings s1, s2, and s3, determine whether s3 is formed by an interleaving of s1 and s2. An interleaving of two strings s and t is a configuration where they are divided into non-empty substrings and then concatenated in an order that maintains the left-to-right order of the substrings from each string.
+
+Input Format:
+- The first line contains the string s1.
+- The second line contains the string s2.
+- The third line contains the string s3.
+
+Output Format:
+- Print "Yes" if s3 is formed by interleaving s1 and s2, otherwise print "No".
+
+Constraints:
+- 1 <= length of s1, s2 <= 100
+- 1 <= length of s3 <= 200
+- s1, s2, and s3 consist of lowercase English letters only.
+
+Sample Input:
+aab
+axy
+aaxaby
+
+Sample Output:
+Yes
+
+Explanation:
+s3 = "aaxaby" can be formed by interleaving s1 = "aab" and s2 = "axy":
+Take 'a' from s1, 'a' from s2, 'x' from s2, 'a' from s1, 'b' from s1, 'y' from s2.
+
+Difficulty:
+Medium
+
+Test Cases:
+1.
+Input:
+abc
+def
+adbcef
+Output:
+Yes
+
+2.
+Input:
+abc
+def
+abdecf
+Output:
+Yes
+
+3.
+Input:
+abc
+def
+abdefc
+Output:
+No
+
+4.
+Input:
+aabcc
+dbbca
+aadbbcbcac
+Output:
+Yes
+
+5.
+Input:
+aabcc
+dbbca
+aadbbbaccc
+Output:
+No
+
+----------------------------------

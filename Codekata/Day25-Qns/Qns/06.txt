@@ -1,0 +1,101 @@
+"Huffman Coding", 
+"Given a set of characters and their frequencies, construct an optimal prefix code (Huffman code) for the characters.", 
+"Hard", 
+"GeeksforGeeks, Amazon"
+
+----------------------------------
+
+Problem Title:
+Huffman Coding
+
+Problem Description:
+Given a set of characters and their corresponding frequencies, construct an optimal prefix code (Huffman code) for the characters. Output the codes assigned to each character.
+
+Input Format:
+- The first line contains an integer N, the number of unique characters.
+- The next N lines each contain a character (a single lowercase letter) and its frequency (a positive integer), separated by a space.
+
+Output Format:
+- For each character, output a line containing the character, a colon, and its Huffman code. The output should be sorted in lexicographical order of the characters.
+
+Constraints:
+- 1 ≤ N ≤ 26
+- The frequency of each character is a positive integer not exceeding 10^5.
+- All characters are lowercase English letters and are unique.
+
+Sample Input:
+4
+a 5
+b 9
+c 12
+d 13
+
+Sample Output:
+a: 1100
+b: 1101
+c: 100
+d: 101
+
+Explanation:
+The Huffman coding algorithm constructs a binary tree based on the frequencies and assigns shorter codes to more frequent characters. The output shows the Huffman code for each character.
+
+Difficulty:
+Hard
+
+Test Cases:
+Test Case 1:
+Input:
+3
+a 2
+b 3
+c 7
+Output:
+a: 00
+b: 01
+c: 1
+
+Test Case 2:
+Input:
+5
+a 1
+b 1
+c 1
+d 1
+e 1
+Output:
+a: 00
+b: 01
+c: 100
+d: 101
+e: 11
+
+Test Case 3:
+Input:
+2
+x 10
+y 15
+Output:
+x: 0
+y: 1
+
+Test Case 4:
+Input:
+4
+m 8
+n 3
+o 6
+p 5
+Output:
+m: 11
+n: 00
+o: 10
+p: 01
+
+Test Case 5:
+Input:
+1
+z 100
+Output:
+z: 0
+
+----------------------------------

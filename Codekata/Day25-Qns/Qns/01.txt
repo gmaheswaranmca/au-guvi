@@ -1,0 +1,77 @@
+"Minimum Cost to Connect Sticks", 
+"Given an array of stick lengths, connect them into one stick with minimum total cost. The cost is the sum of the lengths of the sticks being connected.", 
+"Easy", 
+"LeetCode, Amazon"
+
+----------------------------------
+
+Problem Title:
+Minimum Cost to Connect Sticks
+
+Problem Description:
+You are given an array of positive integers where each integer represents the length of a stick. You need to connect all the sticks into one stick. You can only connect two sticks at a time, and the cost of connecting two sticks is equal to the sum of their lengths. Your task is to find the minimum total cost required to connect all the sticks into one.
+
+Input Format:
+- The first line contains an integer n, the number of sticks.
+- The second line contains n space-separated integers, the lengths of the sticks.
+
+Output Format:
+- Print a single integer, the minimum total cost to connect all the sticks.
+
+Constraints:
+- 1 <= n <= 10^4
+- 1 <= stick length <= 10^4
+
+Sample Input:
+4
+1 8 3 5
+
+Sample Output:
+30
+
+Sample Explanation:
+First, connect sticks of lengths 1 and 3 (cost = 4). Sticks are now [4, 5, 8].
+Next, connect sticks of lengths 4 and 5 (cost = 9). Sticks are now [9, 8].
+Finally, connect sticks of lengths 9 and 8 (cost = 17).
+Total cost = 4 + 9 + 17 = 30.
+
+Difficulty:
+Easy
+
+Test Cases:
+Test Case 1:
+Input:
+3
+2 4 3
+Output:
+14
+
+Test Case 2:
+Input:
+5
+1 2 3 4 5
+Output:
+33
+
+Test Case 3:
+Input:
+2
+5 7
+Output:
+12
+
+Test Case 4:
+Input:
+6
+1 1 1 1 1 1
+Output:
+15
+
+Test Case 5:
+Input:
+1
+10
+Output:
+0
+
+----------------------------------

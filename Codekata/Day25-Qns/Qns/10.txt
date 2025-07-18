@@ -1,0 +1,76 @@
+"Decode Ways", 
+"Given a string containing digits, determine the total number of ways to decode it to letters (A=1, B=2, ..., Z=26).", 
+"Medium", 
+"LeetCode, Google, Microsoft"
+
+----------------------------------
+
+Problem Title:
+Decode Ways
+
+Problem Description:
+Given a string containing only digits, determine the total number of ways to decode it to letters, where 'A' maps to '1', 'B' to '2', ..., and 'Z' to '26'. Each digit or pair of digits can be mapped to a letter if it forms a valid mapping.
+
+Input Format:
+A single line containing a string S consisting of digits.
+
+Output Format:
+A single integer representing the total number of ways to decode the string.
+
+Constraints:
+- 1 <= length of S <= 100
+- S contains only digits ('0'-'9')
+- S does not contain leading zeros
+
+Sample Input 1:
+12
+
+Sample Output 1:
+2
+
+Explanation 1:
+"12" can be decoded as "AB" (1 2) or "L" (12).
+
+Sample Input 2:
+226
+
+Sample Output 2:
+3
+
+Explanation 2:
+"226" can be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
+
+Sample Input 3:
+06
+
+Sample Output 3:
+0
+
+Explanation 3:
+"06" cannot be decoded because '0' cannot be mapped to any letter.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input: "12"
+Output: 2
+
+Test Case 2:
+Input: "226"
+Output: 3
+
+Test Case 3:
+Input: "06"
+Output: 0
+
+Test Case 4:
+Input: "11106"
+Output: 2
+
+Test Case 5:
+Input: "10"
+Output: 1
+
+----------------------------------

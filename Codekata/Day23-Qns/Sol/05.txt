@@ -1,0 +1,126 @@
+
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    static class SegmentTree {
+        int n;
+        int[] tree; // stores candidate
+        int[] arr;
+
+        SegmentTree(int[] a) {
+            n = a.length;
+            arr = Arrays.copyOf(a, n);
+            tree = new int[n * 4];
+            build(1, 0, n - 1);
+        }
+
+        void build(int node, int l, int r) {
+            if (l == r) {
+                tree[node] = arr[l];
+                return;
+            }
+            int m = (l + r) / 2;
+            build(node * 2, l, m);
+            build(node * 2 + 1, m + 1, r);
+            tree[node] = merge(tree[node * 2], tree[node * 2 + 1], l, r);
+        }
+
+        int merge(int left, int right, int l, int r) {
+            // Boyer-Moore merge: if left==right, keep, else pick any (say left)
+            if (left == right) return left;
+            // If not same, just pick left (will check count later)
+            return left;
+        }
+
+        void update(int idx, int val) {
+            update(1, 0, n - 1, idx, val);
+        }
+
+        void update(int node, int l, int r, int idx, int val) {
+            if (l == r) {
+                arr[idx] = val;
+                tree[node] = val;
+                return;
+            }
+            int m = (l + r) / 2;
+            if (idx <= m) update(node * 2, l, m, idx, val);
+            else update(node * 2 + 1, m + 1, r, idx, val);
+            tree[node] = merge(tree[node * 2], tree[node * 2 + 1], l, r);
+        }
+
+        int queryCandidate(int L, int R) {
+            return queryCandidate(1, 0, n - 1, L, R);
+        }
+
+        int queryCandidate(int node, int l, int r, int L, int R) {
+            if (r < L || l > R) return -1;
+            if (L <= l && r <= R) return tree[node];
+            int m = (l + r) / 2;
+            int left = queryCandidate(node * 2, l, m, L, R);
+            int right = queryCandidate(node * 2 + 1, m + 1, r, L, R);
+            if (left == -1) return right;
+            if (right == -1) return left;
+            if (left == right) return left;
+            return left;
+        }
+    }
+
+    // For fast frequency queries, use TreeMap of positions for each value
+    static class OccurrenceMap {
+        Map<Integer, TreeSet<Integer>> map = new HashMap<>();
+
+        OccurrenceMap(int[] arr) {
+            for (int i = 0; i < arr.length; i++) {
+                map.computeIfAbsent(arr[i], k -> new TreeSet<>()).add(i);
+            }
+        }
+
+        void update(int idx, int oldVal, int newVal) {
+            if (oldVal == newVal) return;
+            map.get(oldVal).remove(idx);
+            map.computeIfAbsent(newVal, k -> new TreeSet<>()).add(idx);
+        }
+
+        int countInRange(int val, int l, int r) {
+            TreeSet<Integer> set = map.get(val);
+            if (set == null) return 0;
+            Integer from = set.ceiling(l);
+            Integer to = set.floor(r);
+            if (from == null || to == null || from > to) return 0;
+            return set.subSet(from, true, to, true).size();
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] nq = br.readLine().split(" ");
+        int n = Integer.parseInt(nq[0]);
+        int q = Integer.parseInt(nq[1]);
+        int[] arr = new int[n];
+        String[] a = br.readLine().split(" ");
+        for (int i = 0; i < n; i++) arr[i] = Integer.parseInt(a[i]);
+        SegmentTree st = new SegmentTree(arr);
+        OccurrenceMap occ = new OccurrenceMap(arr);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < q; i++) {
+            String[] parts = br.readLine().split(" ");
+            if (parts[0].equals("1")) {
+                int idx = Integer.parseInt(parts[1]) - 1;
+                int val = Integer.parseInt(parts[2]);
+                occ.update(idx, arr[idx], val);
+                arr[idx] = val;
+                st.update(idx, val);
+            } else {
+                int l = Integer.parseInt(parts[1]) - 1;
+                int r = Integer.parseInt(parts[2]) - 1;
+                int cand = st.queryCandidate(l, r);
+                int cnt = occ.countInRange(cand, l, r);
+                if (cnt > (r - l + 1) / 2) sb.append(cand).append('\n');
+                else sb.append(-1).append('\n');
+            }
+        }
+        System.out.print(sb);
+    }
+}

@@ -1,0 +1,111 @@
+"Range Majority Element Query", 
+"Find the majority element (if any) in a given range, with updates allowed.", 
+"Hard", 
+"Codeforces, Facebook"
+
+----------------------------------
+
+Problem Title:
+Range Majority Element Query
+
+Problem Description:
+You are given an array of integers of length N. You need to process Q queries of two types:
+1. Update the value at a given index.
+2. Given a range [L, R], determine if there exists a majority element in that range (an element that appears more than half the times in the range). If such an element exists, output it; otherwise, output -1.
+
+Input Format:
+- The first line contains two integers N and Q.
+- The second line contains N integers, the initial array.
+- The next Q lines each describe a query:
+    - For an update: "1 idx val" (set array[idx] = val, 1-based index)
+    - For a query: "2 L R" (find the majority element in array[L..R], 1-based indices)
+
+Output Format:
+For each query of type 2, output the majority element or -1 if none exists.
+
+Constraints:
+- 1 ≤ N, Q ≤ 10^5
+- 1 ≤ array[i], val ≤ 10^9
+- 1 ≤ idx, L, R ≤ N
+- L ≤ R
+
+Sample Input:
+8 5
+1 2 2 1 2 2 1 1
+2 1 8
+2 2 5
+1 3 1
+2 1 4
+2 5 8
+
+Sample Output:
+2
+2
+1
+-1
+
+Explanation:
+- Query 1: The majority in [1,8] is 2 (appears 4 times, >4).
+- Query 2: The majority in [2,5] is 2 (appears 3 times, >2).
+- Update: array[3] = 1 → array becomes [1,2,1,1,2,2,1,1].
+- Query 3: The majority in [1,4] is 1 (appears 3 times, >2).
+- Query 4: The majority in [5,8] is -1 (no element appears more than 2 times).
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+5 3
+1 1 2 2 2
+2 1 5
+1 2 2
+2 1 3
+Output:
+2
+2
+
+Test Case 2:
+Input:
+6 2
+3 3 3 2 2 2
+2 1 6
+2 4 6
+Output:
+-1
+2
+
+Test Case 3:
+Input:
+4 2
+4 4 4 4
+2 1 4
+1 4 1
+Output:
+4
+
+Test Case 4:
+Input:
+7 4
+5 6 5 6 5 6 5
+2 1 7
+2 2 6
+1 2 5
+2 1 3
+Output:
+5
+-1
+5
+
+Test Case 5:
+Input:
+3 2
+7 8 7
+2 1 3
+2 2 3
+Output:
+7
+-1
+
+----------------------------------

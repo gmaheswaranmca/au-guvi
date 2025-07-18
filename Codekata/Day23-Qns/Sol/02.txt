@@ -1,0 +1,256 @@
+
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    static class Edge implements Comparable<Edge> {
+        int u, v, w, idx;
+        boolean inMST;
+        Edge(int u, int v, int w, int idx) {
+            this.u = u;
+            this.v = v;
+            this.w = w;
+            this.idx = idx;
+            this.inMST = false;
+        }
+        public int compareTo(Edge o) {
+            return Integer.compare(this.w, o.w);
+        }
+    }
+
+    static class DSU {
+        int[] p, r;
+        DSU(int n) {
+            p = new int[n+1];
+            r = new int[n+1];
+            for (int i = 1; i <= n; i++) p[i] = i;
+        }
+        int find(int x) {
+            if (p[x] != x) p[x] = find(p[x]);
+            return p[x];
+        }
+        boolean union(int x, int y) {
+            int px = find(x), py = find(y);
+            if (px == py) return false;
+            if (r[px] < r[py]) p[px] = py;
+            else {
+                p[py] = px;
+                if (r[px] == r[py]) r[px]++;
+            }
+            return true;
+        }
+    }
+
+    static int N, M, Q;
+    static Edge[] edges;
+    static List<Edge>[] tree;
+    static int[] parent, depth, heavy, head, pos;
+    static long[] segtree;
+    static int[] edgeToPos;
+    static int curPos;
+    static int[] maxEdgeToParent;
+
+    static void dfs(int u, int p) {
+        int size = 1, maxSub = 0;
+        for (Edge e : tree[u]) {
+            int v = e.u == u ? e.v : e.u;
+            if (v == p) continue;
+            parent[v] = u;
+            maxEdgeToParent[v] = e.w;
+            depth[v] = depth[u] + 1;
+            int sub = dfsSize(v, u);
+            if (sub > maxSub) {
+                maxSub = sub;
+                heavy[u] = v;
+            }
+        }
+    }
+
+    static int dfsSize(int u, int p) {
+        int size = 1, maxSub = 0;
+        for (Edge e : tree[u]) {
+            int v = e.u == u ? e.v : e.u;
+            if (v == p) continue;
+            int sub = dfsSize(v, u);
+            size += sub;
+            if (sub > maxSub) {
+                maxSub = sub;
+                heavy[u] = v;
+            }
+        }
+        return size;
+    }
+
+    static void decompose(int u, int h) {
+        head[u] = h;
+        pos[u] = curPos++;
+        if (heavy[u] != 0) decompose(heavy[u], h);
+        for (Edge e : tree[u]) {
+            int v = e.u == u ? e.v : e.u;
+            if (v != parent[u] && v != heavy[u]) decompose(v, v);
+        }
+    }
+
+    static void buildSegtree(int n) {
+        int size = 1;
+        while (size < n) size <<= 1;
+        segtree = new long[size << 1];
+        Arrays.fill(segtree, 0);
+    }
+
+    static void segUpdate(int idx, int val, int n) {
+        int size = 1;
+        while (size < n) size <<= 1;
+        idx += size;
+        segtree[idx] = val;
+        while (idx > 1) {
+            idx >>= 1;
+            segtree[idx] = Math.max(segtree[idx << 1], segtree[(idx << 1) | 1]);
+        }
+    }
+
+    static long segQuery(int l, int r, int n) {
+        int size = 1;
+        while (size < n) size <<= 1;
+        l += size; r += size;
+        long res = 0;
+        while (l <= r) {
+            if ((l & 1) == 1) res = Math.max(res, segtree[l++]);
+            if ((r & 1) == 0) res = Math.max(res, segtree[r--]);
+            l >>= 1; r >>= 1;
+        }
+        return res;
+    }
+
+    static long queryMax(int u, int v, int n) {
+        long res = 0;
+        while (head[u] != head[v]) {
+            if (depth[head[u]] < depth[head[v]]) {
+                int tmp = u; u = v; v = tmp;
+            }
+            res = Math.max(res, segQuery(pos[head[u]], pos[u], n));
+            u = parent[head[u]];
+        }
+        if (u == v) return res;
+        if (depth[u] > depth[v]) {
+            int tmp = u; u = v; v = tmp;
+        }
+        res = Math.max(res, segQuery(pos[u]+1, pos[v], n));
+        return res;
+    }
+
+    static void updateEdge(int u, int v, int val, int n) {
+        if (parent[v] == u) segUpdate(pos[v], val, n);
+        else segUpdate(pos[u], val, n);
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] nm = br.readLine().split(" ");
+        N = Integer.parseInt(nm[0]);
+        M = Integer.parseInt(nm[1]);
+        edges = new Edge[M];
+        for (int i = 0; i < M; i++) {
+            String[] uvw = br.readLine().split(" ");
+            int u = Integer.parseInt(uvw[0]);
+            int v = Integer.parseInt(uvw[1]);
+            int w = Integer.parseInt(uvw[2]);
+            edges[i] = new Edge(u, v, w, i);
+        }
+
+        // Kruskal's to build MST
+        Arrays.sort(edges);
+        DSU dsu = new DSU(N);
+        tree = new ArrayList[N+1];
+        for (int i = 1; i <= N; i++) tree[i] = new ArrayList<>();
+        long mstWeight = 0;
+        for (Edge e : edges) {
+            if (dsu.union(e.u, e.v)) {
+                e.inMST = true;
+                mstWeight += e.w;
+                tree[e.u].add(e);
+                tree[e.v].add(e);
+            }
+        }
+
+        // HLD
+        parent = new int[N+1];
+        depth = new int[N+1];
+        heavy = new int[N+1];
+        head = new int[N+1];
+        pos = new int[N+1];
+        maxEdgeToParent = new int[N+1];
+        curPos = 0;
+        dfsSize(1, 0);
+        decompose(1, 1);
+
+        buildSegtree(N);
+        edgeToPos = new int[M];
+        for (Edge e : edges) {
+            if (e.inMST) {
+                int u = e.u, v = e.v;
+                if (parent[v] == u) updateEdge(u, v, e.w, N);
+                else updateEdge(v, u, e.w, N);
+            }
+        }
+
+        int Q = Integer.parseInt(br.readLine());
+        int[] edgeIdx = new int[M];
+        for (int i = 0; i < M; i++) edgeIdx[edges[i].idx] = i;
+
+        for (int q = 0; q < Q; q++) {
+            String[] iw = br.readLine().split(" ");
+            int i = Integer.parseInt(iw[0]) - 1;
+            int w = Integer.parseInt(iw[1]);
+            Edge e = edges[edgeIdx[i]];
+            int oldW = e.w;
+            e.w = w;
+
+            if (e.inMST) {
+                // Update MST edge weight
+                mstWeight += (w - oldW);
+                updateEdge(e.u, e.v, w, N);
+
+                // Check if a non-MST edge can replace it
+                // Try all non-MST edges (could be optimized with a map from endpoints)
+                for (Edge f : edges) {
+                    if (!f.inMST) {
+                        long maxOnPath = queryMax(f.u, f.v, N);
+                        if (f.w < maxOnPath) {
+                            // Find which edge is max on path
+                            // Binary search: try all MST edges
+                            for (Edge g : edges) {
+                                if (g.inMST && queryMax(f.u, f.v, N) == g.w) {
+                                    g.inMST = false;
+                                    updateEdge(g.u, g.v, 0, N);
+                                    f.inMST = true;
+                                    updateEdge(f.u, f.v, f.w, N);
+                                    mstWeight += (f.w - g.w);
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+            } else {
+                // Non-MST edge updated, check if it can enter MST
+                long maxOnPath = queryMax(e.u, e.v, N);
+                if (w < maxOnPath) {
+                    // Find which edge is max on path
+                    for (Edge g : edges) {
+                        if (g.inMST && queryMax(e.u, e.v, N) == g.w) {
+                            g.inMST = false;
+                            updateEdge(g.u, g.v, 0, N);
+                            e.inMST = true;
+                            updateEdge(e.u, e.v, w, N);
+                            mstWeight += (w - g.w);
+                            break;
+                        }
+                    }
+                }
+            }
+            System.out.println(mstWeight);
+        }
+    }
+}

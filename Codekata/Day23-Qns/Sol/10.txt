@@ -1,0 +1,40 @@
+
+import java.util.Scanner;
+
+public class LongestPalindromicPrefix {
+    // KMP preprocessing to build lps array
+    private static int[] computeLPS(String s) {
+        int n = s.length();
+        int[] lps = new int[n];
+        int len = 0;
+        for (int i = 1; i < n; ) {
+            if (s.charAt(i) == s.charAt(len)) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+
+    public static String longestPalindromicPrefix(String s) {
+        String rev = new StringBuilder(s).reverse().toString();
+        String concat = s + "#" + rev;
+        int[] lps = computeLPS(concat);
+        int len = lps[concat.length() - 1];
+        return s.substring(0, len);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String S = sc.nextLine();
+        System.out.println(longestPalindromicPrefix(S));
+    }
+}

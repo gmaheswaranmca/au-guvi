@@ -1,0 +1,94 @@
+"Tree Distances", 
+"For each node in a tree, compute the sum of distances to all other nodes.", 
+"Medium", 
+"LeetCode, Facebook"
+
+----------------------------------
+
+Problem Title:
+Sum of Distances in Tree
+
+Problem Description:
+Given an undirected, connected tree with N nodes labeled from 0 to N-1 and N-1 edges, compute for each node the sum of its distances to all other nodes in the tree.
+
+Input Format:
+- The first line contains an integer N, the number of nodes in the tree.
+- The next N-1 lines each contain two integers u and v, representing an undirected edge between nodes u and v.
+
+Output Format:
+- Output N space-separated integers, where the i-th integer is the sum of distances from node i to all other nodes.
+
+Constraints:
+- 1 <= N <= 3 * 10^4
+- 0 <= u, v < N
+- The input forms a valid tree.
+
+Sample Input:
+6
+0 1
+0 2
+2 3
+2 4
+2 5
+
+Sample Output:
+8 12 6 10 10 10
+
+Explanation:
+- For node 0: distances to nodes 1,2,3,4,5 are 1,1,2,2,2. Sum = 8.
+- For node 1: distances to nodes 0,2,3,4,5 are 1,2,3,3,3. Sum = 12.
+- For node 2: distances to nodes 0,1,3,4,5 are 1,2,1,1,1. Sum = 6.
+- For node 3: distances to nodes 0,1,2,4,5 are 2,3,1,2,2. Sum = 10.
+- For node 4: distances to nodes 0,1,2,3,5 are 2,3,1,2,2. Sum = 10.
+- For node 5: distances to nodes 0,1,2,3,4 are 2,3,1,2,2. Sum = 10.
+
+Difficulty:
+Medium
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+0 1
+1 2
+Output:
+3 2 3
+
+Test Case 2:
+Input:
+4
+0 1
+1 2
+1 3
+Output:
+5 3 5 5
+
+Test Case 3:
+Input:
+5
+0 1
+0 2
+0 3
+0 4
+Output:
+4 7 7 7 7
+
+Test Case 4:
+Input:
+2
+0 1
+Output:
+1 1
+
+Test Case 5:
+Input:
+6
+0 1
+1 2
+2 3
+3 4
+4 5
+Output:
+15 11 9 9 11 15
+
+----------------------------------

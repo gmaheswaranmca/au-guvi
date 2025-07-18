@@ -1,0 +1,124 @@
+"Bitmask DP for Counting Colorings", 
+"Given a graph and K colors, count the number of valid colorings using bitmask DP.", 
+"Hard", 
+"AtCoder, Microsoft"
+
+----------------------------------
+
+Problem Title:
+Bitmask DP for Counting Colorings
+
+Problem Description:
+Given an undirected graph with N vertices and M edges, and an integer K representing the number of available colors, count the number of ways to color each vertex such that no two adjacent vertices have the same color. Since the answer can be very large, output it modulo 10^9+7.
+
+Input Format:
+The first line contains three integers N, M, and K — the number of vertices, the number of edges, and the number of colors.
+The next M lines each contain two integers u and v (1 ≤ u, v ≤ N, u ≠ v), representing an edge between vertices u and v.
+
+Output Format:
+Print a single integer — the number of valid colorings modulo 10^9+7.
+
+Constraints:
+1 ≤ N ≤ 18
+0 ≤ M ≤ N*(N-1)/2
+1 ≤ K ≤ 10
+
+Sample Input 1:
+3 2 3
+1 2
+2 3
+
+Sample Output 1:
+12
+
+Explanation:
+There are 3 vertices and 2 edges. Each vertex can be colored with one of 3 colors, but adjacent vertices must have different colors. There are 12 valid colorings.
+
+Sample Input 2:
+4 3 2
+1 2
+2 3
+3 4
+
+Sample Output 2:
+2
+
+Explanation:
+With only 2 colors and a path of 4 vertices, there are only 2 valid colorings.
+
+Sample Input 3:
+2 1 1
+1 2
+
+Sample Output 3:
+0
+
+Explanation:
+With only 1 color and an edge, it's impossible to color both vertices differently.
+
+Sample Input 4:
+5 0 4
+// No edges
+
+Sample Output 4:
+1024
+
+Explanation:
+With no edges, each vertex can be colored independently with any of the 4 colors: 4^5 = 1024.
+
+Sample Input 5:
+3 3 2
+1 2
+2 3
+3 1
+
+Sample Output 5:
+0
+
+Explanation:
+A triangle with 2 colors cannot be colored so that no two adjacent vertices share a color.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 2 3
+1 2
+2 3
+Output:
+12
+
+Test Case 2:
+Input:
+4 3 2
+1 2
+2 3
+3 4
+Output:
+2
+
+Test Case 3:
+Input:
+2 1 1
+1 2
+Output:
+0
+
+Test Case 4:
+Input:
+5 0 4
+Output:
+1024
+
+Test Case 5:
+Input:
+3 3 2
+1 2
+2 3
+3 1
+Output:
+0
+
+----------------------------------

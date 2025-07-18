@@ -1,0 +1,121 @@
+"Pattern Matching in Streams", 
+"Given a stream of characters, detect if a pattern appears in the stream using Rabin-Karp.", 
+"Hard", 
+"Amazon, Google"
+ 
+----------------------------------
+
+Problem Title:
+Pattern Matching in Streams
+
+Problem Description:
+Given a stream of lowercase English characters arriving one by one, and a fixed pattern string, detect if the pattern appears as a contiguous substring in the stream at any point. Implement this using the Rabin-Karp algorithm for efficient pattern matching. For each new character in the stream, output "YES" if the pattern has appeared in the stream so far, otherwise output "NO".
+
+Input Format:
+- The first line contains a string P, the pattern to search for.
+- The second line contains an integer N, the number of characters in the stream.
+- The third line contains a string S of length N, representing the stream of characters.
+
+Output Format:
+- Output N lines, each containing "YES" or "NO" for the corresponding prefix of the stream, indicating whether the pattern has appeared up to that point.
+
+Constraints:
+- 1 ≤ length of P ≤ 10^5
+- 1 ≤ N ≤ 10^6
+- S and P consist of lowercase English letters only.
+
+Sample Input:
+abc
+7
+aabcbac
+
+Sample Output:
+NO
+NO
+NO
+YES
+YES
+NO
+NO
+
+Explanation:
+- After reading 'a', 'aa', 'aab', 'aabc', etc., the pattern "abc" first appears after reading the fourth character, so from then on, output "YES" whenever the pattern has appeared in the stream so far.
+
+Difficulty:
+Hard
+
+Test Cases:
+Test Case 1:
+Input:
+ab
+5
+aabab
+
+Output:
+NO
+NO
+YES
+YES
+YES
+
+Test Case 2:
+Input:
+xyz
+6
+axyzxy
+
+Output:
+NO
+NO
+NO
+YES
+YES
+YES
+
+Test Case 3:
+Input:
+a
+4
+bbbb
+
+Output:
+NO
+NO
+NO
+NO
+
+Test Case 4:
+Input:
+abc
+10
+abcabcabca
+
+Output:
+NO
+NO
+YES
+YES
+YES
+YES
+YES
+YES
+YES
+YES
+
+Test Case 5:
+Input:
+hello
+8
+ahellolo
+
+Output:
+NO
+NO
+NO
+NO
+NO
+YES
+YES
+YES
+
+----------------------------------

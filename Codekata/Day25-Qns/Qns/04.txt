@@ -1,0 +1,88 @@
+"Assign Cookies", 
+"Given the greed factor of each child and the size of each cookie, assign cookies to children to maximize the number of content children.", 
+"Easy", 
+"LeetCode, Amazon"
+ 
+----------------------------------
+
+Problem Title:
+Assign Cookies
+
+Problem Description:
+You are given two integer arrays: `greed` and `size`. The `greed[i]` represents the minimum size of a cookie that the i-th child needs to be content. The `size[j]` represents the size of the j-th cookie. Your goal is to assign cookies to children such that each child gets at most one cookie, and each cookie can be given to at most one child. Find the maximum number of children who can be content.
+
+Input Format:
+- The first line contains an integer n, the number of children.
+- The second line contains n integers, the greed factors of the children.
+- The third line contains an integer m, the number of cookies.
+- The fourth line contains m integers, the sizes of the cookies.
+
+Output Format:
+- A single integer representing the maximum number of content children.
+
+Constraints:
+- 1 <= n, m <= 10^4
+- 1 <= greed[i], size[j] <= 10^5
+
+Sample Input:
+3
+1 2 3
+2
+1 1
+
+Sample Output:
+1
+
+Explanation:
+There are 3 children with greed factors [1, 2, 3] and 2 cookies of size [1, 1]. Only the first child can be content with a cookie of size 1. So, the maximum number of content children is 1.
+
+Difficulty:
+Easy
+
+Five Test Cases:
+Test Case 1:
+Input:
+3
+1 2 3
+3
+1 2 3
+Output:
+3
+
+Test Case 2:
+Input:
+2
+2 3
+1
+3
+Output:
+1
+
+Test Case 3:
+Input:
+4
+1 2 3 4
+2
+2 2
+Output:
+2
+
+Test Case 4:
+Input:
+1
+5
+2
+1 2
+Output:
+0
+
+Test Case 5:
+Input:
+5
+1 2 3 4 5
+5
+5 4 3 2 1
+Output:
+5
+
+----------------------------------

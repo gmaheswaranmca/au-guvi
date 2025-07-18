@@ -1,0 +1,66 @@
+import java.util.*;
+import java.io.*;
+
+public class AllPairsShortestPathUpdates {
+    static final long INF = (long)1e15;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] nmq = br.readLine().split(" ");
+        int N = Integer.parseInt(nmq[0]);
+        int M = Integer.parseInt(nmq[1]);
+        int Q = Integer.parseInt(nmq[2]);
+        long[][] dist = new long[N][N];
+        for (int i = 0; i < N; i++) Arrays.fill(dist[i], INF);
+        for (int i = 0; i < N; i++) dist[i][i] = 0;
+        for (int i = 0; i < M; i++) {
+            String[] parts = br.readLine().split(" ");
+            int u = Integer.parseInt(parts[0]) - 1;
+            int v = Integer.parseInt(parts[1]) - 1;
+            int w = Integer.parseInt(parts[2]);
+            dist[u][v] = Math.min(dist[u][v], w);
+        }
+        // Initial Floyd-Warshall
+        for (int k = 0; k < N; k++)
+            for (int i = 0; i < N; i++)
+                for (int j = 0; j < N; j++)
+                    if (dist[i][k] < INF && dist[k][j] < INF)
+                        dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
+        StringBuilder sb = new StringBuilder();
+        for (int q = 0; q < Q; q++) {
+            String line = br.readLine();
+            String[] parts = line.split(" ");
+            if (parts[0].equals("UPDATE")) {
+                int u = Integer.parseInt(parts[1]) - 1;
+                int v = Integer.parseInt(parts[2]) - 1;
+                int w = Integer.parseInt(parts[3]);
+                if (w < dist[u][v]) {
+                    dist[u][v] = w;
+                    // Only update affected pairs
+                    for (int i = 0; i < N; i++) {
+                        for (int j = 0; j < N; j++) {
+                            if (dist[i][u] < INF && dist[v][j] < INF) {
+                                if (dist[i][j] > dist[i][u] + w + dist[v][j]) {
+                                    dist[i][j] = dist[i][u] + w + dist[v][j];
+                                }
+                            }
+                        }
+                    }
+                } else if (w > dist[u][v]) {
+                    dist[u][v] = w;
+                    // Recompute all-pairs via Floyd-Warshall for correctness
+                    for (int k = 0; k < N; k++)
+                        for (int i = 0; i < N; i++)
+                            for (int j = 0; j < N; j++)
+                                if (dist[i][k] < INF && dist[k][j] < INF)
+                                    dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
+                }
+            } else if (parts[0].equals("QUERY")) {
+                int u = Integer.parseInt(parts[1]) - 1;
+                int v = Integer.parseInt(parts[2]) - 1;
+                long ans = dist[u][v];
+                sb.append(ans < INF ? ans : -1).append('\n');
+            }
+        }
+        System.out.print(sb);
+    }
+}

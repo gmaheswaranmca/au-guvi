@@ -1,0 +1,130 @@
+"Update Edge Weights and Maintain MST", 
+"Given a graph and a sequence of edge weight updates, efficiently maintain and report the weight of the minimum spanning tree after each update.", 
+"Hard", 
+"Codeforces, Microsoft"
+ 
+----------------------------------
+
+Problem Title:
+Update Edge Weights and Maintain MST
+
+Problem Description:
+You are given an undirected, connected graph with N nodes and M edges. Each edge has an initial weight. You will be given Q queries, each query updates the weight of a specific edge. After each update, you must report the total weight of the minimum spanning tree (MST) of the current graph.
+
+Input Format:
+- The first line contains two integers N and M — the number of nodes and edges.
+- The next M lines each contain three integers u, v, w — denoting an edge between nodes u and v (1-based indexing) with weight w.
+- The next line contains an integer Q — the number of queries.
+- The next Q lines each contain two integers i and w' — meaning the i-th edge (in the input order) should have its weight updated to w'.
+
+Output Format:
+- For each query, output a single integer: the total weight of the MST after the update.
+
+Constraints:
+- 2 ≤ N ≤ 10^5
+- N-1 ≤ M ≤ 2×10^5
+- 1 ≤ Q ≤ 10^5
+- 1 ≤ u, v ≤ N, u ≠ v
+- 1 ≤ w, w' ≤ 10^9
+- The graph is initially connected.
+
+Sample Input:
+5 6
+1 2 3
+1 3 4
+2 3 2
+2 4 6
+3 5 5
+4 5 7
+3
+2 1
+5 2
+4 8
+
+Sample Output:
+14
+11
+13
+
+Explanation:
+- Initial MST weight is 3+2+4+5=14.
+- After first update, edge 2 (1-3) weight becomes 1. New MST weight is 1+2+3+5=11.
+- After second update, edge 5 (3-5) weight becomes 2. New MST weight is 1+2+3+2=8.
+- After third update, edge 4 (2-4) weight becomes 8. MST weight is 1+2+3+2=8 (no change, as edge 4 is not in MST).
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 3
+1 2 1
+2 3 2
+1 3 3
+2
+3 1
+2 5
+Output:
+2
+4
+
+Test Case 2:
+Input:
+4 5
+1 2 2
+2 3 3
+3 4 4
+4 1 5
+1 3 1
+1
+5 10
+Output:
+9
+
+Test Case 3:
+Input:
+6 7
+1 2 2
+2 3 2
+3 4 2
+4 5 2
+5 6 2
+6 1 2
+3 6 1
+2
+7 10
+1 1
+Output:
+10
+9
+
+Test Case 4:
+Input:
+2 1
+1 2 100
+1
+1 1
+Output:
+1
+
+Test Case 5:
+Input:
+5 7
+1 2 10
+2 3 20
+3 4 30
+4 5 40
+5 1 50
+2 4 5
+3 5 15
+3
+6 100
+5 1
+2 10
+Output:
+75
+36
+36
+
+----------------------------------

@@ -1,0 +1,91 @@
+"Interval Partitioning", 
+"Given a set of intervals, find the minimum number of resources required to schedule all intervals without overlap.", 
+"Medium", 
+"GeeksforGeeks, Google"
+
+----------------------------------
+
+Problem Title:
+Interval Partitioning
+
+Problem Description:
+Given a set of N intervals, each defined by a start time and an end time, determine the minimum number of resources required to schedule all intervals such that no two overlapping intervals are assigned to the same resource. An interval [s, e] includes all times t such that s ≤ t < e.
+
+Input Format:
+- The first line contains a single integer N, the number of intervals.
+- The next N lines each contain two integers S and E, representing the start and end times of an interval.
+
+Output Format:
+- A single integer representing the minimum number of resources required.
+
+Constraints:
+- 1 ≤ N ≤ 10^5
+- 0 ≤ S < E ≤ 10^9
+
+Sample Input:
+3
+1 4
+2 5
+7 9
+
+Sample Output:
+2
+
+Explanation:
+The first two intervals [1,4] and [2,5] overlap, so they need two resources. The third interval [7,9] does not overlap with any other, so only one resource is needed for it. Thus, the minimum number of resources required is 2.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+4
+1 3
+2 4
+3 5
+4 6
+Output:
+2
+
+Test Case 2:
+Input:
+5
+1 10
+2 3
+4 5
+6 7
+8 9
+Output:
+2
+
+Test Case 3:
+Input:
+2
+1 2
+2 3
+Output:
+1
+
+Test Case 4:
+Input:
+6
+1 5
+2 6
+3 7
+4 8
+5 9
+6 10
+Output:
+5
+
+Test Case 5:
+Input:
+3
+1 2
+3 4
+5 6
+Output:
+1
+
+----------------------------------

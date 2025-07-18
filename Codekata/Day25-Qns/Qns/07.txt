@@ -1,0 +1,82 @@
+"Scramble String", 
+"Given two strings, determine if one is a scrambled string of the other using a defined recursive scramble operation.", 
+"Hard", 
+"LeetCode, Amazon, Microsoft"
+ 
+----------------------------------
+
+Problem Title:
+Scramble String
+
+Problem Description:
+Given two strings s1 and s2 of the same length, determine if s2 is a scrambled string of s1. A scrambled string is defined recursively as follows:
+- If the two strings are equal, then they are scrambled strings.
+- If not, split s1 into two non-empty substrings at any index, and do the same for s2. Then, check if one of the following is true:
+    1. The first part of s1 is a scrambled string of the first part of s2, and the second part of s1 is a scrambled string of the second part of s2.
+    2. The first part of s1 is a scrambled string of the second part of s2, and the second part of s1 is a scrambled string of the first part of s2.
+Return true if s2 is a scrambled string of s1, otherwise return false.
+
+Input Format:
+- The first line contains a string s1.
+- The second line contains a string s2.
+
+Output Format:
+- Print "true" if s2 is a scrambled string of s1, otherwise print "false".
+
+Constraints:
+- 1 <= s1.length <= 30
+- s1.length == s2.length
+- s1 and s2 consist of lowercase English letters.
+
+Sample Input:
+great
+rgeat
+
+Sample Output:
+true
+
+Explanation:
+"rgeat" is a scrambled string of "great" because:
+- Split "great" into "gr" and "eat", and "rgeat" into "rg" and "eat".
+- "gr" and "rg" are scrambled, "eat" and "eat" are equal.
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+great
+rgeat
+Output:
+true
+
+Test Case 2:
+Input:
+abcde
+caebd
+Output:
+false
+
+Test Case 3:
+Input:
+a
+a
+Output:
+true
+
+Test Case 4:
+Input:
+abc
+bca
+Output:
+true
+
+Test Case 5:
+Input:
+abc
+cab
+Output:
+true
+
+----------------------------------

@@ -1,0 +1,123 @@
+"Dynamic Median in Subarray", 
+"Find the median in a subarray with insertions and deletions allowed.", 
+Hard", 
+"LeetCode, Amazon"
+
+----------------------------------
+
+Problem Title:
+Dynamic Median in Subarray
+
+Problem Description:
+Given an array of integers, you are required to efficiently answer a series of queries. Each query is one of the following:
+1. Insert an integer into a specified subarray.
+2. Delete an integer from a specified subarray (if it exists).
+3. Find the median of a specified subarray.
+
+The median of a subarray is the middle element when the subarray is sorted. If the subarray has an even number of elements, the median is the average of the two middle elements.
+
+Input Format:
+- The first line contains two integers, n and q, the size of the array and the number of queries.
+- The second line contains n space-separated integers, the initial array.
+- The next q lines each describe a query in one of the following formats:
+    - "1 l r x": Insert integer x into the subarray from index l to r (1-based, inclusive).
+    - "2 l r x": Delete integer x from the subarray from index l to r (if x exists in the subarray, remove one occurrence).
+    - "3 l r": Output the median of the subarray from index l to r.
+
+Output Format:
+- For each query of type 3, output the median on a new line. If the median is not an integer, output it as a floating-point number with one decimal place.
+
+Constraints:
+- 1 ≤ n ≤ 10^5
+- 1 ≤ q ≤ 10^5
+- 1 ≤ array[i], x ≤ 10^9
+- 1 ≤ l ≤ r ≤ n
+- It is guaranteed that for each delete operation, x exists in the specified subarray.
+- The array may contain duplicate elements.
+
+Sample Input:
+8 5
+1 3 5 7 9 2 4 6
+3 2 5
+1 3 6 8
+3 3 6
+2 1 4 3
+3 1 4
+
+Sample Output:
+6.0
+6.5
+4.0
+
+Explanation:
+- Query 1: Find median of subarray [3,5,7,9] → sorted: [3,5,7,9], median is (5+7)/2 = 6.0
+- Query 2: Insert 8 into subarray [5,7,9,2] (indices 3 to 6) → [5,7,8,9,2], sorted: [2,5,7,8,9], median is 7
+- Query 3: Find median of subarray [5,7,8,9,2] → sorted: [2,5,7,8,9], median is 7, but since indices are 3 to 6, subarray is [5,7,8,9], sorted: [5,7,8,9], median is (7+8)/2 = 7.5
+- Query 4: Delete 3 from subarray [1,3,5,7] (indices 1 to 4) → [1,5,7], sorted: [1,5,7], median is 5
+- Query 5: Find median of subarray [1,5,7] → median is 5
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+5 3
+2 4 6 8 10
+3 1 5
+1 2 4 5
+3 2 4
+
+Output:
+6.0
+5.0
+
+Test Case 2:
+Input:
+6 4
+1 2 3 4 5 6
+3 1 6
+2 2 5 3
+3 1 6
+3 2 5
+
+Output:
+3.5
+4.0
+3.5
+
+Test Case 3:
+Input:
+4 2
+10 20 30 40
+1 1 4 25
+3 1 4
+
+Output:
+25.0
+
+Test Case 4:
+Input:
+7 3
+5 5 5 5 5 5 5
+2 1 7 5
+3 1 6
+3 1 1
+
+Output:
+5.0
+5.0
+
+Test Case 5:
+Input:
+3 3
+1 100 1000
+1 1 3 500
+3 1 4
+2 1 4 100
+
+Output:
+300.0
+250.0
+
+----------------------------------

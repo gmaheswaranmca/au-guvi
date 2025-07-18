@@ -1,0 +1,75 @@
+
+import java.util.*;
+import java.io.*;
+
+public class Main {
+    static class SegmentTree {
+        int[] tree;
+        int n;
+
+        SegmentTree(int[] arr) {
+            n = arr.length;
+            tree = new int[4 * n];
+            build(arr, 1, 0, n - 1);
+        }
+
+        void build(int[] arr, int node, int l, int r) {
+            if (l == r) {
+                tree[node] = arr[l] % 2;
+            } else {
+                int mid = (l + r) / 2;
+                build(arr, 2 * node, l, mid);
+                build(arr, 2 * node + 1, mid + 1, r);
+                tree[node] = tree[2 * node] + tree[2 * node + 1];
+            }
+        }
+
+        void update(int idx, int val, int node, int l, int r) {
+            if (l == r) {
+                tree[node] = val % 2;
+            } else {
+                int mid = (l + r) / 2;
+                if (idx <= mid)
+                    update(idx, val, 2 * node, l, mid);
+                else
+                    update(idx, val, 2 * node + 1, mid + 1, r);
+                tree[node] = tree[2 * node] + tree[2 * node + 1];
+            }
+        }
+
+        int query(int ql, int qr, int node, int l, int r) {
+            if (qr < l || ql > r) return 0;
+            if (ql <= l && r <= qr) return tree[node];
+            int mid = (l + r) / 2;
+            return query(ql, qr, 2 * node, l, mid) + query(ql, qr, 2 * node + 1, mid + 1, r);
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] nq = br.readLine().split(" ");
+        int n = Integer.parseInt(nq[0]);
+        int q = Integer.parseInt(nq[1]);
+        int[] arr = new int[n];
+        String[] arrStr = br.readLine().split(" ");
+        for (int i = 0; i < n; i++) arr[i] = Integer.parseInt(arrStr[i]);
+        SegmentTree st = new SegmentTree(arr);
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < q; i++) {
+            String[] parts = br.readLine().split(" ");
+            int type = Integer.parseInt(parts[0]);
+            if (type == 1) {
+                int x = Integer.parseInt(parts[1]) - 1;
+                int y = Integer.parseInt(parts[2]);
+                st.update(x, y, 1, 0, n - 1);
+            } else {
+                int l = Integer.parseInt(parts[1]) - 1;
+                int r = Integer.parseInt(parts[2]) - 1;
+                int oddCount = st.query(l, r, 1, 0, n - 1);
+                sb.append(oddCount % 2 == 0 ? "Even" : "Odd").append('\n');
+            }
+        }
+        System.out.print(sb);
+    }
+}

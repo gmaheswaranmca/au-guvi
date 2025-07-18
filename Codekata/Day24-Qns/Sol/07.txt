@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+public class MatrixChainMultiplication {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for(int i=0; i<n; i++) arr[i] = sc.nextInt();
+
+        int[][] dp = new int[n][n];
+        for(int len=2; len<n; len++) {
+            for(int i=0; i<n-len; i++) {
+                int j = i+len;
+                dp[i][j] = Integer.MAX_VALUE;
+                for(int k=i+1; k<j; k++) {
+                    int cost = dp[i][k] + dp[k][j] + arr[i]*arr[k]*arr[j];
+                    if(cost < dp[i][j]) dp[i][j] = cost;
+                }
+            }
+        }
+        System.out.println(dp[0][n-1]);
+    }
+}

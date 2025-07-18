@@ -1,0 +1,125 @@
+"Bitmask DP for Set Cover", 
+"Given a universe and a collection of subsets, find the minimum number of subsets whose union covers the universe using bitmask DP.", 
+"Hard", 
+"Codeforces, Facebook"
+
+----------------------------------
+
+Problem Title: Minimum Set Cover using Bitmask DP
+
+Problem Description:
+You are given a universe of n elements, labeled from 0 to n-1, and m subsets. Each subset contains some elements from the universe. Your task is to find the minimum number of subsets whose union covers the entire universe. If it is not possible to cover the universe with the given subsets, output -1.
+
+Input Format:
+- The first line contains two integers n and m — the size of the universe and the number of subsets.
+- The next m lines each describe a subset:
+    - The first integer k_i is the number of elements in the i-th subset.
+    - The next k_i integers are the elements of the i-th subset (0-based indices).
+
+Output Format:
+- Output a single integer — the minimum number of subsets needed to cover the universe, or -1 if it is impossible.
+
+Constraints:
+- 1 ≤ n ≤ 20
+- 1 ≤ m ≤ 1000
+- 1 ≤ k_i ≤ n
+- 0 ≤ elements < n
+
+Sample Input 1:
+3 3
+2 0 1
+2 1 2
+1 0
+
+Sample Output 1:
+2
+
+Explanation:
+We can pick the first and second subsets to cover all elements {0, 1, 2}.
+
+Sample Input 2:
+4 2
+2 0 1
+1 2
+
+Sample Output 2:
+-1
+
+Explanation:
+Element 3 is not covered by any subset, so it is impossible.
+
+Sample Input 3:
+5 4
+2 0 1
+2 2 3
+2 3 4
+1 0
+
+Sample Output 3:
+3
+
+Explanation:
+We can pick subsets 1, 2, and 3 to cover all elements.
+
+Sample Input 4:
+2 2
+1 0
+1 1
+
+Sample Output 4:
+2
+
+Sample Input 5:
+3 1
+3 0 1 2
+
+Sample Output 5:
+1
+
+Difficulty:
+Hard
+
+Five Test Cases:
+Test Case 1:
+Input:
+3 3
+2 0 1
+2 1 2
+1 0
+Output:
+2
+
+Test Case 2:
+Input:
+4 2
+2 0 1
+1 2
+Output:
+-1
+
+Test Case 3:
+Input:
+5 4
+2 0 1
+2 2 3
+2 3 4
+1 0
+Output:
+3
+
+Test Case 4:
+Input:
+2 2
+1 0
+1 1
+Output:
+2
+
+Test Case 5:
+Input:
+3 1
+3 0 1 2
+Output:
+1
+
+----------------------------------

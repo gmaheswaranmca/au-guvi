@@ -1,0 +1,76 @@
+"Segment DP for Matrix Chain Multiplication", 
+"Given a sequence of matrices, find the minimum cost to multiply them using segment DP.", 
+"Medium", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title:
+Matrix Chain Multiplication - Minimum Cost
+
+Problem Description:
+Given a sequence of matrices, your task is to determine the minimum number of scalar multiplications needed to multiply the entire chain of matrices. The matrices are compatible for multiplication in the given order. You are provided with an array `arr` of length `n`, where the i-th matrix has dimensions `arr[i-1] x arr[i]`. Find the minimum cost to multiply the chain of matrices using segment dynamic programming.
+
+Input Format:
+- The first line contains an integer `n` (number of matrices + 1).
+- The second line contains `n` space-separated integers representing the array `arr`.
+
+Output Format:
+- Print a single integer representing the minimum number of scalar multiplications required.
+
+Constraints:
+- 2 <= n <= 500
+- 1 <= arr[i] <= 1000
+
+Sample Input:
+4
+10 30 5 60
+
+Sample Output:
+4500
+
+Explanation:
+There are three matrices: A (10x30), B (30x5), C (5x60).
+The minimum cost is achieved by multiplying A and B first, then the result with C:
+Cost = (10*30*5) + (10*5*60) = 1500 + 3000 = 4500.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+4
+10 30 5 60
+Output:
+4500
+
+Test Case 2:
+Input:
+5
+40 20 30 10 30
+Output:
+26000
+
+Test Case 3:
+Input:
+3
+10 20 30
+Output:
+6000
+
+Test Case 4:
+Input:
+6
+30 35 15 5 10 20
+Output:
+15125
+
+Test Case 5:
+Input:
+2
+100 200
+Output:
+0
+
+----------------------------------

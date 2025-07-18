@@ -1,0 +1,74 @@
+"Largest Number", 
+"Given a list of non-negative integers, arrange them such that they form the largest possible number.", 
+"Medium", 
+"LeetCode, Google"
+
+----------------------------------
+
+Problem Title:
+Largest Number
+
+Problem Description:
+Given a list of non-negative integers, arrange them such that they form the largest possible number when concatenated together. The result should be returned as a string since the largest number may be too large to fit in a standard integer type.
+
+Input Format:
+- The first line contains an integer n, the number of elements in the list.
+- The second line contains n non-negative integers separated by spaces.
+
+Output Format:
+- A single string representing the largest number that can be formed by concatenating the given integers.
+
+Constraints:
+- 1 <= n <= 100
+- 0 <= each integer <= 10^9
+
+Sample Input:
+4
+3 30 34 5
+
+Sample Output:
+534330
+
+Explanation:
+By arranging the numbers as 5, 34, 3, 30 and concatenating them, we get the largest number 534330.
+
+Difficulty:
+Medium
+
+Test Cases:
+Test Case 1:
+Input:
+3
+10 2 9
+Output:
+9210
+
+Test Case 2:
+Input:
+5
+1 20 23 4 8
+Output:
+8423201
+
+Test Case 3:
+Input:
+2
+0 0
+Output:
+0
+
+Test Case 4:
+Input:
+6
+54 546 548 60 1 0
+Output:
+605485465410
+
+Test Case 5:
+Input:
+3
+121 12 9
+Output:
+912121
+
+----------------------------------

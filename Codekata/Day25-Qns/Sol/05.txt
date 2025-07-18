@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class LargestNumber {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Integer[] nums = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        Arrays.sort(nums, (a, b) -> {
+            String order1 = a.toString() + b.toString();
+            String order2 = b.toString() + a.toString();
+            return order2.compareTo(order1);
+        });
+        if (nums[0] == 0) {
+            System.out.println("0");
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int num : nums) {
+            sb.append(num);
+        }
+        System.out.println(sb.toString());
+    }
+}

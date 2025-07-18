@@ -1,0 +1,42 @@
+
+import java.util.*;
+
+public class MinimumPathCoverDAG {
+    static int N, M;
+    static List<Integer>[] adj;
+    static int[] matchTo;
+    static boolean[] visited;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        N = sc.nextInt();
+        M = sc.nextInt();
+        adj = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) adj[i] = new ArrayList<>();
+        for (int i = 0; i < M; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            adj[u].add(v);
+        }
+        // Build bipartite graph: left and right both 1..N
+        matchTo = new int[N + 1];
+        int maxMatching = 0;
+        for (int u = 1; u <= N; u++) {
+            visited = new boolean[N + 1];
+            if (dfs(u)) maxMatching++;
+        }
+        System.out.println(N - maxMatching);
+    }
+
+    static boolean dfs(int u) {
+        for (int v : adj[u]) {
+            if (visited[v]) continue;
+            visited[v] = true;
+            if (matchTo[v] == 0 || dfs(matchTo[v])) {
+                matchTo[v] = u;
+                return true;
+            }
+        }
+        return false;
+    }
+}

@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class SumOfDistancesInTree {
+    static int[] res, count;
+    static List<Integer>[] tree;
+    static int N;
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        N = sc.nextInt();
+        tree = new ArrayList[N];
+        for (int i = 0; i < N; i++) tree[i] = new ArrayList<>();
+        for (int i = 0; i < N - 1; i++) {
+            int u = sc.nextInt(), v = sc.nextInt();
+            tree[u].add(v);
+            tree[v].add(u);
+        }
+        res = new int[N];
+        count = new int[N];
+        dfs(0, -1);
+        dfs2(0, -1);
+        for (int i = 0; i < N; i++) {
+            System.out.print(res[i]);
+            if (i < N - 1) System.out.print(" ");
+        }
+    }
+
+    // Post-order: count subtree sizes and initial distances
+    static void dfs(int node, int parent) {
+        count[node] = 1;
+        for (int child : tree[node]) {
+            if (child == parent) continue;
+            dfs(child, node);
+            count[node] += count[child];
+            res[node] += res[child] + count[child];
+        }
+    }
+
+    // Pre-order: propagate results to children
+    static void dfs2(int node, int parent) {
+        for (int child : tree[node]) {
+            if (child == parent) continue;
+            res[child] = res[node] - count[child] + (N - count[child]);
+            dfs2(child, node);
+        }
+    }
+}

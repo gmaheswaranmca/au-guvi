@@ -1,0 +1,64 @@
+import java.util.*;
+
+public class Main {
+    static class Edge {
+        int to, weight;
+        Edge(int to, int weight) {
+            this.to = to;
+            this.weight = weight;
+        }
+    }
+
+    static class Path implements Comparable<Path> {
+        int node;
+        long cost;
+        List<Integer> nodes;
+
+        Path(int node, long cost, List<Integer> nodes) {
+            this.node = node;
+            this.cost = cost;
+            this.nodes = nodes;
+        }
+
+        public int compareTo(Path o) {
+            return Long.compare(this.cost, o.cost);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), m = sc.nextInt(), k = sc.nextInt(), s = sc.nextInt(), t = sc.nextInt();
+        List<Edge>[] graph = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) graph[i] = new ArrayList<>();
+        for (int i = 0; i < m; i++) {
+            int u = sc.nextInt(), v = sc.nextInt(), w = sc.nextInt();
+            graph[u].add(new Edge(v, w));
+        }
+
+        PriorityQueue<Path> pq = new PriorityQueue<>();
+        pq.add(new Path(s, 0, Arrays.asList(s)));
+        List<Long> results = new ArrayList<>();
+        Map<Integer, Integer> visitCount = new HashMap<>();
+
+        while (!pq.isEmpty() && results.size() < k) {
+            Path curr = pq.poll();
+            if (curr.node == t) {
+                results.add(curr.cost);
+                continue;
+            }
+            visitCount.put(curr.node, visitCount.getOrDefault(curr.node, 0) + 1);
+            if (visitCount.get(curr.node) > k) continue;
+            for (Edge e : graph[curr.node]) {
+                if (!curr.nodes.contains(e.to)) {
+                    List<Integer> nextNodes = new ArrayList<>(curr.nodes);
+                    nextNodes.add(e.to);
+                    pq.add(new Path(e.to, curr.cost + e.weight, nextNodes));
+                }
+            }
+        }
+
+        for (long res : results) {
+            System.out.println(res);
+        }
+    }
+}
